@@ -17,4 +17,4 @@ include __DIR__.'/routes/prints.php';
 $mensalida = new GerarMensalidade();
 
 // apresenta os resultados das paginas
-$obRouter->run()->sendResponse();//ola aqui modificação
+$obRouter->run()->sendResponse();//ola modificação
