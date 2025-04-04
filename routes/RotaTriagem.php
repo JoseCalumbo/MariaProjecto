@@ -35,7 +35,7 @@ $obRouter->post('/triagem/cadastrar',[
 ]);
 
 // rota para alterar um registro GET
-$obRouter->get('/negocio/editar/{id_negocio}',[
+$obRouter->get('/triagem/editar/{id_negocio}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
@@ -44,7 +44,7 @@ $obRouter->get('/negocio/editar/{id_negocio}',[
 ]);
 
 // rota para alterar um registro POST
-$obRouter->post('/negocio/editar/{id_negocio}',[
+$obRouter->post('/triagem/editar/{id_negocio}',[
     function($request,$id_negocio){ return new Response(200,Pages\Triagem::editarNegocio($request,$id_negocio)); }
 ]);
 

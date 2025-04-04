@@ -90,6 +90,16 @@ document.addEventListener('DOMContentLoaded', function() {
     startingTop:10,
   });
 });
+//modal view apagar triagem
+document.addEventListener('DOMContentLoaded', function() {
+  var modalUser = document.querySelectorAll('.modalApagarTriagem');
+  var instancesModal = M.Modal.init(modalUser,{
+    preventScrolling:false,
+    opacity:0.75,
+    endingTop:'27%',
+    startingTop:10,
+  });
+});
 
 //modal view de relatorio da zona
 document.addEventListener('DOMContentLoaded', function() {
