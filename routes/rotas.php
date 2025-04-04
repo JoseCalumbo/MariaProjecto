@@ -231,7 +231,7 @@ include __DIR__.'/RotaLogin.php';
  * __________________________________Negocio_______________________________
  * inclui as rotas de negocio
 */
-include __DIR__.'/RotaNegocio.php';
+include __DIR__.'/RotaTriagem.php';
  
 
 //__________________________________ serviços de tarefas_______________________Aqui

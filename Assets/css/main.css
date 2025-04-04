@@ -228,7 +228,7 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px #FFFFFF inset; }
     width: 108%;
     padding: 15px;
     border: 1.5px solid #0de11b;
-    background-color: rgb(247, 244, 244);
+    background-color: #09d0a2;
     font-size: large;
     transition: 1s;
     border-radius: 5px;
@@ -236,7 +236,7 @@ input:-webkit-autofill { box-shadow: 0 0 0 1000px #FFFFFF inset; }
 }
 
 .button:hover{
-    background-color: rgb(185, 185, 201);
+    background-color: #17BF8F;
     color: white;
 }
 
