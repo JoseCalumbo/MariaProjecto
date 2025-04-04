@@ -1,0 +1,124 @@
+<!--HEADER GESTAO-->
+<header class="header nav-fixed">
+    <nav class="menu">
+        <div class="nav-wrapper ">
+
+            <ul class=" brand-logo">
+                <a href="{{URL}}/dados" class="brand-logo logotipo">
+                    <img src="{{URL}}/Assets/img/logo1.png" width="95">
+                </a>
+            </ul>
+
+            <!--ul de pesquiza-->
+            <ul class="ul-pesquisa hide-on-med-and-down">
+
+                <form method="get">
+                    <div class="form-area-search-home">
+                        <input id="pesquisaHome" type="search" name="pesquisar" placeholder=" Pesquisar por Numero"
+                            value="{{pesquisar}}">
+                        <button class="button-search-home btn blue" id="button-search-home" type="submit">
+                            <i class="material-icons acima ">search</i>
+                        </button>
+                    </div>
+                </form>
+            </ul>
+
+            <!--Menu nome e foto -->
+            <ul class="right hide-on-med-and-down">
+                <li class="rigth">
+                    <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1"> {{info}}<i
+                            class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+            </ul>
+
+            <!--Menu dropdown-->
+            <ul id="dropdown1" class="dropdown-content">
+                <li class=" {{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
+                </li>
+                <li class="{{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
+                </li>
+                <li class="{{nivel}} ">
+                    <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessao</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="row">
+
+    <div class="col m3">
+
+        <aside id="aside">
+            <ul class="fixed  collapsible">
+
+                <li>
+                    <a class="collapsible-header" href="{{URL}}">
+                        <i class="material-icons white-text ">home</i>Principal
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="material-icons white-text ">add</i>Cadastrar
+                    </a>
+
+                    <ul id="collapsible-body" class="collapsible-body">
+
+                        <li><a class="" href="{{URL}}/negocio">
+                                <i class="material-icons white-text ">library_add</i> Negocios</a>
+                        </li>
+
+                        <li><a class="" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text ">group_add</i> Vendedores</a>
+                        </li>
+
+                        <li><a class="" href="{{URL}}/zona">
+                                <i class="material-icons white-text ">place</i> Zonas</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="material-icons white-text ">pie_chart</i>Relatorio
+                    </a>
+
+                    <ul id="collapsible-body" class="collapsible-body">
+                        <li>
+                            <a href="{{URL}}/relatorio">
+                                <i class="material-icons white-text ">pie_chart</i> Dados
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="material-icons white-text"> account_box</i>Conta
+                    </a>
+
+                    <ul class="collapsible-body">
+                        <li><a class="" href="{{URL}}/conta">
+                                <i class="material-icons white-text ">account_box</i>Editar Conta</a>
+                        </li>
+                        <li>
+                            <a class="" href="{{URL}}/logout">
+                                <i class="material-icons white-text ">person_add</i> Bloquear</a>
+                        </li>
+                        <li>
+                            <a class="" href="{{URL}}/logout">
+                                <i class="material-icons white-text ">highlight_off</i> Sair da conta</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </aside>
+    </div>
+
+   
+    <div id="conteudo" class="col m10 push-m2 ">

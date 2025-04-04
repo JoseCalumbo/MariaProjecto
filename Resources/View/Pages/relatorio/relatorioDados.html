@@ -1,0 +1,189 @@
+<section class="row section-field ">
+
+    <section class="row  painel-card ">
+
+        <div class="col s12 m3">
+            <h5>Painel Relatório</h5>
+        </div>
+
+        <div class="baixo col s12 m5 offset-m4">
+            <a href="{{URL}}/relatorio/dados">
+                <button class="btn waves-effect">
+                    <i class="material-icons white-text "> arrow_back </i>Relatório Dados
+                </button>
+            </a>
+
+            <a href="{{URL}}/relatorio/finaceiro">
+                <button class="btn waves-effect">
+                    <i class="material-icons white-text "> arrow_back </i>Relatório Finaceiro
+                </button>
+            </a>
+        </div>
+
+    </section>
+
+    <div class="col-start1">
+        <h4>Relatorio de Dados</h4>
+        <p>Dados</p>
+        <p>Graficos</p>
+        <p>imprimir</p>
+    </div>
+
+    <section class="col m12 l3 white">
+        <h5 class="center-align">Filtrar</h5>
+        <hr>
+        <form method="get">
+            <div class="row">
+                <h6>Usuario</h6>
+                <div class="input-field col s12">
+                    <select name="filtro" id="academico">
+                        <option value="">Selecionar...</option>
+                        <optgroup label="Genero">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </optgroup>
+                        <optgroup label="Nivel de Acesso">
+                            <option value="3">Administrador</option>
+                            <option value="4">Normal</option>
+                            <option value="4">Visitante</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <h6>Vendendor</h6>
+                <div class="input-field col s12">
+                    <select name="filtro" id="academico">
+                        <option value="">Selecionar...</option>
+                        <optgroup label="Nivel Acadenico">
+                            <option value="1">Ensino de base </option>
+                            <option value="2">Ensino Medio</option>
+                            <option value="2">Licenciado</option>
+                        </optgroup>
+                        <optgroup label="Genero">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </optgroup>
+                        <optgroup label="Local de Venda">
+                            <option value="3">Zona A</option>
+                            <option value="4">Zona B</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <!--botão de filtrar-->
+            <div class="row">
+                <a href="{{URL}}/relatorio/dados">
+                    <button type="submit" class="waves-effect waves-light btn blue lighten-1 button-normal">
+                        <i class="material-icons right">search</i>
+                        <span class="left maiscula">Aplicar Filtro</span>
+                    </button>
+                </a>
+            </div>
+        </form>
+    </section>
+
+    <!--Include js code charts-->
+    <script src="{{URL}}/Assets/js/charts/chart.js"></script>
+
+    <!--Graficos -->
+    <section class="row col m5 l8 offset-m1  white">
+
+        <div class="col s12 m4 l12">
+            <canvas id="myChart" width="400" height="160">a</canvas>
+        </div>
+        <div class="row col m12">
+            <br>
+        </div>
+        <div class="col s12 m6 l12">
+            <canvas id="myChart1" width="400" height="160">a</canvas>
+        </div>
+        <br>
+
+        <!--java script code dos graficos-->
+        <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const ctx1 = document.getElementById('myChart1').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['genero', 'nivel academico', 'nacionalidade', 'idade', 'Purple'],
+                    datasets: [{
+                        label: '# grafico de vendedor',
+                        data: [12, 19, 3, 15, 2],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(0, 0, 222, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+
+                    layout: {
+                        padding: 0
+                    }
+
+                }
+            });
+            const myChart1 = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['genero', 'nivel academico', 'nacionalidade', 'idade', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(0, 0, 222, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        </script>
+
+    </section>
+
+
+
+</section>

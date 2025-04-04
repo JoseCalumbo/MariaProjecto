@@ -1,0 +1,112 @@
+<!--HEADER-->
+<header class="header navbar-fixed ">
+
+    <nav class="menu">
+        <div class="nav-wrapper ">
+            
+            <ul class="ul-logo">
+                <a href="{{URL}}" class="brand-logo logotipo">
+                    <img src="{{URL}}/Assets/img/logoMenu.png" width="95">
+                </a>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <li class="rigth">
+                    <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1"> {{info}}
+                        <i class="material-icons right lighten-2">arrow_drop_down</i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul id="dropdown1" class="dropdown-content">
+                <li class=" {{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
+                </li>
+                <li class="{{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
+                </li>
+                <li class="{{nivel}} ">
+                    <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessao</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+<main class="row grey lighten-4">
+
+    <div class="col m2 ">
+
+        <aside id="aside">
+            <ul class="fixed  collapsible">
+
+                <li>
+                    <a class="collapsible-header" href="{{URL}}">
+                        <i class="material-icons white-text ">home</i>Principal
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="material-icons white-text ">add</i>Cadastrar
+                    </a>
+
+                    <ul id="collapsible-body" class="collapsible-body">
+
+                        <li><a class="item-menu" href="{{URL}}/negocio">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">library_add</i> Negocios</a>
+                        </li>
+
+                        <li><a class="item-menu" href="{{URL}}/tesouraria">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">monetization_on</i>Tesouraria</a>
+                        </li>
+
+                        <li><a class="item-menu" href="{{URL}}/funcionario">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">person_add</i> Funcionário</a>
+                        </li>
+
+                        <li><a class="" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">group_add</i> Paciente</a>
+                        </li>
+
+                        <li>
+                            <a class="" href="{{URL}}/zona">
+                                <i  class=" material-icons white-text " style="vertical-align: -6px;">place</i> Consulta</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="collapsible-header" href="{{URL}}/relatorio">
+                        <i class="material-icons white-text ">pie_chart</i> Relatorio
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="material-icons white-text"> account_box</i>Conta
+                    </a>
+
+                    <ul class="collapsible-body">
+                        <li><a class="" href="{{URL}}/conta">
+                                <i class="material-icons white-text ">account_box</i>Editar Conta</a>
+                        </li>
+                        <li>
+                            <a class="" href="{{URL}}/logout">
+                                <i class="material-icons white-text ">person_add</i> Bloquear</a>
+                        </li>
+                        <li>
+                            <a class="" href="{{URL}}/logout">
+                                <i class="material-icons white-text ">highlight_off</i> Sair da conta</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- sidebar menu end-->
+        </aside>
+
+    </div>
+
+    <div id="conteudo" class="col m10 grey lighten-4">

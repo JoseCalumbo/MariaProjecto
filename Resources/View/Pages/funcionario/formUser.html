@@ -1,0 +1,101 @@
+<section class="row section-field">
+
+    <section class="row  painel-card ">
+
+        <div class="col s12 m4">
+            <h5>Painel Funcionário</h5>
+        </div>
+
+    </section>
+
+    <div class="col s12 m10 push-m1 white card">
+        <h6> {{titulo}} </h6>
+
+        <div class="div-form white col s12 m10 push-m1">
+
+            <form class="row  form-area col s12 m9 push-m1" method="post" enctype="multipart/form-data">
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="last_name" type="text" name="nome" value="{{nome_us}}" class="validate">
+                        <label for="last_name">Nome Completo</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m5 s12">
+                        <label>Genero</label>
+                        <p>
+                            <label>
+                                <input name="genero" type="radio" value="Masculino" id="masc" checked />
+                                <span>Masculino</span>
+                            </label>
+                            <label>
+                                <input name="genero" type="radio" value="Feminino" id="fem" {{genero}} />
+                                <span>Feminino</span>
+                            </label>
+                        </p>
+                    </div>
+
+                    <div class="input-field col s12 m5">
+                        <input type="date" name="data" value="{{data}}">
+                        <label for="input_text">Data de nascimento:</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6 m6">
+                        <input id="bilhete" type="text" data-length="30" name="bilhete" value="{{bilhete}}">
+                        <label for="bilhete">Nº Do Bilhete:</label>
+                    </div>
+                    <div class="input-field col s6 m6">
+                        <input id="ordem" type="text" data-length="30" name="NumeroOrdem" value="{{bilhete}}">
+                        <label for="ordem">Nº Da Ordem:</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" class="validate" name="email" value="{{email}}">
+                        <label for="email">Email:</label>
+                    </div>
+                </div>
+
+                <div class="input-field col s6">
+                    <input id="telefone" type="text" name="telefone" data-length="10" value="{{telefone}}">
+                    <label for="telefone">Nº Telefone 1</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="telefone2" type="text" name="telefone1" data-length="10" value="{{telefone}}">
+                    <label for="telefone2">Nº Telefone 2</label>
+                </div>
+                <div class="input-field col s12 m12">
+                    <select name="acesso" id="academico">
+                        <option class="black-text" value="" disabled selected>Função:</option>
+                        <option value="Analista Clínico" for="nivel" {{nivel-adim}}>Analista Clínico</option>
+                        <option value="Enfermeiro" for="nivel" {{nivel-normal}}>Enfermeiro</option>
+                        <option value="Médico" for="nivel" {{nivel-normal}}>Médico</option>
+                        <option value="Farmacêutico" for="nivel" {{nivel-normal}}>Farmacêutico</option>
+                        <option value="outra" for="nivel" {{nivel-normal}}>Outra Area</option>
+                    </select>
+                    <label>Seleciona Area</label>
+                </div>
+
+                <div class=" file-field input-field row col s12 m12">
+                    <div class=" col m5">
+                        <label id="image" class="img-label btn-large teal darken-1" for="img">Carregar imagem </label>
+                        <input class="file-path validate" type="file" id="img" name="imagem">
+                    </div>
+
+                    <img class="foto col m2 push-m5" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="40" height="55">
+                </div>
+
+                <div class="col s12 m12">
+                    <button type="submit" class="button">{{button}}</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

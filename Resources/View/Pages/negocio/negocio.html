@@ -1,0 +1,58 @@
+<section class="row section-field card white">
+
+    <section class=" row flex betwen painel-card col m12">
+  
+      <div>
+        <h5 class="minuscula">Painel de Negócio</h5>
+      </div>
+  
+      <div class="form-search">
+        <form method="get">
+          <div class="form-area-search">
+            <input class="input-search" type="search" name="pesquisar" placeholder=" Pesquisar por nome"
+              value="{{pesquisar}}">
+            <button class="button-search btn" type="submit">
+              <i class="material-icons white-text ">search</i>
+            </button>
+          </div>
+        </form>
+      </div>
+  
+      <div class="painel-card-li">
+        <li class="btn"><a href="{{URL}}/negocio/cadastrar">
+            <i class="material-icons white-text ">add</i> Novo Negocio</a></li>
+  
+        <li class="waves-effect waves-light btn">
+          <a href="{{URL}}/relatorio/listanegocio" target="_banck">
+            <i class="material-icons white-text ">print</i>Imprimir</a>
+        </li>
+      </div>
+  
+    </section>
+
+    <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
+    <section class=" row white col m12">
+  
+      <table class="row col m12">
+        <thead tbody class="thead">
+          <tr class="centered">
+            <th><i class="material-icons black-white ">format_list_numbered</i> Número</th>
+            <th><i class="material-icons black-white ">image</i>Negócio</th>
+            <th><i class="material-icons black-white ">data</i> data </th>
+            <th>Opção</th>
+          </tr>
+        </thead>
+  
+        <tbody tbody class="tbody">
+          {{item}}
+        </tbody>
+      </table>
+  
+    </section>
+  
+    <section class="col m12 white">
+      {{paginacao}}
+    </section>
+
+</section>

@@ -1,0 +1,77 @@
+<!--Import Google Icon Font-->
+<link href="{{URL}}/Assets/css/material-icons.css" rel="stylesheet">
+
+<link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+
+<link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/reset.css" />
+
+<link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/app.css" />
+
+<header class="header navbar-fixed ">
+
+    <nav class="menu">
+        <div class="nav-wrapper ">
+
+            <ul class="ul-logo">
+                <a href="{{URL}}" class="brand-logo logotipo">
+                    <img src="{{URL}}/Assets/img/logo1.png" width="95">
+                </a>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <li class="rigth">
+                    <a class="dropdown-trigger" href="#!" data-target="dropdown1">
+                        <img class="img-conta" src="{{URL}}/Files/Imagem/user/anonimo.png" width="32" height="32"> Conta
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul id="dropdown1" class="dropdown-content">
+                <li class=" {{nivel}}"> <a href="{{URL}}/login">Login</a>
+                </li>
+                <li class="{{nivel}}"> <a href="{{URL}}/conta">Ajuda</a> </li>
+
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+<main class="row">
+
+    <div class="row center-align">
+        <h4>
+            Recuperação de senha
+            <hr>
+        </h4>
+    </div>
+
+    
+    <div class=" row col m8 push-m4 ">
+        <p class="font-normal">Por favor digita o email <strong>(cadastrado)</strong> para a verificação da tua conta </p>
+    </div>
+    
+    <div class=" row col m8 push-m4 font-small red-text">{{msg}}</div>
+
+    <div class="row col m8 push-m4">
+        <form class="row " method="post" action="">
+
+            <div class="label-float div-input col s12 m7">
+                <input type="email" placeholder=" " name="email" />
+                <label>E-mail:</label>
+            </div>
+
+            <div class="col s12 m7">
+                <button type="submit" class="button">Verificar Conta</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col m12 center-align">
+
+        <p class="font-normal">Fazer o <a class="blue-text" href="{{URL}}/login">Login</a> </p>
+    </div>
+
+
+</main>

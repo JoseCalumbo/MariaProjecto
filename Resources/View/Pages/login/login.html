@@ -1,0 +1,48 @@
+
+    <div class="card-login ">
+
+        <section class="section-login">
+
+            <section class="login-img">
+                <img src="Assets/img/logo1.png" height="110" width="170">
+            </section>
+
+            {{msg}}
+
+            <section class="section-form-login">
+
+                <div>
+                    <h3>Login</h3>
+                </div>
+                <form class="form-login" method="post">
+
+                    <div class="label-float input-login">
+                        <input id="nome" type="email" placeholder=" " name="email" >
+                        <label>E-mail:</label>
+                    </div>
+
+                    <div class="label-float">
+                        <input id="senha" type="password" placeholder=" "  name="senha" />
+                        <label>Senha:</label>
+                    </div>
+
+                    <div class="e">
+                        <button class="button-submit" type="submit" value="logar">Entrar</button>
+                    </div>
+
+                </form>
+
+                <div class="div-nova">
+                    <a href="{{URL}}/recuperar/senha">
+                        <p>Esqueceu a senha?</p>
+                    </a>
+                </div>
+
+            </section>
+
+        </section>
+    </div>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="publico/assets/js/jquery.js"></script>
+
+

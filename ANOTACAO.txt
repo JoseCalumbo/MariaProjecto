@@ -1,0 +1,64 @@
+
+_____________________________________fALTA IMPLEMENTAR ________________________
+    validação de campos para não salvar em campos nulos
+    sugestão de pesquisa quanda for fazer uma pesquisa 
+    recuperção de senha
+    verifica de email exixtente
+    envio de email de recuperação de senha
+    
+_________________________________________________________________________________
+
+
+
+
+_________________________   CORREÇÃO OU MELHORIA _________________________
+    melhoria na tabelas do sistema e sub menu
+_________________________________________________________________________________
+
+
+
+_________________________   FUNCIONALIDADE _________________________
+
+    imprimir lista e cartao de vendedor
+    imprimir factura da cota
+
+
+
+________________________  Info sistema
+
+rgb(13, 13, 160)-cor do menu - azul
+rgb(255, 110, 7)- cor dos icons - laramja
+
+
+c1.17
+
+
+<a href="javascript:window.history.go(-1)">Voltar</a>
+
+- Avançar:
+
+O código HTML para a função de avançar é:
+
+<a href="javascript:window.history.go(1)">Avançar</a>
+
+
+
+SELECT * FROM mensalidade WHERE vencimento = '2022-11-30'  
+
+SELECT * FROM mensalidade  WHERE status_mensalidade= 's'  
+
+SELECT * FROM mensalidade JOIN conta ON 
+                             mensalidade.id_mensal = conta.id_mensal WHERE id_vendedor = 122  
+
+SELECT * FROM vendedor WHERE id = 122  
+
+SELECT * FROM mensalidade JOIN conta ON 
+        mensalidade.id_mensal = conta.id_mensal JOIN taxa ON
+        mensalidade.id_taxa = taxa.id_taxa WHERE id_vendedor = 122  
+
+SELECT * FROM mensalidade JOIN conta ON 
+        mensalidade.id_mensal = conta.id_mensal JOIN taxa ON
+        mensalidade.id_taxa = taxa.id_taxa WHERE id_vendedor = 122  
+
+SELECT * FROM usuario WHERE id_us = 1  
+
