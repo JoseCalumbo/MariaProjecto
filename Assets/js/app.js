@@ -152,3 +152,7 @@ $(document).ready(function(){
   //      preventScrolling:false
   //   });
   // });
+
+  $(document).ready(function() {
+    $('input#input_text, textarea#textarea2').characterCounter();
+  });
