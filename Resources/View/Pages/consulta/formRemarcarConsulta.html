@@ -1,0 +1,51 @@
+<section class="row section-field">
+
+    <nav class='flex row  grey darken-3'>
+        
+        <div class="nav-wrapper ">
+          <div class="col s12">
+            <a href="#!" class="breadcrumb white-text font-media font-normal">{{titulo}} </a>
+          </div>
+        </div>
+
+        <div class="nav-wrapper col m3 ">
+            <div class="col s12">
+              <a href="{{URL}}" class="breadcrumb white-text font-normal">Home</a>
+              <a href="{{URL}}/zona" class="breadcrumb white-text flow-text font-normal">Painel zona</a>
+            </div>
+          </div>
+    </nav>
+
+    <div class="div-form white col s12 m8 push-m2">
+
+        <form class="row  form-area col s12 m9 push-m1" method="post" enctype="multipart/form-data">
+
+            <div class="label-float col s12 m12 ">
+                <input type="date" placeholder=" " name="zona" value="{{zona}}" />
+                <label>Nome Zona:</label>
+            </div>
+
+            <div class="label-float col-start1 col s12 m6">
+                <input type="time" placeholder=" " name="inicio" value="{{inicio}}" />
+                <label>Hora inicial de Venda:</label>
+            </div>
+
+            <div class="label-float col s12 m6">
+                <input type="time" placeholder=" " name="fim" value="{{fim}}" />
+                <label>Hora final da Venda:</label>
+            </div>
+
+            <div class="label-float col s12 m12 ">
+                <input type="text" placeholder=" " name="mercado" value="{{mercado}}" />
+                <label>Mercado:</label>
+            </div>
+
+            <div class="col s12 m12">
+                <button type="submit" class="button">{{button}}</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

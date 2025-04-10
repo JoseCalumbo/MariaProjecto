@@ -172,7 +172,7 @@ class Usuario extends Page{
             }
         }
 
-        $content = View::render('funcionario/formUser', [
+        $content = View::render('funcionario/', [
             'titulo' => 'Cadastrar Novo Usuario',
             'button' => 'Cadastrar',
             'msg'=>'',
@@ -198,7 +198,7 @@ class Usuario extends Page{
 
         $obUsuario = UsuarioDao::getUsuarioId($id_us);
         
-        $content = View::render('funcionario/formUser', [
+        $content = View::render('funcionario/copy', [
             'titulo' => ' Actualizar dados de  Usuario',
             'button' => 'Actulizar',
             'msg'=>'',

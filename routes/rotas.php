@@ -174,10 +174,19 @@ $obRouter->get('/relatorio/dados',[
     function($request){ return new Response(200,Pages\Relatorio::RelatorioDados($request));}
 ]);
 
+//________________________ rota Zona___________________________
+
 /**
  * inclui as rotas da zona  
 */
 include __DIR__.'/RotaZona.php';
+
+//________________________ rota Consulta___________________________
+
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaConsulta.php';
 
 //________________________ rota para ir na pagina conta___________________________
 $obRouter->get('/conta',[
@@ -228,7 +237,7 @@ include __DIR__.'/RotaLogin.php';
 
 
 /**
- * __________________________________Negocio_______________________________
+ * __________________________________Triagem_______________________________
  * inclui as rotas de negocio
 */
 include __DIR__.'/RotaTriagem.php';

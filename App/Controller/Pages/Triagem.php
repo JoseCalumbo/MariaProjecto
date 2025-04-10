@@ -45,6 +45,7 @@ class Triagem extends Page
                 'id_negocio' => $negocio->id_negocio,
                 'Nome' => "Ana",
                 'Sobrenome' => "Carlos",
+                'hora' => "12:30",
                 'Atendimento' => "1",
                 'data' => 12,
             ]);

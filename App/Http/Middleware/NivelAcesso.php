@@ -4,14 +4,16 @@ namespace App\Http\Middleware;
 
 use \App\Utils\Session;
 
-class NivelAcesso{
+class NivelAcesso
+{
 
     /**
-      * Função para executar o middlewares
-      *@param Request $request
-      *@param Clouse $nest
-      *@return Response
-    */
+     * Função para executar o middlewares
+     *@param Request $request
+     *@param Clouse $nest
+     *@return Response
+     */
+    
     public function handle($request, $next){
 
         // busca se 
@@ -20,7 +22,7 @@ class NivelAcesso{
         $nivel = $usuarioLogado['nivel_us'];
 
         // verifica o nivel de acesso do usuario logafo  
-        if ($nivel == 'Normal'){
+        if ($nivel == 'Normal') {
             $request->getRouter()->redirect('/acesso/negado');
         }
 
