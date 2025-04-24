@@ -98,6 +98,12 @@ td{
     top: 22px;
 }
 
+.fixar{
+    position: fixed;
+    left: 232px;
+    top: 22px;
+}
+
 /* css aside*/
 .collapsible{
     border: none;

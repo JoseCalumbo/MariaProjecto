@@ -1,57 +1,120 @@
-                <!-- start Item  da parte da pesquisa -->
-            <div class="area-busca ">
-                {{BuscaVendedor}}
+<section class="section-field">
+    <!-- start Item  da parte da pesquisaaa -->
+    <div class="area-busca ">
+        {{BuscaVendedor}}
+    </div>
+    <!-- end Item  da parte da pesquisa  mail notifications-->
+
+    <br>
+    <section id="card-relatorio-dados" class=" row white font-normal">
+        <p class="blue-text text-darken-4 col m2"><strong>Atalhos</strong></p>
+    </section>
+
+    <section id="card-relatorio-dados" class="row col m12 white">
+
+        <div class="card-relatorio col s12 m4 teal accent-3">
+            <div class="row">
+                <div class="col m7">
+                    <h4 class="white-text font-large">{{totalUsuario}}</h4>
+                    <p class="white-text font-normal">Consultas</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">person</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modaluser">
+                </div>
             </div>
-            <!-- end Item  da parte da pesquisa  mail notifications-->
-
-            <br>
-            <section id="card-relatorio-dados" class=" row white font-normal">
-                    <p class="blue-text text-darken-4 col m2">Bom dia, <strong>José!</strong></p>
-                    <p class="col m2 push-m8"><i class="material-icons orange-text" style="vertical-align: -6px;">help</i>Ajuda</p>
-            </section>
-
-            <section id="card-relatorio-dados" class="row col m12 white">
-
-                <div class="card-relatorio col s12 m4 teal accent-3">
-                    <div class="row">
-                        <div class="col m7">
-                            <h4 class="white-text font-large">{{totalUsuario}}</h4>
-                            <p class="white-text font-normal">Funcionarios</p>
-                        </div>
-                        <div class="col m4">
-                            <i class="material-icons large orange-text text-darken-4">person</i>
-                        </div>
-                        <div class="center col m12 button-print modal-trigger" data-target="modaluser">
-                        </div>
-                    </div>
+        </div>
+        <div class="card-relatorio col s12 m4 teal accent-3">
+            <div class="row">
+                <div class="col m7">
+                    <h4 class="white-text font-large">{{totalUsuario}}</h4>
+                    <p class="white-text font-normal">Triagem</p>
                 </div>
-        
-                <div class="card-relatorio1 col s12 m4 teal accent-3 ">
-                    <div class="row card-relatorio1">
-                        <div class="col m8">
-                            <h4 class="white-text font-large">{{totalVendedor}}</h4>
-                            <p class="white-text font-normal">Pacientes</p>
-                        </div>
-                        <div class="col m4">
-                            <i class="material-icons large orange-text text-darken-4">people</i>
-                        </div>
-                        <div class="center col m12 button-print modal-trigger" data-target="modalvendedor">
-                        </div>
-                    </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">person</i>
                 </div>
-        
-                <!--card zona-->
-                <div class="card-relatorio col s12 m4 teal accent-3">
-                    <div class="row">
-                        <div class="col m8">
-                            <h4 class="white-text font-large">{{totalzona}}</h4>
-                            <p class="white-text font-normal">Consultas</p>
-                        </div>
-                        <div class="col m4">
-                            <i class="material-icons large orange-text text-darken-4">place</i>
-                        </div>
-                        <div class="center col m12 button-print modal-trigger" data-target="modalzona">
-                        </div>
-                    </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modaluser">
                 </div>
-            </section>
+            </div>
+        </div>
+
+        <div class="card-relatorio1 col s12 m4 teal accent-3 ">
+            <div class="row card-relatorio1">
+                <div class="col m8">
+                    <h4 class="white-text font-large">{{totalVendedor}}</h4>
+                    <p class="white-text font-normal">Cadastramentos</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">people</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modalvendedor">
+                </div>
+            </div>
+        </div>
+
+        <section id="card-relatorio-dados" class=" row white font-normal">
+            <p class="blue-text text-darken-4 col m2"><strong>Registros</strong></p>
+        </section>
+
+        <div class="card-relatorio1 col s12 m4 teal accent-3 ">
+            <div class="row card-relatorio1">
+                <div class="col m8">
+                    <h4 class="white-text font-large">{{totalVendedor}}</h4>
+                    <p class="white-text font-normal">Pacientes</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">people</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modalvendedor">
+                </div>
+            </div>
+        </div>
+
+        <!--card zona-->
+        <div class="card-relatorio col s12 m4 teal accent-3">
+            <div class="row">
+                <div class="col m8">
+                    <h4 class="white-text font-large">{{totalzona}}</h4>
+                    <p class="white-text font-normal">Consultas</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">place</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modalzona">
+                </div>
+            </div>
+        </div>
+        <!--card zona-->
+        <div class="card-relatorio col s12 m4 teal accent-3">
+            <div class="row">
+                <div class="col m8">
+                    <h4 class="white-text font-large">{{totalzona}}</h4>
+                    <p class="white-text font-normal">Consultas</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">place</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modalzona">
+                </div>
+            </div>
+        </div>
+        <section id="card-relatorio-dados" class=" row white font-normal">
+            <p class="blue-text text-darken-4 col m2"><strong>Tarefas</strong></p>
+        </section>
+        <!--card zona-->
+        <div class="card-relatorio col s12 m4 teal accent-3">
+            <div class="row">
+                <div class="col m8">
+                    <h4 class="white-text font-large">{{totalzona}}</h4>
+                    <p class="white-text font-normal">Consultas</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">place</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modalzona">
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

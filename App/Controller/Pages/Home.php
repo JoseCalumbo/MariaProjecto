@@ -117,7 +117,7 @@ class Home extends Page{
     //tela home de financa
     public static function getHomeFinanca($request){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/homeBalcao', [
+        $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
         ]);
