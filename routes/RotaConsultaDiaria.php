@@ -4,47 +4,47 @@ use \App\Http\Response;
 use \App\Controller\Pages;
 
 /**
- *  Arquivo php de Rotas de consulta do sistema
- *  foi incluido em routas.php
+ *  Arquivo php de Rotas de consultas Diarias do sistema
+ *  Este arquivo foi incluido em routas.php
  */
 
- // rota painel zona GET
-$obRouter->get('/consulta',[
+ // Rota Painel Consulta Diaria GET
+$obRouter->get('/consulta-diaria',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Consulta::telaConsulta($request));}
+    function($request){ return new Response(200,Pages\ConsultaDiaria::telaConsultaDiaria($request));}
 ]);
 
-// rota painel zona POST
-$obRouter->post('/consulta',[
+// rota painel Consulta diaria POST
+$obRouter->post('/consulta-diaria',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Consulta::telaConsulta($request));}
+    function($request){ return new Response(200,Pages\ConsultaDiaria::telaConsultaDiaria($request));}
 ]);
 
-// rota formulario Zona GET
-$obRouter->get('/consulta/cadastrar',[
+ // Rota Painel Consulta Diaria POS
+ $obRouter->get('/consulta/cadastrar/{id_zona}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Consulta::cadastrarConsulta($request));}
+    function($request){ return new Response(200,Pages\ConsultaDiaria::cadastrarNovaConsulta($request));}
 ]);
 
-// rota formulario Zona POST
-$obRouter->post('/consulta/cadastrar',[
+// rota formulario consulta diaria POST
+$obRouter->post('/consulta/cadastrar/{id_zona}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Consulta::cadastrarConsulta($request));}
+    function($request){ return new Response(200,Pages\ConsultaDiaria::cadastrarNovaConsulta($request));}
 ]);
 
 // rota para alterar um registro GET
-$obRouter->get('/consulta/editar/{id_zona}',[
+$obRouter->get('/consulta-diaria/editar/{id_zona}',[
     'middlewares'=>[
-        'requer-login'
-    
+        'requer-login',
+        'nivel-acesso'
     ],
     function($request,$id_zona){ return new Response(200,Pages\Zona::editarZona($request,$id_zona)); }
 ]);
@@ -53,6 +53,10 @@ $obRouter->get('/consulta/editar/{id_zona}',[
 $obRouter->post('/consulta/editar/{id_zona}',[
     function($request,$id_zona){ return new Response(200,Pages\Zona::editarZona($request,$id_zona)); }
 ]);
+
+
+
+
 
 // rota para apagarZonas GET
 $obRouter->get('/consulta/apagar/{id_zona}',[
@@ -70,4 +74,3 @@ $obRouter->post('/consulta/apagar/{id_zona}',[
     ],
     function($request,$id_zona){ return new Response(200,Pages\Zona::apagarZona($request,$id_zona)); }
 ]);
-

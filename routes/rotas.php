@@ -17,18 +17,7 @@ $obRouter->get('/home',[
     ],
     function($request){ return new Response(200,Pages\Home::getHomeBalcao($request)); }
 ]);
-$obRouter->get('/dados',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\Home::getHomeDados($request)); }
-]);
-$obRouter->get('/fina',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\Home::getHomeFinanca($request)); }
-]);
+
 
 //usuario painel e listagem
 $obRouter->get('/funcionario',[
@@ -90,7 +79,7 @@ $obRouter->post('/usuario/apagar/{id_us}',[
 ]);
 
 
-//_________________________________vendedor___________________________________
+//_________________________________Paciente___________________________________
 $obRouter->get('/vendedor',[
     'middlewares'=>[
         'requer-login'
@@ -187,6 +176,21 @@ include __DIR__.'/RotaZona.php';
  * inclui as rotas da zona  
 */
 include __DIR__.'/RotaConsulta.php';
+
+//________________________ Rota Consulta Diaria___________________________
+
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaConsultaDiaria.php';
+
+
+
+
+
+
+
+
 
 //________________________ rota para ir na pagina conta___________________________
 $obRouter->get('/conta',[

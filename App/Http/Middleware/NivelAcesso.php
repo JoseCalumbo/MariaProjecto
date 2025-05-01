@@ -22,7 +22,7 @@ class NivelAcesso
         $nivel = $usuarioLogado['nivel_us'];
 
         // verifica o nivel de acesso do usuario logafo  
-        if ($nivel == 'Normal') {
+        if ($nivel == 'Normal'){
             $request->getRouter()->redirect('/acesso/negado');
         }
 

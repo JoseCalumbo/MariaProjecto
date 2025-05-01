@@ -84,7 +84,7 @@ class Home extends Page{
     // tela home adim
     public static function getHome($request){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/home', [
+        $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
             'totalUsuario'=>self::getDadosUsuario(),
@@ -101,26 +101,18 @@ class Home extends Page{
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
         ]);
-        return parent::getHeaderBalcao('Venda Ambulante', $content);
-    }
-
-    //tela home de dados
-    public static function getHomeDados($request){
-        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/homeBalcao', [
-            'pesquisar' => $buscar,
-            'BuscaVendedor' => self::getBuscaVedendor($request),
-        ]);
         return parent::getHeaderDados('Venda Ambulante', $content);
     }
+
+
     
-    //tela home de financa
-    public static function getHomeFinanca($request){
+    //tela home Medico
+    public static function getHomeMedico($request){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
         ]);
-        return parent::getHeaderFinaceiro('Venda Ambulante', $content);
+        return parent::getHeaderMedico('Venda Ambulante', $content);
     }
 }

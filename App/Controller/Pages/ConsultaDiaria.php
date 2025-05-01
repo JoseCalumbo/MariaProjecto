@@ -8,9 +8,9 @@ use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
 
 
-Class Consulta extends Page{
+Class ConsultaDiaria extends Page{
 
-    // funcão para fazer pesquisa 
+    // Metodo para fazer pesquisa 
     private static function getBusca($request,&$obPagination){
 
         $queryParam = $request->getQueryParams();
@@ -43,7 +43,7 @@ Class Consulta extends Page{
 
              while($obZona = $resultado->fetchObject(ZonaDao::class)){
 
-                $item .= View::render('consulta/listarConsulta',[
+                $item .= View::render('consulta/listarConsultaDiaria',[
                     'id_zona'=>$obZona->id_zona,
                     'zona'=>$obZona->zona,
                     'iniciovenda'=>$obZona->inicio_venda,
@@ -66,16 +66,16 @@ Class Consulta extends Page{
         return $item;
     }
 
-    // Metodo para apresentar a tela Consulta 
-    public static function telaConsulta($request){
+    // Metodo para apresentar a tela Consulta Diaria 
+    public static function telaConsultaDiaria($request){
 
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
-        $content = View::render('consulta/consulta',[
+        $content = View::render('consulta/consultaDiaria',[
              'pesquisar'=>$buscar,
              'listarZona'=>self::getBusca($request,$obPagination),
              'paginacao'=>parent::getPaginacao($request,$obPagination)
         ]);
-        return parent::getPage('Painel Consulta', $content);
+        return parent::getPage('Painel Consultas Diaria', $content);
     }
 
     //metodo responsavel para pegar os paciente
@@ -92,7 +92,7 @@ Class Consulta extends Page{
         }
 
     // Metodo que cadastra consultas
-    public static function cadastrarConsulta($request){
+    public static function cadastrarNovaConsulta($request){
 
         $obZona = new ZonaDao;
 
@@ -108,8 +108,9 @@ Class Consulta extends Page{
         }
 
         $content = View::render('consulta/formConsulta', [
-            'titulo' => 'Registrar Nova Consultas',
-            'button' => 'Salvar',
+            'titulo' => 'Registrar Nova Consulta',
+            'button-salvar' => 'Salvar',
+            'button-receitar' => 'Gerar Prescrição',
             'zona'=>'',
             'fim'=>'',
             'inicio'=>'',
@@ -117,7 +118,7 @@ Class Consulta extends Page{
             'mercado'=>''
 
         ]);
-        return parent::getPage('Cadastrar nova Zona', $content);
+        return parent::getPage('Cadastrar nova Consulta', $content);
     }
 
     // Metodo que Edita Zona

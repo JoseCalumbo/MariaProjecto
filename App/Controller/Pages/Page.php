@@ -89,39 +89,38 @@ Class Page{
         return View::render('Layouts/footer');
     }
 
-    //metodo busca header da Pagina Home
-    public static function getHeaderHome($obUsuario){
+    /** 
+     * ZZ 
+     * PAGE para header e Home para Home
+     * Metodo busca header da Pagina Home usuario ADIMIM
+     * 
+     * */
+    public static function getHeaderAdmin($obUsuario){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        return View::render('Layouts/headerHome',[
+        return View::render('Layouts/headerMedico',[
             'info'=> self::getUsuarioLogado($obUsuario),
             'pesquisar' => $buscar,
         ]);
     }
 
     //metodo busca header do balcao
-    public static function headerBalcao($obUsuario){
+    public static function headerMedico($obUsuario){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        return View::render('Layouts/headerBalcao',[
+        return View::render('Layouts/headerMedico',[
             'info'=> self::getUsuarioLogado($obUsuario),
             'pesquisar' => $buscar,
         ]);
     }
+
     //metodo busca header dados
-    public static function headerGestaoDados($obUsuario){
+    public static function headerDados($obUsuario){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        return View::render('Layouts/headerGestaoDados',[
+        return View::render('Layouts/headerDados',[
             'info'=> self::getUsuarioLogado($obUsuario),
             'pesquisar' => $buscar,
         ]);
     }
-    //metodo busca header do Finaceiro
-    public static function headerGestaoFinaceiro($obUsuario){
-        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        return View::render('Layouts/headerGestaoFinaceiro',[
-            'info'=> self::getUsuarioLogado($obUsuario),
-            'pesquisar' => $buscar,
-        ]);
-    }
+
 
     //metodo que renderiza layouts da pagina
     public static function getPage($title,$content){
@@ -133,21 +132,21 @@ Class Page{
         ]);
     }
 
-    //metodo que renderiza layouts pagina home
+    //metodo que renderiza layouts pagina home adim
     public static function getPageHome($title,$content){
         return View::render('Layouts/pagina',[
             'title' => $title,
-            'header'=>Self::getHeaderHome(null),
+            'header'=>Self::getHeaderAdmin(null),
             'content'=> $content,
             'footer'=>Self::getFooter()
         ]);
     }
 
     //metodo que renderiza layouts pagina home balcao
-    public static function getHeaderBalcao($title,$content){
+    public static function getHeaderMedico($title,$content){
         return View::render('Layouts/pagina',[
             'title' => $title,
-            'header'=>Self::headerBalcao(null),
+            'header'=>Self::headerMedico(null),
             'content'=> $content,
             'footer'=>Self::getFooter()
         ]);
@@ -157,16 +156,7 @@ Class Page{
     public static function getHeaderDados($title,$content){
         return View::render('Layouts/pagina',[
             'title' => $title,
-            'header'=>Self::headerGestaoDados(null),
-            'content'=> $content,
-            'footer'=>Self::getFooter()
-        ]);
-    }
-    //metodo que renderiza layouts pagina home finaceiro
-    public static function getHeaderFinaceiro($title,$content){
-        return View::render('Layouts/pagina',[
-            'title' => $title,
-            'header'=>Self::headerGestaoFinaceiro(null),
+            'header'=>Self::headerDados(null),
             'content'=> $content,
             'footer'=>Self::getFooter()
         ]);
