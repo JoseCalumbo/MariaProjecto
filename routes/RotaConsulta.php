@@ -49,6 +49,15 @@ $obRouter->get('/consulta/editar/{id_zona}',[
     function($request,$id_zona){ return new Response(200,Pages\Zona::editarZona($request,$id_zona)); }
 ]);
 
+// rota para comfirmar Consulta GET
+$obRouter->get('/consulta/comfirmar/{id_zona}',[
+    'middlewares'=>[
+        'requer-login'
+    
+    ],
+    function($request,$id_zona){ return new Response(200,Pages\Consulta::comfirmarConsulta($request,$id_zona)); }
+]);
+
 // rota para alterar um registro POST
 $obRouter->post('/consulta/editar/{id_zona}',[
     function($request,$id_zona){ return new Response(200,Pages\Zona::editarZona($request,$id_zona)); }

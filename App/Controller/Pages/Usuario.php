@@ -127,7 +127,7 @@ class Usuario extends Page{
         $obUsuario = new UsuarioDao;
 
         // Obtem os postos cadastrados 
-        $obPosto = new Posto;
+        //$obPosto = new Posto();
         
         if (isset($_POST['nome'],$_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone'], $_POST['acesso'], $_FILES['imagem'])) {
 
@@ -173,8 +173,8 @@ class Usuario extends Page{
             }
         }
 
-        $content = View::render('funcionario/', [
-            'titulo' => 'Cadastrar Novo Usuario',
+        $content = View::render('funcionario/formFuncionario', [
+            'titulo' => 'Cadastrar Novo Funcionario',
             'button' => 'Cadastrar',
             'msg'=>'',
             'nome_us'=>'',
@@ -191,7 +191,7 @@ class Usuario extends Page{
 
         ]);
 
-        return parent::getPage('Cadastrar Usuario', $content);
+        return parent::getPage('Cadastrar Funcionario', $content);
     }
 
     // metodo para ir na pagina editar usuario

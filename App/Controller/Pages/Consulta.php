@@ -79,7 +79,7 @@ Class Consulta extends Page{
     }
 
     //metodo responsavel para pegar os paciente
-        public static function getPaciente(){
+    public static function getPaciente(){
             $paciente = '';
             $paciente = VendedorDao::listarVendedor();
             while( $obpaciente = $paciente->fetchObject(VendedorDao::class)){
@@ -89,10 +89,50 @@ Class Consulta extends Page{
                 ]);
             }
             return $paciente;
-        }
+    }
 
     // Metodo que cadastra consultas
     public static function cadastrarConsulta($request){
+
+        $obZona = new ZonaDao;
+
+        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])){
+            
+            $obZona->zona = $_POST['zona'];
+            $obZona->inicio_venda = $_POST['inicio'];
+            $obZona->fim_venda = $_POST['fim'];
+            $obZona->mercado = $_POST['mercado'];
+            $obZona->cadastrarZona();
+            // Redireciona para Painel Zona 
+            $request->getRouter()->redirect('/zona?msg=cadastrado');
+        }
+
+        $content = View::render('consulta/formConsulta', [
+            'titulo' => 'Registrar Nova Consultas',
+            'button' => 'Salvar',
+            'zona'=>'',
+            'fim'=>'',
+            'inicio'=>'',
+            //'paciente'=>self::getPaciente(),
+            'mercado'=>''
+
+        ]);
+        return parent::getPage('Cadastrar nova Zona', $content);
+    }
+    // Metodo para apresentar a tela Consulta 
+    public static function comfirmarConsulta($request){
+
+        $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
+        $content = View::render('consulta/consulta',[
+             'pesquisar'=>$buscar,
+             'listarZona'=>self::getBusca($request,$obPagination),
+             'paginacao'=>parent::getPaginacao($request,$obPagination)
+        ]);
+        return parent::getPage('Painel Consulta', $content);
+    }
+
+    // Metodo que cadastra consultas
+    public static function cadastrarConsulta1($request){
 
         $obZona = new ZonaDao;
 

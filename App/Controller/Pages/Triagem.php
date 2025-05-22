@@ -65,7 +65,7 @@ class Triagem extends Page
         return $item;
     }
 
-    public static function pagNegocio($request)
+    public static function pagTriagem($request)
     {
 
         $content = View::render('triagem/triagem', [
@@ -74,11 +74,36 @@ class Triagem extends Page
             'item' => self::getNegocio($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
-        return parent::getPage('Triagem', $content);
+        return parent::getPage('Painel Triagem', $content);
     }
 
-    //cadastra novo tipo de negocio
-    public static function cadastrar($request)
+    //cadastra novo triagem
+    public static function cadastrarTriagem($request)
+    {
+
+        if (isset($_POST['nome'])) {
+
+           // $obNegocio = new NegocioDao;
+
+           // $obNegocio->negocio = $_POST['negocio'];
+            //$obNegocio->cadastrarNegocio();
+
+            $request->getRouter()->redirect('/triagem/comfirmar');
+            exit;
+        }
+
+        $content = View::render('triagem/formTriagem', [
+            'titulo' => 'Nova Triagem',
+            'pesquisar' => '',
+            'negocio' => '',
+            'button' => 'Comfirmar',
+        ]);
+
+        return parent::getPage('Cadastrar Novo Negócio ', $content);
+    }
+
+    //cadastra novo triagem
+    public static function ConfirmarTriagem($request)
     {
 
         if (isset($_POST['negocio'])) {
@@ -88,22 +113,26 @@ class Triagem extends Page
             $obNegocio->negocio = $_POST['negocio'];
             $obNegocio->cadastrarNegocio();
 
-            $request->getRouter()->redirect('/negocio?msg=cadastrado');
+            $request->getRouter()->redirect('/confirmar-triagem/{id_negocio}');
             exit;
         }
-
-        $content = View::render('triagem/formTriagem', [
-            'titulo' => 'Nova Triagem',
+      
+        $content = View::render('triagem/confirmarTriagem', [
+            'titulo' => 'Comfirmar Triagem',
             'pesquisar' => '',
             'negocio' => '',
-            'button' => 'Comfirmar'
+            'nome' => 'Ana Miguel',
+            'numero' => 23,
+            'button1' => 'Comfirmar',
+            'button2' => 'Cancelar'
+
         ]);
 
-        return parent::getPage('Cadastrar Novo Negócio ', $content);
+        return parent::getPage('Comfirmar Triagem ', $content);
     }
 
-    //edita novo tipo de negocio
-    public static function editarNegocio($request, $id_negocio)
+    //edita triagem
+    public static function editarTriagem($request, $id_negocio)
     {
 
         //Seleciona o negocio por id
@@ -128,8 +157,8 @@ class Triagem extends Page
         return parent::getPage('Editar Negócio id {{id_negocio}}', $content);
     }
 
-    //apaga tipo de negocio
-    public static function apagaNegocio($request, $id_negocio)
+    //apagar triagem
+    public static function apagaTriagem($request, $id_negocio)
     {
 
         $obNegocio = NegocioDao::getNegocio($id_negocio);

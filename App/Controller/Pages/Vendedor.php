@@ -12,8 +12,7 @@ use App\Model\Entity\ContaDao;
 use App\Model\Entity\NegocioDao;
 use App\Model\Entity\ZonaDao;
 
-class Vendedor extends Page
-{
+class Vendedor extends Page{
 
     // exibe a messagem de operacao
     public static function exibeMensagem($request)
