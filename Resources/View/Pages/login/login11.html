@@ -1,0 +1,32 @@
+<div class="container card Large">
+    <div class="card-content col s12 m5">
+        <section class="row">
+            <img src="Assets/img/logo1.png" height="110" width="170">
+        </section>
+        {{msg}}
+        <section class="row col s12 m12">
+            <span class=" row card-title center-align">Logins</span>
+            <form class="" method="post">
+                <div class="row input-field col s12 m12">
+                    <input id="email" type="email" name="nome">
+                    <label for="email" style="text-transform: capitalize;">Email:</label>
+                </div>
+                <br>
+                <div class="row input-field col s12 m10 ">
+                    <input id="senha" type="password" placeholder=" " name="senha" />
+                    <label for="senha" style="text-transform: capitalize;">Senha:</label>
+                </div>
+                <div class="row m12">
+                    <button class=" btn green" style="text-transform: capitalize;" type="submit"
+                        value="logar">Entrar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="row div-nova">
+            <a href="{{URL}}/recuperar/senha">
+                <p>Esqueceu a senha?</p>
+            </a>
+        </section>
+    </div>
+</div>
