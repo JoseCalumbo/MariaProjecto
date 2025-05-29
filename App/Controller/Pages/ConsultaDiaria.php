@@ -4,7 +4,7 @@ namespace App\Controller\Pages;
 
 use \App\Utils\Pagination;
 use \App\Model\Entity\UsuarioDao;
-use \App\Model\Entity\ZonaDao;
+use \App\Model\Entity\ZonaDao; aaaaaaaa
 use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
 
@@ -102,6 +102,7 @@ class ConsultaDiaria extends Page
     {
 
         $obZona = new ZonaDao;
+        
 
         if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
 
@@ -130,21 +131,22 @@ class ConsultaDiaria extends Page
     }
 
     // Metodo que Edita Zona
-    public static function editarZona($request, $id_zona)
+    public static function AtenderConsulta($request, $id_zona)
     {
 
         $obZona = ZonaDao::getZona($id_zona);
 
-        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])) {
+        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
 
             $obZona->zona = $_POST['zona'];
             $obZona->inicio_venda = $_POST['inicio'];
             $obZona->fim_venda = $_POST['fim'];
             $obZona->mercado = $_POST['mercado'];
-            $obZona->AtualizarZona();
+            //$obZona->AtualizarZona();
 
             // Redireciona para Painel Zona 
-            $request->getRouter()->redirect('/zona?msg=editado');
+            $request->getRouter()->redirect('/consulta/comfirmar/{id_consulta}');
+
         }
 
         $content = View::render('zonas/formZona', [
