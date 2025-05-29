@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabela Dinâmica</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f4f4f4; }
+    input[type="text"] { width: 100%; box-sizing: border-box; }
+    button { margin: 4px 0; }
+  </style>
+</head>
+<body>
+  <h2>Tabela Dinâmica</h2>
+  <table id="tabelaDinamica">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Linhas dinâmicas aqui -->
+    </tbody>
+  </table>
+  <button onclick="adicionarLinha()">Adicionar Linha</button>
+
+  <script>
+    function adicionarLinha() {
+      const tabela = document.getElementById('tabelaDinamica').getElementsByTagName('tbody')[0];
+      const novaLinha = tabela.insertRow();
+      let celulaNome = novaLinha.insertCell(0);
+      let celulaEmail = novaLinha.insertCell(1);
+      let celulaAcoes = novaLinha.insertCell(2);
+
+      celulaNome.innerHTML = '<input type="text" placeholder="Nome">';
+      celulaEmail.innerHTML = '<input type="text" placeholder="Email">';
+      celulaAcoes.innerHTML = '<button onclick="removerLinha(this)">Remover</button>';
+    }
+
+    function removerLinha(botao) {
+      const linha = botao.parentNode.parentNode;
+      linha.parentNode.removeChild(linha);
+    }
+  </script>
+</body>
+

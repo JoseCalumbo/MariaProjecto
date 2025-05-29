@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabela Dinâmica com Materialize</title>
+  <!-- Importa o Materialize CSS e o ícone do Google -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <style>
+    .remove-btn {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h4 class="center-align">Tabela Dinâmica com Materialize</h4>
+
+  <form id="formulario">
+    <table class="highlight responsive-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-body">
+        <tr>
+          <td><input type="text" name="nome[]" class="validate" required></td>
+          <td><input type="email" name="email[]" class="validate" required></td>
+          <td>
+            <a class="remove-btn" onclick="removerLinha(this)">
+              <i class="material-icons">delete</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="right-align">
+      <a class="btn green" onclick="adicionarLinha()">
+        <i class="material-icons left">add</i>Adicionar Linha
+      </a>
+    </div>
+
+    <div class="center-align" style="margin-top: 30px;">
+      <button type="submit" class="btn blue">Enviar</button>
+    </div>
+  </form>
+</div>
+
+<!-- Importa o Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+  function adicionarLinha() {
+    const tabela = document.getElementById('tabela-body');
+    const novaLinha = tabela.rows[0].cloneNode(true);
+
+    const inputs = novaLinha.querySelectorAll('input');
+    inputs.forEach(input => input.value = '');
+
+    tabela.appendChild(novaLinha);
+  }
+
+  function removerLinha(botao) {
+    const linha = botao.closest('tr');
+    const tabela = document.getElementById('tabela-body');
+    if (tabela.rows.length > 1) {
+      linha.remove();
+    } else {
+      M.toast({html: 'A tabela deve conter pelo menos uma linha.', classes: 'red'});
+    }
+  }
+</script>
+
+</body>
+</html>
