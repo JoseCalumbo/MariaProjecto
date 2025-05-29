@@ -1,48 +1,47 @@
+<div class="card-login ">
 
-    <div class="card-login ">
+    <section class="section-login">
 
-        <section class="section-login">
+        <section class="login-img">
+            <img src="Assets/img/logo1.png" height="110" width="170">
+        </section>
 
-            <section class="login-img">
-                <img src="Assets/img/logo1.png" height="110" width="170">
-            </section>
+        {{msg}}
 
-            {{msg}}
+        <section class="card">
+            <div class=" ">
 
-            <section class="section-form-login">
+            </div>
 
-                <div>
-                    <h3>Login</h3>
+            <div class="row center-align">
+                <h3>Login</h3>
+            </div>
+            <form class="col m10 push-m1 form-login" method="post">
+
+                <div class="input-field col s12 m6">
+                    <input id="email" type="email" name="nome" class="validate">
+                    <label for="email" style="text-transform: capitalize;">Email:</label>
                 </div>
-                <form class="form-login" method="post">
-
-                    <div class="label-float input-login">
-                        <input id="nome" type="email" placeholder=" " name="email" >
-                        <label>E-mail:</label>
-                    </div>
-
-                    <div class="label-float">
-                        <input id="senha" type="password" placeholder=" "  name="senha" />
-                        <label>Senha:</label>
-                    </div>
-
-                    <div class="e">
-                        <button class="button-submit" type="submit" value="logar">Entrar</button>
-                    </div>
-
-                </form>
-
-                <div class="div-nova">
-                    <a href="{{URL}}/recuperar/senha">
-                        <p>Esqueceu a senha?</p>
-                    </a>
+                <br>
+                <div class="input-field col s12 m3 ">
+                    <input id="senha" type="password" placeholder=" " name="senha" />
+                    <label for="senha" style="text-transform: capitalize;">Senha:</label>
+                </div>
+                <div class="row m3">
+                    <button class=" btn green" style="text-transform: capitalize;" type="submit" value="logar">Entrar</button>
                 </div>
 
-            </section>
+            </form>
+
+            <div class="div-nova">
+                <a href="{{URL}}/recuperar/senha">
+                    <p>Esqueceu a senha?</p>
+                </a>
+            </div>
 
         </section>
-    </div>
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="publico/assets/js/jquery.js"></script>
 
-
+    </section>
+</div>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="publico/assets/js/jquery.js"></script>

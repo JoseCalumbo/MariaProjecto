@@ -13,9 +13,7 @@ class Login extends Page
     // Funcao que apresenta a tela de usuario
     public static function telaLogin($request, $erroMsg = null)
     {
-
         $postVars = $request->getPostVars();
-
         $postVars = $request->getPostVars();
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? '';
@@ -105,9 +103,7 @@ class Login extends Page
 
     public static function setRecuperarSenha($request, $erroMsg)
     {
-
         $postVars = $request->getPostVars();
-        
         $email = $postVars['email'] ?? '';
 
         $obUsuario = UsuarioDao::getUsuarioEmail($email);
