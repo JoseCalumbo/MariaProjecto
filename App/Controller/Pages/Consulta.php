@@ -96,19 +96,20 @@ Class Consulta extends Page{
 
         $obZona = new ZonaDao;
 
-        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])){
+        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])){
             
             $obZona->zona = $_POST['zona'];
             $obZona->inicio_venda = $_POST['inicio'];
             $obZona->fim_venda = $_POST['fim'];
             $obZona->mercado = $_POST['mercado'];
-            $obZona->cadastrarZona();
+           // $obZona->cadastrarZona();
             // Redireciona para Painel Zona 
             $request->getRouter()->redirect('/zona?msg=cadastrado');
         }
 
         $content = View::render('consulta/formConsulta', [
-            'titulo' => 'Registrar Nova Consultas',
+            'titulo' => 'RegiConsultas',
+            'nome' => 'Ana luis',
             'button' => 'Salvar',
             'zona'=>'',
             'fim'=>'',
@@ -123,7 +124,7 @@ Class Consulta extends Page{
     public static function comfirmarConsulta($request){
 
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
-        $content = View::render('consulta/consulta',[
+        $content = View::render('consulta/formConfirmaConsulta',[
              'pesquisar'=>$buscar,
              'listarZona'=>self::getBusca($request,$obPagination),
              'paginacao'=>parent::getPaginacao($request,$obPagination)
@@ -165,13 +166,13 @@ Class Consulta extends Page{
 
         $obZona = ZonaDao::getZona($id_zona);
 
-        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])){
+        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])){
                 
             $obZona->zona = $_POST['zona'];
             $obZona->inicio_venda = $_POST['inicio'];
             $obZona->fim_venda = $_POST['fim'];
             $obZona->mercado = $_POST['mercado'];
-            $obZona->AtualizarZona();
+           // $obZona->AtualizarZona();
     
             // Redireciona para Painel Zona 
             $request->getRouter()->redirect('/zona?msg=editado');
@@ -179,6 +180,7 @@ Class Consulta extends Page{
 
         $content = View::render('zonas/formZona', [
                 'titulo' => 'Editar Zona',
+                'nome' => 'Elizandra Bianca Pedro',
                 'button' => 'Editar',
                 'zona'=> $obZona->zona,
                 'fim'=> $obZona->fim_venda,

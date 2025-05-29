@@ -18,24 +18,27 @@
 
     <div class="row input-field">
 
-        <div class="row center-align " >
-            <h5 class="" >{{nome}}</h5>
-        </div>
-
         <!-- formulario para cadastramento de usuario start -->
         <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
 
             <ul class="collapsible white">
                 <!--collapsible dados pessoal-->
-                <li class="active2">
+                <li class="active">
                     <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
-                            class="material-icons">person</i>Dados Paciente
-                    </div>
+                            class="material-icons">person</i>Dados Paciente</div>
+
                     <div class="collapsible-body row">
 
                         <div class="row">
+                            <div class="input-field col s12 m12">
+                                <select name="acesso" id="academico">
+                                    <option class="black-text" value="" disabled selected>Paciente:</option>
+                                    {{paciente}}
+                                </select>
+                                <label>Seleciona Area</label>
+                            </div>
                             <div class="input-field col s12 m6">
-                                <input id="nome" type="text" name="a" value="{{nome}}" class="validate">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
                                 <label for="nome" style="text-transform: capitalize;">Nome:</label>
                             </div>
                             <div class="input-field col s12 m6">
@@ -86,8 +89,6 @@
                                 <label for="bilhte" style="text-transform: capitalize;">Bilhete</label>
                             </div>
                         </div>
-
-                        
                     </div>
                 </li>
                 <!--collapsible dados endereço-->
@@ -215,25 +216,23 @@
                             class="material-icons">tune</i>Exames</div>
 
                     <div class="collapsible-body row">
-
+                        
                         <table class="highlight responsive-table">
                             <thead>
                                 <tr>
                                     <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Nome</th>
                                     <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Tipo</th>
-                                    <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Verificaçao
-                                    </th>
+                                    <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Verificaçao</th>
                                     <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Ação</th>
                                 </tr>
                             </thead>
                             <tbody id="tabela-body">
                                 <tr>
-                                    <td><input type="text" name="nome[]" class="validate" rred></td>
+                                    <td><input  type="text" name="nome[]" class="validate" rred></td>
                                     <td><input type="text" name="email[]" class="validate" quired></td>
                                     <td><input type="text" name="email[]" class="validate" equired></td>
                                     <td>
-                                        <a class="btn  waves-effect waves-light red white-text"
-                                            onclick="removerLinha(this)">
+                                        <a class="btn  waves-effect waves-light red white-text" onclick="removerLinha(this)">
                                             <i class="material-icons centered">delete</i>
                                         </a>
                                     </td>
@@ -241,13 +240,16 @@
                             </tbody>
                         </table>
                         <div class="row left-align ">
-                            <a class="waves-effect waves-light  btn blue white-text font-normal"
-                                onclick="adicionarLinha()">
-                                <i class="material-icons centered">add</i>
+                            <a class="waves-effect waves-light  btn blue white-text font-normal" onclick="adicionarLinha()">
+                              <i class="material-icons centered">add</i>
                             </a>
                         </div>
                     </div>
+
                 </li>
+
+
+
             </ul>
 
             <div class="div-input push-m10 col s12 m2">
@@ -269,22 +271,22 @@
 
 <script>
     function adicionarLinha() {
-        const tabela = document.getElementById('tabela-body');
-        const novaLinha = tabela.rows[0].cloneNode(true);
-
-        const inputs = novaLinha.querySelectorAll('input');
-        inputs.forEach(input => input.value = '');
-
-        tabela.appendChild(novaLinha);
+      const tabela = document.getElementById('tabela-body');
+      const novaLinha = tabela.rows[0].cloneNode(true);
+  
+      const inputs = novaLinha.querySelectorAll('input');
+      inputs.forEach(input => input.value = '');
+  
+      tabela.appendChild(novaLinha);
     }
-
+  
     function removerLinha(botao) {
-        const linha = botao.closest('tr');
-        const tabela = document.getElementById('tabela-body');
-        if (tabela.rows.length > 1) {
-            linha.remove();
-        } else {
-            M.toast({ html: 'A tabela deve conter pelo menos uma linha.', classes: 'red' });
-        }
+      const linha = botao.closest('tr');
+      const tabela = document.getElementById('tabela-body');
+      if (tabela.rows.length > 1) {
+        linha.remove();
+      } else {
+        M.toast({html: 'A tabela deve conter pelo menos uma linha.', classes: 'red'});
+      }
     }
-</script>
+  </script>

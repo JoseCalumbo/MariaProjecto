@@ -50,7 +50,7 @@ $obRouter->get('/consulta/editar/{id_zona}',[
 ]);
 
 // rota para comfirmar Consulta GET
-$obRouter->get('/consulta/comfirmar/{id_zona}',[
+$obRouter->get('/consulta/comfirmar/{id_consulta}',[
     'middlewares'=>[
         'requer-login'
     

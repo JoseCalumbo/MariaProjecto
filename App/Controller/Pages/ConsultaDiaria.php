@@ -1,6 +1,7 @@
-<?php 
+<?php
 
 namespace App\Controller\Pages;
+
 use \App\Utils\Pagination;
 use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\ZonaDao;
@@ -8,168 +9,176 @@ use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
 
 
-Class ConsultaDiaria extends Page{
+class ConsultaDiaria extends Page
+{
 
     // Metodo para fazer pesquisa 
-    private static function getBusca($request,&$obPagination){
+    private static function getBusca($request, &$obPagination)
+    {
 
         $queryParam = $request->getQueryParams();
 
-        $obPagination = new Pagination(null,null,null);
-            
-         // Var que retorna o conteudo
-         $item='';
-         
-         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
-             
-             $condicoes = [
-                 strlen($buscar) ? 'zona LIKE "%'.$buscar.'%"': null,
-            ];
-                
-            // coloca na consulta sql
-            $where = implode(' AND ',$condicoes);
-                
-            //quantidade total de registros da tabela user
-             $quantidadetotal = ZonaDao::listarZona($where,'zona',null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $obPagination = new Pagination(null, null, null);
 
-             //pagina actual 
-              $queryParams = $request->getQueryParams();
-              $paginaAtual = $queryParams['page'] ?? 1;
+        // Var que retorna o conteudo
+        $item = '';
 
-              // instancia de paginacao
-              $obPagination = new Pagination($quantidadetotal,$paginaAtual,9);
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
-             $resultado = ZonaDao::listarZona($where,'zona',$obPagination->getLimit());
+        $condicoes = [
+            strlen($buscar) ? 'zona LIKE "%' . $buscar . '%"' : null,
+        ];
 
-             while($obZona = $resultado->fetchObject(ZonaDao::class)){
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
 
-                $item .= View::render('consulta/listarConsultaDiaria',[
-                    'id_zona'=>$obZona->id_zona,
-                    'zona'=>$obZona->zona,
-                    'iniciovenda'=>$obZona->inicio_venda,
-                    'fimvenda'=>$obZona->fim_venda,
-                    'mercado'=>$obZona->mercado
-                ]);
-            }
+        //quantidade total de registros da tabela user
+        $quantidadetotal = ZonaDao::listarZona($where, 'zona', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
-            $queryParam = $request->getQueryParams();
+        //pagina actual 
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
 
-            if($queryParam['pesquisar'] ?? '') {
-                    
-                    return View::render('pesquisar/item',[
-                        'pesquisa'=>$buscar,
-                        'resultados'=>$item,
-                        'numResultado'=>$quantidadetotal,
-                    ]);
-            }
+        // instancia de paginacao
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 9);
+
+        $resultado = ZonaDao::listarZona($where, 'zona', $obPagination->getLimit());
+
+        while ($obZona = $resultado->fetchObject(ZonaDao::class)) {
+
+            $item .= View::render('consulta/listarConsultaDiaria', [
+                'id_zona' => $obZona->id_zona,
+                'zona' => $obZona->zona,
+                'iniciovenda' => $obZona->inicio_venda,
+                'fimvenda' => $obZona->fim_venda,
+                'mercado' => $obZona->mercado
+            ]);
+        }
+
+        $queryParam = $request->getQueryParams();
+
+        if ($queryParam['pesquisar'] ?? '') {
+
+            return View::render('pesquisar/item', [
+                'pesquisa' => $buscar,
+                'resultados' => $item,
+                'numResultado' => $quantidadetotal,
+            ]);
+        }
 
         return $item;
     }
 
     // Metodo para apresentar a tela Consulta Diaria 
-    public static function telaConsultaDiaria($request){
+    public static function telaConsultaDiaria($request)
+    {
 
-        $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
-        $content = View::render('consulta/consultaDiaria',[
-             'pesquisar'=>$buscar,
-             'listarZona'=>self::getBusca($request,$obPagination),
-             'paginacao'=>parent::getPaginacao($request,$obPagination)
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+        $content = View::render('consulta/consultaDiaria', [
+            'pesquisar' => $buscar,
+            'listarZona' => self::getBusca($request, $obPagination),
+            'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Consultas Diaria', $content);
     }
 
     //metodo responsavel para pegar os paciente
-        public static function getPaciente(){
-            $paciente = '';
-            $paciente = VendedorDao::listarVendedor();
-            while( $obpaciente = $paciente->fetchObject(VendedorDao::class)){
-                $paciente .= View::render('item/paciente', [
-                    'nome'=>$obpaciente->nome,
-                    'value'=>$obpaciente->id
-                ]);
-            }
-            return $paciente;
+    public static function getPaciente()
+    {
+        $paciente = '';
+        $paciente = VendedorDao::listarVendedor();
+        while ($obpaciente = $paciente->fetchObject(VendedorDao::class)) {
+            $paciente .= View::render('item/paciente', [
+                'nome' => $obpaciente->nome,
+                'value' => $obpaciente->id
+            ]);
         }
+        return $paciente;
+    }
+
 
     // Metodo que cadastra consultas
-    public static function cadastrarNovaConsulta($request){
+    public static function cadastrarNovaConsulta($request)
+    {
 
         $obZona = new ZonaDao;
 
-        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])){
-            
+        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
+
             $obZona->zona = $_POST['zona'];
             $obZona->inicio_venda = $_POST['inicio'];
             $obZona->fim_venda = $_POST['fim'];
             $obZona->mercado = $_POST['mercado'];
-            $obZona->cadastrarZona();
+            //  $obZona->cadastrarZona();
             // Redireciona para Painel Zona 
-            $request->getRouter()->redirect('/zona?msg=cadastrado');
+            $request->getRouter()->redirect('/consulta/comfirmar/{id_consulta}');
         }
 
         $content = View::render('consulta/formConsulta', [
-            'titulo' => 'Registrar Nova Consulta',
+            'titulo' => 'Atender Consulta',
+            'nome' => 'Dário Miguel Andre',
             'button-salvar' => 'Salvar',
             'button-receitar' => 'Gerar Prescrição',
-            'zona'=>'',
-            'fim'=>'',
-            'inicio'=>'',
+            'zona' => '',
+            'fim' => '',
+            'inicio' => '',
             //'paciente'=>self::getPaciente(),
-            'mercado'=>''
+            'id_pac' => $obZona->id_zona
 
         ]);
         return parent::getPage('Cadastrar nova Consulta', $content);
     }
 
     // Metodo que Edita Zona
-    public static function editarZona($request,$id_zona){
+    public static function editarZona($request, $id_zona)
+    {
 
         $obZona = ZonaDao::getZona($id_zona);
 
-        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])){
-                
+        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])) {
+
             $obZona->zona = $_POST['zona'];
             $obZona->inicio_venda = $_POST['inicio'];
             $obZona->fim_venda = $_POST['fim'];
             $obZona->mercado = $_POST['mercado'];
             $obZona->AtualizarZona();
-    
+
             // Redireciona para Painel Zona 
             $request->getRouter()->redirect('/zona?msg=editado');
         }
 
         $content = View::render('zonas/formZona', [
-                'titulo' => 'Editar Zona',
-                'button' => 'Editar',
-                'zona'=> $obZona->zona,
-                'fim'=> $obZona->fim_venda,
-                'inicio'=> $obZona->inicio_venda,
-                'mercado'=> $obZona->mercado
+            'titulo' => 'Editar Zona',
+            'button' => 'Editar',
+            'zona' => $obZona->zona,
+            'fim' => $obZona->fim_venda,
+            'inicio' => $obZona->inicio_venda,
+            'mercado' => $obZona->mercado
         ]);
-         return parent::getPage('Atualizar Zona', $content);
+        return parent::getPage('Atualizar Zona', $content);
     }
 
     // Metodo que apagar Zona
-    public static function apagarZona ($request,$id_zona){
+    public static function apagarZona($request, $id_zona)
+    {
 
         $obZona = ZonaDao::getZona($id_zona);
 
-        if (isset($_POST['apagar'])){
+        if (isset($_POST['apagar'])) {
 
             $obZona->apagarZona();
-            
+
             // Redireciona para Painel Zona 
             $request->getRouter()->redirect('/zona?msg=apagado');
         }
 
         $content = View::render('zonas/deletaZona', [
-                'titulo' => 'Apagar Zona',
-                'button' => 'Sim',
-                'zona'=> $obZona->zona,
-                'id_zona'=> $obZona->id_zona,
-                'mercado'=> $obZona->mercado
+            'titulo' => 'Apagar Zona',
+            'button' => 'Sim',
+            'zona' => $obZona->zona,
+            'id_zona' => $obZona->id_zona,
+            'mercado' => $obZona->mercado
         ]);
-         return parent::getPage('Apagar Zona', $content);
+        return parent::getPage('Apagar Zona', $content);
     }
-
 }

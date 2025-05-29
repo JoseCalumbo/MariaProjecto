@@ -25,7 +25,7 @@ $obRouter->post('/consulta-diaria',[
 ]);
 
  // Rota Painel Consulta Diaria POS
- $obRouter->get('/consulta/cadastrar/{id_zona}',[
+ $obRouter->get('/consulta/atender/{id_pac}',[
     'middlewares'=>[
         'requer-login'
     ],
