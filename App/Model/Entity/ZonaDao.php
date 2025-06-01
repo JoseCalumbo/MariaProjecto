@@ -63,9 +63,7 @@ class ZonaDao{
 
     // faz um delete na tabela zona
     public function apagarZona(){
-        return (new Database('zona'))->delete('id_zona = '.$this->id_zona,[
-
-        ]);
+        return (new Database('zona'))->delete('id_zona = '.$this->id_zona,[ ]);
     }
     
     /**

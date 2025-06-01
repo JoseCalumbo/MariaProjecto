@@ -15,7 +15,7 @@ Class Consulta extends Page{
 
         $queryParam = $request->getQueryParams();
 
-        $obPagination = new Pagination(null,null,null);
+      //  $obPagination = new Pagination(null,null,null);
             
          // Var que retorna o conteudo
          $item='';

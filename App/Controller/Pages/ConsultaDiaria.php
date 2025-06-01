@@ -13,12 +13,11 @@ class ConsultaDiaria extends Page
 {
 
     // Metodo para fazer pesquisa 
-    private static function getBusca($request, &$obPagination)
-    {
+    private static function getBusca($request, &$obPagination){
 
         $queryParam = $request->getQueryParams();
 
-        $obPagination = new Pagination(null, null, null);
+        //$obPagination = new Pagination(null, null, null);
 
         // Var que retorna o conteudo
         $item = '';
@@ -130,10 +129,9 @@ class ConsultaDiaria extends Page
         return parent::getPage('Cadastrar nova Consulta', $content);
     }
 
-    // Metodo que Edita Zona
-    public static function AtenderConsulta($request, $id_zona)
+    // Metodo que Atende o Paciente
+    public static function atender($request,$id_zona)
     {
-
         $obZona = ZonaDao::getZona($id_zona);
 
         if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
@@ -148,7 +146,6 @@ class ConsultaDiaria extends Page
             $request->getRouter()->redirect('/consulta/comfirmar/{id_consulta}');
 
         }
-
         $content = View::render('zonas/formZona', [
             'titulo' => 'Editar Zona',
             'button' => 'Editar',
@@ -157,7 +154,7 @@ class ConsultaDiaria extends Page
             'inicio' => $obZona->inicio_venda,
             'mercado' => $obZona->mercado
         ]);
-        return parent::getPage('Atualizar Zona', $content);
+        return parent::getPage('Atender Zona', $content);
     }
 
     // Metodo que apagar Zona
