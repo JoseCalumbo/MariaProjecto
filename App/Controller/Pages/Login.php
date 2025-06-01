@@ -42,11 +42,11 @@ class Login extends Page
         $obUsuario = UsuarioDao::getUsuarioEmail($email);
 
         if (!$obUsuario instanceof UsuarioDao) {
-            return self::telaLogin($request, '<p>Erro senha ou Email Invalido</p>');
+            return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
         }
 
         if (!password_verify($senha, $obUsuario->senha_us)) {
-            return self::telaLogin($request, '<p>Erro senha ou Email Invalido 1</p>');
+            return self::telaLogin($request, '<p>Erro Email ou Senha Invalido </p>');
         }
 
         //cria session de login

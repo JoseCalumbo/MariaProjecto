@@ -10,21 +10,25 @@
       <span class="card-title center-align">Login</span>
       {{msg}}
       <!-- Formulário -->
-      <form method="post">
-        <div class="input-field">
+      <form class="row" method="post">
+        <div class="input-field col m11">
+          <i class="material-icons prefix green-text">mail_outline</i>
           <input id="email" type="email" class="validate" name="email" required>
           <label for="email">Email</label>
         </div>
 
-        <div class="input-field">
-          <input id="senha" type="password" class="validate" name="senha" required>
+        <div class="input-field col m11 ">
+          <i class="material-icons prefix green-text">lock_outline</i>
+          <input id="senha" type="password" class="validate" name="senha" >
           <label for="senha">Senha</label>
         </div>
 
-        <!-- Botão de login -->
-        <button type="submit" class="btn btn-large blue btn-block">Entrar</button>
+        <div class="row col m12">
+          <button class="col m11 btn green" style="text-transform: capitalize;" type="submit" value="logar">Entrar</button>
+        </div>
+        
       </form>
-      <div class="row div-nova">
+      <div class="row div-nova center-align ">
         <a href="{{URL}}/recuperar/senha">
           <p>Esqueceu a senha?</p>
         </a>
