@@ -1,35 +1,34 @@
-<div class="container center-align">
-    <div class="card custom-card">
-        <div class="card-content">
-            
-             <img src="Assets/img/logo1.png" height="110" width="170">
-            <span class="card-title">Login</span>
-            <p>Este card está no centro horizontal da página.</p>
-            <div class="center-page">
-    <div class=" card-login">
-      <div class="card-content">
+<div class="center-page">
+  <div class="card card-login">
+    <div class="card-content">
+      <!-- Logo -->
+      <section class="login-img">
+        <img src="Assets/img/logo01.png" height="110" width="170">
+      </section>
 
-        <!-- Título -->
-        <span class="card-title center-align">Acesso ao Sistema</span>
+      <!-- Título -->
+      <span class="card-title center-align">Login</span>
+      {{msg}}
+      <!-- Formulário -->
+      <form method="post">
+        <div class="input-field">
+          <input id="email" type="email" class="validate" name="email" required>
+          <label for="email">Email</label>
+        </div>
 
-        <!-- Formulário -->
-        <form>
-          <div class="input-field">
-            <input id="email" type="email" class="validate" required>
-            <label for="email">Email</label>
-          </div>
+        <div class="input-field">
+          <input id="senha" type="password" class="validate" name="senha" required>
+          <label for="senha">Senha</label>
+        </div>
 
-          <div class="input-field">
-            <input id="password" type="password" class="validate" required>
-            <label for="password">Senha</label>
-          </div>
-
-          <!-- Botão de login -->
-          <button type="submit" class="btn btn-large blue btn-block">Entrar</button>
-        </form>
+        <!-- Botão de login -->
+        <button type="submit" class="btn btn-large blue btn-block">Entrar</button>
+      </form>
+      <div class="row div-nova">
+        <a href="{{URL}}/recuperar/senha">
+          <p>Esqueceu a senha?</p>
+        </a>
       </div>
     </div>
-  </div> 
-        </div>
-    </div>
+  </div>
 </div>
