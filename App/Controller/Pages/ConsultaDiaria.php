@@ -95,8 +95,39 @@ class ConsultaDiaria extends Page
         return $paciente;
     }
 
+    // Metodo que Atende o Paciente
+    public static function atenderConsulta($request,$id_zona)
+    {
+        $i = 5;
 
-    // Metodo que cadastra consultas
+        $obZona = ZonaDao::getZona($id_zona);
+
+        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
+
+            $obZona->zona = $_POST['zona'];
+            $obZona->inicio_venda = $_POST['inicio'];
+            $obZona->fim_venda = $_POST['fim'];
+            $obZona->mercado = $_POST['mercado'];
+            //$obZona->AtualizarZona();
+
+            // Redireciona para Painel Zona 
+            $request->getRouter()->redirect('/consulta/comfirmar/{id_consulta}');
+
+        }
+        $content = View::render('consulta/formConsulta', [
+            'titulo' => 'Atender Consulta',
+            'nome' => 'Dário Miguel Andre',
+            'button' => 'Editar',
+            'button-salvar' => 'Salvar',
+            'zona' => $obZona->zona,
+            'fim' => $obZona->fim_venda,
+            'inicio' => $obZona->inicio_venda,
+            'mercado' => $obZona->mercado
+        ]);
+        return parent::getPage('Atender Zona', $content);
+    }
+
+        // Metodo que cadastra consultas
     public static function cadastrarNovaConsulta($request)
     {
 
@@ -127,34 +158,6 @@ class ConsultaDiaria extends Page
 
         ]);
         return parent::getPage('Cadastrar nova Consulta', $content);
-    }
-
-    // Metodo que Atende o Paciente
-    public static function atender($request,$id_zona)
-    {
-        $obZona = ZonaDao::getZona($id_zona);
-
-        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
-
-            $obZona->zona = $_POST['zona'];
-            $obZona->inicio_venda = $_POST['inicio'];
-            $obZona->fim_venda = $_POST['fim'];
-            $obZona->mercado = $_POST['mercado'];
-            //$obZona->AtualizarZona();
-
-            // Redireciona para Painel Zona 
-            $request->getRouter()->redirect('/consulta/comfirmar/{id_consulta}');
-
-        }
-        $content = View::render('zonas/formZona', [
-            'titulo' => 'Editar Zona',
-            'button' => 'Editar',
-            'zona' => $obZona->zona,
-            'fim' => $obZona->fim_venda,
-            'inicio' => $obZona->inicio_venda,
-            'mercado' => $obZona->mercado
-        ]);
-        return parent::getPage('Atender Zona', $content);
     }
 
     // Metodo que apagar Zona

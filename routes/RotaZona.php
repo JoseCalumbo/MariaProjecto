@@ -41,7 +41,7 @@ $obRouter->post('/zona/cadastrar',[
 ]);
 
 // rota para alterar um registro GET
-$obRouter->get('/consulta/atender/{id_zona}',[
+$obRouter->get('/consulta/atenders/{id_zona}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'

@@ -15,7 +15,7 @@ Class Zona extends Page{
 
         $queryParam = $request->getQueryParams();
 
-        $obPagination = new Pagination(null,null,null);
+        //$obPagination = new Pagination(null,null,null);
             
          // Var que retorna o conteudo
          $item='';
@@ -137,7 +137,7 @@ Class Zona extends Page{
             $request->getRouter()->redirect('/zona?msg=editado');
         }
 
-        $content = View::render('zonas/formZona', [
+        $content = View::render('consulta/formRemarcarConsulta', [
                 'titulo' => 'Editar Zona',
                 'button' => 'Editar',
                 'zona'=> $obZona->zona,

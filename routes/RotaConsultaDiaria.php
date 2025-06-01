@@ -29,7 +29,7 @@ $obRouter->post('/consulta-diaria',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\ConsultaDiaria::atender($request,$id_zona));}
+    function($request, $id_zona){ return new Response(200,Pages\ConsultaDiaria::atenderConsulta($request,$id_zona));}
 ]);
 
 // rota formulario consulta diaria POST
