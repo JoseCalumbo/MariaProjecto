@@ -7,7 +7,6 @@ use \App\Utils\Session;
 use \App\Model\Entity\AddNegocioDao;
 use \App\Model\Entity\NegocioDao;
 use \PDO;
-
 class PacienteDao
 {
     public $id_paciente;
@@ -45,23 +44,22 @@ class PacienteDao
         $obDatabase = new Database('vendedor');
 
         $this->id = $obDatabase->insert([
-            'id' => $this->id,
-            'nome' => $this->nome,
-            'genero' => $this->genero,
-            'nascimento' => $this->nascimento,
-            'pai' => $this->pai,
-            'mae' => $this->mae,
-            'bilhete' => $this->bilhete,
-            'email' => $this->email,
-            'telefone1' => $this->telefone1,
-            'telefone2' => $this->telefone2,
-            'morada' => $this->morada,
-            'nivelAcademico' => $this->nivelAcademico,
-            'imagem' => $this->imagem,
-            'estado' => $this->estado,
+            'id' => $this->id_paciente,
+            'nome' => $this->nome_paciente,
+            'genero' => $this->genero_paciente,
+            'nascimento' => $this->nascimento_paciente,
+            'pai' => $this->pai_paciente,
+            'mae' => $this->mae_paciente,
+            'bilhete' => $this->bilhete_paciente,
+            'email' => $this->email_paciente,
+            'telefone1' => $this->telefone1_paciente,
+            'telefone2' => $this->telefone2_paciente,
+            'morada' => $this->morada_paciente,
+            'imagem' => $this->imagem_paciente,
+            'estado' => $this->estado_paciente,
             'id_us' => $this->id_us,
             'id_zona' => $this->id_zona,
-            'create_vs' => $this->create_vs,
+            'create_vs' => $this->create_paciente,
         ]);
 
         // metodo que adiciona um negocio ao vendedor
@@ -185,7 +183,7 @@ class PacienteDao
 
                     $obDatabase = new Database('negocio_vendedor');
                     $this->id_addNegocio = $obDatabase->insert([
-                        'id_vendedor' => $this->id,
+                        'id_vendedor' => $this->id_paciente,
                         'id_negocio' => $this->id_negocio = $obNeg->id_negocio,
                         'criado' => $this->criado,
                     ]);
@@ -203,19 +201,19 @@ class PacienteDao
         $this->editarNegocio();
 
         return (new Database('vendedor'))->update('id = ' . $this->id, [
-            'id' => $this->id,
-            'nome' => $this->nome,
-            'genero' => $this->genero,
-            'nascimento' => $this->nascimento,
-            'pai' => $this->pai,
-            'mae' => $this->mae,
-            'bilhete' => $this->bilhete,
-            'email' => $this->email,
-            'telefone1' => $this->telefone1,
+            'id' => $this->id_paciente,
+            'nome' => $this->nome_paciente,
+            'genero' => $this->genero_paciente,
+            'nascimento' => $this->nascimento_paciente,
+            'pai' => $this->pai_paciente,
+            'mae' => $this->mae_paciente,
+            'bilhete' => $this->bilhete_paciente,
+            'email' => $this->email_paciente,
+            'telefone1' => $this->telefone1_paciente,
             'telefone2' => $this->telefone2,
-            'morada' => $this->morada,
+            'morada' => $this->morada_paciente,
             'nivelAcademico' => $this->nivelAcademico,
-            'imagem' => $this->imagem,
+            'imagem' => $this->imagem_paciente,
             'id_zona' => $this->id_zona,
             'create_vs' => $this->create_vs,
         ]);
@@ -224,7 +222,7 @@ class PacienteDao
     // metodo para deletar um vendedor na tabela
     public function apagar()
     {
-        return (new Database('vendedor'))->delete('id =' . $this->id, []);
+        return (new Database('vendedor'))->delete('id =' . $this->id_paciente, []);
     }
 
     /**
