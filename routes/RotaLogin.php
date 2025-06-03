@@ -8,7 +8,7 @@ use \App\Controller\Pages;
  *  foi incluido em routas.php
  */
 
-//
+// logar no sistema
 $obRouter->get('/login',[
     'middlewares'=>[
         'requer-logout'
@@ -24,6 +24,24 @@ $obRouter->post('/login',[
     ],
     function($request){ 
         return new Response(200,Pages\login::setLogin($request)); }
+]);
+
+//criar conta no sistema GET
+$obRouter->get('/sigin',[
+    'middlewares'=>[
+        'requer-logout'
+    ],
+    function($request,$erroMsg){
+
+        return new Response(200,Pages\Sigin::telaSigin($request,$erroMsg)); }
+]);
+
+$obRouter->post('/sign',[
+    'middlewares'=>[
+        'requer-logout'
+    ],
+    function($request){ 
+        return new Response(200,Pages\Sigin::criarConta($request)); }
 ]);
 
 // rota para deslogar o usuario
