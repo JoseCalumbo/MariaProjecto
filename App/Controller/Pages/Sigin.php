@@ -6,6 +6,7 @@ use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Utils\Upload;
 use \App\Model\Entity\UsuarioDao;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Controller\Mensagem\Mensagem;
 
 class Sigin extends Page
@@ -34,7 +35,7 @@ class Sigin extends Page
      */
     public static function criarConta($request)
     {
-        $obUsuario = new UsuarioDao;
+        $obAdmimUser = new AdmimUserDao;
 
         $postVars = $request->getPostVars();
         $nome = $postVars['nome'] ?? '';
@@ -44,11 +45,11 @@ class Sigin extends Page
 
         if (isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['ConfirmaSenha'])) {
 
-            $obUsuario->nome_us = $nome;
-            $obUsuario->email_us = $email;
-            $obUsuario->senha_us = password_hash($senha, PASSWORD_DEFAULT);
-            $obUsuario->imagem_us = 'anonimo.png';
-            $obUsuario->cadastrar();
+            $obAdmimUser->nome_us = $nome;
+            $obAdmimUser->email_us = $email;
+            $obAdmimUser->senha_us = password_hash($senha, PASSWORD_DEFAULT);
+            $obAdmimUser->imagem_us = 'anonimo.png';
+            $obAdmimUser->cadastrar();
 
             $request->getRouter()->redirect('/usuario?msg=cadastrado');
             exit;
@@ -87,9 +88,9 @@ class Sigin extends Page
         $postVars = $request->getPostVars();
         $email = $postVars['email'] ?? '';
 
-        $obUsuario = UsuarioDao::getUsuarioEmail($email);
+        $obAdmimUser = UsuarioDao::getUsuarioEmail($email);
 
-        if (!$obUsuario instanceof UsuarioDao) {
+        if (!$obAdmimUser instanceof UsuarioDao) {
             return self::recuperarSenha($request, 'Erro! Não foi encontrado nenhuma conta com este email');
         }
 
@@ -97,10 +98,10 @@ class Sigin extends Page
 
         $content = View::render('login/enviarEmail', [
             'msg' => $status,
-            'id' => $obUsuario->id_us,
-            'nome' => $obUsuario->nome_us,
-            'imagem' => $obUsuario->imagem_us,
-            'email' => $obUsuario->email_us,
+            'id' => $obAdmimUser->id_us,
+            'nome' => $obAdmimUser->nome_us,
+            'imagem' => $obAdmimUser->imagem_us,
+            'email' => $obAdmimUser->email_us,
         ]);
 
         return parent::getPageLogin('Recuperar senha', $content, null);
@@ -110,10 +111,10 @@ class Sigin extends Page
     {
         $content = View::render('login/emailEnviado', [
             // 'msg' =>$status,
-            // 'id' =>$obUsuario->id_us,
-            // 'nome' =>$obUsuario->nome_us,
-            // 'imagem' =>$obUsuario->imagem_us,
-            // 'email' =>$obUsuario->email_us,
+            // 'id' =>$obAdmimUser->id_us,
+            // 'nome' =>$obAdmimUser->nome_us,
+            // 'imagem' =>$obAdmimUser->imagem_us,
+            // 'email' =>$obAdmimUser->email_us,
         ]);
 
         return parent::getPageLogin('Recuperar senha -email ', $content, null);
