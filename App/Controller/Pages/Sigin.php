@@ -4,6 +4,7 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Utils\Session;
+use \App\Utils\Upload;
 use \App\Model\Entity\UsuarioDao;
 use \App\Controller\Mensagem\Mensagem;
 
@@ -43,35 +44,14 @@ class Sigin extends Page
 
         if (isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['ConfirmaSenha'])) {
 
-            $obUpload = new Upload($_FILES['imagem']) ?? '';
-
-            if ($_FILES['imagem']['error'] == 4) {
-
-                $obUsuario->nome_us = $nome;
-                $obUsuario->genero_us = $email;
-                $obUsuario->nascimento_us = $_POST['data'];
-                $obUsuario->bilhete_us = $_POST['bilhete'];
-                $obUsuario->senha_us = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
-                $obUsuario->imagem_us = 'anonimo.png';
-                $obUsuario->cadastrar();
-
-                $request->getRouter()->redirect('/usuario?msg=cadastrado');
-                exit;
-            }
-
-            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
-
-            $obUsuario->nome_us = $_POST['nome'];
-            $obUsuario->genero_us = $_POST['genero'];
-            $obUsuario->nascimento_us = $_POST['data'];
-            $obUsuario->bilhete_us = $_POST['bilhete'];
-            $obUsuario->email_us = $_POST['email'];
-            $obUsuario->telefone_us = $_POST['telefone'];
-            $obUsuario->nivel_us = $_POST['acesso'];
-            $obUsuario->posto_us = $_POST['posto'];
-            $obUsuario->senha_us = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
-            $obUsuario->imagem_us = $obUpload->getBaseName();
+            $obUsuario->nome_us = $nome;
+            $obUsuario->email_us = $email;
+            $obUsuario->senha_us = password_hash($senha, PASSWORD_DEFAULT);
+            $obUsuario->imagem_us = 'anonimo.png';
             $obUsuario->cadastrar();
+
+            $request->getRouter()->redirect('/usuario?msg=cadastrado');
+            exit;
 
             if ($sucess) {
                 $request->getRouter()->redirect('/usuario?msg=cadastrado');
@@ -81,20 +61,8 @@ class Sigin extends Page
             }
         }
 
-        $obUsuario = UsuarioDao::getUsuarioEmail($email);
-
-
-
-        //cria session de login
-        Session::login($obUsuario);
-
-        if ($obUsuario->nivel_us == 'Normal') {
-            // redireciona para a pagina de home 
-            $request->getRouter()->redirect('/home');
-        }
-
-        // redireciona para a pagina de home 
-        $request->getRouter()->redirect('/');
+        // redireciona para a pagina de login
+        $request->getRouter()->redirect('/login');
     }
 
     /**

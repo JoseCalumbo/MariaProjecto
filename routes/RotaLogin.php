@@ -36,7 +36,7 @@ $obRouter->get('/sigin',[
         return new Response(200,Pages\Sigin::telaSigin($request,$erroMsg)); }
 ]);
 
-$obRouter->post('/sign',[
+$obRouter->post('/sigin',[
     'middlewares'=>[
         'requer-logout'
     ],
