@@ -44,6 +44,17 @@ $obRouter->post('/sigin',[
         return new Response(200,Pages\Sigin::criarConta($request)); }
 ]);
 
+//criar conta no sistema GET
+$obRouter->get('/sigin/confirmado',[
+    'middlewares'=>[
+        'requer-logout'
+    ],
+    function($request){
+
+        return new Response(200,Pages\Sigin::telaSiginConfirma($request)); }
+]);
+
+
 // rota para deslogar o usuario
 $obRouter->get('/logout',[
     'middlewares'=>[

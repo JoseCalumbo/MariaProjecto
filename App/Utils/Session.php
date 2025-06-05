@@ -1,65 +1,68 @@
 <?php
 
 namespace App\Utils;
+use \App\Model\Entity\AdmimUserDao;
+use \App\Model\Entity\UsuarioDao;
 
-class Session{
+class Session
+{
+
+    /**Metodo para Iniciar uma Sessão
+    /** void 
+     */
+    private static function init()
+    {
+        if (session_status() != PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+    }
+
+    //retorna os dados na session do usuario
+    public static function getUsuarioLogado()
+    {
+        self::init();
+        return self::isLogged() ? $_SESSION['tb_usuario'] : null;
+    }
 
     /**
-     * Metodo para iniciar uma sessao
+     * Metodo para logar um usuario e os seus dados
+     *@param AdmimUserDao 
+     *@return boolean
      */
-    private static function init(){
-         if(session_status()!= PHP_SESSION_ACTIVE){
-            session_start();
-         }
-    }
-
-    //retorna os das na session do usuario
-    public static function getUsuarioLogado(){
+    public static function login($obAdminUser)
+    {
         self::init();
-        return self::isLogged() ? $_SESSION['usuario']:null;
-    }
-
-     /**
-      * Metodo para logar um usuario e os seus dados
-      *@param User $obUsuario
-      *@return boolean
-      */
-    public static function login($obUsuario){
-
-        self::init();
-
-        $_SESSION['usuario']=[
-            'id_us'=>$obUsuario->id_us,
-            'nome_us'=>$obUsuario->nome_us,
-            'imagem_us' => $obUsuario->imagem_us,
-            'nivel_us' => $obUsuario->nivel_us,
+        $_SESSION['tb_usuario'] = [
+            'id' => $obAdminUser->id,
+            'nome' => $obAdminUser->nome,
+            'imagem' => $obAdminUser->imagem,
+            'nivel' => $obAdminUser->nivel,
         ];
 
-          return true;
+        return true;
     }
 
-
-     /**Metodo para verificar se tem user logado na sessao */
-    public static function isLogged(){
-
+    /**Metodo para verificar se tem user logado na sessao */
+    public static function isLogged()
+    {
         // metodo que inicia a sessao do user
         self::init();
-
         //retorna a verificacao de usuario
-        return isset($_SESSION['usuario']['id_us']);
+        return isset($_SESSION['tb_usuario']['id']);
     }
 
     /**
      * Funcao para deslogar o usuario do sistema 
      * @return boolean
      */
-    public static function logout(){
+    public static function logout()
+    {
         // metodo que inicia a sessao do user
         self::init();
 
         //Desloga o user
-        unset($_SESSION['usuario']);
-        
+        unset($_SESSION['tb_usuario']);
+
         return true;
     }
 }

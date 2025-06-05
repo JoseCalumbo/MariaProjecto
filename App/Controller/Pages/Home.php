@@ -7,32 +7,35 @@ use \App\Model\Entity\VendedorDao;
 use \App\Model\Entity\UsuarioDao;
 use App\Model\Entity\ZonaDao;
 
-class Home extends Page{
+class Home extends Page
+{
+    // busca o total dos Usuario
+    public static function getDadosVendedor()
+    {
+        //quantidade total de registros da tabela user
+        $quantidadetotal = VendedorDao::listarVendedor(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        return $quantidadetotal;
+    }
 
-        // busca o total dos Usuario
-        public static function getDadosVendedor(){
-            //quantidade total de registros da tabela user
-            $quantidadetotal = VendedorDao::listarVendedor(null,null,null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
-            return $quantidadetotal;
-        }
-    
-        // busca o total dos Vendedor
-        public static function getDadosUsuario(){
-            //quantidade total de registros da tabela user
-            $quantidadetotal = UsuarioDao::listarUsuario(null,null,null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
-            return $quantidadetotal;
-        }
+    // busca o total dos Vendedor
+    public static function getDadosUsuario()
+    {
+        //quantidade total de registros da tabela user
+        $quantidadetotal = UsuarioDao::listarUsuario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        return $quantidadetotal;
+    }
 
-                // busca o total dos Vendedor
-                public static function getzonas(){
-                    //quantidade total de registros da tabela user
-                    $quantidadetotal = ZonaDao::listarZona(null,null,null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
-                    return $quantidadetotal;
-                }
+    // busca o total dos Vendedor
+    public static function getzonas()
+    {
+        //quantidade total de registros da tabela user
+        $quantidadetotal = ZonaDao::listarZona(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        return $quantidadetotal;
+    }
 
     // funcao para apresenatar os registos dos dados 
-    private static function getBuscaVedendor($request) {
-
+    private static function getBuscaVedendor($request)
+    {
         $queryParam = $request->getQueryParams();
 
         $item = '';
@@ -67,7 +70,7 @@ class Home extends Page{
             // Verifica se foi realizada uma pesquisa
             $queryParam = $request->getQueryParams();
 
-            if($queryParam['pesquisar'] ?? '') {
+            if ($queryParam['pesquisar'] ?? '') {
 
                 return View::render('pesquisar/item', [
                     'pesquisa' => $buscar,
@@ -82,20 +85,22 @@ class Home extends Page{
     }
 
     // tela home adim
-    public static function getHome($request){
+    public static function getHome($request)
+    {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
-            'totalUsuario'=>self::getDadosUsuario(),
-            'totalVendedor'=>self::getDadosVendedor(),
-            'totalzona'=>self::getzonas(),
+            //'totalUsuario' => self::getDadosUsuario(),
+            // 'totalVendedor' => self::getDadosVendedor(),
+            //'totalzona' => self::getzonas(),
         ]);
         return parent::getPageHome('Venda Ambulante', $content);
-    } 
+    }
 
     // tela balcao
-    public static function getHomeBalcao($request){
+    public static function getHomeBalcao($request)
+    {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeBalcao', [
             'pesquisar' => $buscar,
@@ -104,10 +109,9 @@ class Home extends Page{
         return parent::getHeaderDados('Venda Ambulante', $content);
     }
 
-
-    
     //tela home Medico
-    public static function getHomeMedico($request){
+    public static function getHomeMedico($request)
+    {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,

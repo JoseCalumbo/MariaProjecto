@@ -13,13 +13,13 @@
       <form class="row" method="post" enctype="multipart/form-data">
         <div class="input-field col m11">
           <i class="material-icons prefix green-text">perm_identity</i>
-          <input id="nome" type="text" class="validate" name="nome" required>
+          <input id="nome" type="text" class="validate" name="nome" required value="{{nome}}">
           <label for="nome">Nome</label>
         </div>
 
         <div class="input-field col m11">
           <i class="material-icons prefix green-text">mail_outline</i>
-          <input id="email" type="email" class="validate" name="email" required>
+          <input id="email" type="email" class="validate" name="email" required value="{{email}}">
           <label for="email">Email</label>
         </div>
 
@@ -36,7 +36,7 @@
         </div>
 
         <div class="row col m10 center-align ">
-          <button class=" push-m2 col m12 btn green waves-effect waves-light" style="text-transform: capitalize;" type="submit" value="logar">Criar Conta</button>
+          <button class="push-m2 col m12 btn green waves-effect waves-light" style="text-transform: capitalize;" type="submit" value="logar">Criar Conta</button>
         </div>
         
       </form>
@@ -48,3 +48,14 @@
     </div>
   </div>
 </div>
+
+  <!-- Modal Structure -->
+  <div id="cadastra" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>

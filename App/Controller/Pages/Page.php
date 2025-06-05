@@ -4,7 +4,9 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Utils\Session;
+use \App\Http\Request;
 use \App\Model\Entity\UsuarioDao;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Utils\Pagination;
 
 
@@ -15,17 +17,17 @@ Class Page{
 
         $dados = '';
 
-        $usuarioLogado = Session::getUsuarioLogado();
-        
-        $id=$usuarioLogado['id_us'];
-        $nome=$usuarioLogado['nome_us'];
-        $nivel=$usuarioLogado['nivel_us'];
+        $admimUserLogado = Session::getUsuarioLogado();
+        $id=$admimUserLogado['id'];
+        $nome=$admimUserLogado['nome'];
+        $nivel=$admimUserLogado['nivel'];
 
-        $obUsuario = UsuarioDao::getUsuarioId($id);
+        //Busca o usuario Admin por id
+        $obAdminUser= AdmimUserDao::getUsuarioId($id);
 
         $dados .= View::render('Layouts/dadoslogado',[
             'nome'=>$nome,
-            'imagem'=>$obUsuario->imagem_us,
+            'imagem'=>$obAdminUser->imagem,
             'nivel'=>$nivel,
         ]);
 
@@ -38,7 +40,7 @@ Class Page{
     /**
        * Função para mostrar a paginacao 
        *@param Request $request
-       *@param Paginacao $obPagination
+       *@param Pagination $obPagination
        *@return string
     */
     public static function getPaginacao($request,$obPagination){

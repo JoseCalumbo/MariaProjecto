@@ -3,8 +3,7 @@
 namespace App\Controller\Pages;
 
 use \App\Utils\View;
-use \App\Utils\Session;
-use \App\Utils\Upload;
+use \App\Http\Request;
 use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\AdmimUserDao;
 use \App\Controller\Mensagem\Mensagem;
@@ -16,17 +15,19 @@ class Sigin extends Page
     {
         $postVars = $request->getPostVars();
         $postVars = $request->getPostVars();
+        $nome = $postVars['nome'] ?? '';
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? '';
 
         $status = !is_null($erroMsg) ? Mensagem::msgErro($erroMsg) : '';
 
         $content = View::render('login/sign', [
+            'nome' => $nome ?? '',
             'email' => $email ?? '',
             'senha' => $senha,
             'msg' => $status,
         ]);
-        return parent::getPageLogin('Logar ', $content, null);
+        return parent::getPageLogin('Criar conta ', $content, null);
     }
 
     /**
@@ -43,80 +44,42 @@ class Sigin extends Page
         $senha = $postVars['senha'] ?? '';
         $confirmaSenha = $postVars['ConfirmaSenha'] ?? '';
 
+
+        // verifica se as senhas são iguais
+        if ($senha != $confirmaSenha) {
+            return self::telaSigin($request, '<p>Erro na confirmação de senha,digita novamente</p>');
+        }
+
+        // verifica se o email ja foi cadastrado por outro usuario
+        // $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
+        //  if (!$obAdmimUser1 instanceof AdmimUserDao) {
+        //  return self::telaSigin($request, '<p>Erro este email já esta ser utilizado</p>');
+        //}
+
         if (isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['ConfirmaSenha'])) {
 
-            $obAdmimUser->nome_us = $nome;
-            $obAdmimUser->email_us = $email;
-            $obAdmimUser->senha_us = password_hash($senha, PASSWORD_DEFAULT);
-            $obAdmimUser->imagem_us = 'anonimo.png';
+            $obAdmimUser->nome = $nome;
+            $obAdmimUser->email = $email;
+            $obAdmimUser->senha = password_hash($senha, PASSWORD_DEFAULT);
+            $obAdmimUser->nivel = 'Administrador';
+            $obAdmimUser->imagem = 'anonimo.png';
             $obAdmimUser->cadastrar();
-
-            $request->getRouter()->redirect('/usuario?msg=cadastrado');
+            $request->getRouter()->redirect('/sigin/confirmado');
             exit;
-
-            if ($sucess) {
-                $request->getRouter()->redirect('/usuario?msg=cadastrado');
-                exit;
-            } else {
-                echo 'Ficheiro nao Enviado';
-            }
         }
-
         // redireciona para a pagina de login
-        $request->getRouter()->redirect('/login');
+        $request->getRouter()->redirect('/sigin');
     }
 
-    /**
-     * Metodo para tela de  recuperar senha usuario
-     * @param 
-     */
-    public static function recuperarSenha($request, $erroMsg)
+    public static function telaSiginConfirma($request)
     {
+        // $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
 
-        $status = !is_null($erroMsg) ? Mensagem::msgErro($erroMsg) : '';
-
-        $content = View::render('login/recuperarSenha', [
-            'msg' => $status,
+        $content = View::render('login/contaRegistrado', [
+            'nome' => $nome ?? '',
+            'email' => $email ?? '',
         ]);
-
-        return parent::getPageLogin('Recuperar senha', $content, null);
+        return parent::getPageLogin('Conta registrado ', $content, null);
     }
 
-
-    public static function setRecuperarSenha($request, $erroMsg)
-    {
-        $postVars = $request->getPostVars();
-        $email = $postVars['email'] ?? '';
-
-        $obAdmimUser = UsuarioDao::getUsuarioEmail($email);
-
-        if (!$obAdmimUser instanceof UsuarioDao) {
-            return self::recuperarSenha($request, 'Erro! Não foi encontrado nenhuma conta com este email');
-        }
-
-        $status = !is_null($erroMsg) ? Mensagem::msgErro($erroMsg) : '';
-
-        $content = View::render('login/enviarEmail', [
-            'msg' => $status,
-            'id' => $obAdmimUser->id_us,
-            'nome' => $obAdmimUser->nome_us,
-            'imagem' => $obAdmimUser->imagem_us,
-            'email' => $obAdmimUser->email_us,
-        ]);
-
-        return parent::getPageLogin('Recuperar senha', $content, null);
-    }
-
-    public static function emailEnviado($request, $erroMsg)
-    {
-        $content = View::render('login/emailEnviado', [
-            // 'msg' =>$status,
-            // 'id' =>$obAdmimUser->id_us,
-            // 'nome' =>$obAdmimUser->nome_us,
-            // 'imagem' =>$obAdmimUser->imagem_us,
-            // 'email' =>$obAdmimUser->email_us,
-        ]);
-
-        return parent::getPageLogin('Recuperar senha -email ', $content, null);
-    }
 }

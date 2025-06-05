@@ -4,13 +4,17 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Utils\Session;
+use \App\Http\Request;
 use \App\Model\Entity\UsuarioDao;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Controller\Mensagem\Mensagem;
 
 class Login extends Page
 {
 
-    // Funcao que apresenta a tela de usuario
+    /** Função para apresentar a pagina de LOGUIN dos usuario
+     * @param Request  
+     */
     public static function telaLogin($request, $erroMsg = null)
     {
         $postVars = $request->getPostVars();
@@ -34,37 +38,31 @@ class Login extends Page
      */
     public static function setLogin($request)
     {
-
         $postVars = $request->getPostVars();
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? '';
 
-        $obUsuario = UsuarioDao::getUsuarioEmail($email);
+        $obAdminUser = AdmimUserDao::getUsuarioEmail($email);
 
-        if (!$obUsuario instanceof UsuarioDao) {
+        if (!$obAdminUser instanceof AdmimUserDao) {
             return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
         }
 
-        if (!password_verify($senha, $obUsuario->senha_us)) {
-            return self::telaLogin($request, '<p>Erro Email ou Senha Invalido </p>');
-        }
+       // if (!password_verify($senha, $obAdminUser->senha)) {
+            //return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
+     //   }
 
-        //cria session de login
-        Session::login($obUsuario);
+        //criar uma nova Sessão de Login
+        Session::login($obAdminUser);
 
-        if($obUsuario->nivel_us == 'Normal') {
+        if ($obAdminUser->nivel == 'Administrador') {
             // redireciona para a pagina de home 
-            $request->getRouter()->redirect('/home');
+            $request->getRouter()->redirect('/');
         }
 
-        if ($obUsuario->nivel_us == 'Alto') {
+        if ($obAdminUser->nivel == 'normal') {
             // redireciona para a pagina de home 
             $request->getRouter()->redirect('/dados');
-        }
-
-        if ($obUsuario->nivel_us == 'Medio') {
-            // redireciona para a pagina de home 
-            $request->getRouter()->redirect('/fina');
         }
 
         // redireciona para a pagina de home 
