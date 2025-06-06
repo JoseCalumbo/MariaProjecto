@@ -5,8 +5,8 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Http\Request;
+use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\AdmimUserDao;
-use \App\Model\Entity\FuncionarioDao;
 use \App\Controller\Mensagem\Mensagem;
 
 class Login extends Page
@@ -42,11 +42,9 @@ class Login extends Page
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? '';
 
-        $obFuncionario = FuncionarioDao::getFuncionarioEmail($email);
+        $obAdminUser = AdmimUserDao::getUsuarioEmail($email);
 
-   
-
-        if (!$obFuncionario instanceof FuncionarioDao) {
+        if (!$obAdminUser instanceof AdmimUserDao) {
             return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
         }
 
@@ -55,14 +53,14 @@ class Login extends Page
      //   }
 
         //criar uma nova Sessão de Login
-        Session::login($obFuncionario);
+        Session::login($obAdminUser);
 
-        if ($obFuncionario->cargo_funcionario == 'administrador' ) {
-            // redireciona para a pagina principal
+        if ($obAdminUser->nivel == 'Administrador') {
+            // redireciona para a pagina de home 
             $request->getRouter()->redirect('/');
         }
 
-        if ($obFuncionario->cargo_funcionario == 'Médico' || $obFuncionario->cargo_funcionario == 'Medico') {
+        if ($obAdminUser->nivel == 'normal') {
             // redireciona para a pagina de home 
             $request->getRouter()->redirect('/dados');
         }

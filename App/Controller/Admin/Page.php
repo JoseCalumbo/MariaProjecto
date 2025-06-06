@@ -5,7 +5,7 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Http\Request;
-use \App\Model\Entity\FuncionarioDao;
+use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\AdmimUserDao;
 use \App\Utils\Pagination;
 
@@ -17,17 +17,17 @@ Class Page{
 
         $dados = '';
 
-        $funcionarioLogado = Session::getUsuarioLogado();
-        $id=$funcionarioLogado['id'];
-        $nome=$funcionarioLogado['nome'];
-        $nivel=$funcionarioLogado['nivel'];
+        $admimUserLogado = Session::getUsuarioLogado();
+        $id=$admimUserLogado['id'];
+        $nome=$admimUserLogado['nome'];
+        $nivel=$admimUserLogado['nivel'];
 
-        //Busca o Funcionario por id
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
+        //Busca o usuario Admin por id
+        $obAdminUser= AdmimUserDao::getUsuarioId($id);
 
         $dados .= View::render('Layouts/dadoslogado',[
             'nome'=>$nome,
-            'imagem'=>$obFuncionario->imagem_funcionario,
+            'imagem'=>$obAdminUser->imagem,
             'nivel'=>$nivel,
         ]);
 

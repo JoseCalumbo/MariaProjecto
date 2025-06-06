@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Utils;
-use \App\Model\Entity\AdmimUserDao;
-use \App\Model\Entity\UsuarioDao;
 
 class Session
 {
@@ -21,22 +19,22 @@ class Session
     public static function getUsuarioLogado()
     {
         self::init();
-        return self::isLogged() ? $_SESSION['tb_usuario'] : null;
+        return self::isLogged() ? $_SESSION['tb_funcionario'] : null;
     }
 
     /**
      * Metodo para logar um usuario e os seus dados
-     *@param AdmimUserDao 
+     *@param 
      *@return boolean
      */
-    public static function login($obAdminUser)
+    public static function login($obFuncionario)
     {
         self::init();
-        $_SESSION['tb_usuario'] = [
-            'id' => $obAdminUser->id,
-            'nome' => $obAdminUser->nome,
-            'imagem' => $obAdminUser->imagem,
-            'nivel' => $obAdminUser->nivel,
+        $_SESSION['tb_funcionario'] = [
+            'id' => $obFuncionario->id_funcionario,
+            'nome' => $obFuncionario->nome_funcionario,
+            'imagem' => $obFuncionario->imagem_funcionario,
+            'nivel' => $obFuncionario->cargo_funcionario,
         ];
 
         return true;
@@ -48,7 +46,7 @@ class Session
         // metodo que inicia a sessao do user
         self::init();
         //retorna a verificacao de usuario
-        return isset($_SESSION['tb_usuario']['id']);
+        return isset($_SESSION['tb_funcionario']['id']);
     }
 
     /**
@@ -61,7 +59,7 @@ class Session
         self::init();
 
         //Desloga o user
-        unset($_SESSION['tb_usuario']);
+        unset($_SESSION['tb_funcionario']);
 
         return true;
     }
