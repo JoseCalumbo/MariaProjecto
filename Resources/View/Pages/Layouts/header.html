@@ -40,7 +40,6 @@
 
         <aside id="aside">
             <ul class="fixed  collapsible">
-
                 <li>
                     <a class="collapsible-header" href="{{URL}}">
                         <i class="material-icons white-text ">home</i>Principal
@@ -49,22 +48,28 @@
 
                 <li class="sub-menu">
                     <a href="#" class="collapsible-header">
-                        <i class="material-icons white-text ">assignment</i> Registros
+                        <i class="material-icons white-text ">assignment</i> Consultas
                     </a>
 
                     <ul id="collapsible-body" class="collapsible-body">
 
-                        <li><a class="item-menu" href="{{URL}}/triagem">
-                                <i class="material-icons white-text " style="vertical-align: -6px;">library_add</i>
-                                Triagem</a>
+                        <li><a class="item-menu" href="{{URL}}/consulta-diaria">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">timer</i>
+                                Diaria</a>
                         </li>
 
                         <li>
                             <a class="" href="{{URL}}/consulta">
-                                <i class=" material-icons white-text " style="vertical-align: -6px;">place</i>
-                                Consultas</a>
+                                <i class=" material-icons white-text " style="vertical-align: -6px;">today</i>
+                                Marcada</a>
                         </li>
                     </ul>
+                </li>
+
+                <li>
+                    <a class="collapsible-header" href="{{URL}}/triagem">
+                        <i class="material-icons white-text " style="vertical-align: -6px;">library_add</i>Triagem
+                    </a>
                 </li>
 
                 <li>
@@ -97,15 +102,31 @@
 
                     <ul class="collapsible-body">
                         <li><a class="" href="{{URL}}/conta">
-                                <i class="material-icons white-text ">account_box</i>Editar Conta</a>
+                                <i class="material-icons white-text" style="vertical-align: -6px;">account_box</i>Editar
+                                Conta</a>
                         </li>
                         <li>
                             <a class="" href="{{URL}}/logout">
-                                <i class="material-icons white-text ">person_add</i> Bloquear</a>
+                                <i class="material-icons white-text" style="vertical-align: -6px;"> streetview</i>
+                                Bloquear</a>
                         </li>
                         <li>
                             <a class="" href="{{URL}}/logout">
-                                <i class="material-icons white-text ">highlight_off</i> Sair da conta</a>
+                                <i class="material-icons white-text " style="vertical-align: -6px;">settings</i>
+                                Definição</a>
+                        </li>
+                        <li>
+                            <a class="" href="{{URL}}/logout">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">cancel</i> 
+                                Sair da conta
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" href="{{URL}}/logout">
+                                <i class="fa fa-user-md" aria-hidden="true"></i>
+                                <i class="material-icons white-text " style="vertical-align: -6px;">cancel</i> 
+                                Sair da conta
+                            </a>
                         </li>
                     </ul>
                 </li>

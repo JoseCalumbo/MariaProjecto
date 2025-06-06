@@ -77,10 +77,7 @@ class Home extends Page
                     'resultados' => $item,
                     'numResultado' => $quantidadetotal,
                 ]);
-
             }
-
-
         }
     }
 
@@ -95,7 +92,19 @@ class Home extends Page
             // 'totalVendedor' => self::getDadosVendedor(),
             //'totalzona' => self::getzonas(),
         ]);
-        return parent::getPageHome('Venda Ambulante', $content);
+        // Retorna o metedo que renderiza a (Layouts) pagina 
+        return parent::getPage('Auxiliar Médico', $content);
+    }
+
+    //tela home Medico
+    public static function getHomeMedico($request)
+    {
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+        $content = View::render('home/homeMedico', [
+            'pesquisar' => $buscar,
+            'BuscaVendedor' => self::getBuscaVedendor($request),
+        ]);
+        return parent::getHeaderMedico('Venda Ambulante', $content);
     }
 
     // tela balcao
@@ -109,14 +118,5 @@ class Home extends Page
         return parent::getHeaderDados('Venda Ambulante', $content);
     }
 
-    //tela home Medico
-    public static function getHomeMedico($request)
-    {
-        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/homeMedico', [
-            'pesquisar' => $buscar,
-            'BuscaVendedor' => self::getBuscaVedendor($request),
-        ]);
-        return parent::getHeaderMedico('Venda Ambulante', $content);
-    }
+
 }

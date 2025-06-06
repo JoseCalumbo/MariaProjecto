@@ -6,14 +6,12 @@ use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Http\Request;
 use \App\Model\Entity\FuncionarioDao;
-use \App\Model\Entity\AdmimUserDao;
 use \App\Utils\Pagination;
-
 
 Class Page{
 
     //pega os dados do usuario logado no momento
-    public static function getUsuarioLogado($obUsuario){
+    public static function getFuncionarioLogado($obFuncionario){
 
         $dados = '';
 
@@ -30,12 +28,10 @@ Class Page{
             'imagem'=>$obFuncionario->imagem_funcionario,
             'nivel'=>$nivel,
         ]);
-
         return View::render('Layouts/itemdados',[
             'links'=>$dados,
        ]);
     }
-
 
     /**
        * Função para mostrar a paginacao 
@@ -79,10 +75,10 @@ Class Page{
         ]);
     }
 
-    //metodo busca header
-    public static function getHeader($obUsuario){
+    //metodo para buscar header principal
+    public static function getHeader($obFuncionario){
         return View::render('Layouts/header',[
-            'info'=> self::getUsuarioLogado($obUsuario)
+            'info'=> self::getFuncionarioLogado($obFuncionario)
         ]);
     }
 
@@ -97,19 +93,19 @@ Class Page{
      * Metodo busca header da Pagina Home usuario ADIMIM
      * 
      * */
-    public static function getHeaderAdmin($obUsuario){
+    public static function getHeaderAdmin($obFuncionario){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         return View::render('Layouts/headerMedico',[
-            'info'=> self::getUsuarioLogado($obUsuario),
+            'info'=> self::getFuncionarioLogado($obFuncionario),
             'pesquisar' => $buscar,
         ]);
     }
 
     //metodo busca header do balcao
-    public static function headerMedico($obUsuario){
+    public static function headerMedico($obFuncionario){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         return View::render('Layouts/headerMedico',[
-            'info'=> self::getUsuarioLogado($obUsuario),
+            'info'=> self::getFuncionarioLogado($obFuncionario),
             'pesquisar' => $buscar,
         ]);
     }
@@ -118,7 +114,7 @@ Class Page{
     public static function headerDados($obUsuario){
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         return View::render('Layouts/headerDados',[
-            'info'=> self::getUsuarioLogado($obUsuario),
+            'info'=> self::getFuncionarioLogado($obUsuario),
             'pesquisar' => $buscar,
         ]);
     }
