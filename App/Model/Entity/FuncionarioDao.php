@@ -101,8 +101,16 @@ class FuncionarioDao
      */
     public static function getFuncionarioEmail($email_funcionario)
     {
-        return (new Database('tb_funcionario'))->select('email_funcionario = "' .$email_funcionario . '"')->fetchObject(self::class);
-        
+        return (new Database('tb_funcionario'))->select('email_funcionario = "' . $email_funcionario . '"')->fetchObject(self::class);
+
+    }
+
+    // responsavel para alterar imagem do usuario
+    public function actualizarImage()
+    {
+        return (new Database('tb_funcionario'))->update('imagem_funcionario = ' . $this->id_funcionario, [
+            'imagem_funcionario' => $this->imagem_funcionario,
+        ]);
     }
 }
 

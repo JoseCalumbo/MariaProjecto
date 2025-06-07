@@ -53,7 +53,6 @@ class Upload{
         if($this->error !=0) return false;
 
         $path = $dir.'/'.$this->getPossibleBaseName($dir,$overwrite); 
-
         return move_uploaded_file($this->tmpName,$path);
     }
 

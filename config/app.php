@@ -22,7 +22,7 @@ Database::config(
 define('URL',getenv('URL'));
 
 //defini local server
-define('LOCAL_URL',$_SERVER['DOCUMENT_ROOT'].'/projectovenda');
+define('LOCAL_URL',$_SERVER['DOCUMENT_ROOT'].'/MariaProjecto');
 
 //valor padrao das variaveis 
 View::init([

@@ -1,25 +1,28 @@
-<?php 
+<?php
 
 namespace App\Controller\Pages;
 
 use \App\Utils\View;
-use \App\Model\Entity\UsuarioDao;
 use \App\Utils\Session;
+use \App\Http\Request;
+use \App\Model\Entity\FuncionarioDao;
 use \App\Controller\Mensagem\Mensagem;
 use \App\Utils\Upload;
 
-Class Conta extends Page{
+class Conta extends Page
+{
 
     /**
-      * Metodo para exibir  a mensagem 
-      *@param Request $request
-      *@return string
-    */
-    public static function exibeMensagem($request){
-
+     * Metodo para exibir  a mensagem 
+     * @param Request $request
+     * @return string
+     */
+    public static function exibeMensagem($request)
+    {
         $queryParam = $request->getQueryParams();
-        
-        if(!isset($queryParam['msg'])) return '';
+
+        if (!isset($queryParam['msg']))
+            return '';
 
         switch ($queryParam['msg']) {
             case 'senhaEditada':
@@ -34,94 +37,106 @@ Class Conta extends Page{
         }// fim do switch
     }
 
-    // funcao para apresenatar os dados do user dados 
-    private static function getUsuarioConta(){
-            $item = '';
+    // funcão para apresentar os dados do user 
+    private static function getUsuarioConta()
+    {
+        $item = '';
+        //Obtem o id do usuario atraveis da Sessão
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
 
-            $usuarioLogado = Session::getUsuarioLogado();
-            $id=$usuarioLogado['id_us'];
-    
-            $obUsuario = UsuarioDao::getUsuarioId($id);
-    
-            $item .= View::render('conta/dadosConta', [
-                'id'=>$obUsuario->id_us,
-                'nome'=>$obUsuario->nome_us,
-                'genero'=>$obUsuario->genero_us,
-                'nascimento'=>$obUsuario->nascimento_us,
-                'bilhete'=>$obUsuario->bilhete_us,
-                'email'=>$obUsuario->email_us,
-                'telefone'=>$obUsuario->telefone_us,
-                'nivel'=>$obUsuario->nivel_us,
-                'registro'=>$obUsuario->create_us
-            ]);
-            return $item;
+        // Busca os dados funcionario pelo id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
+
+        $item .= View::render('conta/dadosConta', [
+            'id' => $obFuncionario->id_funcionario,
+            'nome' => $obFuncionario->nome_funcionario,
+            'genero' => $obFuncionario->genero_funcionario,
+            'nascimento' => $obFuncionario->nascimento_funcionario,
+            'bilhete' => $obFuncionario->bilhete_funcionario,
+            'email' => $obFuncionario->email_funcionario,
+            'telefone' => $obFuncionario->telefone1_funcionario,
+            'telefone1' => $obFuncionario->telefone2_funcionario,
+            'nivel' => $obFuncionario->cargo_funcionario,
+            'registro' => $obFuncionario->registrado
+        ]);
+        return $item;
     }
 
-    // funcao para apresenatar os dados do menu user dados 
-    private static function getUsuarioMenu(){
-            $item = '';
+    // Metodo para apresenatar os dados do menu user dados 
+    private static function getUsuarioMenu()
+    {
+        $item = '';
 
-            $usuarioLogado = Session::getUsuarioLogado();
-            $id=$usuarioLogado['id_us'];
+        $usuarioLogado = Session::getUsuarioLogado();
+        $id = $usuarioLogado['id'];
 
-            $obUsuario = UsuarioDao::getUsuarioId($id);
-    
-            $item .= View::render('conta/menuConta', [
-                'id'=>$obUsuario->id_us,
-                'nome'=>$obUsuario->nome_us,
-                'imagem'=>$obUsuario->imagem_us,
-            ]);
-            return $item;
+        // Busca os dados funcionario pelo id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
+
+        $item .= View::render('conta/menuConta', [
+            'id' => $obFuncionario->id_funcionario,
+            'nome' => $obFuncionario->nome_funcionario,
+            'imagem' => $obFuncionario->imagem_funcionario,
+        ]);
+        return $item;
     }
 
     // metodo que renderiza a tela  do usuario 
-    public static function telaConta($request){
+    public static function telaConta($request)
+    {
 
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id=$usuarioLogado['id_us'];
+        // Obetm o id do usuario da sessão
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
 
-        $obUsuario = UsuarioDao::getUsuarioId($id);
+        // Busca os dados funcionario pelo id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
 
-         $content = View::render('conta/conta',[
-            'dadosconta'=>self::getUsuarioConta(),
-            'menuconta'=>self::getUsuarioMenu(),
-            'imagem'=>$obUsuario->imagem_us,
-            'msg'=>self::exibeMensagem($request),
-            'msgVazio'=>''
+        $content = View::render('conta/conta', [
+            'dadosconta' => self::getUsuarioConta(),
+            'menuconta' => self::getUsuarioMenu(),
+            'imagem' => $obFuncionario->imagem_funcionario,
+            'msg' => self::exibeMensagem($request),
+            'msgVazio' => ''
         ]);
         return parent::getPage('Painel Usuario', $content);
     }
 
     /**
-      * Metodo para editar os dados 
-      *@param Request $request
-      *@return string
-    */
-    public  static function editarConta($request,$id_us){
+     * Metodo para editar os dados 
+     *@param Request $request
+     *@return string
+     */
+    public static function editarConta($request, $id_us)
+    {
 
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id=$usuarioLogado['id_us'];
+        // Obetm o id do usuario da sessão
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
 
-        $obUsuario = UsuarioDao::getUsuarioId($id);
-        
-        $content = View::render('conta/registrosConta',[
-            'msg'=>'',
-            'menuconta'=>self::getUsuarioMenu(),
-            'msgVazio'=>'',
-            'imagem'=>$obUsuario->imagem_us,
+        // Busca os dados funcionario pelo id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
+
+        $content = View::render('conta/registrosConta', [
+            'msg' => '',
+            'menuconta' => self::getUsuarioMenu(),
+            'msgVazio' => '',
+            'imagem' => $obFuncionario->imagem_us,
         ]);
         return parent::getPage('Editar conta', $content);
-             
+
     }
 
     // metodo que renderiza a tela alter senha
-    public static function telaAlterarSenha($request ,$erroMsg){
+    public static function telaAlterarSenha($request, $erroMsg)
+    {
 
         // pega o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();
-        $id=$usuarioLogado['id_us'];
+        $id = $usuarioLogado['id_us'];
 
-        $obUsuario = UsuarioDao::getUsuarioId($id);
+        $obFuncionario = UsuarioDao::getUsuarioId($id);
         $postVars = $request->getPostVars();
 
         // post do form da alteracao 
@@ -131,36 +146,37 @@ Class Conta extends Page{
 
         $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
 
-         $content = View::render('conta/alterarsenha',[
-            'menuconta'=>self::getUsuarioMenu(),
-            'senhaAntiga'=>$senhaAntiga,
-            'senhaNova'=>$senhaNova,
-            'senhaConf'=>$senhaConfirmada,
+        $content = View::render('conta/alterarsenha', [
+            'menuconta' => self::getUsuarioMenu(),
+            'senhaAntiga' => $senhaAntiga,
+            'senhaNova' => $senhaNova,
+            'senhaConf' => $senhaConfirmada,
             'msg' => $status,
-            'msgVazio'=>'',
-            'imagem'=>$obUsuario->imagem_us,
+            'msgVazio' => '',
+            'imagem' => $obFuncionario->imagem_us,
         ]);
         return parent::getPage('Usuario Alterar senha', $content);
     }
 
     //metodo post para alterar senha
-    public static function setAlterarSenha($request,$id_us){
+    public static function setAlterarSenha($request, $id_us)
+    {
 
         // obtem o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();
-        $id_us=$usuarioLogado['id_us'];
+        $id_us = $usuarioLogado['id_us'];
 
-    
+
         $postVars = $request->getPostVars();
 
         $senhaAntiga = $postVars['senhaAntiga'] ?? '';
         $senhaNova = $postVars['senhaNova'] ?? '';
         $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
-        
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
+
+        $obFuncionario = UsuarioDao::getUsuarioId($id_us);
 
         // validacao da senha se corresponde
-        if (!password_verify($senhaAntiga, $obUsuario->senha_us)) {
+        if (!password_verify($senhaAntiga, $obFuncionario->senha_us)) {
             return self::telaAlterarSenha($request, '<p class="black-text"> Erro! Senha Incorreta </p>');
             exit;
         }
@@ -172,60 +188,61 @@ Class Conta extends Page{
         }
 
         // valida os campos das senhas 
-        if (isset($postVars['senhaAntiga'],$postVars['senhaNova'],$postVars['senhaConfirmada'])){
+        if (isset($postVars['senhaAntiga'], $postVars['senhaNova'], $postVars['senhaConfirmada'])) {
 
             //faz a alteracao da senha
-            $obUsuario->senha_us = password_hash($postVars['senhaNova'],PASSWORD_DEFAULT);
-            $obUsuario->atualizarSenha(); 
+            $obFuncionario->senha_us = password_hash($postVars['senhaNova'], PASSWORD_DEFAULT);
+            $obFuncionario->atualizarSenha();
         }
-        
-        $request->getRouter()->redirect('/conta?msg=senhaEditada');
-   }
 
-   // metodo para alterar a imagem do usuario
-   public static function alterarImagem($request){
+        $request->getRouter()->redirect('/conta?msg=senhaEditada');
+    }
+
+    // metodo para alterar a imagem do usuario
+    public static function alterarImagem($request)
+    {
 
         $postVars = $request->getPostVars();
 
-        // obtem o id do usuario logado
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id_us=$usuarioLogado['id_us'];
+        // Obetm o id do usuario da sessão
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
 
-        // instancia do user
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
+        // Busca os dados funcionario pelo id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
 
         // instancia da class que carrega a imagem
         $obUpload = new Upload($_FILES['imagem']) ?? '';
 
-        if (isset($postVars['salvar'])){
-            
+        if (isset($postVars['salvar'])) {
+
             // verifica se foi carregado uma imagem 
             if ($_FILES['imagem']['error'] == 4) {
-                $content = View::render('conta/conta',[
-                    'msg'=>'',
+                $content = View::render('conta/conta', [
+                    'msg' => '',
                     //exibe os dados do user na pagina
-                    'dadosconta'=>self::getUsuarioConta(),
+                    'dadosconta' => self::getUsuarioConta(),
                     // exibe o menu do user na pagina
-                    'menuconta'=>self::getUsuarioMenu(),
+                    'menuconta' => self::getUsuarioMenu(),
                     // coloca a class para manter o modal de alter a foto
-                    'blocks'=>'block',
-                    'imagem'=>$obUsuario->imagem_us,
+                    'blocks' => 'block',
+                    'imagem' => $obFuncionario->imagem_funcionario,
                     //exibe a mensagem de nao carregar uma foto
                     'msgVazio' => '<p class="div-conta-inf red center">Não selecionaste nenhuma imagem nova</p>',
                 ]);
                 return parent::getPage('Usuario Alterar senha', $content);
             }
 
-            $sucess = $obUpload->upload(LOCAL_URL.'/Files/Imagem/user',false);
-            
-            $obUsuario->imagem_us = $obUpload->getBaseName();
-            $obUsuario->atualizarImagem(); 
-            
+            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
+
+            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
+            $obFuncionario->actualizarImage();
+
             if ($sucess) {
                 $request->getRouter()->redirect('/conta?msg=imagemAlterado');
                 exit;
             }
         }
-   }
+    }
 
 }
