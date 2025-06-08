@@ -108,8 +108,16 @@ class FuncionarioDao
     // responsavel para alterar imagem do usuario
     public function actualizarImage()
     {
-        return (new Database('tb_funcionario'))->update('imagem_funcionario = ' . $this->id_funcionario, [
+        return (new Database('tb_funcionario'))->update('id_funcionario = ' . $this->id_funcionario, [
             'imagem_funcionario' => $this->imagem_funcionario,
+        ]);
+    }
+
+    // responsavel para alterar senha do funcionario
+    public function atualizarSenha()
+    {
+        return (new Database('tb_funcionario'))->update('id_funcionario = ' . $this->id_funcionario, [
+            'senha_funcionario' => $this->senha_funcionario,
         ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use \App\Utils\Session;
+use \App\Http\Request;
+use \App\Http\Response;
 
 class NivelAcesso
 {
@@ -17,11 +19,12 @@ class NivelAcesso
     public function handle($request, $next){
 
         // busca se 
-        $usuarioLogado = Session::getUsuarioLogado();
+        $FuncionarioLogado = Session::getUsuarioLogado();
 
-        $nivel = $usuarioLogado['nivel_us'];
+        $nivel = $FuncionarioLogado['nivel'];
 
-        // verifica o nivel de acesso do usuario logafo  
+        // verifica o nivel de acesso do usuario logado  
+      //  if ($nivel == 'administrador'){
         if ($nivel == 'Normal'){
             $request->getRouter()->redirect('/acesso/negado');
         }

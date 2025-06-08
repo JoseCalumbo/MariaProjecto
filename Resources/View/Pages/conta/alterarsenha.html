@@ -20,9 +20,11 @@
 
             <div class="red lighten-4 font-small col s12 m8">{{msg}}</div>
 
-            <div class="label-float col m8">
-                <input type="password" placeholder=" " name="senhaAntiga" value="{{senhaAntiga}}" />
-                <label>Senha Antiga</label>
+            <div class="row">
+                <div class="input-field col m8">
+                    <input id="last_senha" type="password" name="senhaAntiga" value="{{senhaAntiga}}" class="validate">
+                    <label for="last_senha" class="font-small">Senha Antiga</label>
+                </div>
             </div>
 
             <div class="label-float col m8">

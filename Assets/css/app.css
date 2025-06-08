@@ -202,7 +202,7 @@ em formVendedor
     top: 11px;
     color: white;
     cursor: pointer;
-    border: 1px solid rgba(199, 199, 199, 0.534);
+    border: 1px solid rgb(255, 248, 248);
 }
 
 /* css start flexbox*/

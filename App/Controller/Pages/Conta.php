@@ -21,8 +21,7 @@ class Conta extends Page
     {
         $queryParam = $request->getQueryParams();
 
-        if (!isset($queryParam['msg']))
-            return '';
+        if (!isset($queryParam['msg'])) return '';
 
         switch ($queryParam['msg']) {
             case 'senhaEditada':
@@ -122,7 +121,7 @@ class Conta extends Page
             'msg' => '',
             'menuconta' => self::getUsuarioMenu(),
             'msgVazio' => '',
-            'imagem' => $obFuncionario->imagem_us,
+            'imagem' => $obFuncionario->imagem_funcionario,
         ]);
         return parent::getPage('Editar conta', $content);
 
@@ -134,9 +133,9 @@ class Conta extends Page
 
         // pega o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();
-        $id = $usuarioLogado['id_us'];
+        $id = $usuarioLogado['id'];
 
-        $obFuncionario = UsuarioDao::getUsuarioId($id);
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
         $postVars = $request->getPostVars();
 
         // post do form da alteracao 
@@ -153,9 +152,9 @@ class Conta extends Page
             'senhaConf' => $senhaConfirmada,
             'msg' => $status,
             'msgVazio' => '',
-            'imagem' => $obFuncionario->imagem_us,
+            'imagem' => $obFuncionario->imagem_funcionario,
         ]);
-        return parent::getPage('Usuario Alterar senha', $content);
+        return parent::getPage('Funcionario Alterar senha', $content);
     }
 
     //metodo post para alterar senha
@@ -164,8 +163,7 @@ class Conta extends Page
 
         // obtem o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();
-        $id_us = $usuarioLogado['id_us'];
-
+        $id = $usuarioLogado['id'];
 
         $postVars = $request->getPostVars();
 
@@ -173,10 +171,10 @@ class Conta extends Page
         $senhaNova = $postVars['senhaNova'] ?? '';
         $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
 
-        $obFuncionario = UsuarioDao::getUsuarioId($id_us);
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
 
         // validacao da senha se corresponde
-        if (!password_verify($senhaAntiga, $obFuncionario->senha_us)) {
+        if (!password_verify($senhaAntiga, $obFuncionario->senha_funcionario)) {
             return self::telaAlterarSenha($request, '<p class="black-text"> Erro! Senha Incorreta </p>');
             exit;
         }
@@ -191,7 +189,7 @@ class Conta extends Page
         if (isset($postVars['senhaAntiga'], $postVars['senhaNova'], $postVars['senhaConfirmada'])) {
 
             //faz a alteracao da senha
-            $obFuncionario->senha_us = password_hash($postVars['senhaNova'], PASSWORD_DEFAULT);
+            $obFuncionario->senha_funcionario = password_hash($postVars['senhaNova'], PASSWORD_DEFAULT);
             $obFuncionario->atualizarSenha();
         }
 
