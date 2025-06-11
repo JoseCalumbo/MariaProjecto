@@ -87,7 +87,7 @@ class FuncionarioDao
     // metodo para deletar um funcionario na tabela
     public function apagarFuncionario()
     {
-        return (new Database('tb_funcionario'))->delete('id_funcionario =' . $this->id_funcionario, []);
+        return (new Database('tb_funcionario'))->delete('id_funcionario =' . $this->id_funcionario);
     }
 
     // metodo para buscar(selecionar) o Funcionario por ID

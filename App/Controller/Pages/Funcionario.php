@@ -11,20 +11,19 @@ use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\PostoDao;
 use \App\Controller\Mensagem\Mensagem;
 use \App\Controller\Pages\Posto;
+class Funcionario extends Page
+{
 
-
-
-class Funcionario extends Page{
-
-    /**
-      * Metodo para exibir  as mensagens
-      *@param Request $request
-      *@return string
-    */
-    public static function exibeMensagem($request){
+    /* Metodo para exibir  as mensagens
+     *@param Request $request
+     *@return string
+     */
+    public static function exibeMensagem($request)
+    {
         $queryParam = $request->getQueryParams();
-        
-        if(!isset($queryParam['msg'])) return '';
+
+        if (!isset($queryParam['msg']))
+            return '';
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
@@ -40,248 +39,268 @@ class Funcionario extends Page{
     }
 
     // Método para apresenatar os registos dos Funcionario
-    private static function getFuncionario($request,&$obPagination){
-        
+    private static function getFuncionario($request, &$obPagination)
+    {
+
         $item = '';
 
-        $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
         $condicoes = [
-            strlen($buscar) ? 'nome_funcionario LIKE "'.$buscar.'%"': null,
-       ];
-           
-       // coloca na consulta sql
-       $where = implode(' AND ',$condicoes);
+            strlen($buscar) ? 'nome_funcionario LIKE "' . $buscar . '%"' : null,
+        ];
+
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
 
         //quantidade total de registros da tabela user
-        $quantidadetotal = FuncionarioDao::listarFuncionario($where,null,null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = FuncionarioDao::listarFuncionario($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         //pagina actual 
         $queryParams = $request->getQueryParams();
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal,$paginaAtual,10);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 2);
 
-        $resultado = FuncionarioDao::listarFuncionario($where,'nome_funcionario ',$obPagination->getLimit());
-        
-        while($obFuncionario = $resultado->fetchObject(FuncionarioDao::class)){
+        $resultado = FuncionarioDao::listarFuncionario($where, 'nome_funcionario ', $obPagination->getLimit());
 
+
+        while ($obFuncionario = $resultado->fetchObject(FuncionarioDao::class)) {
             $item .= View::render('funcionario/listarFuncionario', [
-                'id'=>$obFuncionario->id_funcionario,
-                'imagem'=>$obFuncionario->imagem_funcionario,
-                'nome'=>$obFuncionario->nome_funcionario,
-                'genero'=>$obFuncionario->genero_funcionario,
-                'telefone'=>$obFuncionario->telefone1_funcionario,
-                'cargo'=>$obFuncionario->cargo_funcionario
+                'id_funcionario' => $obFuncionario->id_funcionario,
+                'imagem' => $obFuncionario->imagem_funcionario,
+                'nome' => $obFuncionario->nome_funcionario,
+                'genero' => $obFuncionario->genero_funcionario,
+                'telefone' => $obFuncionario->telefone1_funcionario,
+                'cargo' => $obFuncionario->cargo_funcionario,
+                'numero' => $obFuncionario->numeroordem_funcionario,
+                'dataRegistro' => $obFuncionario->registrado
             ]);
         }
 
         // Verifica se foi realizada uma pesquisa
         $queryParam = $request->getQueryParams();
 
-        if($queryParam['pesquisar'] ?? '') {
+        if ($queryParam['pesquisar'] ?? '') {
 
-            return View::render('pesquisar/box_resultado',[
-                'pesquisa'=>$buscar,
-                'item'=>$item,
-                'numResultado'=>$quantidadetotal,
+            return View::render('pesquisar/box_resultado', [
+                'pesquisa' => $buscar,
+                'item' => $item,
+                'numResultado' => $quantidadetotal,
             ]);
 
         }
 
-       return $item;
+        return $item;
     }
 
     // Método que apresenta a tela d Funcionario
-    public static function telaFuncionario($request){
+    public static function telaFuncionario($request)
+    {
 
-        $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
-        
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+
         $content = View::render('funcionario/funcionario', [
-            'pesquisar'=>$buscar,
-            'msg'=>self::exibeMensagem($request),
-            'item'=>self::getFuncionario($request,$obPagination),
-            'paginacao'=>parent::getPaginacao($request,$obPagination)
+            'pesquisar' => $buscar,
+            'msg' => self::exibeMensagem($request),
+            'item' => self::getFuncionario($request, $obPagination),
+            'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
-   
-        return parent::getPage('Painel funcionario',$content);
+
+        return parent::getPage('Painel funcionario', $content);
     }
 
-    // Metodo que cadastra usuario 
-    public static function cadastrarUser($request){
-        
-        $obUsuario = new UsuarioDao;
+    // Metodo que cadastra novo Funcionario
+    public static function cadastrarFuncionario($request)
+    {
+        // Instancia o Model Funcionario
+        $obFuncionario = new FuncionarioDao;
 
+        $postVars = $request->getPostVars();
         // Obtem os postos cadastrados 
         //$obPosto = new Posto();
-        
-        if (isset($_POST['nome'],$_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone'], $_POST['acesso'], $_FILES['imagem'])) {
+
+        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone1'], $_POST['cargo'], $_FILES['imagem'])) {
 
             $obUpload = new Upload($_FILES['imagem']) ?? '';
 
             if ($_FILES['imagem']['error'] == 4) {
-            
-                $obUsuario->nome_us = $_POST['nome'];
-                $obUsuario->genero_us = $_POST['genero'];
-                $obUsuario->nascimento_us = $_POST['data'];
-                $obUsuario->bilhete_us = $_POST['bilhete'];
-                $obUsuario->email_us = $_POST['email'];
-                $obUsuario->telefone_us = $_POST['telefone'];
-                $obUsuario->nivel_us = $_POST['acesso'];
-                $obUsuario->posto_us = $_POST['posto'];
-                $obUsuario->senha_us = password_hash($_POST['bilhete'],PASSWORD_DEFAULT);
-                $obUsuario->imagem_us = 'anonimo.png';
-                $obUsuario->cadastrar();
-            
-                $request->getRouter()->redirect('/usuario?msg=cadastrado');
+
+                $obFuncionario->nome_funcionario = $_POST['nome'];
+                $obFuncionario->genero_funcionario = $_POST['genero'];
+                $obFuncionario->nascimento_funcionario = $_POST['data'];
+                $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
+                $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
+                $obFuncionario->email_funcionario = $_POST['email'];
+                $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
+                $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
+                $obFuncionario->cargo_funcionario = $_POST['cargo'];
+                $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
+                $obFuncionario->imagem_funcionario = 'anonimo.png';
+                $obFuncionario->cadastrarFuncionario();
+
+                $request->getRouter()->redirect('/funcionario?msg=cadastrado');
                 exit;
             }
 
-            $sucess = $obUpload->upload(LOCAL_URL.'/Files/Imagem/user',false);
-            
-            $obUsuario->nome_us = $_POST['nome'];
-            $obUsuario->genero_us = $_POST['genero'];
-            $obUsuario->nascimento_us = $_POST['data'];
-            $obUsuario->bilhete_us = $_POST['bilhete'];
-            $obUsuario->email_us = $_POST['email'];
-            $obUsuario->telefone_us = $_POST['telefone'];
-            $obUsuario->nivel_us = $_POST['acesso'];
-            $obUsuario->posto_us = $_POST['posto'];
-            $obUsuario->senha_us = password_hash($_POST['bilhete'],PASSWORD_DEFAULT);
-            $obUsuario->imagem_us = $obUpload->getBaseName();
-            $obUsuario->cadastrar();
+            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
+
+            $obFuncionario->nome_funcionario = $_POST['nome'];
+            $obFuncionario->genero_funcionario = $_POST['genero'];
+            $obFuncionario->nascimento_funcionario = $_POST['data'];
+            $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
+            $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
+            $obFuncionario->email_funcionario = $_POST['email'];
+            $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
+            $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
+            $obFuncionario->cargo_funcionario = $_POST['cargo'];
+            $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
+            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
+            $obFuncionario->cadastrarFuncionario();
 
             if ($sucess) {
-                $request->getRouter()->redirect('/usuario?msg=cadastrado');
+                $request->getRouter()->redirect('/funcionario?msg=cadastrado');
                 exit;
             } else {
                 echo 'Ficheiro nao Enviado';
             }
         }
 
+        // Renderiza a tela de formulario do funcionario
         $content = View::render('funcionario/formFuncionario', [
             'titulo' => 'Cadastrar Novo Funcionario',
             'button' => 'Cadastrar',
-            'msg'=>'',
-            'nome_us'=>'',
-            'sobrenome_us'=>'',
-            'femenino'=>'',
-            'data'=>'',
-            'bilhete'=>'',
-            'email'=>'',
-            'telefone'=>'',
-            'nivel'=>'',
-            'imagem'=>'anonimo.png',
-            'itemPosto'=>self::getPosto(),
-           'pot'=>''
+            'msg' => '',
+            'nome' => '',
+            'ordem' => '',
+            'morada' => '',
+            'femenino' => '',
+            'data' => '',
+            'bilhete' => '',
+            'email' => '',
+            'telefone2' => '',
+            'telefone1' => '',
+            'nivel' => '',
+            'imagem' => 'anonimo.png',
+            // 'itemPosto' => self::getPosto(),
+            'pot' => ''
 
         ]);
 
         return parent::getPage('Cadastrar Funcionario', $content);
     }
 
-    // metodo para ir na pagina editar usuario
-    public static function getAtualizarUser($request,$id_us){
+    // Método que edita dados do Funcionario
+    public static function getAtualizarFuncionario($request, $id_funcionario)
+    {
+        // Busca um Funcionario por id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
 
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
-        
-        $content = View::render('funcionario/copy', [
-            'titulo' => ' Actualizar dados de  Usuario',
+        $content = View::render('funcionario/formFuncionario', [
+            'titulo' => 'Editar Dados do Funcionario',
             'button' => 'Actulizar',
-            'msg'=>'',
-            'nome_us'=>$obUsuario->nome_us,
-            'genero'=>$obUsuario->genero_us == 'Feminino' ? 'checked':'',
-            'data'=>$obUsuario->nascimento_us,
-            'bilhete'=>$obUsuario->bilhete_us,
-            'email'=>$obUsuario->email_us,
-            'telefone'=>$obUsuario->telefone_us,
-            'nivel-adim'=>$obUsuario->nivel_us == 'Administrador' ? 'selected' : '',
-            'nivel-normal'=>$obUsuario->nivel_us == 'Normal' ? 'selected' : '',
-            'nivel-visit'=>$obUsuario->nivel_us == 'Visitante' ? 'selected' : '',
-            'itemPosto'=>self::getPosto(),
-            'imagem'=>$obUsuario->imagem_us,
-            'pot'=>$obUsuario->posto_us,
+            'msg' => '',
+            'nome' => $obFuncionario->nome_funcionario,
+            'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
+            'data' => $obFuncionario->nascimento_funcionario,
+            'bilhete' => $obFuncionario->bilhete_funcionario,
+            'ordem' => $obFuncionario->numeroordem_funcionario,
+            'email' => $obFuncionario->email_funcionario,
+            'telefone1' => $obFuncionario->telefone1_funcionario,
+            'telefone2' => $obFuncionario->telefone2_funcionario,
+            'morada' => $obFuncionario->morada_funcionario,
+            'cargo-admin' => $obFuncionario->cargo_funcionario == 'administrador' ? 'selected' : '',
+            'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
+            'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
+            'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
+            'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
+            'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
+            'imagem' => $obFuncionario->imagem_funcionario,
         ]);
-        
-        return parent::getPage('Funcionario Usuario', $content);
+
+        return parent::getPage('Eidtar dados Funcionario', $content);
     }
 
-    // Metodo para editar usuario
-    public static function setAtualizarUser($request,$id_us){
+    // Metodo para editar Funcionario
+    public static function setAtualizarFuncionario($request, $id_funcionario)
+    {
+        // Busca um Funcionario por id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
 
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
-    
         $postVars = $request->getPostVars();
-    
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone'], $_POST['acesso'], $_FILES['imagem'])) {
-            
+
+        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone1'], $_POST['cargo'], $_FILES['imagem'])) {
+
             $obUpload = new Upload($_FILES['imagem']) ?? '';
-    
+
             if ($_FILES['imagem']['error'] == 4) {
-    
-                $obUsuario->nome_us = $postVars['nome'] ?? $obUsuario->nome_us;
-                $obUsuario->genero_us = $postVars['genero'] ?? $obUsuario->genero_us ;
-                $obUsuario->nascimento_us = $postVars['data']?? $obUsuario->nascimento_us;
-                $obUsuario->bilhete_us = $postVars['bilhete'] ?? $obUsuario->bilhete_us;
-                $obUsuario->email_us = $postVars['email'] ?? $obUsuario->email_us;
-                $obUsuario->telefone_us = $postVars['telefone'] ?? $obUsuario->telefone_us;
-                $obUsuario->nivel_us = $postVars['acesso'] ?? $obUsuario->nivel_us;
-                $obUsuario->imagem_us =  $obUsuario->imagem_us != null? $obUsuario->imagem_us :'anonimo.png';
-                $obUsuario->posto_us = $_POST['posto'] ?? $obUsuario->posto_us;
-                $obUsuario->atualizar();   
-                
+
+                $obFuncionario->nome_funcionario = $_POST['nome'];
+                $obFuncionario->genero_funcionario = $_POST['genero'];
+                $obFuncionario->nascimento_funcionario = $_POST['data'];
+                $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
+                $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
+                $obFuncionario->email_funcionario = $_POST['email'];
+                $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
+                $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
+                $obFuncionario->cargo_funcionario = $_POST['cargo'];
+                $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
+                $obFuncionario->imagem_funcionario = 'anonimo.png';
+                $obFuncionario->atualizarFuncionario();
+
                 $request->getRouter()->redirect('/funcionario?msg=alterado');
 
-            }  
+            }
 
-            $sucess = $obUpload->upload(LOCAL_URL.'/Files/Imagem/user',false);
+            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
 
-            $obUsuario->nome_us = $postVars['nome'] ?? $obUsuario->nome_us;
-            $obUsuario->sobrenome_us = $postVars['sobrenome'] ?? $obUsuario->sobrenome_us;
-            $obUsuario->genero_us = $postVars['genero'] ?? $obUsuario->genero_us ;
-            $obUsuario->nascimento_us = $postVars['data']?? $obUsuario->nascimento_us;
-            $obUsuario->bilhete_us = $postVars['bilhete'] ?? $obUsuario->bilhete_us;
-            $obUsuario->email_us = $postVars['email'] ?? $obUsuario->email_us;
-            $obUsuario->telefone_us = $postVars['telefone'] ?? $obUsuario->telefone_us;
-            $obUsuario->nivel_us = $postVars['acesso'] ?? $obUsuario->nivel_us;
-            $obUsuario->posto_us = $_POST['posto'] ?? $obUsuario->posto_us;
-            $obUsuario->imagem_us = $obUpload->getBaseName() ?? $obUsuario->imagem_us;
-            $obUsuario->atualizar(); 
-            
+            $obFuncionario->nome_funcionario = $_POST['nome'];
+            $obFuncionario->genero_funcionario = $_POST['genero'];
+            $obFuncionario->nascimento_funcionario = $_POST['data'];
+            $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
+            $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
+            $obFuncionario->email_funcionario = $_POST['email'];
+            $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
+            $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
+            $obFuncionario->cargo_funcionario = $_POST['cargo'];
+            $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
+            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();;
+            $obFuncionario->atualizarFuncionario();
+
             if ($sucess) {
 
                 $request->getRouter()->redirect('/funcionario?msg=alterado');
             } else {
                 echo 'Ficheiro nao Enviado';
-            }    
+            }
         }
-            
         $content = View::render('funcionario/formUser', []);
 
-        return parent::getPage('Cadastrar Usuario', $content);
+        return parent::getPage('Actualizar Funcionario', $content);
     }
 
-    // Metodo para ir na pagina de apagar usuario 
-    public static function apagarUser($request,$id_us){
-
+    // Metodo para ir na pagina de apagar Funcionario 
+    public static function apagarUser($request, $id_us)
+    {
         $obUsuario = UsuarioDao::getUsuarioId($id_us);
 
         $content = View::render('funcionario/apagarUser', [
             'titulo' => ' Apagar o Usuario',
-            'id'=>$obUsuario->id_us,
-            'imagem'=>$obUsuario->imagem_us,
-            'nome'=>$obUsuario->nome_us,
-            'Criado'=>$obUsuario->create_us,   
+            'id' => $obUsuario->id_us,
+            'imagem' => $obUsuario->imagem_us,
+            'nome' => $obUsuario->nome_us,
+            'Criado' => $obUsuario->create_us,
         ]);
         return parent::getPage('Apagar Usuario {{id}}', $content);
     }
 
-    // Metodo para apagar usuario
-    public static function setapagarUser($request,$id_us){
-        
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
-        $obUsuario->apagar();
+    // Metodo para apagar Funcionario
+    public static function setApagarFuncionario($request, $id_funcionario)
+    {
+        // Busca o funcionario por ID
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+        $obFuncionario->apagarFuncionario();
         $request->getRouter()->redirect('/funcionario?msg=apagado');
     }
 

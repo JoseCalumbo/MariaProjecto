@@ -19,10 +19,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // form not Acordion 
 document.addEventListener('DOMContentLoaded', function () {
-  var elems = document.querySelectorAll('.collapsible');
+  var elems = document.querySelectorAll('.collapsibleF');
   var instances = M.Collapsible.init(elems, {
-    accordion: true,
-    inDuration: 800
+    accordion: false,
+    inDuration: 100,
+    outDuration:100,
   });
 });
 
@@ -125,16 +126,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Calendario datepicher
 document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.datepicker');
-  var instances = M.Datepicker.init(elems, options);
+  var data = document.querySelectorAll('.datepicker');
+  var instances = M.Datepicker.init(data, {
+    autoClose:true,
+    format: 'dd/mm/yyyy',
+    showClearBtn:true,
+    
+  });
+   
 });
-
-// Or with jQuery
-
-$(document).ready(function(){
-  $('.datepicker').datepicker();
-});
-
   
   // modal
   // document.addEventListener('DOMContentLoaded', function() {

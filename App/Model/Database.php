@@ -84,7 +84,7 @@ class Database{
 
         $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
 
-        //echo '<pre>', $query, '</pre>'; 
+        // echo '<pre>', $query, '</pre>';
 
         return $this-> execute($query);
     }

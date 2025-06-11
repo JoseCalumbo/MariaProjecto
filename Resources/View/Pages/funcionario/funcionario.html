@@ -1,53 +1,51 @@
 <section class="row section-field card">
-
-  <section class=" row flex betwen painel-card col m12">
-
-    <div>
-      <h5>Painel Funcionário</h5>
+  <nav class="col m12 blue-grey darken-1 ">
+    <div class="nav-wrapper ">
+      <a href="{{URL}}/funcionario" class="brand-logo">
+        <h5 class="white-text" style="font-size: 18px; font-weight: bold; vertical-align: -6px;">Painel Funcionário</h5>
+      </a>
+      <ul class="right hide-on-med-and-down row" style="height: 50px;">
+        <li class="col pull-m3">
+          <form>
+            <div class="input-field">
+              <input class="" id="search" type="search" required placeholder=" Pesquisar por nome">
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </li>
+        <li class="white-text " style="text-transform: capitalize;">
+          <a href="{{URL}}/funcionario/cadastrar" class="white-text">
+            <i class=" material-icons right white-text ">add</i>Novo Funcionario
+          </a>
+        </li>
+        <li class="" style="text-transform: capitalize;">
+          <a href=" {{URL}}/relatorio/listaUser" class="white-text">
+            <i class="material-icons right white-text ">print</i>Imprimir
+          </a>
+          </li>
+      </ul>
     </div>
+  </nav>
 
-    <div class="form-search">
-      <form method="get">
-        <div class="form-area-search">
-          <input class="input-search" type="search" name="pesquisar" placeholder=" Pesquisar por nome"
-            value="{{pesquisar}}">
-          <button class="button-search btn teal darken-1" type="submit">
-            <i class="material-icons white-text ">search</i>
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <div class="painel-card-li">
-      <li class="btn teal darken-1" ><a class=" white-text" href="{{URL}}/cadastraruser">
-          <i class="material-icons white-text " style="vertical-align: -6px;">add</i> Novo Funcionário</a></li>
-
-      <li class="waves-effect waves-light btn teal darken-1">
-        <a class=" white-text" href="{{URL}}/relatorio/listaUser" target="_banck">
-          <i class="material-icons white-text " style="vertical-align: -6px;">print</i>Imprimir</a>
-      </li>
-    </div>
-
-  </section>
-
-  <br>
-  <br>
+  <div class="row">
+  </div>
 
   <div class="{{msgs}} col s12 m12">{{msg}}</div>
 
-  <section class=" row white col m12">
+  <section class="  white col m12">
 
-    <table class="row col m12">
-      <thead tbody class="thead">
-        <tr class="centered">
-          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Número</th>
+    <table class="row col m12 ">
+      <thead class="">
+        <tr class="center">
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Nº</th>
           <th><i id="coluna" class="material-icons black-white" style="vertical-align: -6px;">image</i>Imagem</th>
           <th><i class="material-icons black-white" style="vertical-align: -6px;">person</i> Nome Completo</th>
-          <th><i class="material-icons black-white" style="vertical-align: -6px;">person</i> Formação</th>
           <th> <i class="material-icons black-white " style="vertical-align: -6px;">phone</i>Telefone </th>
-          <th> <i class="material-icons black-white " style="vertical-align: -6px;">place</i>Nivel de Acesso</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">place</i>Cargo</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">place</i>Data Registro</th>
           <th> <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>Opção</th>
-        
+
         </tr>
       </thead>
 
@@ -65,23 +63,3 @@
 </section>
 
 <!-- <button data-target="modalApagarUser" class="btn modal-trigger">Modal26</button> -->
-
-<!-- Modal Structure
-<div id="modalApagarUser" class="modal apagarUser modal-fixed-footer">
-  <div class="modal-content">
-    <h5>Apagar Usuario</h5>
-    <p>Tem a certeza que desejas excluir este usuario permanentemente? </p>
-    <div>
-      <img src="{{URL}}/Files/Imagem/user/{{imagem}}" >
-      <div>
-        <p><strong>Numero:</strong> {{id_us}}</p>
-        <p><strong>Nome:</strong> {{nome}}{{sobrenome}}</p>
-        <p><strong>Inicio:</strong> {{registro}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat btn">Sim</a>
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat btn">Não</a>
-  </div>
-</div> -->
