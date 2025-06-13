@@ -27,13 +27,16 @@ class Funcionario extends Page
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
-                return Mensagem::msgSucesso('Usuario Cadastrado com sucesso');
+                return Mensagem::msgSucesso('Funcionario Cadastrado com sucesso');
                 break;
             case 'alterado':
-                return Mensagem::msgSucesso('Usuario Alterado com sucesso');
+                return Mensagem::msgSucesso('Funcionario Alterado com sucesso');
                 break;
             case 'apagado':
-                return Mensagem::msgSucesso('Usuario Apagdo com sucesso');
+                return Mensagem::msgSucesso('Funcionario Apagdo com sucesso');
+                break;
+            case 'confirma':
+                return Mensagem::msgSucesso('Cliqua em sim antes de apagar');
                 break;
         }// fim do switch
     }
@@ -265,7 +268,8 @@ class Funcionario extends Page
             $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
             $obFuncionario->cargo_funcionario = $_POST['cargo'];
             $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
-            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();;
+            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
+            ;
             $obFuncionario->atualizarFuncionario();
 
             if ($sucess) {
@@ -298,12 +302,16 @@ class Funcionario extends Page
     // Metodo para apagar Funcionario
     public static function setApagarFuncionario($request, $id_funcionario)
     {
-        // Busca o funcionario por ID
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
-        $obFuncionario->apagarFuncionario();
-        $request->getRouter()->redirect('/funcionario?msg=apagado');
-    }
+        if (isset($_POST['confirmo'])) {
 
+            // Busca o funcionario por ID
+            $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+            $obFuncionario->apagarFuncionario();
+            $request->getRouter()->redirect('/funcionario?msg=apagado');
+        }
+
+         $request->getRouter()->redirect('/funcionario?msg=confirma');
+    }
 }
 
 
