@@ -3,27 +3,27 @@
 use \App\Http\Response;
 use \App\Controller\Pages;
 
+
 /**
 *  Arquivo php de Rotas de login do sistema
 *  foi incluido em routas.php
 */
 
 // logar no sistema
-$obRouter->get('/login',[
+$obRouter->get('/admin/login',[
     'middlewares'=>[
         'requer-logout'
     ],
     function($request,$erroMsg){
-
         return new Response(200,Pages\login::telaLogin($request,$erroMsg)); }
 ]);
 
-$obRouter->post('/login',[
+$obRouter->post('/admin/login',[
     'middlewares'=>[
         'requer-logout'
     ],
     function($request){ 
-        return new Response(200,Pages\login::setLogin($request)); }
+        return new Response(200,Admin\login::telaLogin($request)); }
 ]);
 
 //criar conta no sistema GET
