@@ -4,9 +4,9 @@ namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use App\Controller\Admin\PageAdmin;
-use \App\Model\Entity\AdmimUserDao;
+//use \App\Model\Entity\AdmimUserDao;
 use \App\Http\Request;
-use \App\Utils\Session;
+use \App\Utils\SessionAdmin;
 use \App\Controller\Mensagem\Mensagem;
 
 class LoginAdmin extends PageAdmin
@@ -53,30 +53,27 @@ class LoginAdmin extends PageAdmin
         }
 
         //criar uma nova Sessão de Login
-        Session::login($obAdminUser);
+        SessionAdmin::login($obAdminUser);
         
-        if ($obAdminUser->nivel == 'administrador' ) {
+        if ($obAdminUser->nivel == 'Administrador' ) {
             // redireciona para a pagina principal
             $request->getRouter()->redirect('/admin');
         }
 
-        if ($obAdminUser->nivel == 'Médico') {
+        if ($obAdminUser->nivel == 'visitante') {
             // redireciona para a pagina de home 
             $request->getRouter()->redirect('/dados');
         }
-
-        // redireciona para a pagina de home 
-       // $request->getRouter()->redirect('/admin');
     }
 
     /**
      * Metodo para deslogar o usuario Gestor Adimin
      * @param Request @request
      */
-    public static function setDeslogar($request)
+    public static function setDeslogarAdmin($request)
     {
         //desfaz session de login
-        Session::logout();
+        SessionAdmin::logout();
 
         // direciona para a tela de login
         $request->getRouter()->redirect('/admin/login');

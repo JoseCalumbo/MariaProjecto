@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Model\Entity\VendedorDao;
 use \App\Model\Entity\UsuarioDao;
 use App\Model\Entity\ZonaDao;
 
-class Home extends Page
+class Home extends PageAdmin
 {
     // busca o total dos Usuario
     public static function getDadosVendedor()

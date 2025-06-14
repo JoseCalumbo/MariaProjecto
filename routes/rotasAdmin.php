@@ -73,7 +73,7 @@ $obRouter->get('/logout', [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Pages\login::setDeslogar($request));
+        return new Response(200,Admin\LoginAdmin::setDeslogarAdmin($request));
     }
 ]);
 

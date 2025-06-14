@@ -43,20 +43,18 @@ class Login extends Page
 
         $obFuncionario = FuncionarioDao::getFuncionarioEmail($email);
 
-   
-
         if (!$obFuncionario instanceof FuncionarioDao) {
             return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
         }
 
-       // if (!password_verify($senha, $obAdminUser->senha)) {
-            //return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
-     //   }
+        // if (!password_verify($senha, $obAdminUser->senha)) {
+        //return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
+        //   }
 
         //criar uma nova Sessão de Login
         Session::login($obFuncionario);
 
-        if ($obFuncionario->cargo_funcionario == 'administrador' ) {
+        if ($obFuncionario->cargo_funcionario == 'administrador') {
             // redireciona para a pagina principal
             $request->getRouter()->redirect('/');
         }
@@ -76,6 +74,12 @@ class Login extends Page
      */
     public static function setDeslogar($request)
     {
+
+        echo '<pre>';
+        print_r($_SESSION);
+        echo '</pre>';
+        exit;
+
         //desfaz session de login
         Session::logout();
 

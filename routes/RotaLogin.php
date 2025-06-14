@@ -14,7 +14,7 @@ $obRouter->get('/login',[
         'requer-logout'
     ],
     function($request,$erroMsg){
-        return new Response(200,Pages\login::telaLogin($request,$erroMsg)); }
+        return new Response(200,Pages\Login::telaLogin($request,$erroMsg)); }
 ]);
 
 //Rota de login de sistema POST
@@ -23,6 +23,8 @@ $obRouter->post('/login',[
         'requer-logout'
     ],
     function($request){ 
+        //  echo password_hash('12345', PASSWORD_DEFAULT);
+        //  exit;
         return new Response(200,Pages\login::setLogin($request)); }
 ]);
 
@@ -31,7 +33,9 @@ $obRouter->get('/logout',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\login::setDeslogar($request)); }
+    function($request){
+
+         return new Response(200,Pages\Login::setDeslogar($request)); }
 ]);
 
 // rota para recuperar a senha do usuario
