@@ -101,7 +101,6 @@ class Funcionario extends Page
     // Método que apresenta a tela d Funcionario
     public static function telaFuncionario($request)
     {
-
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
         $content = View::render('funcionario/funcionario', [

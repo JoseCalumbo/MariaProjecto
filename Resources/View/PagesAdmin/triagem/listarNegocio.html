@@ -1,0 +1,82 @@
+<tr>
+    <td>{{id_negocio}}</td>
+    <td>{{Nome}}</td>
+    <td>{{Sobrenome}}</td>
+    <td> {{data}}</td>
+    <td> {{hora}}</td>
+
+    <td> {{Atendimento}}</td>
+    <td>
+
+        <a class="modal-trigger" href="{{id_negocio}}" data-target="modaluser">
+            <button type="button" class="waves-effect waves-light grey accent-1 btn">
+                <i class="material-icons left">print</i>Imprimir
+            </button>
+        </a>
+        <a href="{{URL}}/triagem/editar/{{id_negocio}}">
+            <button type="button " class="waves-effect waves-light btn blue lighten-1">
+                <i class="material-icons left">edit</i>Editar
+            </button>
+        </a>
+
+        <a class="modal-trigger" href="{{id_negocio}}" data-target="modalApagarTriagem">
+            <button type="button" class="waves-effect waves-light red accent-1 btn">
+                <i class="material-icons left">delete</i>Apagar
+            </button>
+        </a>
+    </td>
+</tr>
+
+<!---
+{URL}}/negocio/apagar/{{id_negocio}}
+
+-->
+
+<!-- MODAL PARA imprimir ficha triagem-->
+<div id="modaluser" class="modal modaluser">
+    <div class="modal-content">
+        <label class="closeModal modal-close">&times;</label>
+
+        <h5>Paciente: {{Nome}} {{Sobrenome}}</h5>
+
+        <p class="font-normal">
+            Confirmar a impressão da ficha de Triagem <strong>Nº {{id_negocio}}</strong></p>
+
+        <hr>
+
+        <div class="modal-fixed-footer ">
+            <a class="btn white-text rigth blue" href="{{URL}}/triagem/apagar/{{id_negocio}}" style="text-transform: capitalize;">
+                <i class="material-icons left white-text">print</i>Imprimir
+            </a>
+
+            <a class="btn grey accent-4 white-text" href="{{URL}}/relatorio/imprimirLista" style="text-transform: capitalize;">
+                <i class="material-icons left white-text">highlight_off
+                </i>Cancelar
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA Apagar um negocio-->
+<div id="modalApagarTriagem" class="modal modalApagarTriagem">
+    <div class="modal-content">
+        <label class="closeModal modal-close">&times;</label>
+
+        <h5>Paciente {{Nome}} {{Sobrenome}}</h5>
+
+        <p class="font-normal">
+            Tem a certeza que pretente apagar esta triagem:<strong>Nº {{id_negocio}}</strong>?</p>
+        <hr>
+
+        <div class="modal-fixed-footer ">
+            <a class="btn white-text rigth red" href="{{URL}}/triagem/apagar/{{id_negocio}}" style="text-transform: capitalize;">
+                <i class="material-icons left white-text">delete</i>Apagar
+            </a>
+
+            <a class="btn grey accent-4 white-text" href="{{URL}}/relatorio/imprimirLista" style="text-transform: capitalize;">
+                <i class="material-icons left white-text">highlight_off
+                </i>Cancelar
+            </a>
+        </div>
+    </div>
+</div>

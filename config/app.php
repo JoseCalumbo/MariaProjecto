@@ -24,6 +24,11 @@ define('URL',getenv('URL'));
 //defini local server
 define('LOCAL_URL',$_SERVER['DOCUMENT_ROOT'].'/MariaProjecto');
 
+//defini local server
+define('LOCAL_URL_ICON','MariaProjecto/Assets/css/material-icons.css');
+
+
+
 //valor padrao das variaveis 
 View::init([
     'URL'=>URL

@@ -5,7 +5,6 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Http\Request;
-use \App\Model\Entity\AdmimUserDao;
 use \App\Model\Entity\FuncionarioDao;
 use \App\Controller\Mensagem\Mensagem;
 

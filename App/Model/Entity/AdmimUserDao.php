@@ -21,7 +21,6 @@ class AdmimUserDao
     //Metodo responsavel por fazer insert na tabela tb_usuario
     public function cadastrar()
     {
-
         $this->criado = date('y-m-d H:i:s');
         $obDatabase = new Database('tb_usuario');
         $this->id = $obDatabase->insert([

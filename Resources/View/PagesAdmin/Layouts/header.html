@@ -1,0 +1,141 @@
+<!--HEADER-->
+<header class="header navbar-fixed">
+
+    <nav class="menu navbar-fixed">
+        <div class="nav-wrapper">
+            <ul>
+                <a href="{{URL}}" class="brand-logo logotipo black"
+                    style="width: 180px;  height: 65px; text-align: center; border-bottom: 1px white solid; ">
+                    <img class="" src="{{URL}}/Assets/img/logoMenu2.png" width="90">
+                </a>
+            </ul>
+
+            <ul class="right hide-on-med-and-down ">
+                <li class="rigth">
+                    <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1"> {{info}}
+                        <i class="material-icons right lighten-2">arrow_drop_down</i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul id="dropdown1" class="dropdown-content">
+                <li class=" {{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
+                </li>
+                <li class="{{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
+                </li>
+                <li class="{{nivel}} ">
+                    <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessao</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+<main class="row grey lighten-4 ">
+
+    <div class="col m2">
+        <aside id="aside">
+            <ul class="fixed collapsible">
+                <li>
+                    <a class="collapsible-header" href="{{URL}}">
+                        <i class="fa-solid fa-house" style="color: #63E6BE;"></i>
+                        Principal
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="fa-solid fa-notes-medical" style="color: #63E6BE;"></i>
+                         Consultas
+                    </a>
+
+                    <ul id="collapsible-body" class="collapsible-body">
+
+                        <li><a class="item-menu" href="{{URL}}/consulta-diaria" style="text-transform: capitalize;">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">timer</i>
+                                Diaria
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="" href="{{URL}}/consulta" style="text-transform: capitalize;">
+                                <i class=" material-icons white-text " style="vertical-align: -6px;">today</i>
+                                Marcada</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="collapsible-header" href="{{URL}}/triagem">
+                        <i class="fa-solid fa-temperature-arrow-up" style="color: #63E6BE;"></i>
+                        Triagem
+                    </a>
+                </li>
+
+                <li>
+                    <a class="collapsible-header" href="{{URL}}/relatorio" style="display: flex; align-items: center; ">
+                        <i class="fa-solid fa-chart-pie" style="color: #63E6BE;"></i>
+                        Relatorios
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="fa-solid fa-square-plus" style="color: #63E6BE;"></i>
+                        Cadastrar
+                    </a>
+
+                    <ul class="collapsible-body">
+
+                        <li><a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">group_add</i>
+                                Pacientes</a>
+                        </li>
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/funcionario">
+                                <i class="fa fa-user-md fa-lg fa-5x" aria-hidden="true"> </i>
+                                Funcionários
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="#" class="collapsible-header">
+                        <i class="fa-solid fa-user" style="color: #63E6BE;"></i>
+                       Conta
+                    </a>
+
+                    <ul class="collapsible-body">
+                        <li><a class="" style="text-transform: capitalize;" href="{{URL}}/conta">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">account_box</i>
+                                Editar
+                                Conta</a>
+                        </li>
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
+                                <i class="material-icons white-text" style="vertical-align: -6px;"> streetview</i>
+                                Bloquear</a>
+                        </li>
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">settings</i>
+                                Definição</a>
+                        </li>
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
+                                <i class="material-icons white-text " style="vertical-align: -6px;">cancel</i>
+                                Encerrar conta
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- sidebar menu end-->
+        </aside>
+    </div>
+
+    <d id="conteudo" class="col m10 white lighten-4 section-field">
