@@ -40,7 +40,7 @@ class AdmimUserDao
     // faz um update na tabela usuario
     public function atualizar()
     {
-        return (new Database('usuario'))->update('id_us = ' . $this->id, [
+        return (new Database('tb_usuario'))->update('id_us = ' . $this->id, [
             'nome' => $this->nome,
             'nascimento' => $this->nascimento,
             'email' => $this->email,
@@ -55,13 +55,13 @@ class AdmimUserDao
     // faz um delete na tabela usuario
     public function apagar()
     {
-        return (new Database('usuario'))->delete('id = ' . $this->id, []);
+        return (new Database('tb_usuario'))->delete('id = ' . $this->id, []);
     }
 
     // responsavel para alterar senha 
     public function atualizarSenha()
     {
-        return (new Database('usuario'))->update('id = ' . $this->id, [
+        return (new Database('tb_usuario'))->update('id = ' . $this->id, [
             'senha_us' => $this->senha,
         ]);
     }
@@ -69,7 +69,7 @@ class AdmimUserDao
     // responsavel para alterar imagem do usuario
     public function atualizarImagem()
     {
-        return (new Database('usuario'))->update('id = ' . $this->id, [
+        return (new Database('tb_usuario'))->update('id = ' . $this->id, [
             'imagem' => $this->imagem,
         ]);
     }
@@ -80,7 +80,7 @@ class AdmimUserDao
      */
     public static function listarUsuario($where = null, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('usuario'))->select($where, $order, $limit, $fields);
+        return (new Database('tb_usuario'))->select($where, $order, $limit, $fields);
     }
 
     /**

@@ -6,7 +6,8 @@ use \App\Controller\Pages;
 
 // Página inicial admin
 $obRouter->get('/admin', [
-    'middlewares' => [
+    'middlewares'=>[
+        'requer-logout'
     ],
     function ($request) {
         return new Response(200, "ola");
@@ -15,7 +16,8 @@ $obRouter->get('/admin', [
 
 // Rota de login no sistema para ADMIN
 $obRouter->get('/admin/login', [
-    'middlewares' => [
+    'middlewares'=>[
+        'requer-logout'
     ],
     function ($request, $erroMsg) {
         return new Response(200, Admin\LoginAdmin::getTelaLoginAdmin($request));
@@ -23,10 +25,12 @@ $obRouter->get('/admin/login', [
 ]);
 
 $obRouter->post('/admin/login', [
-    'middlewares' => [
-        
+    'middlewares'=>[
+        'requer-logout'
     ],
     function ($request) {
+       // echo password_hash('12345', PASSWORD_DEFAULT);
+       // exit;
         return new Response(200, Admin\LoginAdmin::setLoginAdmin($request));
     }
 ]);
@@ -69,7 +73,8 @@ $obRouter->get('/logout', [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Pages\login::setDeslogar($request)); }
+        return new Response(200, Pages\login::setDeslogar($request));
+    }
 ]);
 
 // rota para recuperar a senha do usuario admin
@@ -82,12 +87,14 @@ $obRouter->get('/admin/recuperar-senha', [
 // rota POST recuperar a senha do usuario admin
 $obRouter->post('/recuperar/senha', [
     function ($request, $erroMsg) {
-        return new Response(200, Admin\LoginAdmin::setRecuperarSenha($request, $erroMsg)); }
+        return new Response(200, Admin\LoginAdmin::setRecuperarSenha($request, $erroMsg));
+    }
 ]);
 
 // rota de email enviado
 $obRouter->get('/recuperar/enviado', [
     function ($request, $erroMsg) {
-        return new Response(200, Pages\login::emailEnviado($request, $erroMsg)); }
+        return new Response(200, Pages\login::emailEnviado($request, $erroMsg));
+    }
 ]);
 

@@ -45,28 +45,28 @@ class LoginAdmin extends PageAdmin
         $obAdminUser = AdmimUserDao::getUsuarioEmail($email);
 
         if (!$obAdminUser instanceof AdmimUserDao) {
-            return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
+            return self::getTelaLoginAdmin($request, '<p>Erro Email ou Senha Invalidos</p>');
         }
 
-       // if (!password_verify($senha, $obAdminUser->senha)) {
-            //return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
-     // }
+        if (!password_verify($senha, $obAdminUser->senha)) {
+            return self::getTelaLoginAdmin($request, '<p>Erro Email ou Senha Invalido2 </p>');
+        }
 
         //criar uma nova Sessão de Login
-        Session::login($obFuncionario);
-
-        if ($obFuncionario->cargo_funcionario == 'administrador' ) {
+        Session::login($obAdminUser);
+        
+        if ($obAdminUser->nivel == 'administrador' ) {
             // redireciona para a pagina principal
-            $request->getRouter()->redirect('/');
+            $request->getRouter()->redirect('/admin');
         }
 
-        if ($obFuncionario->cargo_funcionario == 'Médico' || $obFuncionario->cargo_funcionario == 'Medico') {
+        if ($obAdminUser->nivel == 'Médico') {
             // redireciona para a pagina de home 
             $request->getRouter()->redirect('/dados');
         }
 
         // redireciona para a pagina de home 
-        $request->getRouter()->redirect('/');
+       // $request->getRouter()->redirect('/admin');
     }
 
     /**

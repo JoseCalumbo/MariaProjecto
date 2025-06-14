@@ -13,9 +13,7 @@ Class PageAdmin{
 
     //pega os dados do usuario logado no momento
     public static function getFuncionarioLogado($obFuncionario){
-
         $dados = '';
-
         $funcionarioLogado = Session::getUsuarioLogado();
         $id=$funcionarioLogado['id'];
         $nome=$funcionarioLogado['nome'];
