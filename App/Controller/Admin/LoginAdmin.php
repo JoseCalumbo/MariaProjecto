@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use App\Controller\Admin\PageAdmin;
-//use \App\Model\Entity\AdmimUserDao;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Http\Request;
 use \App\Utils\SessionAdmin;
 use \App\Controller\Mensagem\Mensagem;
@@ -29,7 +29,7 @@ class LoginAdmin extends PageAdmin
       'senha' => $senha,
       'msg' => $status,
     ]);
-    return parent::getPageAdminLogin('Logar Admin ', $content, null);
+    return parent::getPageAdminLogin('Logar Admin 1', $content, null);
   }
 
     /**

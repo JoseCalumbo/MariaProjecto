@@ -38,6 +38,25 @@ $obRouter->get('/logout',[
          return new Response(200,Pages\Login::setDeslogar($request)); }
 ]);
 
+//criar conta no sistema GET
+$obRouter->get('/sigin', [
+    'middlewares' => [
+        'requer-logout'
+    ],
+    function ($request, $erroMsg) {
+        return new Response(200, Pages\Sigin::telaSigin($request, $erroMsg));
+    }
+]);
+
+$obRouter->post('/sigin', [
+    'middlewares' => [
+        'requer-logout'
+    ],
+    function ($request) {
+        return new Response(200, Pages\Sigin::criarConta($request));
+    }
+]);
+
 // rota para recuperar a senha do usuario
 $obRouter->get('/recuperar/senha',[
     function($request,$erroMsg){ return new Response(200,Pages\login::recuperarSenha($request, $erroMsg)); }
@@ -51,4 +70,20 @@ $obRouter->post('/recuperar/senha',[
 // rota de email enviado
 $obRouter->get('/recuperar/enviado',[
     function($request,$erroMsg){ return new Response(200,Pages\login::emailEnviado($request,$erroMsg)); }
+]);
+
+
+
+
+
+
+// rota para contactos 
+$obRouter->get('/site',[
+    function($request){ return new Response(200,Pages\PaginaSite::getPagina($request)); }
+]);
+
+// rota para contactos 
+$obRouter->get('/contactos',[
+    function($request){
+         return new Response(200,Pages\PaginaSite::getPaginaContactos($request)); }
 ]);

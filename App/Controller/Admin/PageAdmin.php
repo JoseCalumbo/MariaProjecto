@@ -4,33 +4,35 @@ namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Utils\Session;
+use \App\Utils\SessionAdmin;
 use \App\Http\Request;
-use \App\Model\Entity\FuncionarioDao;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Utils\Pagination;
 use Sabberworm\CSS\Value\URL;
 
 Class PageAdmin{
 
     //pega os dados do usuario logado no momento
-    public static function getFuncionarioLogado($obFuncionario){
+    public static function getAdminUserLogado($obAdminUser){
         $dados = '';
-        $funcionarioLogado = Session::getUsuarioLogado();
-        $id=$funcionarioLogado['id'];
-        $nome=$funcionarioLogado['nome'];
-        $nivel=$funcionarioLogado['nivel'];
+        $AdminLogado = SessionAdmin::getAdminUserLogado();
+        $id=$AdminLogado['id'];
+        $nome=$AdminLogado['nome'];
+        $nivel=$AdminLogado['nivel'];
 
         //Busca o Funcionario por id
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id);
+        $obAdminUser = AdmimUserDao::getAdminUserId($id);
 
-        $dados .= View::render('Layouts/dadoslogado',[
+        $dados .= View::renderAdmin('Layouts/dadoslogado',[
             'nome'=>$nome,
-            'imagem'=>$obFuncionario->imagem_funcionario,
+            'imagem'=>$obAdminUser->imagem,
             'nivel'=>$nivel,
         ]);
-        return View::render('Layouts/itemdados',[
+        return View::renderAdmin('Layouts/itemdados',[
             'links'=>$dados,
        ]);
     }
+
     /**
        * Função para mostrar a paginacao 
        *@param Request $request
@@ -72,10 +74,11 @@ Class PageAdmin{
              'links'=>$links
         ]);
     }
+
     //metodo para buscar header principal
     public static function getHeader($obFuncionario){
-        return View::render('Layouts/header',[
-            'info'=> self::getFuncionarioLogado($obFuncionario)
+        return View::renderAdmin('Layouts/header',[
+            'info'=> self::getAdminUserLogado($obFuncionario)
         ]);
     }
 

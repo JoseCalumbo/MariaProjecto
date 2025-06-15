@@ -7,10 +7,11 @@ use \App\Controller\Pages;
 // Página inicial admin
 $obRouter->get('/admin', [
     'middlewares'=>[
-        'requer-logout'
+        
     ],
     function ($request) {
-        return new Response(200, "ola");
+
+        return new Response(200, Admin\HomeAdmin::getHome($request));
     }
 ]);
 
@@ -41,7 +42,6 @@ $obRouter->get('/admin/sigin', [
         'requer-logout'
     ],
     function ($request, $erroMsg) {
-
         return new Response(200, Admin\SiginAdmin::telaSigin($request, $erroMsg));
     }
 ]);
@@ -68,9 +68,9 @@ $obRouter->get('/admin/confirmado', [
 
 
 // rota para deslogar o usuario
-$obRouter->get('/logout', [
+$obRouter->get('/admin/logout', [
     'middlewares' => [
-        'requer-login'
+        'requer-loginAdmin'
     ],
     function ($request) {
         return new Response(200,Admin\LoginAdmin::setDeslogarAdmin($request));

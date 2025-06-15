@@ -98,7 +98,7 @@ class AdmimUserDao
      * @param string $id
      * @return $email
      */
-    public static function getUsuarioId($id)
+    public static function getAdminUserId($id)
     {
         return (new Database('tb_usuario'))->select('id = ' . $id)->fetchObject(self::class);
     }

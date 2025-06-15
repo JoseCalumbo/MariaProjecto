@@ -84,7 +84,7 @@ class Home extends Page
     // tela home adim
     public static function getHome($request)
     {
- 
+
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,

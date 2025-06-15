@@ -1,10 +1,10 @@
 <!--HEADER-->
 <header class="header navbar-fixed">
 
-    <nav class="menu navbar-fixed">
+    <nav class="white navbar-fixed">
         <div class="nav-wrapper">
             <ul>
-                <a href="{{URL}}" class="brand-logo logotipo black"
+                <a href="{{URL}}" class="brand-logo logotipo blue darken-2 "
                     style="width: 180px;  height: 65px; text-align: center; border-bottom: 1px white solid; ">
                     <img class="" src="{{URL}}/Assets/img/logoMenu2.png" width="90">
                 </a>
@@ -12,7 +12,7 @@
 
             <ul class="right hide-on-med-and-down ">
                 <li class="rigth">
-                    <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1"> {{info}}
+                    <a class="dropdown-trigger font-normal black-text" href="#!" data-target="dropdown1"> {{info}}
                         <i class="material-icons right lighten-2">arrow_drop_down</i>
                     </a>
                 </li>
@@ -23,11 +23,18 @@
                     <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
                 </li>
                 <li class="{{nivel}}">
-                    <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
+                    <a class="black-text font-normal" href="{{URL}}/admin/logout">Bloquear</a>
                 </li>
                 <li class="{{nivel}} ">
-                    <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessao</a>
+                    <a class="black-text font-normal" href="{{URL}}/admin/logout">Terminar Sessao</a>
                 </li>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html"><i class="material-icons black-text">search</i></a></li>
+                <li><a href="badges.html"><i class="material-icons black-text">notifications</i></a></li>
+                <li><a href="collapsible.html"><i class="material-icons black-text">refresh</i></a></li>
+                <li><a href="collapsible.html"><i class="material-icons black-text">view_quilt</i></a></li>
             </ul>
         </div>
     </nav>
@@ -36,76 +43,73 @@
 
 <main class="row grey lighten-4 ">
 
-    <div class="col m2">
-        <aside id="aside">
-            <ul class="fixed collapsible">
+    <div class="col m2 blue darken-2">
+        <aside id="aside" class="blue darken-2">
+            <ul class="fixed collapsible blue darken-2">
                 <li>
-                    <a class="collapsible-header" href="{{URL}}">
+                    <a class="collapsible-header blue darken-2" href="{{URL}}/admin"
+                        style="text-transform: capitalize;">
                         <i class="fa-solid fa-house" style="color: #63E6BE;"></i>
                         Principal
                     </a>
                 </li>
 
-                <li class="sub-menu">
-                    <a href="#" class="collapsible-header">
-                        <i class="fa-solid fa-notes-medical" style="color: #63E6BE;"></i>
-                         Consultas
-                    </a>
-
-                    <ul id="collapsible-body" class="collapsible-body">
-
-                        <li><a class="item-menu" href="{{URL}}/consulta-diaria" style="text-transform: capitalize;">
-                                <i class="material-icons white-text " style="vertical-align: -6px;">timer</i>
-                                Diaria
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="" href="{{URL}}/consulta" style="text-transform: capitalize;">
-                                <i class=" material-icons white-text " style="vertical-align: -6px;">today</i>
-                                Marcada</a>
-                        </li>
-                    </ul>
-                </li>
-
                 <li>
-                    <a class="collapsible-header" href="{{URL}}/triagem">
-                        <i class="fa-solid fa-temperature-arrow-up" style="color: #63E6BE;"></i>
-                        Triagem
-                    </a>
-                </li>
-
-                <li>
-                    <a class="collapsible-header" href="{{URL}}/relatorio" style="display: flex; align-items: center; ">
+                    <a class="collapsible-header blue darken-2" href="{{URL}}/relatorio"
+                        style="display: flex; align-items: center; text-transform: capitalize;">
                         <i class="fa-solid fa-chart-pie" style="color: #63E6BE;"></i>
                         Relatorios
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="#" class="collapsible-header">
+                    <a href="#" class="collapsible-header blue darken-2" style="text-transform: capitalize;">
                         <i class="fa-solid fa-square-plus" style="color: #63E6BE;"></i>
                         Cadastrar
                     </a>
-
                     <ul class="collapsible-body">
 
-                        <li><a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
-                                <i class="material-icons white-text" style="vertical-align: -6px;">group_add</i>
-                                Pacientes</a>
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">person_add</i>
+                                Usuarios
+                            </a>
                         </li>
+
                         <li>
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/funcionario">
                                 <i class="fa fa-user-md fa-lg fa-5x" aria-hidden="true"> </i>
                                 Funcionários
                             </a>
                         </li>
+
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">airline_seat_individual_suite</i>
+                                Paciente
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">description</i>
+                                Medicamentos
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                                <i class="material-icons white-text" style="vertical-align: -6px;">domain</i>
+                                Centro
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a href="#" class="collapsible-header">
+
+                <li class="sub-menu blue darken-2">
+                    <a href="#" class="collapsible-header blue darken-2" style="text-transform: capitalize;">
                         <i class="fa-solid fa-user" style="color: #63E6BE;"></i>
-                       Conta
+                        Conta
                     </a>
 
                     <ul class="collapsible-body">
@@ -114,18 +118,14 @@
                                 Editar
                                 Conta</a>
                         </li>
-                        <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
-                                <i class="material-icons white-text" style="vertical-align: -6px;"> streetview</i>
-                                Bloquear</a>
-                        </li>
+
                         <li>
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
                                 <i class="material-icons white-text " style="vertical-align: -6px;">settings</i>
                                 Definição</a>
                         </li>
-                        <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
+                        <li class="">
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/admin/logout">
                                 <i class="material-icons white-text " style="vertical-align: -6px;">cancel</i>
                                 Encerrar conta
                             </a>

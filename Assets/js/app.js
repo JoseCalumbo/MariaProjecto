@@ -53,6 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.dropdown-trigger3');
+    var instances = M.Dropdown.init(elems, {
+      inDuration:1000
+    });
+  });
+
 
 // tooltip msg de trocar a foto
 document.addEventListener('DOMContentLoaded', function() {

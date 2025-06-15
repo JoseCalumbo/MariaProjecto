@@ -16,10 +16,10 @@ class SessionAdmin
     }
 
     //retorna os dados na session do usuario
-    public static function getUsuarioLogado()
+    public static function getAdminUserLogado()
     {
         self::init();
-        return self::isLogged() ? $_SESSION['tb_funcionario'] : null;
+        return self::isLogged() ? $_SESSION['usuario'] : null;
     }
 
     /**
@@ -31,7 +31,7 @@ class SessionAdmin
     {
         self::init();
 
-        $_SESSION['tb_usuario'] = [
+        $_SESSION['usuario'] = [
             'id' => $obFuncionario->id,
             'nome' => $obFuncionario->nome,
             'imagem' => $obFuncionario->imagem,
@@ -46,7 +46,7 @@ class SessionAdmin
         // metodo que inicia a sessao do user
         self::init();
         //retorna a verificacao de usuario
-        return isset($_SESSION['tb_usuario']['id']);
+        return isset($_SESSION['usuario']['id']);
     }
 
     /**
@@ -59,7 +59,8 @@ class SessionAdmin
         self::init();
 
         //Desloga o user
-        unset($_SESSION['tb_usuario']);
+        unset($_SESSION['usuario']);
+        
         return true;
     }
 }

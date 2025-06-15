@@ -88,7 +88,6 @@ Class Page{
     }
 
     /** 
-     * ZZ 
      * PAGE para header e Home para Home
      * Metodo busca header da Pagina Home usuario ADIMIM
      * 
@@ -166,6 +165,14 @@ Class Page{
             'title' => $title,
             'content'=> $content,
             'red'=>$red,
+        ]);
+    }
+
+    // Método para rederizar a página Site
+    public static function getPageSite($title,$content){
+        return View::render('site/index',[
+            'title' => $title,
+            'content'=> $content
         ]);
     }
 }

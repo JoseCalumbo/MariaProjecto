@@ -75,11 +75,6 @@ class Login extends Page
     public static function setDeslogar($request)
     {
 
-        echo '<pre>';
-        print_r($_SESSION);
-        echo '</pre>';
-        exit;
-
         //desfaz session de login
         Session::logout();
 
