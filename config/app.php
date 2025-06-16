@@ -37,9 +37,13 @@ View::init([
 //Mapea os middlewares
 Queue::setMap([
     'maintenance' => \App\Http\Middleware\Maintenence::class,
+
     'requer-logout' => \App\Http\Middleware\RequerLogout::class,
     'requer-login' => \App\Http\Middleware\RequerLogin::class,
+
     'requer-loginAdmin' => \App\Http\Middleware\RequerLoginAdmin::class,
+    'requer-logoutAdmin' => \App\Http\Middleware\RequerLogoutAdmin::class,
+
     'nivel-acesso' => \App\Http\Middleware\NivelAcesso::class
 ]);
 

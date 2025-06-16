@@ -218,8 +218,4 @@ $obRouter->get('/acesso/negado',[
 */
 include __DIR__.'/RotaTesouraria.php';
 
-/**
- * __________________________________Funcionario_______________________________
- * inclui as rotas dos Funcionario
-*/
-include __DIR__.'/RotaFuncionario.php';
+

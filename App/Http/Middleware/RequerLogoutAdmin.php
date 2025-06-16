@@ -3,10 +3,12 @@
 namespace App\Http\Middleware;
 
 use \App\Utils\Session;
+use \App\Utils\SessionAdmin;
 use \App\Http\Response;
 use \App\Http\Request;
 
-class RequerLogout{
+
+class RequerLogoutAdmin{
 
     /**
       * Função para executar o middlewares
@@ -16,8 +18,8 @@ class RequerLogout{
     */
     public function handle($request, $next){
 
-        if (Session::isLogged()) {
-            $request->getRouter()->redirect('/');
+        if (SessionAdmin::isLogged()) {
+            $request->getRouter()->redirect('/admin');
         }
 
         return $next($request);

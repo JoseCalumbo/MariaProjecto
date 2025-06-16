@@ -4,21 +4,11 @@ use \App\Http\Response;
 use \App\Controller\Admin;
 use \App\Controller\Pages;
 
-// Página inicial admin
-$obRouter->get('/admin', [
-    'middlewares'=>[
-        
-    ],
-    function ($request) {
-
-        return new Response(200, Admin\HomeAdmin::getHome($request));
-    }
-]);
 
 // Rota de login no sistema para ADMIN
 $obRouter->get('/admin/login', [
     'middlewares'=>[
-        'requer-logout'
+       'requer-logoutAdmin'
     ],
     function ($request, $erroMsg) {
         return new Response(200, Admin\LoginAdmin::getTelaLoginAdmin($request));
@@ -27,7 +17,7 @@ $obRouter->get('/admin/login', [
 
 $obRouter->post('/admin/login', [
     'middlewares'=>[
-        'requer-logout'
+        'requer-logoutAdmin'
     ],
     function ($request) {
        // echo password_hash('12345', PASSWORD_DEFAULT);

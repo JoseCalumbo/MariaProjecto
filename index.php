@@ -10,8 +10,8 @@ use App\Utils\GerarMensalidade;
 $obRouter = new Router(URL);
 
 // inclui os arquivos de routas do sistema
-include __DIR__.'/routes/rotas.php';
-include __DIR__.'/routes/rotasAdmin.php';
+include __DIR__.'/routes/user/rotas.php';
+include __DIR__.'/routes/admin/rotasAdmin.php';
 include __DIR__.'/routes/prints.php';
 
 
