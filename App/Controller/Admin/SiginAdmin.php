@@ -9,8 +9,8 @@ use \App\Controller\Mensagem\Mensagem;
 
 class SiginAdmin extends PageAdmin
 {
-    // Funcao que apresenta a tela de usuario
-    public static function telaSigin($request, $erroMsg = null)
+    // Função que apresenta a tela de usuario
+    public static function getTelaSigin($request, $erroMsg = null)
     {
         $postVars = $request->getPostVars();
         $postVars = $request->getPostVars();
@@ -26,14 +26,13 @@ class SiginAdmin extends PageAdmin
             'senha' => $senha,
             'msg' => $status,
         ]);
-        return parent::getPageAdminLogin('Criar conta admin ', $content, null);
+        return parent::getPageAdminLogin('Admin - Criar conta  ', $content, null);
     }
 
-    /**
-     * Função para logar o usuario
+    /** Função para logar o usuario
      * @param Request  
      */
-    public static function criarConta($request)
+    public static function setSignAdmin($request)
     {
         $obAdmimUser = new AdmimUserDao;
 
@@ -46,14 +45,15 @@ class SiginAdmin extends PageAdmin
 
         // verifica se as senhas são iguais
         if ($senha != $confirmaSenha) {
-            return self::telaSigin($request, '<p>Erro na confirmação de senha,digita novamente</p>');
+            return self::getTelaSigin($request, '<p>Erro na confirmação de senha,digita novamente</p>');
         }
 
         // verifica se o email ja foi cadastrado por outro usuario
-        // $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
-        //  if (!$obAdmimUser1 instanceof AdmimUserDao) {
-        //  return self::telaSigin($request, '<p>Erro este email já esta ser utilizado</p>');
-        //}
+        $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
+
+        if (!$obAdmimUser1 instanceof AdmimUserDao) {
+            return self::getTelaSigin($request, '<p>Erro este email já esta ser utilizado</p>');
+        }
 
         if (isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['ConfirmaSenha'])) {
 
@@ -63,11 +63,11 @@ class SiginAdmin extends PageAdmin
             $obAdmimUser->nivel = 'Administrador';
             $obAdmimUser->imagem = 'anonimo.png';
             $obAdmimUser->cadastrar();
-            $request->getRouter()->redirect('/sigin/confirmado');
+            $request->getRouter()->redirect('/admin/confirmado');
             exit;
         }
         // redireciona para a pagina de login
-        $request->getRouter()->redirect('/sigin');
+        $request->getRouter()->redirect('/admin/sigin');
     }
 
     public static function telaSiginConfirma($request)

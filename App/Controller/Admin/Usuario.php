@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Utils\Pagination;
 use \App\Utils\Upload;
-use \App\Model\Entity\UsuarioDao;
-use \App\Model\Entity\PostoDao;
+use \App\Http\Request;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Controller\Mensagem\Mensagem;
-use \App\Controller\Pages\Posto;
 
 
 
-class Usuario extends Page{
+class Usuario extends PageAdmin{
 
-    /**
-      * Metodo para exibir  a mensagem 
+    /** Metodo para exibir  a mensagem 
       *@param Request $request
       *@return string
     */
@@ -38,20 +36,6 @@ class Usuario extends Page{
         }// fim do switch
     }
 
-    // metodo para obter os postos
-    public static function getPosto(){
-        
-        $posto = '';
-        $postos = PostoDao::listarPosto();
-        while( $obposto = $postos->fetchObject(PostoDao::class)){
-            $posto .= View::render('item/posto', [
-                'posto'=>$obposto->nome_posto,
-                'value'=>$obposto->id_posto
-            ]);
-        }
-        return $posto;
-    }
-
     // Metodo para apresenatar os registos dos dados 
     private static function getUsuario($request,&$obPagination){
         
@@ -60,14 +44,14 @@ class Usuario extends Page{
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
 
         $condicoes = [
-            strlen($buscar) ? 'nome_us LIKE "'.$buscar.'%"': null,
+            strlen($buscar) ? 'nome LIKE "'.$buscar.'%"': null,
        ];
            
        // coloca na consulta sql
        $where = implode(' AND ',$condicoes);
 
         //quantidade total de registros da tabela user
-        $quantidadetotal = UsuarioDao::listarUsuario($where,null,null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = AdmimUserDao::listarUsuario($where,null,null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         //pagina actual 
         $queryParams = $request->getQueryParams();
@@ -76,17 +60,18 @@ class Usuario extends Page{
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal,$paginaAtual,10);
 
-        $resultado = UsuarioDao::listarUsuario($where,'nome_us ',$obPagination->getLimit());
+        $resultado = AdmimUserDao::listarUsuario($where,'nome',$obPagination->getLimit());
         
-        while($obUsuario = $resultado->fetchObject(UsuarioDao::class)){
+        while($obUsuario = $resultado->fetchObject(AdmimUserDao::class)){
 
-            $item .= View::render('funcionario/listaruser', [
-                'id_us'=>$obUsuario->id_us,
-                'imagem'=>$obUsuario->imagem_us,
-                'nome'=>$obUsuario->nome_us,
-                'genero'=>$obUsuario->genero_us,
-                'telefone'=>$obUsuario->telefone_us,
-                'nivel'=>$obUsuario->nivel_us
+            $item .= View::renderAdmin('usuario/listarUsuario', [
+                'id'=>$obUsuario->id,
+                'imagem'=>$obUsuario->imagem,
+                'nome'=>$obUsuario->nome,
+                'email'=>$obUsuario->email,
+                'telefone'=>$obUsuario->telefone,
+                'cargo'=>$obUsuario->nivel,
+                'Registro'=>$obUsuario->criado
             ]);
         }
 
@@ -95,36 +80,35 @@ class Usuario extends Page{
 
         if($queryParam['pesquisar'] ?? '') {
 
-            return View::render('pesquisar/box_resultado',[
+            return View::renderAdmin('pesquisar/box_resultado',[
                 'pesquisa'=>$buscar,
                 'item'=>$item,
                 'numResultado'=>$quantidadetotal,
             ]);
-
         }
 
        return $item;
     }
 
     // Metodo que apresenta a tela de usuario
-    public static function TelaUsuario($request){
+    public static function getTelaUsuario($request){
 
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
         
-        $content = View::render('funcionario/funcionario', [
+        $content = View::renderAdmin('usuario/usuario', [
             'pesquisar'=>$buscar,
             'msg'=>self::exibeMensagem($request),
             'item'=>self::getUsuario($request,$obPagination),
             'paginacao'=>parent::getPaginacao($request,$obPagination)
         ]);
    
-        return parent::getPage('Painel funcionario',$content);
+        return parent::getPageAdmin('Admin - Painel Usuario',$content);
     }
 
     // Metodo que cadastra usuario 
-    public static function cadastrarUser($request){
+    public static function getCadastrarUsuario($request){
         
-        $obUsuario = new UsuarioDao;
+        $obUsuario = new AdmimUserDao;
 
         // Obtem os postos cadastrados 
         //$obPosto = new Posto();
@@ -173,25 +157,22 @@ class Usuario extends Page{
             }
         }
 
-        $content = View::render('funcionario/formFuncionario', [
-            'titulo' => 'Cadastrar Novo Funcionario',
+        $content = View::renderAdmin('usuario/formUsuario', [
+            'titulo' => 'Cadastrar Novo Usuario',
             'button' => 'Cadastrar',
             'msg'=>'',
-            'nome_us'=>'',
-            'sobrenome_us'=>'',
-            'femenino'=>'',
+            'nome'=>'',
+
             'data'=>'',
             'bilhete'=>'',
             'email'=>'',
             'telefone'=>'',
-            'nivel'=>'',
-            'imagem'=>'anonimo.png',
-            'itemPosto'=>self::getPosto(),
-           'pot'=>''
-
+            'cargo'=>'',
+            'imagem'=>'anonimo.png'
+        
         ]);
 
-        return parent::getPage('Cadastrar Funcionario', $content);
+        return parent::getPageAdmin('Admin- Cadastrar Usuario', $content);
     }
 
     // metodo para ir na pagina editar usuario
@@ -223,7 +204,7 @@ class Usuario extends Page{
     // Metodo para editar usuario
     public static function setAtualizarUser($request,$id_us){
 
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
+        $obUsuario = AdmimUserDao::getUsuarioId($id_us);
     
         $postVars = $request->getPostVars();
     
@@ -270,9 +251,9 @@ class Usuario extends Page{
             }    
         }
             
-        $content = View::render('funcionario/formUser', []);
+        $content = View::renderAdmin('funcionario/formUser', []);
 
-        return parent::getPage('Cadastrar Usuario', $content);
+        return parent::getPageAdmin('Cadastrar Usuario', $content);
     }
 
     // Metodo para ir na pagina de apagar usuario 
@@ -280,14 +261,14 @@ class Usuario extends Page{
 
         $obUsuario = UsuarioDao::getUsuarioId($id_us);
 
-        $content = View::render('funcionario/apagarUser', [
+        $content = View::renderAdmin('funcionario/apagarUser', [
             'titulo' => ' Apagar o Usuario',
             'id'=>$obUsuario->id_us,
             'imagem'=>$obUsuario->imagem_us,
             'nome'=>$obUsuario->nome_us,
             'Criado'=>$obUsuario->create_us,   
         ]);
-        return parent::getPage('Apagar Usuario {{id}}', $content);
+        return parent::getPageAdmin('Apagar Usuario {{id}}', $content);
     }
 
     // Metodo para apagar usuario

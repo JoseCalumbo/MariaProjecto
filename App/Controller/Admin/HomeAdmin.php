@@ -33,7 +33,7 @@ class HomeAdmin extends PageAdmin
         return $quantidadetotal;
     }
 
-    // funcao para apresenatar os registos dos dados 
+    // M+etodos para buscar os registos dos dados 
     private static function getBuscaVedendor($request)
     {
         $queryParam = $request->getQueryParams();
@@ -82,19 +82,18 @@ class HomeAdmin extends PageAdmin
     }
 
     // tela home adim
-    public static function getHome($request)
+    public static function getHomeAdmin($request)
     {
- 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/homeMedico', [
+        $content = View::renderAdmin('home/homeAdmin', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
             //'totalUsuario' => self::getDadosUsuario(),
-            // 'totalVendedor' => self::getDadosVendedor(),
+            //'totalVendedor' => self::getDadosVendedor(),
             //'totalzona' => self::getzonas(),
         ]);
         // Retorna o metedo que renderiza a (Layouts) pagina 
-        return parent::getPage('PM Admin', $content);
+        return parent::getPageAdmin('Auxiliar Médico - Admin', $content);
     }
 
 }

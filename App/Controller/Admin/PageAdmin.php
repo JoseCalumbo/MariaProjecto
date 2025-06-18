@@ -12,7 +12,7 @@ use Sabberworm\CSS\Value\URL;
 
 Class PageAdmin{
 
-    //pega os dados do usuario logado no momento
+    //Pega os dados do usuario logado no momento
     public static function getAdminUserLogado($obAdminUser){
         $dados = '';
         $AdminLogado = SessionAdmin::getAdminUserLogado();
@@ -33,8 +33,7 @@ Class PageAdmin{
        ]);
     }
 
-    /**
-       * Função para mostrar a paginacao 
+    /** Função para mostrar a paginacao 
        *@param Request $request
        *@param Pagination $obPagination
        *@return string
@@ -64,19 +63,24 @@ Class PageAdmin{
             $link = $url.'?'.http_build_query($queryParam);
 
             // rederiz os links na pagina user
-            $links .= View::render('Paginacao/link',[
+            $links .= View::renderAdmin('Paginacao/link',[
                 'pagina' => $page['page'],
                 'link'=> $link,
                 'activo'=>$page['current'] ? 'active' : ''
             ]);
         }
-        return View::render('Paginacao/box',[
+        return View::renderAdmin('Paginacao/box',[
              'links'=>$links
         ]);
     }
 
-    //metodo para buscar header principal
-    public static function getHeader($obFuncionario){
+
+
+
+
+
+    //Metodo que renderiza o header admin  principal
+    public static function getHeaderAdmin($obFuncionario){
         return View::renderAdmin('Layouts/header',[
             'info'=> self::getAdminUserLogado($obFuncionario)
         ]);
@@ -84,20 +88,24 @@ Class PageAdmin{
 
     //metodo busca footer
     public static function getFooter(){
-        return View::render('Layouts/footer');
+        return View::renderAdmin('Layouts/footer');
     }
 
     //metodo que renderiza layouts da pagina
-    public static function getPage($title,$content){
-        return View::render('Layouts/pagina',[
+    public static function getPageAdmin($title,$content){
+        return View::renderAdmin('Layouts/pagina',[
             'title' => $title,
-            'header'=>Self::getHeader(null),
+            'header'=>Self::getHeaderAdmin(null),
             'content'=> $content,
             'footer'=>Self::getFooter()
         ]);
     }
 
-    // metodo para rederizar a pagina de login
+
+
+
+
+    // Método para rederizar a pagina de login admin
     public static function getPageAdminLogin($title,$content,$red){
         return View::renderAdmin('login/pagina',[
             'title' => $title,

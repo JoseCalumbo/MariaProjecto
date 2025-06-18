@@ -9,12 +9,12 @@ class AdmimUserDao
 {
     public $id; // guarda o numero ID unico do usuario Adimim
     public $nome;  // guarda o nome de identificação do usuario Adimim
-    public $nascimento; // guarda a data de nscimento do usuario Adimim
     public $email;
     public $telefone;
     public $nivel;
     public $imagem;
     public $senha;
+    public $morada;
     public $criado;
 
 
@@ -26,13 +26,13 @@ class AdmimUserDao
         $this->id = $obDatabase->insert([
             'id' => $this->id,
             'nome' => $this->nome,
-            'nascimento' => $this->nascimento,
             'email' => $this->email,
             'telefone' => $this->telefone,
             'nivel' => $this->nivel,
             'imagem' => $this->imagem,
             'senha' => $this->senha,
-            'criado' => $this->criado,
+            'morada' => $this->morada,
+            'criado' => $this->criado
         ]);
         return true;
     }
@@ -40,7 +40,7 @@ class AdmimUserDao
     // faz um update na tabela usuario
     public function atualizar()
     {
-        return (new Database('tb_usuario'))->update('id_us = ' . $this->id, [
+        return (new Database('tb_usuario'))->update('id = ' . $this->id, [
             'nome' => $this->nome,
             'nascimento' => $this->nascimento,
             'email' => $this->email,

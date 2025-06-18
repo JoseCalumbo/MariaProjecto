@@ -11,7 +11,7 @@ $obRouter->get('/admin', [
         'requer-loginAdmin'
     ],
     function ($request) {
-        return new Response(200, Admin\HomeAdmin::getHome($request));
+        return new Response(200, Admin\HomeAdmin::getHomeAdmin($request));
     }
 ]);
 
@@ -25,7 +25,7 @@ include __DIR__.'/RotaLoginAdmin.php';
 /**
  * __________________________________Usuario_______________________________
  * inclui as rotas dos Usuario
-*/
+ */
 include __DIR__.'/RotaUsuario.php';
 
 /**
@@ -33,3 +33,9 @@ include __DIR__.'/RotaUsuario.php';
  * inclui as rotas dos Funcionario
 */
 include __DIR__.'/RotaFuncionario.php';
+
+/**
+ * __________________________________ Conta User_______________________________
+ * inclui as rotas dos Conta user
+*/
+include __DIR__.'/RotaContaAdmin.php';

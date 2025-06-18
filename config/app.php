@@ -44,7 +44,8 @@ Queue::setMap([
     'requer-loginAdmin' => \App\Http\Middleware\RequerLoginAdmin::class,
     'requer-logoutAdmin' => \App\Http\Middleware\RequerLogoutAdmin::class,
 
-    'nivel-acesso' => \App\Http\Middleware\NivelAcesso::class
+    'nivel-acesso' => \App\Http\Middleware\NivelAcesso::class,
+    'nivel-acessoAdmin' => \App\Http\Middleware\NivelAcessoAdmin::class
 ]);
 
 //Mapea os middlewares padrao

@@ -29,18 +29,4 @@ class PaginaSite extends Page
         return parent::getPageSite('Mp Site  Contactos', $content);
     }
 
-    //tela home Medico
-    public static function getHomeMedico($request)
-    {
-        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/homeMedico', [
-            'pesquisar' => $buscar,
-            //'BuscaVendedor' => self::getBuscaVedendor($request),
-        ]);
-        return parent::getHeaderMedico('Venda Ambulante', $content);
-    }
-
-
-
-
 }

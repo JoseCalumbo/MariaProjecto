@@ -1,27 +1,32 @@
-<?php 
+<?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\AdmimUserDao;
 use \App\Utils\Session;
+use \App\Utils\SessionAdmin;
 use \App\Http\Request;
 use \App\Controller\Mensagem\Mensagem;
 use \App\Utils\Upload;
 
-Class ContaAdmin extends Page{
+
+class ContaAdmin extends PageAdmin
+{
 
     /**
-      * Metodo para exibir  a mensagem 
-      *@param Request $request
-      *@return string
-    */
-    public static function exibeMensagem($request){
+     * Metodo para exibir  a mensagem 
+     *@param Request $request
+     *@return string
+     */
+    public static function exibeMensagem($request)
+    {
 
         $queryParam = $request->getQueryParams();
-        
-        if(!isset($queryParam['msg'])) return '';
+
+        if (!isset($queryParam['msg']))
+            return '';
 
         switch ($queryParam['msg']) {
             case 'senhaEditada':
@@ -34,95 +39,98 @@ Class ContaAdmin extends Page{
                 return Mensagem::msgSucesso('Conta editada com sucesso');
                 break;
         }// fim do switch
+
+        return true;
     }
 
     // funcao para apresenatar os dados do user dados 
-    private static function getUsuarioConta(){
-            $item = '';
-            $usuarioLogado = Session::getUsuarioLogado();
-            $id=$usuarioLogado['id'];
-    
-            $obUsuario = AdmimUserDao::getUsuarioId($id);
-    
-            $item .= View::render('conta/dadosConta', [
-                'id'=>$obUsuario->id_us,
-                'nome'=>$obUsuario->nome_us,
-                'genero'=>$obUsuario->genero_us,
-                'nascimento'=>$obUsuario->nascimento_us,
-                'bilhete'=>$obUsuario->bilhete_us,
-                'email'=>$obUsuario->email_us,
-                'telefone'=>$obUsuario->telefone_us,
-                'nivel'=>$obUsuario->nivel_us,
-                'registro'=>$obUsuario->create_us
-            ]);
-            return $item;
+    private static function getUsuarioConta()
+    {
+        $item = '';
+
+        // Busca o usuario logado no sistema
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        $item .= View::renderAdmin('conta/dadosConta', [
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'nascimento' => $obUsuario->nascimento,
+            'email' => $obUsuario->email,
+            'telefone' => $obUsuario->telefone,
+            'nivel' => $obUsuario->nivel,
+            'registro' => $obUsuario->criado
+        ]);
+        return $item;
     }
 
     // funcao para apresenatar os dados do menu user dados 
-    private static function getUsuarioMenu(){
-            $item = '';
+    private static function getUsuarioMenu()
+    {
+        $item = '';
 
-            $usuarioLogado = Session::getUsuarioLogado();
-            $id=$usuarioLogado['id_us'];
+        // Busca o usuario logado no sistema
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
 
-            $obUsuario = UsuarioDao::getUsuarioId($id);
-    
-            $item .= View::render('conta/menuConta', [
-                'id'=>$obUsuario->id_us,
-                'nome'=>$obUsuario->nome_us,
-                'imagem'=>$obUsuario->imagem_us,
-            ]);
-            return $item;
+        $item .= View::renderAdmin('conta/menuConta', [
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'imagem' => $obUsuario->imagem,
+        ]);
+        return $item;
     }
 
     // metodo que renderiza a tela  do usuario 
-    public static function telaConta($request){
+    public static function telaConta($request)
+    {
+        // Pega o usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
 
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id=$usuarioLogado['id_us'];
-
-        $obUsuario = UsuarioDao::getUsuarioId($id);
-
-         $content = View::render('conta/conta',[
-            'dadosconta'=>self::getUsuarioConta(),
-            'menuconta'=>self::getUsuarioMenu(),
-            'imagem'=>$obUsuario->imagem_us,
-            'msg'=>self::exibeMensagem($request),
-            'msgVazio'=>''
+        $content = View::renderAdmin('conta/conta', [
+            'dadosconta' => self::getUsuarioConta(),
+            'menuconta' => self::getUsuarioMenu(),
+            'imagem' => $obUsuario->imagem,
+            'msg' => self::exibeMensagem($request),
+            'msgVazio' => ''
         ]);
-        return parent::getPage('Painel Usuario', $content);
+        return parent::getPageAdmin('Painel Usuario', $content);
     }
 
     /**
-      * Metodo para editar os dados 
-      *@param Request $request
-      *@return string
-    */
-    public  static function editarConta($request,$id_us){
+     * Metodo para editar os dados 
+     *@param Request $request
+     *@return string
+     */
+    public static function editarConta($request, $id_us)
+    {
+        // Pega o usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
 
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id=$usuarioLogado['id_us'];
-
-        $obUsuario = UsuarioDao::getUsuarioId($id);
-        
-        $content = View::render('conta/registrosConta',[
-            'msg'=>'',
-            'menuconta'=>self::getUsuarioMenu(),
-            'msgVazio'=>'',
-            'imagem'=>$obUsuario->imagem_us,
+        $content = View::render('conta/registrosConta', [
+            'msg' => '',
+            'menuconta' => self::getUsuarioMenu(),
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem_us,
         ]);
-        return parent::getPage('Editar conta', $content);
-             
+        return parent::getPageAdmin('Editar conta', $content);
+
     }
 
     // metodo que renderiza a tela alter senha
-    public static function telaAlterarSenha($request ,$erroMsg){
+    public static function getTelaAlterarSenha($request, $erroMsg)
+    {
+        // Pega o id do usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
 
-        // pega o id do usuario logado
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id=$usuarioLogado['id_us'];
-
-        $obUsuario = UsuarioDao::getUsuarioId($id);
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
         $postVars = $request->getPostVars();
 
         // post do form da alteracao 
@@ -132,36 +140,35 @@ Class ContaAdmin extends Page{
 
         $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
 
-         $content = View::render('conta/alterarsenha',[
-            'menuconta'=>self::getUsuarioMenu(),
-            'senhaAntiga'=>$senhaAntiga,
-            'senhaNova'=>$senhaNova,
-            'senhaConf'=>$senhaConfirmada,
+        $content = View::renderAdmin('conta/alterarsenha', [
+            'menuconta' => self::getUsuarioMenu(),
+            'senhaAntiga' => $senhaAntiga,
+            'senhaNova' => $senhaNova,
+            'senhaConf' => $senhaConfirmada,
             'msg' => $status,
-            'msgVazio'=>'',
-            'imagem'=>$obUsuario->imagem_us,
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem,
         ]);
-        return parent::getPage('Usuario Alterar senha', $content);
+        return parent::getPageAdmin('Usuario Alterar senha', $content);
     }
 
     //metodo post para alterar senha
-    public static function setAlterarSenha($request,$id_us){
+    public static function setAlterarSenha($request, $id_us)
+    {
+        // Busca o usuario logado no sistema
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
 
-        // obtem o id do usuario logado
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id_us=$usuarioLogado['id_us'];
-
-    
         $postVars = $request->getPostVars();
 
         $senhaAntiga = $postVars['senhaAntiga'] ?? '';
         $senhaNova = $postVars['senhaNova'] ?? '';
         $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
-        
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
+
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
 
         // validacao da senha se corresponde
-        if (!password_verify($senhaAntiga, $obUsuario->senha_us)) {
+        if (!password_verify($senhaAntiga, $obUsuario->senha)) {
             return self::telaAlterarSenha($request, '<p class="black-text"> Erro! Senha Incorreta </p>');
             exit;
         }
@@ -173,24 +180,25 @@ Class ContaAdmin extends Page{
         }
 
         // valida os campos das senhas 
-        if (isset($postVars['senhaAntiga'],$postVars['senhaNova'],$postVars['senhaConfirmada'])){
+        if (isset($postVars['senhaAntiga'], $postVars['senhaNova'], $postVars['senhaConfirmada'])) {
 
             //faz a alteracao da senha
-            $obUsuario->senha_us = password_hash($postVars['senhaNova'],PASSWORD_DEFAULT);
-            $obUsuario->atualizarSenha(); 
+            $obUsuario->senha = password_hash($postVars['senhaNova'], PASSWORD_DEFAULT);
+            $obUsuario->atualizarSenha();
         }
-        
-        $request->getRouter()->redirect('/conta?msg=senhaEditada');
-   }
 
-   // metodo para alterar a imagem do usuario
-   public static function alterarImagem($request){
+        $request->getRouter()->redirect('/conta?msg=senhaEditada');
+    }
+
+    // metodo para alterar a imagem do usuario
+    public static function alterarImagem($request)
+    {
 
         $postVars = $request->getPostVars();
 
         // obtem o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();
-        $id_us=$usuarioLogado['id_us'];
+        $id_us = $usuarioLogado['id_us'];
 
         // instancia do user
         $obUsuario = UsuarioDao::getUsuarioId($id_us);
@@ -198,35 +206,35 @@ Class ContaAdmin extends Page{
         // instancia da class que carrega a imagem
         $obUpload = new Upload($_FILES['imagem']) ?? '';
 
-        if (isset($postVars['salvar'])){
-            
+        if (isset($postVars['salvar'])) {
+
             // verifica se foi carregado uma imagem 
             if ($_FILES['imagem']['error'] == 4) {
-                $content = View::render('conta/conta',[
-                    'msg'=>'',
+                $content = View::render('conta/conta', [
+                    'msg' => '',
                     //exibe os dados do user na pagina
-                    'dadosconta'=>self::getUsuarioConta(),
+                    'dadosconta' => self::getUsuarioConta(),
                     // exibe o menu do user na pagina
-                    'menuconta'=>self::getUsuarioMenu(),
+                    'menuconta' => self::getUsuarioMenu(),
                     // coloca a class para manter o modal de alter a foto
-                    'blocks'=>'block',
-                    'imagem'=>$obUsuario->imagem_us,
+                    'blocks' => 'block',
+                    'imagem' => $obUsuario->imagem_us,
                     //exibe a mensagem de nao carregar uma foto
                     'msgVazio' => '<p class="div-conta-inf red center">Não selecionaste nenhuma imagem nova</p>',
                 ]);
                 return parent::getPage('Usuario Alterar senha', $content);
             }
 
-            $sucess = $obUpload->upload(LOCAL_URL.'/Files/Imagem/user',false);
-            
+            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
+
             $obUsuario->imagem_us = $obUpload->getBaseName();
-            $obUsuario->atualizarImagem(); 
-            
+            $obUsuario->atualizarImagem();
+
             if ($sucess) {
                 $request->getRouter()->redirect('/conta?msg=imagemAlterado');
                 exit;
             }
         }
-   }
+    }
 
 }

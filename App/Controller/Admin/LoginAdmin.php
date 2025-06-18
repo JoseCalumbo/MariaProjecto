@@ -29,11 +29,10 @@ class LoginAdmin extends PageAdmin
       'senha' => $senha,
       'msg' => $status,
     ]);
-    return parent::getPageAdminLogin('Logar Admin 1', $content, null);
+    return parent::getPageAdminLogin('Admin - Login', $content, null);
   }
 
-    /**
-     * Função para logar o Usuario Gestor Adimin
+    /** Função para logar o Usuario Gestor Adimin
      * @param Request  
      */
     public static function setLoginAdmin($request)

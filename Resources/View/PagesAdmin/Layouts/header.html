@@ -1,10 +1,11 @@
 <!--HEADER-->
 <header class="header navbar-fixed">
 
-    <nav class="white navbar-fixed">
+    <nav class="grey lighten-3 navbar-fixed">
         <div class="nav-wrapper">
+            
             <ul>
-                <a href="{{URL}}" class="brand-logo logotipo blue darken-2 "
+                <a href="{{URL}}/admin" class="brand-logo logotipo blue darken-2 "
                     style="width: 180px;  height: 65px; text-align: center; border-bottom: 1px white solid; ">
                     <img class="" src="{{URL}}/Assets/img/logoMenu2.png" width="90">
                 </a>
@@ -20,10 +21,10 @@
 
             <ul id="dropdown1" class="dropdown-content">
                 <li class=" {{nivel}}">
-                    <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
+                    <a class="black-text font-normal" href="{{URL}}/conta-admin">Minha Conta </a>
                 </li>
                 <li class="{{nivel}}">
-                    <a class="black-text font-normal" href="{{URL}}/admin/logout">Bloquear</a>
+                    <a class="black-text font-normal" href="{{URL}}/admin/logout">Configuração</a>
                 </li>
                 <li class="{{nivel}} ">
                     <a class="black-text font-normal" href="{{URL}}/admin/logout">Terminar Sessao</a>
@@ -36,6 +37,7 @@
                 <li><a href="collapsible.html"><i class="material-icons black-text">refresh</i></a></li>
                 <li><a href="collapsible.html"><i class="material-icons black-text">view_quilt</i></a></li>
             </ul>
+
         </div>
     </nav>
 
@@ -46,16 +48,17 @@
     <div class="col m2 blue darken-2">
         <aside id="aside" class="blue darken-2">
             <ul class="fixed collapsible blue darken-2">
+
                 <li>
                     <a class="collapsible-header blue darken-2" href="{{URL}}/admin"
                         style="text-transform: capitalize;">
                         <i class="fa-solid fa-house" style="color: #63E6BE;"></i>
-                        Principal
+                        Home
                     </a>
                 </li>
 
                 <li>
-                    <a class="collapsible-header blue darken-2" href="{{URL}}/relatorio"
+                    <a class="collapsible-header blue darken-2" href="{{URL}}/admin"
                         style="display: flex; align-items: center; text-transform: capitalize;">
                         <i class="fa-solid fa-chart-pie" style="color: #63E6BE;"></i>
                         Relatorios
@@ -70,7 +73,7 @@
                     <ul class="collapsible-body">
 
                         <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/usuario">
                                 <i class="material-icons white-text" style="vertical-align: -6px;">person_add</i>
                                 Usuarios
                             </a>
@@ -84,20 +87,20 @@
                         </li>
 
                         <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/paciente-admin">
                                 <i class="material-icons white-text" style="vertical-align: -6px;">airline_seat_individual_suite</i>
-                                Paciente
+                                Pacientes
                             </a>
                         </li>
                         <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/medicamento">
                                 <i class="material-icons white-text" style="vertical-align: -6px;">description</i>
                                 Medicamentos
                             </a>
                         </li>
 
                         <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/vendedor">
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/centro">
                                 <i class="material-icons white-text" style="vertical-align: -6px;">domain</i>
                                 Centro
                             </a>
@@ -113,16 +116,16 @@
                     </a>
 
                     <ul class="collapsible-body">
-                        <li><a class="" style="text-transform: capitalize;" href="{{URL}}/conta">
+                        <li><a class="" style="text-transform: capitalize;" href="{{URL}}/admin/conta">
                                 <i class="material-icons white-text" style="vertical-align: -6px;">account_box</i>
                                 Editar
                                 Conta</a>
                         </li>
 
                         <li>
-                            <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
+                            <a class="" style="text-transform: capitalize;" href="{{URL}}/admin/logout">
                                 <i class="material-icons white-text " style="vertical-align: -6px;">settings</i>
-                                Definição</a>
+                                Configuração</a>
                         </li>
                         <li class="">
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/admin/logout">

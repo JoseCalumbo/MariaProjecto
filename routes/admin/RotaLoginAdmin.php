@@ -29,26 +29,26 @@ $obRouter->post('/admin/login', [
 //criar conta no sistema GET
 $obRouter->get('/admin/sigin', [
     'middlewares' => [
-        'requer-logout'
+        'requer-logoutAdmin'
     ],
     function ($request, $erroMsg) {
-        return new Response(200, Admin\SiginAdmin::telaSigin($request, $erroMsg));
+        return new Response(200, Admin\SiginAdmin::getTelaSigin($request, $erroMsg));
     }
 ]);
 
 $obRouter->post('/admin/sigin', [
     'middlewares' => [
-        'requer-logout'
+        
     ],
     function ($request) {
-        return new Response(200, Admin\SiginAdmin::criarConta($request));
+        return new Response(200, Admin\SiginAdmin::setSignAdmin($request));
     }
 ]);
 
 //criar conta no sistema GET
 $obRouter->get('/admin/confirmado', [
     'middlewares' => [
-        'requer-logout'
+        'requer-logoutAdmin'
     ],
     function ($request) {
 
