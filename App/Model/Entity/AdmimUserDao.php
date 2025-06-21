@@ -9,6 +9,7 @@ class AdmimUserDao
 {
     public $id; // guarda o numero ID unico do usuario Adimim
     public $nome;  // guarda o nome de identificação do usuario Adimim
+    public $genero;  // guarda o genero de identificação do usuario Adimim
     public $email;
     public $telefone;
     public $nivel;
@@ -26,12 +27,13 @@ class AdmimUserDao
         $this->id = $obDatabase->insert([
             'id' => $this->id,
             'nome' => $this->nome,
-            'email' => $this->email,
+            'genero' => $this->genero,
             'telefone' => $this->telefone,
+            'email' => $this->email,
             'nivel' => $this->nivel,
             'imagem' => $this->imagem,
-            'senha' => $this->senha,
             'morada' => $this->morada,
+            'senha' => $this->senha,
             'criado' => $this->criado
         ]);
         return true;
@@ -42,13 +44,14 @@ class AdmimUserDao
     {
         return (new Database('tb_usuario'))->update('id = ' . $this->id, [
             'nome' => $this->nome,
-            'nascimento' => $this->nascimento,
-            'email' => $this->email,
+            'genero' => $this->genero,
             'telefone' => $this->telefone,
+            'email' => $this->email,
             'nivel' => $this->nivel,
             'imagem' => $this->imagem,
+            'morada' => $this->morada,
             'senha' => $this->senha,
-            'criado' => $this->criado,
+            'criado' => $this->criado
         ]);
     }
 

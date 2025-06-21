@@ -17,7 +17,7 @@
     </nav>
 
     <section class="col m12 s12 center">
-        <h5 class="black-text "> {{titulo}}</h5>
+        <h5 class="black-text "> {{titulo}} e</h5>
     </section>
 
     <section class="row col m8 offset-m2 " style="text-align: center;">
@@ -39,9 +39,9 @@
 
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input id="telefone" type="text" data-length="30" name="telefone1"
+                                <input id="telefone" type="text" data-length="30" name="telefone"
                                     value="{{telefone}}" />
-                                <label for="telefone1" style="text-transform: capitalize;">telefone1:</label>
+                                <label for="telefone1" style="text-transform: capitalize;">telefone:</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <input id="email" type="text" data-length="30" name="email" value="{{email}}" />
@@ -52,19 +52,37 @@
                         </div>
 
                         <div class="row">
-                            <div class="input-field col s6 m12">
+                            <div class="input-field col s6 m6">
                                 <div class="input-field col s12">
-                                    <select name="cargo">
+                                    <select name="genero">
                                         <option value="" disabled selected>Escolhe uma opção</option>
-                                        <option value="Administrador" {{cargo-admin}}>Administrador</option>
-                                        <option value="normal" {{cargo-normal}}>Normal</option>
-                                        <option value="visit" {{cargo-visit}}>Visitante</option>
+                                        <option value="Masculino" {{masculino}}>Masculino</option>
+                                        <option value="Feminino" {{feminino}}>Feminino</option>
                                     </select>
-                                    <label>Nivel de Acesso</label>
+                                    <label style="text-transform: capitalize; font-size: 14px;" >Genero</label>
+                                </div>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <div class="input-field col s12">
+                                    <select name="nivel">
+                                        <option value="" disabled selected>Escolhe uma opção</option>
+                                        <option value="Administrador" {{nivelAdmin}}>Administrador</option>
+                                        <option value="normal" {{nivelNormal}}>Normal</option>
+                                        <option value="visitante" {{nivelVisitante}}>Visitante</option>
+                                    </select>
+                                    <label style="text-transform: capitalize; font-size: 14px;" >Nivel de Acesso</label>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="row">
+                            
+                            <div class="input-field col s12 m12">
+                                <input id="morada" type="text" data-length="30" name="morada"
+                                    value="{{morada}}" />
+                                <label for="morada" style="text-transform: capitalize;">Morada:</label>
+                            </div>
+                        </div>
                     </div>
                 </li>
 

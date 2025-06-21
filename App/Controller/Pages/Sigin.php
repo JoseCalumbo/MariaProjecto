@@ -4,13 +4,13 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Http\Request;
-use \App\Model\Entity\UsuarioDao;
+use \App\Model\Entity\FuncionarioDao;
 use \App\Model\Entity\AdmimUserDao;
 use \App\Controller\Mensagem\Mensagem;
 
 class Sigin extends Page
 {
-    // Funcao que apresenta a tela de usuario
+    // Funcão que apresenta a tela de cadastramento do funcionario
     public static function telaSigin($request, $erroMsg = null)
     {
         $postVars = $request->getPostVars();
@@ -31,12 +31,12 @@ class Sigin extends Page
     }
 
     /**
-     * Função para logar o usuario
+     * M+etodo que faz o cadastramento do funcionario 
      * @param Request  
      */
     public static function criarConta($request)
     {
-        $obAdmimUser = new AdmimUserDao;
+        $obFuncionario = new FuncionarioDao;
 
         $postVars = $request->getPostVars();
         $nome = $postVars['nome'] ?? '';
@@ -50,34 +50,35 @@ class Sigin extends Page
             return self::telaSigin($request, '<p>Erro na confirmação de senha,digita novamente</p>');
         }
 
-        // verifica se o email ja foi cadastrado por outro usuario
-        // $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
-        //  if (!$obAdmimUser1 instanceof AdmimUserDao) {
-        //  return self::telaSigin($request, '<p>Erro este email já esta ser utilizado</p>');
-        //}
+        // verifica se o email ja foi cadastrado por outro Funcionario
+         $obEmailFuncionario = FuncionarioDao::getFuncionarioEmail($email);
+            if ($obEmailFuncionario instanceof FuncionarioDao) {
+             return self::telaSigin($request, '<p>Erro este email já esta ser utilizado</p>');
+        }
 
         if (isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['ConfirmaSenha'])) {
 
-            $obAdmimUser->nome = $nome;
-            $obAdmimUser->email = $email;
-            $obAdmimUser->senha = password_hash($senha, PASSWORD_DEFAULT);
-            $obAdmimUser->nivel = 'Administrador';
-            $obAdmimUser->imagem = 'anonimo.png';
-            $obAdmimUser->cadastrar();
-            $request->getRouter()->redirect('/sigin/confirmado');
+            $obFuncionario->nome_funcionario = $nome;
+            $obFuncionario->email_funcionario = $email;
+            $obFuncionario->senha_funcionario = password_hash($senha, PASSWORD_DEFAULT);
+            $obFuncionario->cargo_funcionario = 'Administrador';
+            $obFuncionario->imagem_funcionario = 'anonimo.png';
+            $obFuncionario->cadastrarFuncionario();
+
+            $request->getRouter()->redirect('/sigin/confirmado/'.$email.'');
             exit;
         }
         // redireciona para a pagina de login
         $request->getRouter()->redirect('/sigin');
     }
 
-    public static function telaSiginConfirma($request)
+    public static function getContaCadastrada($request,$email)
     {
-        // $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
+         $emailFuncionario = FuncionarioDao::getFuncionarioEmail($email);
 
         $content = View::render('login/contaRegistrado', [
-            'nome' => $nome ?? '',
-            'email' => $email ?? '',
+            'nome' => $emailFuncionario->nome_funcionario,
+            'email' => $emailFuncionario->email_funcionario,
         ]);
         return parent::getPageLogin('Conta registrado ', $content, null);
     }

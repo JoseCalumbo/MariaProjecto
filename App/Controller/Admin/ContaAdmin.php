@@ -56,7 +56,7 @@ class ContaAdmin extends PageAdmin
         $item .= View::renderAdmin('conta/dadosConta', [
             'id' => $obUsuario->id,
             'nome' => $obUsuario->nome,
-            'nascimento' => $obUsuario->nascimento,
+            'nascimento' => "",
             'email' => $obUsuario->email,
             'telefone' => $obUsuario->telefone,
             'nivel' => $obUsuario->nivel,

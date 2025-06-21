@@ -47,9 +47,9 @@ class Login extends Page
             return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
         }
 
-        // if (!password_verify($senha, $obAdminUser->senha)) {
-        //return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
-        //   }
+        if (!password_verify($senha, $obFuncionario->senha_funcionario)) {
+            return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
+           }
 
         //criar uma nova Sessão de Login
         Session::login($obFuncionario);
@@ -61,7 +61,7 @@ class Login extends Page
 
         if ($obFuncionario->cargo_funcionario == 'Médico' || $obFuncionario->cargo_funcionario == 'Medico') {
             // redireciona para a pagina de home 
-            $request->getRouter()->redirect('/dados');
+            $request->getRouter()->redirect('/');
         }
 
         // redireciona para a pagina de home 

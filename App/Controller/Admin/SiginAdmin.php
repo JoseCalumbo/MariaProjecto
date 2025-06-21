@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use \App\Utils\View;
 use \App\Http\Request;
 use \App\Model\Entity\AdmimUserDao;
-use \App\Controller\Mensagem\Mensagem;
+use \App\Controller\Mensagem\MensagemAdmin;
 
 class SiginAdmin extends PageAdmin
 {
@@ -18,7 +18,7 @@ class SiginAdmin extends PageAdmin
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? '';
 
-        $status = !is_null($erroMsg) ? Mensagem::msgErro($erroMsg) : '';
+        $status = !is_null($erroMsg) ? MensagemAdmin::msgErro($erroMsg) : '';
 
         $content = View::renderAdmin('login/sign', [
             'nome' => $nome ?? '',
@@ -51,7 +51,7 @@ class SiginAdmin extends PageAdmin
         // verifica se o email ja foi cadastrado por outro usuario
         $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
 
-        if (!$obAdmimUser1 instanceof AdmimUserDao) {
+        if ($obAdmimUser1 instanceof AdmimUserDao) {
             return self::getTelaSigin($request, '<p>Erro este email já esta ser utilizado</p>');
         }
 
@@ -74,11 +74,11 @@ class SiginAdmin extends PageAdmin
     {
         // $obAdmimUser1 = AdmimUserDao::getUsuarioEmail($email);
 
-        $content = View::renderAdmin('login/contaRegistrado', [
+        $content = View::renderAdmin('login/contaRegistradoAdmin', [
             'nome' => $nome ?? '',
             'email' => $email ?? '',
         ]);
-        return parent::getPageAdminLogin('Conta registrado ', $content, null);
+        return parent::getPageAdminLogin('Admin - Conta registrado', $content, null);
     }
 
 }

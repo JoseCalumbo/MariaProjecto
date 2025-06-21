@@ -52,7 +52,7 @@ $obRouter->get('/admin/confirmado', [
     ],
     function ($request) {
 
-        return new Response(200, Pages\Sigin::telaSiginConfirma($request));
+        return new Response(200,Admin\SiginAdmin::telaSiginConfirma($request));
     }
 ]);
 

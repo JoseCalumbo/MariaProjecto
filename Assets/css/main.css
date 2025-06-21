@@ -324,8 +324,8 @@ hr{
   color:white;
 }
 
-.msg{
-  background-color: rgb(82, 196, 7);
+.alert{
+  background-color: rgb(243, 181, 10);
   font-size: small;
   margin-bottom: 5px;
   color: white;

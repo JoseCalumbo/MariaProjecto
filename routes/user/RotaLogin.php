@@ -57,6 +57,18 @@ $obRouter->post('/sigin', [
     }
 ]);
 
+$obRouter->get('/sigin/confirmado/{email}', [
+    'middlewares' => [
+        'requer-logout'
+    ],
+    function ($request,$email) {
+        return new Response(200, Pages\Sigin::getContaCadastrada($request,$email));
+    }
+]);
+
+
+
+
 // rota para recuperar a senha do usuario
 $obRouter->get('/recuperar/senha',[
     function($request,$erroMsg){ return new Response(200,Pages\login::recuperarSenha($request, $erroMsg)); }

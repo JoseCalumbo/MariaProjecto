@@ -3,16 +3,15 @@
 namespace App\Controller\Mensagem;
 
 use \App\Utils\View;
-use \App\Model\Entity\Organization;
 
-Class Mensagem{
+Class MensagemAdmin{
 
     /** Função para retornar uma msg de sucesso
       *@param string $mesagem
       *@return string
     */
     public static function msgSucesso($mesagem){
-          return View::render('mensagem/msg',[
+          return View::renderAdmin('mensagem/msg',[
             'tipo'=>'msg',
             'mensagem'=>$mesagem
           ]);   
@@ -20,11 +19,11 @@ Class Mensagem{
 
     /**
       * Função para retornar uma msg de erro
-      *@param string $mesagem
-      *@return string
+      * @param string $mesagem
+      * @return string
     */
     public static function msgErro($mesagem){
-          return View::render('mensagem/msg',[
+          return View::renderAdmin('mensagem/msg',[
             'tipo'=>'div-error',
             'mensagem'=>$mesagem
           ]);   
@@ -35,9 +34,9 @@ Class Mensagem{
       *@param string $mesagem
       *@return string
     */
-    public static function mensagemErro($mesagem){
-          return View::render('mensagem/msg1',[
-            'tipo'=>'error',
+    public static function msgAlerta($mesagem){
+          return View::renderAdmin('mensagem/msg',[
+            'tipo'=>'alert',
             'mensagem'=>$mesagem
           ]);   
     }

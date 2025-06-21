@@ -1,7 +1,6 @@
 <?php
 
 use \App\Http\Response;
-use \App\Controller\Pages;
 use \App\Controller\Admin;
 
 /**
@@ -35,53 +34,59 @@ $obRouter->get('/usuario/cadastrar', [
         'requer-loginAdmin'
     ],
     function ($request) {
-        return new Response(200, Admin\Usuario::getCadastrarUsuario($request));
+        return new Response(200, Admin\Usuario::CadastrarUsuario($request));
     }
 ]);
-// Rota para cadastrar funcionario get
-$obRouter->post('/funcionario/cadastrar', [
+// Rota para cadastrar Usuario post
+$obRouter->post('/usuario/cadastrar', [
+        'middlewares' => [
+        'requer-loginAdmin'
+    ],
 
     function ($request) {
-        return new Response(200, Pages\Funcionario::cadastrarFuncionario($request));
+        return new Response(200, Admin\Usuario::CadastrarUsuario($request));
     }
 ]);
 
 // rota para alterar um registro GET
-$obRouter->get('/funcionario/editar/{id_funcionario}', [
+$obRouter->get('/usuario/editar/{id}', [
     'middlewares' => [
-        'requer-login',
-        'nivel-acesso'
+        'nivel-acessoAdmin',
+        'requer-loginAdmin'
     ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::getAtualizarFuncionario($request, $id_funcionario));
+    function ($request, $id) {
+        return new Response(200, Admin\Usuario::getAtualizarUsuario($request, $id));
     }
 ]);
 // rota para alterar um registro POST 
-$obRouter->post('/funcionario/editar/{id_funcionario}', [
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setAtualizarFuncionario($request, $id_funcionario));
+$obRouter->post('/usuario/editar/{id}', [
+        'middlewares' => [
+        'nivel-acessoAdmin',
+        'requer-loginAdmin'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Usuario::setAtualizarUsuario($request, $id));
     }
 ]);
 
 // rota para apagar um registro
-$obRouter->get('/funcionario/apagar/{id_funcionario}', [
+$obRouter->get('/usuario/apagar/{id}', [
     'middlewares' => [
-        'requer-login',
-        'nivel-acesso'
+        'nivel-acessoAdmin',
+        'requer-loginAdmin'
     ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Usuario::apagarUser($request, $id_funcionario));
+    function ($request, $id) {
+        return new Response(200,Admin\Usuario::apagarUser($request, $id));
     }
 ]);
 
 // Rota para apagar funcionario
-$obRouter->post('/funcionario/apagar/{id_funcionario}', [
+$obRouter->post('/usuario/apagar/{id}', [
     'middlewares' => [
-        'requer-login',
-        'nivel-acesso'
+        'nivel-acessoAdmin',
     ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setApagarFuncionario($request, $id_funcionario));
+    function ($request, $id) {
+        return new Response(200, Admin\Usuario::setapagarUser($request, $id));
     }
 ]);
 
