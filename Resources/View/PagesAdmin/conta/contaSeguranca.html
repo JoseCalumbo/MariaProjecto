@@ -1,0 +1,180 @@
+<section class="row section-field">
+
+    <div class="col s12 m12">
+        <h5>
+            <a href="{{URL}}/admin/conta">Minha Conta</a>
+            <hr>
+        </h5>
+    </div>
+
+    <section class=" col s12 m3 white card-menu ">
+        <ul class="collection with-header card">
+
+            <div class="item-conta-img center ">
+                <img class="img-conta modal-trigger openModal tooltippedFoto red-text"
+                    src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100" data-position="buttonn"
+                    data-tooltip="Trocar a foto">
+            </div>
+
+            <li class="collection-header center ">
+                <h6>{{nome}}</h6>
+            </li>
+
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Informações Pessoais</a>
+            <a href="{{URL}}/admin/seguranca" class="collection-item capitalize {{active}}">Segurança da Conta</a>
+            <a href="{{URL}}/conta/perfil" class="collection-item capitalize ">Personalização de Perfil</a>
+            <a href="{{URL}}/admin/controle" class="collection-item capitalize ">Controles de Conta</a>
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Preferências e Notificações</a>
+            <a href="{{URL}}/admin/registros" class="collection-item capitalize ">Registros de Dados</a>
+            <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Terminar Sessão</a>
+
+        </ul>
+    </section>
+
+
+    <section class=" col s12 m8 white ">
+
+        <section class="row col m12 push-m1">
+
+            <div class="col m12 pull-m1 center">
+                <h6 class="negrito"> Segurança da Conta</h6>
+                <br>
+            </div>
+
+            <div class="font-small">
+                <p class="negrito "><strong class="negrito">Alterar tua Senha</strong> </p>
+                <p class="">
+                    Mantenha sua conta segura atualizando sua senha regularmente. Para garantir
+                    a integridade e a confidencialidade da sua conta, recomenda-se a atualização periódica da senha.
+                </p>
+                <a  href="#modalAlterarSenha"
+                    class="btn waves-effect waves-light white-text capitalize grey darken-2 modal-trigger" >
+                    <i class="material-icons left white-text"> lock_outline</i>Alterar
+                </a>
+            </div>
+            <br>
+
+            <div class="font-small ">
+                <p class="negrito"><strong>Ver sessões ativas e dispositivos conectados</strong> </p>
+                <p class="">
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                </p>
+                <a class="btn waves-light white-text capitalize grey darken-2">
+                    <i class="material-icons left white-text">cached</i>Verificar
+                </a>
+            </div>
+            <br>
+
+            <div class="font-small ">
+                <p class="negrito"><strong>Ver histórico de login</strong> </p>
+                <p class="">
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                </p>
+                <a class="btn waves-light white-text capitalize grey darken-2 ">
+                    <i class="material-icons left white-text">not_interested </i>Historico de login
+                </a>
+            </div>
+            <br>
+
+        </section>
+
+    </section>
+    <br>
+    <br>
+
+</section>
+
+
+<!--- Modal alterar senha -->
+<div id="modalAlterarSenha" class="modal modalMudarSenha">
+    <div class="modal-content">
+        <form action="{{URL}}/funcionario/apagar/{{id_funcionario}}" method="post" class="row center white push-m2">
+            <div class="col s12 m12">
+                <h5 class=" " style="text-transform: capitalize;">
+                    <i class="material-icons left red-text medium"
+                        style="position: relative; top: -12px;">error_outline</i>
+                    <strong style="font-weight: bold;">Apagar Conta</strong>
+                </h5>
+            </div>
+
+            <div class="col s12 m2">
+                <img src="{{URL}}/Files/Imagem/user/{{imagem}}" style="position: relative; top: 43px;"
+                    class="materialboxed" width="80" height="95">
+            </div>
+
+            <div class="col s12 m8">
+                <p>Apagar a conta de <strong style="font-weight: bold;">{{nome}}</strong> permanentemente.
+                    Se tiver certeza disso e decidir prosseguir, todos os dados vinculados a esta conta serão excluídos
+                    permanentemente. Você não poderá recuperá-los no futuro.</p>
+                <p>
+                <p> <strong>Tem certeza? Esta ação é permanente e não pode ser desfeita.</strong> </p>
+            </div>
+
+            <div class="offset-m2 col s12 m8">
+                <label>
+                    <input name="confirmo" type="checkbox" />
+                    <span> <strong style="font-weight: bold; color: black;">
+                            Sim, confirmo que excluí a conta</strong>
+                    </span>
+                </label>
+            </div>
+
+            <div class="row offset-m8 col s12 m4">
+                <button class=" btn modal-close waves-effect waves-green "> Cancelar </button>
+                <button type="submit" class="btn red" name="apagar" required> Apagar</button>
+            </div>
+        </form>
+
+        <div class="modal-footer">
+            <br>
+            <!-- <a href="#!" class="modal-close waves-effect waves-green ">
+                    <button type="button" class="button">Cancelar</button>
+            </a> -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Modal de alterar a foto-->
+<div id="modal" class="modal {{blocks}}">
+    <div class="modal-item modal-foto">
+        <label id="closeModal" class="closeModal">&times;</label>
+        <form method="post" enctype="multipart/form-data">
+            <h5>Imagem de Perfil</h5>
+            <p class="div-conta-inf">
+                A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
+                tua imagem do sistema e volta para a imagem padrão
+            </p>
+            <hr>
+            {{msgVazio}}
+
+            <div class="center">
+                <label id="image" class="label-modal-img" for="img">
+                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
+                    <div>Carregar imagem</div>
+                </label>
+                <input type="file" id="img" name="imagem">
+            </div>
+
+            <div class="row flex">
+                <button class="btn col m12 indigo" name="salvar" type="submit">
+                    <i class="material-icons ">photo</i>Salvar
+                </button>
+            </div>
+
+            <div class="row flex">
+                <button class="btn red col m12" href="">
+                    <i class="material-icons ">delete</i>Remover
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

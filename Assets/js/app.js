@@ -3,7 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
   var drop = document.querySelectorAll('.dropdown-trigger');
   var instances = M.Dropdown.init(drop, {
     coverTrigger: false,
-    closeOnClick: false
+    closeOnClick: false,
+    alignment: 'left'
+  });
+});
+
+//navbar dropdown do notificação
+document.addEventListener('DOMContentLoaded', function () {
+  var drop = document.querySelectorAll('.dropdown-trigger2');
+  var instances = M.Dropdown.init(drop, {
+    coverTrigger: false,
+    closeOnClick: false,
+    alignment: 'right'
   });
 });
 
@@ -31,9 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
 //abas do painel de vendedor
 document.addEventListener('DOMContentLoaded', function () {
   var tabs = document.querySelectorAll('.tabsvendedor');
-
   var instance = M.Tabs.init(tabs);
 
+});
+
+//abas home grafico admin
+document.addEventListener('DOMContentLoaded', function () {
+  var tabs = document.querySelectorAll('.tabsGraficos');
+  var instance = M.Tabs.init(tabs);
 });
 
 //select tag
@@ -61,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
 // tooltip msg de trocar a foto
 document.addEventListener('DOMContentLoaded', function() {
 var tollFoto = document.querySelectorAll('.tooltippedFoto');
@@ -71,7 +87,7 @@ var instances = M.Tooltip.init(tollFoto, {
   });
 });
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
 //modal apagar user
 document.addEventListener('DOMContentLoaded', function() {
   var apagarUser = document.querySelectorAll('.apagarUser');
@@ -99,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
     startingTop:10,
   });
 });
+
 //modal view apagar triagem
 document.addEventListener('DOMContentLoaded', function() {
   var modalUser = document.querySelectorAll('.modalApagarTriagem');
@@ -132,6 +149,19 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+//modal alterar senha
+document.addEventListener('DOMContentLoaded', function() {
+  var modalzona = document.querySelectorAll('.modalMudarSenha');
+  var instancesModal = M.Modal.init(modalzona,{
+    preventScrolling:false,
+    opacity:0.50,
+    endingTop:'27%',
+  });
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Calendario datepicher
 document.addEventListener('DOMContentLoaded', function() {
   var data = document.querySelectorAll('.datepicker');
@@ -139,28 +169,12 @@ document.addEventListener('DOMContentLoaded', function() {
     autoClose:true,
     format: 'dd/mm/yyyy',
     showClearBtn:true,
-    
-  });
-   
-});
+      });
+   });
   
-  // modal
-  // document.addEventListener('DOMContentLoaded', function() {
-  //   var elems1 = document.querySelectorAll('.meumodal11');
-  //   var instances = M.Modal.init(elems1,{
-  //      opacity:1,
-  //      inDuration:1000,
-  //      outDuration:800,
-  //      //so fecha no botao
-  //      dismissible:false,
-  //      // inicio fim
-  //      endingTop:50,
-  //      startingTop:30,
-  //      //sem scroll
-  //      preventScrolling:false
-  //   });
-  // });
-
+// texto areia
   $(document).ready(function() {
     $('input#input_text, textarea#textarea2').characterCounter();
   });
+
+

@@ -15,6 +15,16 @@ $obRouter->get('/admin', [
     }
 ]);
 
+// Página inicial admin
+$obRouter->get('/admin/relatorio', [
+    'middlewares'=>[
+        'requer-loginAdmin'
+    ],
+    function ($request) {
+        return new Response(200, Admin\RelatorioAdmin::getTelaRelatorio($request));
+    }
+]);
+
 
 /**
  * __________________________________Login e Sign Admin_______________________________
@@ -39,3 +49,9 @@ include __DIR__.'/RotaFuncionario.php';
  * inclui as rotas dos Conta user
 */
 include __DIR__.'/RotaContaAdmin.php';
+
+/**
+ * __________________________________ DEfinição do sistema _______________________________
+ * inclui as rotas dos Definiçao
+*/
+include __DIR__.'/RotaDefinicao.php';

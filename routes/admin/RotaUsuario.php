@@ -4,7 +4,7 @@ use \App\Http\Response;
 use \App\Controller\Admin;
 
 /**
- *  Arquivo php de Rotas dos Funccionarios do sistema
+ *  Arquivo php de Rotas dos Usuarios do sistema
  *  foi incluido em routas.php
  */
 

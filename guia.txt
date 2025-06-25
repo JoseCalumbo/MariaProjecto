@@ -4,5 +4,79 @@ SENHA: 12345
 
 BD:basedados
 
+1. Informações Pessoais
+Alterar nome completo
 
+Atualizar nome de usuário
+
+Alterar data de nascimento
+
+Alterar número de telefone
+
+Atualizar endereço ou localização
+
+📧 2. Email e Comunicação
+Alterar endereço de e-mail
+
+Verificar e-mail
+
+Ativar/desativar notificações por e-mail
+
+Preferências de assinatura de newsletter
+
+🔒 3. Segurança da Conta
+Alterar senha
+
+Configurar autenticação de dois fatores (2FA)
+
+Ver sessões ativas e dispositivos conectados
+
+Ver histórico de login
+
+Configurar perguntas de segurança (menos comum atualmente)
+
+🖼️ 4. Personalização de Perfil
+Alterar foto de perfil
+
+Alterar imagem de capa ou banner
+
+Editar biografia ou descrição pessoal
+
+Definir preferências de idioma e tema (escuro/claro)
+
+⚙️ 5. Configurações de Conta
+Escolher nome de exibição público ou privado
+
+Configurar visibilidade (ex: perfil privado/público)
+
+Vincular/desvincular contas sociais (ex: Google, Facebook)
+
+Configurações de fuso horário
+
+🔔 6. Preferências e Notificações
+Ajustar notificações (push, e-mail, SMS)
+
+Escolher frequência das notificações
+
+Silenciar certas atividades ou grupos
+
+⚠️ 7. Controles de Conta
+Bloquear conta temporariamente
+
+Eliminar conta permanentemente
+
+Desativar conta (sem excluir dados)
+
+Baixar uma cópia dos dados (LGPD/GDPR)
+
+Solicitar exclusão de dados pessoais
+
+Reativar conta desativada
+
+🛡️ 8. Permissões e Segurança Avançada (em apps mais robustos)
+Definir papéis ou permissões (em apps colaborativos)
+
+Visualizar atividades suspeitas
+
+Aprovar/recusar acessos vinculados (API tokens, apps conectados)
 

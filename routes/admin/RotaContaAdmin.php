@@ -25,15 +25,53 @@ $obRouter->post('/admin/conta',[
     function($request){ return new Response(200,Admin\ContaAdmin::alterarImagem($request));}
 ]);
 
-// rota para ir alterar conta
-$obRouter->get('/admin/editsenha',[
+// rota para ir seguranca
+$obRouter->get('/admin/seguranca',[
     'middlewares'=>[
         'requer-loginAdmin'
     ],
-    function($request,$erroMsg){ return new Response(200,Admin\ContaAdmin::getTelaAlterarSenha($request,$erroMsg));}
+    function($request,$erroMsg){ return new Response(200,Admin\ContaAdmin::getTelaSeguranca($request,$erroMsg));}
 ]);
 
-// rota para ir na conta
+// rota para ir controle conta get
+$obRouter->get('/admin/controle',[
+    'middlewares'=>[
+        'requer-loginAdmin'
+    ],
+    function($request,$erroMsg){ return new Response(200,Admin\ContaAdmin::getControleConta($request,$erroMsg));}
+]);
+
+// rota para ir no perfil
+$obRouter->get('/conta/perfil',[
+    'middlewares'=>[
+        'requer-loginAdmin'
+    ],
+    function($request,$id_us){ return new Response(200,Admin\ContaAdmin::getEditarConta($request,$id_us));}
+]);
+// rota para ir no registros admin
+$obRouter->get('/admin/registros',[
+    'middlewares'=>[
+        'requer-loginAdmin'
+    ],
+    function($request,$id_us){ return new Response(200,Admin\ContaAdmin::getRegistrosConta($request,$id_us));}
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// rota para editat senga post
 $obRouter->post('/admin/editsenha',[
     'middlewares'=>[
         'requer-loginAdmin'
@@ -41,10 +79,16 @@ $obRouter->post('/admin/editsenha',[
     function($request,$id_us){ return new Response(200,Admin\ContaAdmin::setAlterarSenha($request,$id_us));}
 ]);
 
-// rota para ir na conta
-$obRouter->get('/conta/editar',[
+
+
+
+// rota para ir alterar senha post
+$obRouter->post('/admin/apagar',[
     'middlewares'=>[
         'requer-loginAdmin'
     ],
-    function($request,$id_us){ return new Response(200,Admin\ContaAdmin::editarConta($request,$id_us));}
+    function($request,$erroMsg){ return new Response(200,Admin\ContaAdmin::setApagarConta($request,$erroMsg));}
 ]);
+
+
+

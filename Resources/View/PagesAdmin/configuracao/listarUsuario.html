@@ -1,31 +1,32 @@
 <tr>
-    <td>{{id_funcionario}}</td>
+    <td>{{id}}</td>
     <td><img src="Files/Imagem/user/{{imagem}}" style="border: 1px solid #72717110; border-radius: 50%;"
             class="materialboxed circle " width="55" height="35"></td>
     <td>{{nome}}</td>
     <td>{{telefone}}</td>
+    <td>{{email}}</td>
     <td>{{cargo}}</td>
-    <td>{{dataRegistro}}</td>
+    <td>{{Registro}}</td>
 
     <td>
-        <a href="{{URL}}/funcionario/editar/{{id_funcionario}}">
+        <a href="{{URL}}/usuario/editar/{{id}}">
             <button type="button" class=" font-normal waves-effect waves-light btn light-blue lighten-1">
                 <i class="material-icons left">edit</i>Editar
             </button>
         </a>
         <!-- href="{{URL}}/funcionario/apagar/{{id_funcionario}}" -->
-        <a href="#modal{{id_funcionario}}" class=" modal-trigger" >
-            <button type="button " class="font-normal waves-effect waves-light red lighten-4 btn">
+        <a href="#modal{{id}}" class=" modal-trigger">
+            <button type="button " class="font-normal waves-effect waves-light red lighten-1 btn">
                 <i class="material-icons left">delete</i>Apagar
             </button>
         </a>
     </td>
 </tr>
 
-<!--- Modal apagar funcionario -->>
-<div id="modal{{id_funcionario}}" class="modal">
+
+<div id="modal{{id}}" class="modal">
     <div class="modal-content">
-        <form action="{{URL}}/funcionario/apagar/{{id_funcionario}}" method="post" class="row center white push-m2">
+        <form action="{{URL}}/usuario/apagar/{{id}}" method="post" class="row center white push-m2">
             <div class="col s12 m12">
                 <h5 class=" " style="text-transform: capitalize;">
                     <i class="material-icons left red-text medium"
@@ -51,14 +52,14 @@
                 <label>
                     <input name="confirmo" type="checkbox" />
                     <span> <strong style="font-weight: bold; color: black;">
-                            Sim, confirmo que excluí a conta</strong>
+                        Sim, confirmo que excluí a conta</strong>
                     </span>
                 </label>
             </div>
 
             <div class="row offset-m8 col s12 m4">
                 <button class=" btn modal-close waves-effect waves-green "> Cancelar </button>
-                <button type="submit" class="btn red" name="apagar" required> Apagar</button>
+                <button type="submit" class="btn red" name="apagar" value="oa" required> Apagar</button>
             </div>
         </form>
 
@@ -68,5 +69,3 @@
                     <button type="button" class="button">Cancelar</button>
             </a> -->
         </div>
-    </div>
-</div>

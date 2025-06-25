@@ -24,7 +24,6 @@ span {
 
 }
 
-
 .section-field>section {
     margin-left: 20px;
     width: 100%;
@@ -37,12 +36,12 @@ span {
 
 /* css header*/
 .header {
-    background-color: #17bf8f;
+    background-color: #00695c;
     z-index: 4;
 }
 
 .menu {
-    background-color: #17bf8f;
+    background-color: #00695c;
 }
 
 .ul-pesquisa {
@@ -294,80 +293,6 @@ td {
     top: -10px;
 }
 
-/* 
-    input tipo estilo de position absolute
-*/
-div.label-float {
-    position: relative;
-    padding-top: 13px;
-
-}
-
-.label-float input {
-    border: 1.5px solid rgb(121, 136, 126);
-    border-radius: 5px;
-    min-width: 100%;
-    padding: 15px 20px;
-    font-size: 16px;
-    transition: all .1s linear;
-    -webkit-transition: all .1s linear;
-    -moz-transition: all .1s linear;
-    -webkit-appearance: none;
-    width: 50%;
-    clear: both;
-    translate: unset;
-}
-
-.label-float>input:focus {
-    border: 2px solid rgb(13, 13, 160);
-}
-
-.label-float input::placeholder {
-    color: transparent;
-}
-
-div.label-float label {
-    pointer-events: none;
-    position: absolute;
-    top: calc(50% - 24px);
-    left: 25px;
-    transition: all .1s linear;
-    -webkit-transition: all .1s linear;
-    -moz-transition: all .1s linear;
-    background-color: white;
-    padding: 5px;
-    box-sizing: border-box;
-    text-transform: none;
-    font-size: 13pt;
-    color: black;
-    font-weight: normal;
-
-}
-
-.label-float input:required:invalid+label {
-    color: red;
-}
-
-.label-float input:focus:required:invalid {
-    border: 2px solid red;
-}
-
-.label-float1 input:required:invalid+label:before {
-    content: '*';
-}
-
-.label-float input:focus+label,
-.label-float input:not(:placeholder-shown)+label {
-    color: #000000;
-    font-weight: normal;
-    background-color: #ffffff;
-    position: absolute;
-    top: -18px;
-    font-size: 10.5pt;
-    text-transform: none;
-    clear: both;
-}
-
 /* css button*/
 
 .button {
@@ -411,14 +336,6 @@ div.label-float label {
 a,
 h1 {
     color: white;
-}
-
-#textarea {
-    resize: none;
-}
-
-.large-icon {
-    font-size: 80pt !important;
 }
 
 /*minhas font de texto*/
@@ -496,8 +413,7 @@ h1 {
 }
 
 /* mensagem de sucesso */
-
-.msg {
+.sucesso>p {
     background-color: rgb(51, 196, 7);
     font-size: small;
     margin-bottom: 5px;
@@ -506,6 +422,27 @@ h1 {
     padding: 12px 0px;
 }
 
+/* mensagem de sucesso */
+.sucesso {
+    background-color: rgb(51, 196, 7);
+    font-size: small;
+    margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    padding: 12px 0px;
+}
+
+/* mensagem de alerta */
+.erro {
+    background-color: red;
+    font-size: small;
+    margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    padding: 12px 0px;
+}
+
+/* mensagem de alerta */
 .alert {
     background-color: orange;
     font-size: small;
@@ -627,14 +564,10 @@ h1 {
 }
 
 #card-relatorio-dados>div {
-    width: 32%;
+    width: 30%;
     height: 170px;
     margin-right: 1%;
     margin-top: 1%;
-}
-
-.backdrop {
-    background-color: rgb(0, 128, 0);
 }
 
 .material-tooltip .tooltip-content {
@@ -658,35 +591,22 @@ h1 {
     padding: 2px 0px;
 }
 
-/* Css resultado da pesquisa separ */
-.card-resulado {
-    border-top: 0.5px solid rgba(63, 63, 63, 0.295);
-    color: rgb(3, 3, 3);
-    padding: 5px 0px;
+#dropdownNotifica>div>a {
+    width: 600px !important;
 }
 
-#card-relatorio {
-    border-radius: 100px;
-    border: 1px solid #000000;
-    background-color: #17bf8f;
+.minusculo {
+    text-transform: lowercase;
 }
 
-/* Mudar a cor do radio buton*/
-[type="radio"]:checked+span.span-fail:after,
-[type="radio"].with-gap:checked+span.span-fail:after {
-    background-color: red;
-    border: 2px solid red;
+.maisculo {
+    text-transform: uppercase;
 }
 
-[type="radio"]:checked+span.span-nc:after,
-[type="radio"].with-gap:checked+span.span-nc:after {
-    background-color: orange;
-    border: 2px solid orange;
+.capitalize {
+    text-transform: capitalize;
 }
 
-[type="radio"]:checked+span.span-na:after,
-[type="radio"].with-gap:checked+span.span-na:after {
-    background-color: #555;
-    border: 2px solid #555;
+.negrito {
+    font-weight: bold;
 }
-

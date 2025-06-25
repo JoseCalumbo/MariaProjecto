@@ -1,9 +1,25 @@
 <!--HEADER-->
 <header class="header navbar-fixed">
 
-    <nav class="grey lighten-3 navbar-fixed">
+    <ul id="dropdown2" class="dropdown-content card">
+        <div class="card row">
+            <div class="col m12 row">
+                <a href="#!" class="collection-item"><span class="badge">1</span>eee</a>
+                <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
+            </div>
+        </div>
+        <div class="card row">
+            <div class="collection">
+                <a href="#!" class="collection-item"><span class="badge">1</span>eee</a>
+
+            </div>
+        </div>
+    </ul>
+
+    <nav class=" blue-grey darken-3 navbar-fixed">
         <div class="nav-wrapper">
-            
+
+            <!--Logotipo header-->
             <ul>
                 <a href="{{URL}}/admin" class="brand-logo logotipo blue darken-2 "
                     style="width: 180px;  height: 65px; text-align: center; border-bottom: 1px white solid; ">
@@ -11,31 +27,42 @@
                 </a>
             </ul>
 
+            <!--nome menu-->
             <ul class="right hide-on-med-and-down ">
                 <li class="rigth">
-                    <a class="dropdown-trigger font-normal black-text" href="#!" data-target="dropdown1"> {{info}}
-                        <i class="material-icons right lighten-2">arrow_drop_down</i>
+                    <a class="dropdown-trigger font-normal white-text " href="#!" data-target="dropdown1">
+                        {{info}}
+                        <i class="material-icons right white-text ">arrow_drop_down</i>
                     </a>
                 </li>
             </ul>
 
+            <!--nome menu item-->
             <ul id="dropdown1" class="dropdown-content">
                 <li class=" {{nivel}}">
                     <a class="black-text font-normal" href="{{URL}}/conta-admin">Minha Conta </a>
                 </li>
                 <li class="{{nivel}}">
-                    <a class="black-text font-normal" href="{{URL}}/admin/logout">Configuração</a>
+                    <a class="black-text font-normal" href="{{URL}}/admin/definicao">Configuração</a>
+                </li>
+                <li class="{{nivel}}">
+                    <a class="black-text font-normal" href="{{URL}}/admin/definicao">Bloquear</a>
                 </li>
                 <li class="{{nivel}} ">
                     <a class="black-text font-normal" href="{{URL}}/admin/logout">Terminar Sessao</a>
                 </li>
             </ul>
 
+            <!--nome icon item-->
             <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html"><i class="material-icons black-text">search</i></a></li>
-                <li><a href="badges.html"><i class="material-icons black-text">notifications</i></a></li>
-                <li><a href=""><i class="material-icons black-text">refresh</i></a></li>
-                <li><a href="collapsible.html"><i class="material-icons black-text">view_quilt</i></a></li>
+                <li><a href="sass.html"><i class="material-icons white-text">search</i></a></li>
+                <li>
+                    <a class="dropdown-trigger2" href="#!" data-target="dropdown2">
+                        <i class="material-icons white-text">notifications</i>
+                    </a>
+                </li>
+                <li><a href=""><i class="material-icons white-text">refresh</i></a></li>
+                <li><a href="collapsible.html"><i class="material-icons white-text">view_quilt</i></a></li>
             </ul>
 
         </div>
@@ -46,9 +73,10 @@
 <main class="row grey lighten-4 ">
 
     <div class="col m2 blue darken-2">
-        <aside id="aside" class="blue darken-2">
-            <ul class="fixed collapsible blue darken-2">
 
+        <aside id="aside" class="blue darken-2">
+
+            <ul class="fixed collapsible blue darken-2">
                 <li>
                     <a class="collapsible-header blue darken-2" href="{{URL}}/admin"
                         style="text-transform: capitalize;">
@@ -58,7 +86,7 @@
                 </li>
 
                 <li>
-                    <a class="collapsible-header blue darken-2" href="{{URL}}/admin"
+                    <a class="collapsible-header blue darken-2" href="{{URL}}/admin/relatorio"
                         style="display: flex; align-items: center; text-transform: capitalize;">
                         <i class="fa-solid fa-chart-pie" style="color: #63E6BE;"></i>
                         Relatorios
@@ -88,7 +116,8 @@
 
                         <li>
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/paciente-admin">
-                                <i class="material-icons white-text" style="vertical-align: -6px;">airline_seat_individual_suite</i>
+                                <i class="material-icons white-text"
+                                    style="vertical-align: -6px;">airline_seat_individual_suite</i>
                                 Pacientes
                             </a>
                         </li>
@@ -116,8 +145,8 @@
 
                         <li>
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/admin/logout">
-                                <i class="material-icons white-text " style="vertical-align: -6px;">settings</i>
-                                Configuração</a>
+                                <i class="material-icons white-text " style="vertical-align: -6px;">block</i>
+                                Bloquear</a>
                         </li>
                         <li class="">
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/admin/logout">
@@ -127,6 +156,15 @@
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                    <a class="collapsible-header blue darken-2" href="{{URL}}/admin/definicao"
+                        style="display: flex; align-items: center; text-transform: capitalize;">
+                        <i class="fa-solid fa-cog" style="color: #63E6BE;"></i>
+                        Configuração
+                    </a>
+                </li>
+
             </ul>
 
             <!-- sidebar menu end-->

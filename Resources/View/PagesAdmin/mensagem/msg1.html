@@ -1,2 +1,10 @@
-<div id="as" class="{{tipo}} col-start1 col-end13">{{mensagem}}</div>
 
+<p id="tira" class="{{tipo}} white-text red center-align row col m12">
+    {{mensagem}}
+</p>
+
+<script >
+    setTimeout(() => {
+        document.getElementById("tira").style.display = "none";
+    }, 30000);
+</script>

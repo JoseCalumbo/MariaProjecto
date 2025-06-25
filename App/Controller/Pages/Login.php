@@ -21,7 +21,7 @@ class Login extends Page
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? '';
 
-        $status = !is_null($erroMsg) ? Mensagem::msgErro($erroMsg) : '';
+        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
 
         $content = View::render('login/login', [
             'email' => $email ?? '',
@@ -44,12 +44,12 @@ class Login extends Page
         $obFuncionario = FuncionarioDao::getFuncionarioEmail($email);
 
         if (!$obFuncionario instanceof FuncionarioDao) {
-            return self::telaLogin($request, '<p>Erro Email ou Senha Invalidos</p>');
+            return self::telaLogin($request, 'Erro Email invalidos');
         }
 
         if (!password_verify($senha, $obFuncionario->senha_funcionario)) {
-            return self::telaLogin($request, '<p>Erro Email ou Senha Invalido2 </p>');
-           }
+            return self::telaLogin($request, 'Erro senha invalido');
+        }
 
         //criar uma nova Sessão de Login
         Session::login($obFuncionario);

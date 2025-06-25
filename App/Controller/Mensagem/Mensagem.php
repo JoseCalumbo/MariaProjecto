@@ -13,7 +13,7 @@ Class Mensagem{
     */
     public static function msgSucesso($mesagem){
           return View::render('mensagem/msg',[
-            'tipo'=>'msg',
+            'tipo'=>'sucesso',
             'mensagem'=>$mesagem
           ]);   
     }
@@ -25,7 +25,7 @@ Class Mensagem{
     */
     public static function msgErro($mesagem){
           return View::render('mensagem/msg',[
-            'tipo'=>'div-error',
+            'tipo'=>'erro',
             'mensagem'=>$mesagem
           ]);   
     }

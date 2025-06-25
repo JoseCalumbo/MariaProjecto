@@ -1,0 +1,124 @@
+<section class="row section-field">
+
+    <div class="col s12 m12">
+        <h5>
+            <a href="{{URL}}/admin/conta">Minha Conta</a>
+            <hr>
+        </h5>
+    </div>
+
+    <section class=" col s12 m3 white card-menu ">
+        <ul class="collection with-header card">
+
+            <div class="item-conta-img center ">
+                <img class="img-conta modal-trigger openModal tooltippedFoto red-text"
+                    src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100" data-position="buttonn"
+                    data-tooltip="Trocar a foto">
+            </div>
+
+            <li class="collection-header center ">
+                <h6>{{nome}}</h6>
+            </li>
+
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Informações Pessoais</a>
+            <a href="{{URL}}/admin/seguranca" class="collection-item capitalize ">Segurança da Conta</a>
+            <a href="{{URL}}/conta/perfil" class="collection-item capitalize {{active}}">Personalização de Perfil</a>
+            <a href="{{URL}}/admin/controle" class="collection-item capitalize">Controles de Conta</a>
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Preferências e Notificações</a>
+            <a href="{{URL}}/admin/registros" class="collection-item capitalize ">Registros de Dados</a>
+            <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Terminar Sessão</a>
+
+        </ul>
+    </section>
+
+    <section class=" col s12 m8 white ">
+
+        <section class="row col m12 push-m1">
+
+            <div class="col m12 pull-m1 center">
+                <h6 class="negrito"> Personalização de Perfil</h6>
+                <br>
+            </div>
+
+            <div class="font-small">
+                <p class="negrito"><strong> Editar dados da conta</strong> </p>
+                <p class="">
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                </p>
+                <a class="btn waves-light white-text capitalize grey darken-2">
+                    <i class="material-icons left white-text"> edit </i>Editar
+                </a>
+            </div>
+            <br>
+
+            <div class="font-small">
+                <p class="negrito"><strong> Mudar imagem de perfil</strong> </p>
+                <p class="">
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                </p>
+                <a class="btn waves-light white-text capitalize grey darken-2">
+                    <i class="material-icons left white-text"> person </i>mudar imagem
+                </a>
+            </div>
+            <br>
+
+            <div class="font-small ">
+                <p class="negrito"><strong>Definir preferências de idioma e tema</strong> </p>
+                <p class="">
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                </p>
+                <a class="btn waves-light white-text capitalize grey darken-2">
+                    <i class="material-icons left white-text">widgets</i>trocar
+                </a>
+            </div>
+            <br>
+
+        </section>
+
+    </section>
+
+    <br>
+    <br>
+
+</section>
+
+<!--Modal de alterar a foto-->
+<div id="modal" class="modal {{blocks}}">
+    <div class="modal-item modal-foto">
+        <label id="closeModal" class="closeModal">&times;</label>
+        <form method="post" enctype="multipart/form-data">
+            <h5>Imagem de Perfil</h5>
+            <p class="div-conta-inf">
+                A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
+                tua imagem do sistema e volta para a imagem padrão
+            </p>
+            <hr>
+            {{msgVazio}}
+
+            <div class="center">
+                <label id="image" class="label-modal-img" for="img">
+                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
+                    <div>Carregar imagem</div>
+                </label>
+                <input type="file" id="img" name="imagem">
+            </div>
+
+            <div class="row flex">
+                <button class="btn col m12 indigo" name="salvar" type="submit">
+                    <i class="material-icons ">photo</i>Salvar
+                </button>
+            </div>
+
+            <div class="row flex">
+                <button class="btn red col m12" href="">
+                    <i class="material-icons ">delete</i>Remover
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

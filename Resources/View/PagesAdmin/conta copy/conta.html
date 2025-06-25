@@ -1,50 +1,18 @@
 <section class="row section-field">
 
     <div class="col s12 m12">
-        <h4>
-            <a href="{{URL}}/conta">Minha Conta</a>
+        <h5>
+            <a href="{{URL}}/admin/conta">Minha Conta</a>
             <hr>
-        </h4>
+        </h5>
     </div>
 
-    <section class=" col s12 m3 white card-menu card">
+    <section class=" col s12 m3 white card-menu ">
         {{menuconta}}
     </section>
 
-    <section class="col m8 offset-m1 white card">
-        <h4>Registro de conta</h4>
-
-        <table>
-            <caption>
-                <h6>Informação do Usuario de lOGIN</h6>
-            </caption>
-
-            <tr class="centered">
-                <th><i class="material-icons black-white ">format_list_numbered</i> ID </th>
-                <th><i class="material-icons black-white ">image</i>Entrada</th>
-                <th><i class="material-icons black-white ">person</i> Saida</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>22/03/2022/</td>
-                <td>22/03/2022/</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>01/01/2222</td>
-                <td>01/01/2222</td>
-            </tr>
- 
-        </table>
-
-        <br>
-    </section>
-
-    <section class="col m12">
-        <div>
-            <h6>Ajuda</h6>
-            <h6>Manual de uso</h6>
-        </div>
+    <section class="col s12 m8 offset-m1 white ">
+        {{dadosconta}}
     </section>
 
 </section>
@@ -54,7 +22,7 @@
     <div class="modal-item modal-foto">
         <label id="closeModal" class="closeModal">&times;</label>
         <form method="post" enctype="multipart/form-data">
-            <h5>Imagem de Perfil</h5>
+            <h6>Imagem de Perfil</h6>
             <p class="div-conta-inf">
                 A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
                 tua imagem do sistema e volta para a imagem padrão
@@ -64,7 +32,7 @@
 
             <div class="center">
                 <label id="image" class="label-modal-img" for="img">
-                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
+                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="172" height="172">
                     <div>Carregar imagem</div>
                 </label>
                 <input type="file" id="img" name="imagem">
@@ -84,3 +52,26 @@
         </form>
     </div>
 </div>
+
+<script src="{{URL}}/Assets/js/scripts.js"></script>
+
+<script src="{{URL}}/Assets/js/main.js"></script>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 6;
+        overflow: auto;
+        background-color: rgba(29, 29, 29, 0.575);
+        max-height: 100%;
+        margin: auto;
+        overflow-y: auto;
+        will-change: top, opacity;
+    }
+</style>

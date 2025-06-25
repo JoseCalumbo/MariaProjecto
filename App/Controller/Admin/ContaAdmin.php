@@ -65,24 +65,6 @@ class ContaAdmin extends PageAdmin
         return $item;
     }
 
-    // funcao para apresenatar os dados do menu user dados 
-    private static function getUsuarioMenu()
-    {
-        $item = '';
-
-        // Busca o usuario logado no sistema
-        $usuarioLogado = SessionAdmin::getAdminUserLogado();
-        $id = $usuarioLogado['id'];
-        $obUsuario = AdmimUserDao::getAdminUserId($id);
-
-        $item .= View::renderAdmin('conta/menuConta', [
-            'id' => $obUsuario->id,
-            'nome' => $obUsuario->nome,
-            'imagem' => $obUsuario->imagem,
-        ]);
-        return $item;
-    }
-
     // metodo que renderiza a tela  do usuario 
     public static function telaConta($request)
     {
@@ -93,12 +75,14 @@ class ContaAdmin extends PageAdmin
 
         $content = View::renderAdmin('conta/conta', [
             'dadosconta' => self::getUsuarioConta(),
-            'menuconta' => self::getUsuarioMenu(),
             'imagem' => $obUsuario->imagem,
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'active' => 'blue-grey darken-3 white-text',
             'msg' => self::exibeMensagem($request),
             'msgVazio' => ''
         ]);
-        return parent::getPageAdmin('Painel Usuario', $content);
+        return parent::getPageAdmin('Admin - Conta Informaçao', $content);
     }
 
     /**
@@ -106,25 +90,82 @@ class ContaAdmin extends PageAdmin
      *@param Request $request
      *@return string
      */
-    public static function editarConta($request, $id_us)
+    public static function getEditarConta($request, $id_us)
     {
         // Pega o usuario logado
         $usuarioLogado = SessionAdmin::getAdminUserLogado();
         $id = $usuarioLogado['id'];
         $obUsuario = AdmimUserDao::getAdminUserId($id);
 
-        $content = View::render('conta/registrosConta', [
+        $content = View::renderAdmin('conta/contaPerfil', [
             'msg' => '',
-            'menuconta' => self::getUsuarioMenu(),
             'msgVazio' => '',
-            'imagem' => $obUsuario->imagem_us,
+            'imagem' => $obUsuario->imagem,
+            'id' => $obUsuario->id,
+            'active' => 'blue-grey darken-3 white-text',
+            'nome' => $obUsuario->nome
         ]);
-        return parent::getPageAdmin('Editar conta', $content);
+        return parent::getPageAdmin('Admin - Personalização', $content);
 
     }
 
+
     // metodo que renderiza a tela alter senha
-    public static function getTelaAlterarSenha($request, $erroMsg)
+    public static function getTelaSeguranca($request, $erroMsg)
+    {
+        // Pega o id do usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+        $postVars = $request->getPostVars();
+
+        // post do form da alteracao 
+        $senhaAntiga = $postVars['senhaAntiga'] ?? '';
+        $senhaNova = $postVars['senhaNova'] ?? '';
+        $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
+
+        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
+
+        $content = View::renderAdmin('conta/contaSeguranca', [
+            'senhaAntiga' => $senhaAntiga,
+            'senhaNova' => $senhaNova,
+            'senhaConf' => $senhaConfirmada,
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'active' => 'blue-grey darken-3 white-text',
+            'msg' => $status,
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem,
+        ]);
+        return parent::getPageAdmin('Admin Segurança', $content);
+    }
+
+
+    // metodo que renderiza a tela alter senha
+    public static function getRegistrosConta($request, $erroMsg)
+    {
+        // Pega o id do usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+
+        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
+
+        $content = View::renderAdmin('conta/ContaRegistro', [
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'active' => 'blue-grey darken-3 white-text',
+            'msg' => $status,
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem,
+        ]);
+        return parent::getPageAdmin('Usuario Alterar senha', $content);
+    }
+
+    // metodo que renderiza a tela alter senha
+    public static function getTelaSeguranca1($request, $erroMsg)
     {
         // Pega o id do usuario logado
         $usuarioLogado = SessionAdmin::getAdminUserLogado();
@@ -141,7 +182,6 @@ class ContaAdmin extends PageAdmin
         $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
 
         $content = View::renderAdmin('conta/alterarsenha', [
-            'menuconta' => self::getUsuarioMenu(),
             'senhaAntiga' => $senhaAntiga,
             'senhaNova' => $senhaNova,
             'senhaConf' => $senhaConfirmada,
@@ -151,6 +191,8 @@ class ContaAdmin extends PageAdmin
         ]);
         return parent::getPageAdmin('Usuario Alterar senha', $content);
     }
+
+
 
     //metodo post para alterar senha
     public static function setAlterarSenha($request, $id_us)
@@ -235,6 +277,50 @@ class ContaAdmin extends PageAdmin
                 exit;
             }
         }
+    }
+
+    // metodo que renderiza a tela de controle 
+    public static function getControleConta($request, $erroMsg)
+    {
+        // Pega o id do usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
+
+        $content = View::renderAdmin('conta/contaControle', [
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'active' => 'blue-grey darken-3 white-text',
+            'msg' => $status,
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem,
+        ]);
+        return parent::getPageAdmin('Admin- Controle conta', $content);
+    }
+
+
+    // metodo que renderiza a tela alter senha
+    public static function setApagarConta($request, $erroMsg)
+    {
+        // Pega o id do usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        $postVars = $request->getPostVars();
+
+        // post do form da alteracao 
+        $senhaAntiga = $postVars['senhaAntiga'] ?? '';
+
+        $obUsuario->apagar();
+
+        //Redireciona a tela de login
+        $request->getRouter()->redirect('/admin/login');
+
     }
 
 }

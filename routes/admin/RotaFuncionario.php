@@ -61,22 +61,12 @@ $obRouter->post('/funcionario/editar/{id_funcionario}', [
     }
 ]);
 
-// rota para apagar um registro
-$obRouter->get('/funcionario/apagar/{id_funcionario}', [
-    'middlewares' => [
-        'requer-login',
-        'nivel-acesso'
-    ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Admin\Funcionario::apagarUser($request, $id_funcionario));
-    }
-]);
+
 
 // Rota para apagar funcionario
 $obRouter->post('/funcionario/apagar/{id_funcionario}', [
     'middlewares' => [
-        'requer-login',
-        'nivel-acesso'
+        'requer-loginAdmin'
     ],
     function ($request, $id_funcionario) {
         return new Response(200, Admin\Funcionario::setApagarFuncionario($request, $id_funcionario));

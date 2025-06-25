@@ -2,7 +2,7 @@
 
     <div class="col s12 m12">
         <h5>
-            <a href="{{URL}}/admin/conta">Minha Conta</a>
+            <a href="{{URL}}/conta">Minha Conta</a>
             <hr>
         </h5>
     </div>
@@ -20,22 +20,40 @@
                 <h6>{{nome}}</h6>
             </li>
 
-            <a href="{{URL}}/admin/conta" class="collection-item capitalize {{active}}">Informações Pessoais</a>
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Informações Pessoais</a>
             <a href="{{URL}}/admin/seguranca" class="collection-item capitalize ">Segurança da Conta</a>
             <a href="{{URL}}/conta/perfil" class="collection-item capitalize ">Personalização de Perfil</a>
             <a href="{{URL}}/admin/controle" class="collection-item capitalize ">Controles de Conta</a>
             <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Preferências e Notificações</a>
-            <a href="{{URL}}/admin/registros" class="collection-item capitalize ">Registros de Dados</a>
+            <a href="{{URL}}/admin/registros" class="collection-item capitalize {{active}}">Registros de Dados</a>
             <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Terminar Sessão</a>
 
         </ul>
     </section>
 
-    <section class="col s12 m8 offset-m1 white ">
-        {{dadosconta}}
-    </section>
 
-    <section class="col s12 m8 offset-m1 white ">
+
+    <section class=" col s12 m8 white ">
+
+        <section class="row col m12 push-m1">
+
+            <div class="col m12 pull-m1 center">
+                <h6 class="negrito"> Registro de conta </h6>
+                <br>
+            </div>
+
+            <div class="font-small">
+                <p class="negrito"><strong>Imprimir Registros</strong> </p>
+                <p class="">
+                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                    maisculas.
+                </p>
+                <a class="btn waves-light white-text capitalize grey darken-2">
+                    <i class="material-icons left white-text"> print </i>Imprimir
+                </a>
+            </div>
+            <br>
+
         <div class="font-small">
             <br>
             <table>
@@ -62,8 +80,10 @@
 
             </table>
         </div>
-    </section>
 
+        </section>
+
+    </section>
 </section>
 
 <!--Modal de alterar a foto-->
@@ -71,7 +91,7 @@
     <div class="modal-item modal-foto">
         <label id="closeModal" class="closeModal">&times;</label>
         <form method="post" enctype="multipart/form-data">
-            <h6>Imagem de Perfil</h6>
+            <h5>Imagem de Perfil</h5>
             <p class="div-conta-inf">
                 A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
                 tua imagem do sistema e volta para a imagem padrão
@@ -81,7 +101,7 @@
 
             <div class="center">
                 <label id="image" class="label-modal-img" for="img">
-                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="172" height="172">
+                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
                     <div>Carregar imagem</div>
                 </label>
                 <input type="file" id="img" name="imagem">
@@ -101,26 +121,3 @@
         </form>
     </div>
 </div>
-
-<script src="{{URL}}/Assets/js/scripts.js"></script>
-
-<script src="{{URL}}/Assets/js/main.js"></script>
-
-<style>
-    .modal {
-        display: none;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 6;
-        overflow: auto;
-        background-color: rgba(29, 29, 29, 0.575);
-        max-height: 100%;
-        margin: auto;
-        overflow-y: auto;
-        will-change: top, opacity;
-    }
-</style>

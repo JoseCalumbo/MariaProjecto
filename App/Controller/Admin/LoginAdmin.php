@@ -22,7 +22,7 @@ class LoginAdmin extends PageAdmin
     $email = $postVars['email'] ?? '';
     $senha = $postVars['senha'] ?? '';
 
-    $status = !is_null($erroMsg) ? Mensagem::msgErro($erroMsg) : '';
+    $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
 
     $content = View::renderAdmin('login/login', [
       'email' => $email ?? '',
@@ -44,11 +44,11 @@ class LoginAdmin extends PageAdmin
         $obAdminUser = AdmimUserDao::getUsuarioEmail($email);
 
         if (!$obAdminUser instanceof AdmimUserDao) {
-            return self::getTelaLoginAdmin($request, '<p>Erro Email ou Senha Invalidos</p>');
+            return self::getTelaLoginAdmin($request, 'Erro Email ou Senha Invalidos');
         }
 
         if (!password_verify($senha, $obAdminUser->senha)) {
-            return self::getTelaLoginAdmin($request, '<p>Erro Email ou Senha Invalido2 </p>');
+            return self::getTelaLoginAdmin($request, 'Senha Invalida');
         }
 
         //criar uma nova Sessão de Login
