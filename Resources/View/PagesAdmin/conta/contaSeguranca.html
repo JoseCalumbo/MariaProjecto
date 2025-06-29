@@ -27,7 +27,6 @@
             <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Preferências e Notificações</a>
             <a href="{{URL}}/admin/registros" class="collection-item capitalize ">Registros de Dados</a>
             <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Terminar Sessão</a>
-
         </ul>
     </section>
 
@@ -42,13 +41,13 @@
             </div>
 
             <div class="font-small">
-                <p class="negrito "><strong class="negrito">Alterar tua Senha</strong> </p>
+                <p> <strong class="negrito">Alterar tua Senha</strong> </p>
                 <p class="">
                     Mantenha sua conta segura atualizando sua senha regularmente. Para garantir
                     a integridade e a confidencialidade da sua conta, recomenda-se a atualização periódica da senha.
                 </p>
-                <a  href="#modalAlterarSenha"
-                    class="btn waves-effect waves-light white-text capitalize grey darken-2 modal-trigger" >
+                <a href="#modalAlterarSenha"
+                    class="btn waves-effect waves-light white-text capitalize grey darken-2 modal-trigger">
                     <i class="material-icons left white-text"> lock_outline</i>Alterar
                 </a>
             </div>
@@ -93,53 +92,50 @@
 
 <!--- Modal alterar senha -->
 <div id="modalAlterarSenha" class="modal modalMudarSenha">
-    <div class="modal-content">
-        <form action="{{URL}}/funcionario/apagar/{{id_funcionario}}" method="post" class="row center white push-m2">
-            <div class="col s12 m12">
-                <h5 class=" " style="text-transform: capitalize;">
-                    <i class="material-icons left red-text medium"
-                        style="position: relative; top: -12px;">error_outline</i>
-                    <strong style="font-weight: bold;">Apagar Conta</strong>
-                </h5>
-            </div>
+    <div class="modal-content white">
+        <form action="{{URL}}/admin/apagar/{id}" method="post">
+            <div class="row">
+                <div class="col s12 m12">
+                    <h5 class="capitalize center ">
+                        <strong style="font-weight: 700;" >Alterar Senha</strong>
+                    </h5>
+                </div>
 
-            <div class="col s12 m2">
-                <img src="{{URL}}/Files/Imagem/user/{{imagem}}" style="position: relative; top: 43px;"
-                    class="materialboxed" width="80" height="95">
-            </div>
+                <div class="col m8 offset-m2">
+                    <p style="font-size: 11px; font-weight: 900;">Padrões de segurança para cadastrar senha</p>
+                    <p style="font-size: 11px;" >A senha deve possuir de 7 a 15 caracteres;</p>
+                    <p style="font-size: 11px;"> A senha deve ser diferente da senha atual e diferente das 5 últimas senhas utilizadas.</p>
+                </div>
 
-            <div class="col s12 m8">
-                <p>Apagar a conta de <strong style="font-weight: bold;">{{nome}}</strong> permanentemente.
-                    Se tiver certeza disso e decidir prosseguir, todos os dados vinculados a esta conta serão excluídos
-                    permanentemente. Você não poderá recuperá-los no futuro.</p>
-                <p>
-                <p> <strong>Tem certeza? Esta ação é permanente e não pode ser desfeita.</strong> </p>
-            </div>
+                <div class="input-field col m8 offset-m2">
+                    <input id="last_senha" type="password" name="senhaAntiga" value="{{senhaAntiga}}" class="validate">
+                    <label for="last_senha" class="font-small">Senha antiga:</label>
+                </div>
 
-            <div class="offset-m2 col s12 m8">
-                <label>
-                    <input name="confirmo" type="checkbox" />
-                    <span> <strong style="font-weight: bold; color: black;">
-                            Sim, confirmo que excluí a conta</strong>
-                    </span>
-                </label>
-            </div>
+                <div class="input-field col m8 offset-m2">
+                    <input id="nova_senha" type="password" name="senhaNova" value="{{senhaNova}}" class="validate">
+                    <label for="nova_senha" class="font-small">Senha nova:</label>
+                </div>
 
-            <div class="row offset-m8 col s12 m4">
-                <button class=" btn modal-close waves-effect waves-green "> Cancelar </button>
-                <button type="submit" class="btn red" name="apagar" required> Apagar</button>
+                <div class="input-field col m8 offset-m2">
+                    <input id="con_senha" type="password" name="senhaConfirmada" value="{{senhaConf}}" class="validate">
+                    <label for="con_senha" class="font-small">Confirme a nova senha:</label>
+                </div>
+
+                <div class="row col s12 m4 offset-m7">
+                    <button class="modal-close btn blue darken-2 waves-effect capitalize" name="cancelar"
+                        value="cancelar">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn red darken-2 waves-effect capitalize " name="apagar" required>
+                        Alterar
+                    </button>
+                </div>
             </div>
         </form>
-
-        <div class="modal-footer">
-            <br>
-            <!-- <a href="#!" class="modal-close waves-effect waves-green ">
-                    <button type="button" class="button">Cancelar</button>
-            </a> -->
-        </div>
     </div>
 </div>
-
 
 
 

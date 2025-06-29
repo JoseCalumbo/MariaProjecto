@@ -5,10 +5,9 @@ namespace App\Controller\Admin;
 use \App\Utils\View;
 use \App\Utils\Pagination;
 use \App\Utils\Upload;
-use \App\Http\Request;
 use \App\Model\Entity\FuncionarioDao;
-use \App\Model\Entity\UsuarioDao;
-use \App\Controller\Mensagem\Mensagem;
+use \App\Controller\Mensagem\MensagemAdmin;
+
 
 class Funcionario extends PageAdmin
 {
@@ -25,16 +24,16 @@ class Funcionario extends PageAdmin
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
-                return Mensagem::msgSucesso('Funcionario Cadastrado com sucesso');
+                return MensagemAdmin::msgSucesso('Funcionario Cadastrado com sucesso');
                 break;
             case 'alterado':
-                return Mensagem::msgSucesso('Funcionario Alterado com sucesso');
+                return MensagemAdmin::msgSucesso('Funcionario Alterado com sucesso');
                 break;
             case 'apagado':
-                return Mensagem::msgSucesso('Funcionario Apagdo com sucesso');
+                return MensagemAdmin::msgSucesso('Funcionario Apagado com sucesso');
                 break;
             case 'confirma':
-                return Mensagem::msgSucesso('Cliqua em sim antes de apagar');
+                return MensagemAdmin::msgAlerta('Clica em Confirmar antes de apagar');
                 break;
         }// fim do switch
     }
@@ -68,7 +67,7 @@ class Funcionario extends PageAdmin
 
 
         while ($obFuncionario = $resultado->fetchObject(FuncionarioDao::class)) {
-            $item .= View::render('funcionario/listarFuncionario', [
+            $item .= View::renderAdmin('funcionario/listarFuncionario', [
                 'id_funcionario' => $obFuncionario->id_funcionario,
                 'imagem' => $obFuncionario->imagem_funcionario,
                 'nome' => $obFuncionario->nome_funcionario,
@@ -85,7 +84,7 @@ class Funcionario extends PageAdmin
 
         if ($queryParam['pesquisar'] ?? '') {
 
-            return View::render('pesquisar/box_resultado', [
+            return View::renderAdmin('pesquisar/box_resultado', [
                 'pesquisa' => $buscar,
                 'item' => $item,
                 'numResultado' => $quantidadetotal,
@@ -116,10 +115,8 @@ class Funcionario extends PageAdmin
         $obFuncionario = new FuncionarioDao;
 
         $postVars = $request->getPostVars();
-        // Obtem os postos cadastrados 
-        //$obPosto = new Posto();
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone1'], $_POST['cargo'], $_FILES['imagem'])) {
+        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['ordem'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_FILES['imagem'])) {
 
             $obUpload = new Upload($_FILES['imagem']) ?? '';
 
@@ -134,6 +131,7 @@ class Funcionario extends PageAdmin
                 $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
                 $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
                 $obFuncionario->cargo_funcionario = $_POST['cargo'];
+                $obFuncionario->morada_funcionario = $_POST['morada'];
                 $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
                 $obFuncionario->imagem_funcionario = 'anonimo.png';
                 $obFuncionario->cadastrarFuncionario();
@@ -152,6 +150,7 @@ class Funcionario extends PageAdmin
             $obFuncionario->email_funcionario = $_POST['email'];
             $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
             $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
+            $obFuncionario->morada_funcionario = $_POST['morada'];
             $obFuncionario->cargo_funcionario = $_POST['cargo'];
             $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
             $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
@@ -161,12 +160,12 @@ class Funcionario extends PageAdmin
                 $request->getRouter()->redirect('/funcionario?msg=cadastrado');
                 exit;
             } else {
-                echo 'Ficheiro nao Enviado';
+                echo 'Ficheiro não Enviado';
             }
         }
 
         // Renderiza a tela de formulario do funcionario
-        $content = View::render('funcionario/formFuncionario', [
+        $content = View::renderAdmin('funcionario/formFuncionario', [
             'titulo' => 'Cadastrar Novo Funcionario',
             'button' => 'Cadastrar',
             'msg' => '',
@@ -181,9 +180,6 @@ class Funcionario extends PageAdmin
             'telefone1' => '',
             'nivel' => '',
             'imagem' => 'anonimo.png',
-            // 'itemPosto' => self::getPosto(),
-            'pot' => ''
-
         ]);
 
         return parent::getPageAdmin('Cadastrar Funcionario', $content);
@@ -195,10 +191,9 @@ class Funcionario extends PageAdmin
         // Busca um Funcionario por id
         $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
 
-        $content = View::render('funcionario/formFuncionario', [
-            'titulo' => 'Editar Dados do Funcionario',
+        $content = View::renderAdmin('funcionario/formFuncionario', [
+            'titulo' => 'Edita Dados do Funcionario',
             'button' => 'Actulizar',
-            'msg' => '',
             'nome' => $obFuncionario->nome_funcionario,
             'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
             'data' => $obFuncionario->nascimento_funcionario,
@@ -208,7 +203,7 @@ class Funcionario extends PageAdmin
             'telefone1' => $obFuncionario->telefone1_funcionario,
             'telefone2' => $obFuncionario->telefone2_funcionario,
             'morada' => $obFuncionario->morada_funcionario,
-            'cargo-admin' => $obFuncionario->cargo_funcionario == 'administrador' ? 'selected' : '',
+            'cargo-admin' => $obFuncionario->cargo_funcionario == 'Administrador' ? 'selected' : '',
             'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
             'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
             'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
@@ -228,13 +223,13 @@ class Funcionario extends PageAdmin
 
         $postVars = $request->getPostVars();
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone1'], $_POST['cargo'], $_FILES['imagem'])) {
+        if (isset($_POST['nome'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone1'], $_POST['cargo'], $_FILES['imagem'])) {
 
             $obUpload = new Upload($_FILES['imagem']) ?? '';
 
             if ($_FILES['imagem']['error'] == 4) {
 
-                $obFuncionario->nome_funcionario = $_POST['nome'];
+                $obFuncionario->nome_funcionario = $_POST['nome']; 
                 $obFuncionario->genero_funcionario = $_POST['genero'];
                 $obFuncionario->nascimento_funcionario = $_POST['data'];
                 $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
@@ -243,18 +238,17 @@ class Funcionario extends PageAdmin
                 $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
                 $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
                 $obFuncionario->cargo_funcionario = $_POST['cargo'];
-                $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
-                $obFuncionario->imagem_funcionario = 'anonimo.png';
+                $obFuncionario->morada_funcionario = $_POST['morada'];
+                $obFuncionario->imagem_funcionario = 'anonimo.png' != null ? $obFuncionario->imagem_funcionario : 'anonimo.png';;
                 $obFuncionario->atualizarFuncionario();
 
                 $request->getRouter()->redirect('/funcionario?msg=alterado');
-
             }
 
             $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
 
-            $obFuncionario->nome_funcionario = $_POST['nome'];
-            $obFuncionario->genero_funcionario = $_POST['genero'];
+            $obFuncionario->nome_funcionario = $_POST['nome'] ?? $obFuncionario->nome_funcionario; 
+            $obFuncionario->genero_funcionario = $_POST['genero'] ?? $obFuncionario->genero_funcionario;
             $obFuncionario->nascimento_funcionario = $_POST['data'];
             $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
             $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
@@ -262,9 +256,9 @@ class Funcionario extends PageAdmin
             $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
             $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
             $obFuncionario->cargo_funcionario = $_POST['cargo'];
-            $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
-            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
-            ;
+            $obFuncionario->morada_funcionario = $_POST['morada'];
+            $obFuncionario->imagem_funcionario = $obUpload->getBaseName()  ?? $obFuncionario->imagem_funcionario;
+
             $obFuncionario->atualizarFuncionario();
 
             if ($sucess) {
@@ -274,29 +268,22 @@ class Funcionario extends PageAdmin
                 echo 'Ficheiro nao Enviado';
             }
         }
-        $content = View::renderAdmin('funcionario/formUser', []);
+        $content = View::renderAdmin('funcionario/formFuncionario', []);
 
         return parent::getPageAdmin('Actualizar Funcionario', $content);
-    }
-
-    // Metodo para ir na pagina de apagar Funcionario 
-    public static function apagarUser($request, $id_us)
-    {
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
-
-        $content = View::render('funcionario/apagarUser', [
-            'titulo' => ' Apagar o Usuario',
-            'id' => $obUsuario->id_us,
-            'imagem' => $obUsuario->imagem_us,
-            'nome' => $obUsuario->nome_us,
-            'Criado' => $obUsuario->create_us,
-        ]);
-        return parent::getPageAdmin('Apagar Usuario {{id}}', $content);
     }
 
     // Metodo para apagar Funcionario
     public static function setApagarFuncionario($request, $id_funcionario)
     {
+        $cancelar = $_POST['cancelar'] ?? "";
+
+        // Verifica se o usuario clicou em cancelar
+        if ($cancelar == "cancelar") {
+            $request->getRouter()->redirect('/funcionario');
+            exit;
+        }
+
         if (isset($_POST['confirmo'])) {
 
             // Busca o funcionario por ID
@@ -305,7 +292,7 @@ class Funcionario extends PageAdmin
             $request->getRouter()->redirect('/funcionario?msg=apagado');
         }
 
-         $request->getRouter()->redirect('/funcionario?msg=confirma');
+        $request->getRouter()->redirect('/funcionario?msg=confirma');
     }
 }
 

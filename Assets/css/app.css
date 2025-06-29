@@ -363,6 +363,12 @@ h1 {
     font-weight: normal !important;
 }
 
+.font-pequeno {
+    font-size: 6pt;
+    text-transform: none;
+    font-weight: normal;
+}
+
 .font-small {
     font-size: 11pt;
     text-transform: none;
@@ -607,6 +613,6 @@ h1 {
     text-transform: capitalize;
 }
 
-.negrito {
-    font-weight: bold;
+.negrito1 {
+    font-weight: 900;
 }

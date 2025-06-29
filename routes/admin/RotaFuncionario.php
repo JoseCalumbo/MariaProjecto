@@ -39,7 +39,9 @@ $obRouter->get('/funcionario/cadastrar', [
 ]);
 // Rota para cadastrar funcionario get
 $obRouter->post('/funcionario/cadastrar', [
-
+    'middlewares' => [
+        'requer-loginAdmin'
+    ],
     function ($request) {
         return new Response(200, Admin\Funcionario::cadastrarFuncionario($request));
     }

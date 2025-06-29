@@ -48,7 +48,6 @@ class Usuario extends PageAdmin
     // Metodo para apresenatar os registos dos dados 
     private static function getUsuario($request, &$obPagination)
     {
-
         $item = '';
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
@@ -228,7 +227,6 @@ class Usuario extends PageAdmin
                 $request->getRouter()->redirect('/usuario?msg=alterado');
                 exit;
             }
-
             $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
 
             $obUsuario->nome = $_POST['nome'] ?? $obUsuario->nome;
@@ -257,22 +255,6 @@ class Usuario extends PageAdmin
         return parent::getPageAdmin('Cadastrar Usuario', $content);
     }
 
-    // Metodo para ir na pagina de apagar usuario 
-    public static function apagarUser($request, $id)
-    {
-
-        $obUsuario = UsuarioDao::getUsuarioId($id);
-
-        $content = View::renderAdmin('funcionario/apagarUser', [
-            'titulo' => ' Apagar o Usuario',
-            'id' => $obUsuario->id_us,
-            'imagem' => $obUsuario->imagem_us,
-            'nome' => $obUsuario->nome_us,
-            'Criado' => $obUsuario->create_us,
-        ]);
-        return parent::getPageAdmin('Apagar Usuario {{id}}', $content);
-    }
-
     // Metodo para apagar usuario
     public static function setapagarUser($request, $id)
     {
@@ -284,6 +266,13 @@ class Usuario extends PageAdmin
         if ($nivel == "Administrador") {
 
             $confirmo = $_POST['confirmo'] ?? "";
+            $cancelar = $_POST['cancelar'] ?? "";
+
+            // Verifica se o usuario clicou em cancelar
+            if ($cancelar == "cancelar") {
+                $request->getRouter()->redirect('/usuario');
+                exit;
+            }
 
             // Verifica qual é o id do usuario logado
             if ($idLogado == $id) {

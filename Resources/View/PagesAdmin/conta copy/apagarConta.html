@@ -82,39 +82,3 @@
     <br>
 
 </section>
-
-<!--Modal de alterar a foto-->
-<div id="modal" class="modal {{blocks}}">
-    <div class="modal-item modal-foto">
-        <label id="closeModal" class="closeModal">&times;</label>
-        <form method="post" enctype="multipart/form-data">
-            <h5>Imagem de Perfil</h5>
-            <p class="div-conta-inf">
-                A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
-                tua imagem do sistema e volta para a imagem padrão
-            </p>
-            <hr>
-            {{msgVazio}}
-
-            <div class="center">
-                <label id="image" class="label-modal-img" for="img">
-                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
-                    <div>Carregar imagem</div>
-                </label>
-                <input type="file" id="img" name="imagem">
-            </div>
-
-            <div class="row flex">
-                <button class="btn col m12 indigo" name="salvar" type="submit">
-                    <i class="material-icons ">photo</i>Salvar
-                </button>
-            </div>
-
-            <div class="row flex">
-                <button class="btn red col m12" href="">
-                    <i class="material-icons ">delete</i>Remover
-                </button>
-            </div>
-        </form>
-    </div>
-</div>

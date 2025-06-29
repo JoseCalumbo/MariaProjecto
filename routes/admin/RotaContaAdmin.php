@@ -8,7 +8,6 @@ use \App\Controller\Admin;
  *  foi incluido em routas.php
 */
 
-
 //________________________ rota para ir na pagina conta___________________________
 $obRouter->get('/admin/conta',[
     'middlewares'=>[

@@ -109,7 +109,6 @@ class ContaAdmin extends PageAdmin
 
     }
 
-
     // metodo que renderiza a tela alter senha
     public static function getTelaSeguranca($request, $erroMsg)
     {
@@ -141,7 +140,6 @@ class ContaAdmin extends PageAdmin
         return parent::getPageAdmin('Admin Segurança', $content);
     }
 
-
     // metodo que renderiza a tela alter senha
     public static function getRegistrosConta($request, $erroMsg)
     {
@@ -161,7 +159,29 @@ class ContaAdmin extends PageAdmin
             'msgVazio' => '',
             'imagem' => $obUsuario->imagem,
         ]);
-        return parent::getPageAdmin('Usuario Alterar senha', $content);
+        return parent::getPageAdmin('admin- Registro', $content);
+    }
+
+        // metodo que renderiza a tela de controle 
+    public static function getControleConta($request, $erroMsg)
+    {
+        // Pega o id do usuario logado
+        $usuarioLogado = SessionAdmin::getAdminUserLogado();
+        $id = $usuarioLogado['id'];
+
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
+
+        $content = View::renderAdmin('conta/contaControle', [
+            'id' => $obUsuario->id,
+            'nome' => $obUsuario->nome,
+            'active' => 'blue-grey darken-3 white-text',
+            'msg' => $status,
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem,
+        ]);
+        return parent::getPageAdmin('Admin- Controle conta', $content);
     }
 
     // metodo que renderiza a tela alter senha
@@ -278,29 +298,6 @@ class ContaAdmin extends PageAdmin
             }
         }
     }
-
-    // metodo que renderiza a tela de controle 
-    public static function getControleConta($request, $erroMsg)
-    {
-        // Pega o id do usuario logado
-        $usuarioLogado = SessionAdmin::getAdminUserLogado();
-        $id = $usuarioLogado['id'];
-
-        $obUsuario = AdmimUserDao::getAdminUserId($id);
-
-        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
-
-        $content = View::renderAdmin('conta/contaControle', [
-            'id' => $obUsuario->id,
-            'nome' => $obUsuario->nome,
-            'active' => 'blue-grey darken-3 white-text',
-            'msg' => $status,
-            'msgVazio' => '',
-            'imagem' => $obUsuario->imagem,
-        ]);
-        return parent::getPageAdmin('Admin- Controle conta', $content);
-    }
-
 
     // metodo que renderiza a tela alter senha
     public static function setApagarConta($request, $erroMsg)

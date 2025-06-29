@@ -39,7 +39,7 @@ $obRouter->get('/usuario/cadastrar', [
 ]);
 // Rota para cadastrar Usuario post
 $obRouter->post('/usuario/cadastrar', [
-        'middlewares' => [
+    'middlewares' => [
         'requer-loginAdmin'
     ],
 
@@ -60,7 +60,7 @@ $obRouter->get('/usuario/editar/{id}', [
 ]);
 // rota para alterar um registro POST 
 $obRouter->post('/usuario/editar/{id}', [
-        'middlewares' => [
+    'middlewares' => [
         'nivel-acessoAdmin',
         'requer-loginAdmin'
     ],
@@ -69,21 +69,13 @@ $obRouter->post('/usuario/editar/{id}', [
     }
 ]);
 
-// rota para apagar um registro
-$obRouter->get('/usuario/apagar/{id}', [
-    'middlewares' => [
-        'nivel-acessoAdmin',
-        'requer-loginAdmin'
-    ],
-    function ($request, $id) {
-        return new Response(200,Admin\Usuario::apagarUser($request, $id));
-    }
-]);
 
 // Rota para apagar funcionario
 $obRouter->post('/usuario/apagar/{id}', [
     'middlewares' => [
         'nivel-acessoAdmin',
+        'requer-loginAdmin'
+
     ],
     function ($request, $id) {
         return new Response(200, Admin\Usuario::setapagarUser($request, $id));
