@@ -14,10 +14,12 @@
     <title>{{title}}</title>
 
     <style>
+        #ca1rd{
+          height: 480px !important;
+        }
         .card-login {
             width: 100%;
             max-width: 400px;
-            padding-top: 20px;
         }
 
         .center-page {
@@ -36,10 +38,19 @@
             background-color: #00695c !important;
             color: white !important;
         }
+
+        body {
+            background-image: url('{{URL}}/Assets/img/fundo1.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* evita repetição */
+            background-position: center;
+            /* centraliza a imagem #00796b teal darken-2*/
+        }
     </style>
 </head>
 
-<body class="container teal darken-3">
+<body class="teal darken-3">
 
     {{content}}
 

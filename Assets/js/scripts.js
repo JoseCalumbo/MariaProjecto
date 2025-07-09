@@ -56,14 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Criar o gradiente vertical
     const gradient = grafConsulta.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(75, 80, 78, 0.95)')
-    gradient.addColorStop(1, 'rgba(18, 21, 22, 0.7)')
+    gradient.addColorStop(0, 'rgba(19, 82, 175, 0.95)')
+    gradient.addColorStop(1, 'rgba(38, 34, 78, 0.84)')
 
     const data = {
         labels: ['Segunda', 'Treça', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo'],
         datasets: [{
             label: 'Visitas',
-            data: [150, 30, 100, 260, 80, 340, 270],
+            data: [150, 390, 100, 260, 80, 340, 270],
             fill: true,
             backgroundColor: gradient,
             borderColor: 'transparent',
@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Criar o gradiente vertical
     const gradient = grafUser.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(221, 16, 177, 0.95)')
-    gradient.addColorStop(1, 'rgba(18, 21, 22, 0.7)')
+    gradient.addColorStop(0, 'rgba(17, 165, 153, 0.95)')
+    gradient.addColorStop(1, 'rgba(26, 149, 190, 0.7)')
 
     const data = {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -166,6 +166,130 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     new Chart(graficosUsuarios, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+
+});
+
+// Graficos de dados user 
+document.addEventListener('DOMContentLoaded', function () {
+    // seleciona a tag canvas 
+    const grafUser1 = document.getElementById('graficosUsuarios1').getContext('2d');
+
+    // Criar o gradiente vertical
+    const gradient = grafUser1.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(17, 165, 153, 0.95)')
+    gradient.addColorStop(1, 'rgba(26, 149, 190, 0.7)')
+
+    const data = {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+            label: 'Visitas',
+            data: [200, 300, 400, 460, 600, 340, 270],
+            fill: true,
+            backgroundColor: gradient,
+            borderColor: 'transparent',
+            tension: 0.5,
+            pointRadius: 0, // ponto invisível normalmente
+            pointHoverRadius: 6, // aparece ao passar o mouse
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#00ffaa',
+            pointHoverBorderWidth: 2
+        }]
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                enabled: true,
+                backgroundColor: 'rgba(18, 41, 240, 0.8)',
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                displayColors: false,
+                callbacks: {
+                    label: function (context) {
+                        return `Valor: ${context.raw}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: { display: false },
+            y: { display: false }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: false
+        }
+    };
+
+    new Chart(graficosUsuarios1, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+
+});
+
+// Graficos de dados user 
+document.addEventListener('DOMContentLoaded', function () {
+    // seleciona a tag canvas 
+    const grafUser2 = document.getElementById('graficosUsuarios2').getContext('2d');
+
+    // Criar o gradiente vertical
+    const gradient = grafUser2.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(17, 165, 153, 0.95)')
+    gradient.addColorStop(1, 'rgba(26, 149, 190, 0.7)')
+
+    const data = {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+            label: 'Visitas',
+            data: [50, 300, 700, 260, 80, 340, 70],
+            fill: true,
+            backgroundColor: gradient,
+            borderColor: 'transparent',
+            tension: 0.5,
+            pointRadius: 0, // ponto invisível normalmente
+            pointHoverRadius: 6, // aparece ao passar o mouse
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#00ffaa',
+            pointHoverBorderWidth: 2
+        }]
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                enabled: true,
+                backgroundColor: 'rgba(18, 41, 240, 0.8)',
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                displayColors: false,
+                callbacks: {
+                    label: function (context) {
+                        return `Valor: ${context.raw}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: { display: false },
+            y: { display: false }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: false
+        }
+    };
+
+    new Chart(graficosUsuarios2, {
         type: 'line',
         data: data,
         options: options
