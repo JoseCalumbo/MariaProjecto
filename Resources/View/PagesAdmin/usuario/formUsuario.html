@@ -1,0 +1,118 @@
+<section class="row section-field card">
+
+    <nav class="col m12 blue-grey darken-1">
+        <div class="nav-wrapper ">
+            <a href="#!" class="brand-logo ">
+                <h5 class="white-text" style="font-size: 18px; font-weight: bold;"> Painel Usuário</h5>
+            </a>
+            <ul class="right hide-on-med-and-down row" style="height: 50px;">
+
+                <li class="white-text " style="text-transform: capitalize;">
+                    <a href="{{URL}}/usuario" class="white-text">
+                        <i class=" material-icons left white-text ">arrow_back</i>voltar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="col m12 s12 center">
+        <h5 class="black-text "> {{titulo}} e</h5>
+    </section>
+
+    <section class="row col m8 offset-m2 " style="text-align: center;">
+        <!-- formulario para cadastramento de usuario start -->
+        <form class="" method="post" enctype="multipart/form-data">
+            <ul class=" collapsibleF white expandable">
+                <li class="active">
+                    <div id="form-collapsible" class="collapsible-header white-text font-normal  blue-grey darken-1">
+                        <i class="material-icons">person</i> Dados de Registro
+                    </div>
+                    <div class="collapsible-body row">
+
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <label for="nome" style="text-transform: capitalize;">Nome Completo:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="telefone" type="text" data-length="30" name="telefone"
+                                    value="{{telefone}}" />
+                                <label for="telefone1" style="text-transform: capitalize;">telefone:</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="email" type="text" data-length="30" name="email" value="{{email}}" />
+                                <label for="email" style="text-transform: capitalize;">E-mail:</label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6 m6">
+                                <div class="input-field col s12">
+                                    <select name="genero">
+                                        <option value="" disabled selected>Escolhe uma opção</option>
+                                        <option value="Masculino" {{masculino}}>Masculino</option>
+                                        <option value="Feminino" {{feminino}}>Feminino</option>
+                                    </select>
+                                    <label style="text-transform: capitalize; font-size: 14px;" >Genero</label>
+                                </div>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <div class="input-field col s12">
+                                    <select name="nivel">
+                                        <option value="" disabled selected>Escolhe uma opção</option>
+                                        <option value="Administrador" {{nivelAdmin}}>Administrador</option>
+                                        <option value="normal" {{nivelNormal}}>Normal</option>
+                                        <option value="visitante" {{nivelVisitante}}>Visitante</option>
+                                    </select>
+                                    <label style="text-transform: capitalize; font-size: 14px;" >Nivel de Acesso</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="input-field col s12 m12">
+                                <input id="morada" type="text" data-length="30" name="morada"
+                                    value="{{morada}}" />
+                                <label for="morada" style="text-transform: capitalize;">Morada:</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal blue-grey darken-1 ">
+                        <i class="material-icons">image</i>Carregar ficheiros
+                    </div>
+                    <div class="collapsible-body  bodyy">
+
+                        <div class="input-file flex col s12 m12 row ">
+                            <label id="image" class="img-label btn grey accent-1 " style="text-transform: capitalize;"
+                                for="img">
+                                <i class="material-icons right col m4">archive</i> Carregar imagem
+                            </label>
+                            <input type="file" id="img" name="imagem">
+                            <img class="foto col m2 offset-m7" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="65"
+                                height="37">
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+
+            <div class="row col s12 m12">
+                <button class="col offset-m10 btn font-normal" type="submit">{{button}}</button>
+            </div>
+        </form>
+        <!-- formulario para cadastramento de usuario end -->
+
+    </section>
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

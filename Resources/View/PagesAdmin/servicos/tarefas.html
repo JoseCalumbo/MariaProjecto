@@ -1,0 +1,219 @@
+<section class="row section-field">
+
+    <div class="col s12 m12">
+        <h4>
+            <a href="{{URL}}/vendedor/{{id}}">vendedor</a>
+            <hr>
+        </h4>
+    </div>
+
+    <section class="col s12 m3 white card-menu center card">
+        <div class="col m6 l12">
+            <img class="img-conta materialboxed" src="{{URL}}/Files/imagem/vendedor/{{imagem}}" width="180"
+                height="180">
+            <h5>{{nome}}</h5>
+            <hr class="hr">
+            <p> <span class="left">Numero</span> <span class="">{{id}}</span> </p>
+            <p> <span class="left">Status</span> <span class="">Activo</span> </p>
+
+            <hr>
+        </div>
+
+        <div class="row col s12 m6 l12">
+            <div class="row">
+                <a href="{{URL}}/vendedor/editar/{{id}}">
+                    <button type="button " class="waves-effect waves-light btn blue lighten-1 button-normal">
+                        <i class="material-icons right">edit</i>
+                        <span class="left maiscula">Editar</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="row">
+                <a href="{{URL}}/vendedorFicha/{{id}}" target="_blank">
+                    <button type="button " class="waves-effect waves-light btn blue lighten-1 button-normal">
+                        <i class="material-icons right">print</i>
+                        <span class="left maiscula">Imprimir Ficha</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="row">
+                <a href="{{URL}}/listagem/{{id}}" target="_blank">
+                    <button type="button " class="waves-effect waves-light btn blue lighten-1 button-normal">
+                        <i class="material-icons right">print</i>
+                        <span class="left maiscula">Listagem de conta</span>
+                    </button>
+                </a>
+            </div>
+
+            <!-- <div class="row">
+                <a class="white-text" href="{{URL}}/declaracao/{{id}}" target="_blank">
+                    <button type="button" class="waves-effect waves-light btn blue lighten-1 button-normal">
+                        <i class="material-icons right">print</i>
+                        <span class="left maiscula">Declaração</span>
+                    </button>
+                </a>
+            </div> -->
+
+            <div class="row">
+                <button type="button" class="waves-effect waves-light btn blue lighten-1 button-normal" target="_blank" >
+                    <a class="white-text" href="{{URL}}/cartao/{{id}}">
+                        <i class="material-icons right">print</i>
+                        <span class="left maiscula">Imprimir cartão</span>
+                    </a>
+                </button>
+            </div>
+
+            <div class="row">
+                <a href="{{URL}}/vendedor/apagar/{{id}}">
+                    <button type="button" class="waves-effect waves-light red accent-2 btn button-normal">
+                        <i class="material-icons right">delete</i>
+                        <span class="left maiscula">Apagar</span>
+                    </button>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="col s12 m8 offset-m1 white card">
+        <div class="row">
+            <div class="col s12 ">
+                <!--header das abas-->
+                <ul class="tabs tabsvendedor">
+                    <li class="tab col s3"><a class="active" href="#dados1">Dados</a></li>
+                    <li class="tab col s3"><a class="active" href="#pagamento2">Pagamento</a></li>
+                    <!-- <li class="tab col s3"><a href="#registro3">Registros</a></li> -->
+                    <li class="tab col s3"><a href="#opcoes4">Opçôes</a></li>
+                </ul>
+            </div>
+            <!--pagina das abas-->
+            <div id="dados1" class="col s12">
+                <div>
+                    <br>
+                    <p class="font-small grey">Dados Pessoal</p>
+                    <hr>
+                    <p>Nome Completo: <strong>{{nome}}</strong></p>
+                    <p>Data de Nascimento: <strong>{{nascimento}}</strong></p>
+                    <p>Genero: <strong>{{genero}}</strong></p>
+                    <p>Bilhete: <strong>{{bi}}</strong></p>
+                    <p>Filiação: <strong>{{pai}}</strong> e <strong>{{mae}}</strong></p>
+                    <p>Nivel Academico: <strong>{{nivel}}</strong></p>
+                    <br>
+
+                    <p class="font-small grey">Contactos</p>
+                    <hr>
+                    <p>Email: <strong>{{email}}</strong></p>
+                    <p>Telefone: <strong>{{telefone1}} - {{telefone2}}</strong></p>
+                    <br>
+
+                    <p class="font-small grey">Morada e zona de venda</p>
+                    <hr>
+                    <p>Morada: <strong>{{morada}}</strong></p>
+                    <p>Local de venda: <strong>{{zona}}</strong></p>
+                    <br>
+
+                    <p class="font-small grey">Negócios</p>
+                    <hr>
+                    {{negocios}}
+                    <br>
+
+                    <p class="font-small grey">Inicio</p>
+                    <hr>
+                    <p>Data de Cadastramento: <strong>{{criado}}</strong></p>
+                </div>
+            </div>
+
+            <!--Aba content do pagamento-->
+            <div id="pagamento2" class="col s12">
+
+                <br>
+
+                <!-- <table class="row col m12">
+                    <thead tbody class="thead">
+                      <tr class="centered">
+                        <th><i class="material-icons black-white ">format_list_numbered</i> Número</th>
+                        <th> <i class="material-icons black-white ">more</i>Designação</th>
+                        <th><i class="material-icons black-white ">attach_money</i>Valor Pago </th>
+                        <th> <i class="material-icons black-white ">date_range</i>Data</th>
+                        <th> <i class="material-icons black-white ">phone</i>Status</th>
+                        <th>Opção</th>
+                      </tr>
+                    </thead>
+              
+                    <tbody tbody class="tbody">
+                      {{item}}
+                    </tbody>
+                  </table> -->
+
+                <div>
+                    <a href="{{URL}}/pagamento/{{id}}" class="font-normal row black-text ">
+                        <button type="button " class="waves-effect waves-light btn teal darken-3">
+                              <i class="material-icons left">attach_money</i>Fazer Pagamento
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Aba content dos registros
+            <div id="registro3" class="col s12">
+                <br>
+                <div>
+                    <h6>Ultimo Pagamento</h6>
+                    <p>21 de Maio de 2022</p>
+                    <p class="blue-text">ver mais</p>
+                </div>
+                <br>
+                <div>
+                    <h6>Ultima Impressão da ficha</h6>
+                    <p>21 de Maio de 2022</p>
+                    <p class="blue-text">ver mais</p>
+                </div>
+
+            </div> -->
+
+            <!--Aba content da opcoes-->
+            <div id="opcoes4" class="col s12">
+                <br>
+                <div>
+                    <p>Status de Conta</p>
+                    <form action="" method="post">
+
+                        <div class="card ">
+
+                            <div class="switch row ">
+
+                                <div class="col l8">
+                                    <p><strong class="font-normal">Desactivar a conta</strong></p>
+                                    <p class="font-small">Se a conta estiver desativada todos os serviços são suspenso
+                                    </p>
+                                </div>
+
+                                <label class="col l1 push-l2">
+                                    <input class="blue" type="checkbox" id="mudar">
+                                    <span class="lever"></span>
+                                </label>
+
+                                
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <br>
+                <div>
+                    <button type="button" class="waves-effect waves-light blue accent-4 btn disabled button-normal">
+                        <a class="white-text" href="{{URL}}/vendedor/{{id}}">
+                            <i class="material-icons right">print</i>
+                            <span class="left maiscula">Imprimir Declaração</span>
+                        </a>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+</section>

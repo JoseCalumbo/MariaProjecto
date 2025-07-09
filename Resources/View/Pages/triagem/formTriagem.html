@@ -1,0 +1,114 @@
+<section class="row section-field">
+
+    <nav class='flex row  grey darken-3'>
+        
+        <div class="nav-wrapper ">
+          <div class="col s12">
+            <a href="#!" class="breadcrumb white-text font-media font-normal">{{titulo}} </a>
+          </div>
+        </div>
+
+        <div class="nav-wrapper col m3 ">
+            <div class="col s12">
+              <a href="{{URL}}" class="breadcrumb white-text font-normal">Home</a>
+              <a href="{{URL}}/triagem" class="breadcrumb white-text flow-text font-normal">Painel Triagem</a>
+            </div>
+          </div>
+    </nav>
+
+    <div class="div-form white col s12 m12 ">
+
+      <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
+
+        <ul class=" collapsible white">
+
+            <li class="active">
+                <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
+                        class="material-icons">person</i>Dados pessoais</div>
+
+                <div class="collapsible-body row">
+
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input id="nome" type="text" name="nome" value="" class="validate">
+                            <label for="nome" style="text-transform: capitalize;">Nome:</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="Sobrenome" type="text" name="nome" value="" class="validate">
+                            <label for="Sobrenome" style="text-transform: capitalize;">Sobrenome:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <label>Genero:</label>
+                            <div class="input-radio">
+                                <label>
+                                    <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap"
+                                        checked>
+                                    <span for="masc">Masculino </span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap"
+                                        {{genero}}>
+                                    <span for="fem">Feminino</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="input-date col s12 m6 row">
+                            <label for="">Data de nascimento:</label>
+                            <input type="date" name="data" value="">
+                        </div>
+                            <!-- linha fim genero e data-->
+                    </div>
+                </div>
+            </li>
+
+            <!--collapsible dados sinais Vitais-->
+            <li class="active">
+                <div class="collapsible-header white white-text font-normal grey darken-3"> <i
+                        class="material-icons">enhanced_encryption  </i>Sinais Vitais</div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="input-field col s12 m12">
+                            <input  id="morada" type="number" data-length="30" name="morada" value="" />
+                            <label for="morada" style="text-transform: capitalize;">Peso</label>
+                        </div>
+                        <div class="input-field col s12 m12">
+                            <input  id="municipio" type="number" data-length="30" name="morada" value="" />
+                            <label for="municipio" style="text-transform: capitalize;">Temperatura</label>
+                        </div>
+                        <div class="input-field col s12 m12">
+                            <input  id="bairro" type="number" data-length="30" name="morada" value="" />
+                            <label for="Bairro" style="text-transform: capitalize;">Pressão arterial</label>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="active">
+                <div class="collapsible-header white white-text font-normal grey darken-3"> <i
+                        class="material-icons">comment</i>Descrisão</div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="input-field col s12 m12">
+                            <textarea id="textarea1" class="materialize-textarea" data-length="180"></textarea>
+                            <label for="textarea1" style="text-transform: capitalize;">Observação do paciente</label>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+        <div class=" row div-input push-m9 col s12 m3">
+            <button class="button" type="submit">{{button}}</button>
+        </div>
+    </form>
+    <!-- formulario para cadastra
+    </div>
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>
