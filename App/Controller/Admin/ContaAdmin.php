@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Mensagem\MensagemAdmin;
 use \App\Utils\View;
 use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\AdmimUserDao;
@@ -30,13 +31,34 @@ class ContaAdmin extends PageAdmin
 
         switch ($queryParam['msg']) {
             case 'senhaEditada':
-                return Mensagem::msgSucesso('Senha Alterado com sucesso');
+                return MensagemAdmin::msgSucesso('Senha Alterado com sucesso');
+                break;
+            case 'senhaNaoEditada':
+                return MensagemAdmin::msgAlerta('Alerta Senha não alterarda');
+                break;
+            case 'senhaErrada':
+                return MensagemAdmin::msgErro('Erro senha digitada invalida, senha não alterarda');
+                break;
+            case 'imagem-Nao-carregada':
+                return MensagemAdmin::msgAlerta('Imagem não carregada tenta novamente');
                 break;
             case 'imagemAlterado':
-                return Mensagem::msgSucesso('Imagem Alterado com sucesso');
+                return MensagemAdmin::msgSucesso('Imagem Alterada com sucesso');
+                break;
+            case 'imagemNaoAlterada':
+                return MensagemAdmin::msgErro('Erro Imagem não Alterada, Tenta de novamente');
                 break;
             case 'contaeditada':
-                return Mensagem::msgSucesso('Conta editada com sucesso');
+                return MensagemAdmin::msgSucesso('Conta editada com sucesso');
+                break;
+            case 'contaNaoEditada':
+                return MensagemAdmin::msgErro('Conta não editada');
+                break;
+            case 'confirma':
+                return MensagemAdmin::msgAlerta('Clica em Confirmar antes de processeguir');
+                break;
+            case 'NaoDeletado':
+                return MensagemAdmin::msgErro('Erro: Conta Não  Apagada, Tenta novamente ou consulta o administrador');
                 break;
         }// fim do switch
 
@@ -56,10 +78,11 @@ class ContaAdmin extends PageAdmin
         $item .= View::renderAdmin('conta/dadosConta', [
             'id' => $obUsuario->id,
             'nome' => $obUsuario->nome,
-            'nascimento' => "",
+            'genero' => $obUsuario->genero,
             'email' => $obUsuario->email,
             'telefone' => $obUsuario->telefone,
             'nivel' => $obUsuario->nivel,
+            'morada' => $obUsuario->morada,
             'registro' => $obUsuario->criado
         ]);
         return $item;
@@ -85,31 +108,39 @@ class ContaAdmin extends PageAdmin
         return parent::getPageAdmin('Admin - Conta Informaçao', $content);
     }
 
-    /**
-     * Metodo para editar os dados 
+    /** Metodo para editar os dados 
      *@param Request $request
      *@return string
      */
-    public static function getEditarConta($request, $id_us)
+    public static function getEditarConta($request)
     {
         // Pega o usuario logado
         $usuarioLogado = SessionAdmin::getAdminUserLogado();
         $id = $usuarioLogado['id'];
+
+        // busca o usuario po id
         $obUsuario = AdmimUserDao::getAdminUserId($id);
 
         $content = View::renderAdmin('conta/contaPerfil', [
             'msg' => '',
-            'msgVazio' => '',
+            'nome' => $obUsuario->nome,
+            'email' => $obUsuario->email,
+            'telefone' => $obUsuario->telefone,
             'imagem' => $obUsuario->imagem,
+            'morada' => $obUsuario->morada,
+            'masculino' => $obUsuario->genero == 'Masculino' ? 'selected' : '',
+            'feminino' => $obUsuario->genero == 'Feminino' ? 'selected' : '',
             'id' => $obUsuario->id,
             'active' => 'blue-grey darken-3 white-text',
-            'nome' => $obUsuario->nome
+            'msg1' => self::exibeMensagem($request),
+
         ]);
         return parent::getPageAdmin('Admin - Personalização', $content);
 
     }
 
-    // metodo que renderiza a tela alter senha
+
+    // metodo que renderiza a tela de Segurança controle
     public static function getTelaSeguranca($request, $erroMsg)
     {
         // Pega o id do usuario logado
@@ -136,11 +167,13 @@ class ContaAdmin extends PageAdmin
             'msg' => $status,
             'msgVazio' => '',
             'imagem' => $obUsuario->imagem,
+            'msg1' => self::exibeMensagem($request),
         ]);
         return parent::getPageAdmin('Admin Segurança', $content);
     }
 
-    // metodo que renderiza a tela alter senha
+
+    // metodo que renderiza a tela de registro
     public static function getRegistrosConta($request, $erroMsg)
     {
         // Pega o id do usuario logado
@@ -162,7 +195,7 @@ class ContaAdmin extends PageAdmin
         return parent::getPageAdmin('admin- Registro', $content);
     }
 
-        // metodo que renderiza a tela de controle 
+    // metodo que renderiza a tela de controle 
     public static function getControleConta($request, $erroMsg)
     {
         // Pega o id do usuario logado
@@ -178,92 +211,80 @@ class ContaAdmin extends PageAdmin
             'nome' => $obUsuario->nome,
             'active' => 'blue-grey darken-3 white-text',
             'msg' => $status,
+            'msg1' => self::exibeMensagem($request),
+
             'msgVazio' => '',
             'imagem' => $obUsuario->imagem,
         ]);
         return parent::getPageAdmin('Admin- Controle conta', $content);
     }
 
-    // metodo que renderiza a tela alter senha
-    public static function getTelaSeguranca1($request, $erroMsg)
-    {
-        // Pega o id do usuario logado
-        $usuarioLogado = SessionAdmin::getAdminUserLogado();
-        $id = $usuarioLogado['id'];
-
-        $obUsuario = AdmimUserDao::getAdminUserId($id);
-        $postVars = $request->getPostVars();
-
-        // post do form da alteracao 
-        $senhaAntiga = $postVars['senhaAntiga'] ?? '';
-        $senhaNova = $postVars['senhaNova'] ?? '';
-        $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
-
-        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
-
-        $content = View::renderAdmin('conta/alterarsenha', [
-            'senhaAntiga' => $senhaAntiga,
-            'senhaNova' => $senhaNova,
-            'senhaConf' => $senhaConfirmada,
-            'msg' => $status,
-            'msgVazio' => '',
-            'imagem' => $obUsuario->imagem,
-        ]);
-        return parent::getPageAdmin('Usuario Alterar senha', $content);
-    }
-
-
 
     //metodo post para alterar senha
-    public static function setAlterarSenha($request, $id_us)
+    public static function setAlterarSenha($request, $id)
     {
         // Busca o usuario logado no sistema
         $usuarioLogado = SessionAdmin::getAdminUserLogado();
-        $id = $usuarioLogado['id'];
+        //$id = $usuarioLogado['id'];
 
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        // Guarda os inputs post do formularios
         $postVars = $request->getPostVars();
+
+        //Pega o valor do botão cancelar
+        $cancelou = $postVars['cancelar'] ?? '';
 
         $senhaAntiga = $postVars['senhaAntiga'] ?? '';
         $senhaNova = $postVars['senhaNova'] ?? '';
         $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
 
-        $obUsuario = AdmimUserDao::getAdminUserId($id);
-
-        // validacao da senha se corresponde
-        if (!password_verify($senhaAntiga, $obUsuario->senha)) {
-            return self::telaAlterarSenha($request, '<p class="black-text"> Erro! Senha Incorreta </p>');
-            exit;
-        }
-
-        // validacao da confirmacao da senha
-        if ($senhaNova !== $senhaConfirmada) {
-            return self::telaAlterarSenha($request, '<p> Erro! As senhas não são iguais</p>');
+        if ($cancelou == "cancelar") {
+            $request->getRouter()->redirect('/admin/seguranca');
             exit;
         }
 
         // valida os campos das senhas 
         if (isset($postVars['senhaAntiga'], $postVars['senhaNova'], $postVars['senhaConfirmada'])) {
 
+            // validacao da senha se corresponde
+            if (!password_verify($senhaAntiga, $obUsuario->senha)) {
+                $request->getRouter()->redirect('/admin/seguranca?msg=senhaErrada');
+                // return self::getTelaSeguranca($request, '<p class="black-text"> Erro! Senha Incorreta </p>');
+            }
+
+            // validacao da confirmacao da senha
+            if ($senhaNova !== $senhaConfirmada) {
+                // Redereciona para a pagina de segurança com msg sucesso
+                $request->getRouter()->redirect('/admin/seguranca?msg=senhaNaoEditada');
+                // return self::getTelaSeguranca($request, '<p> Erro! As senhas não são iguais</p>');
+            }
+
             //faz a alteracao da senha
             $obUsuario->senha = password_hash($postVars['senhaNova'], PASSWORD_DEFAULT);
             $obUsuario->atualizarSenha();
+            // Redereciona para a pagina de segurança com msg sucesso
+            $request->getRouter()->redirect('/admin/seguranca?msg=senhaEditada');
+
         }
 
-        $request->getRouter()->redirect('/conta?msg=senhaEditada');
     }
 
+
     // metodo para alterar a imagem do usuario
-    public static function alterarImagem($request)
+    public static function alterarImagem($request, $id)
     {
-
         $postVars = $request->getPostVars();
+        //Pega o valor do botão cancelar
+        $cancelou = $postVars['cancelar'] ?? '';
 
-        // obtem o id do usuario logado
-        $usuarioLogado = Session::getUsuarioLogado();
-        $id_us = $usuarioLogado['id_us'];
+        if ($cancelou == "cancelar") {
+            $request->getRouter()->redirect('/conta/perfil');
+            exit;
+        }
 
         // instancia do user
-        $obUsuario = UsuarioDao::getUsuarioId($id_us);
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
 
         // instancia da class que carrega a imagem
         $obUpload = new Upload($_FILES['imagem']) ?? '';
@@ -272,52 +293,92 @@ class ContaAdmin extends PageAdmin
 
             // verifica se foi carregado uma imagem 
             if ($_FILES['imagem']['error'] == 4) {
-                $content = View::render('conta/conta', [
-                    'msg' => '',
-                    //exibe os dados do user na pagina
-                    'dadosconta' => self::getUsuarioConta(),
-                    // exibe o menu do user na pagina
-                    'menuconta' => self::getUsuarioMenu(),
-                    // coloca a class para manter o modal de alter a foto
-                    'blocks' => 'block',
-                    'imagem' => $obUsuario->imagem_us,
-                    //exibe a mensagem de nao carregar uma foto
-                    'msgVazio' => '<p class="div-conta-inf red center">Não selecionaste nenhuma imagem nova</p>',
-                ]);
-                return parent::getPage('Usuario Alterar senha', $content);
+                $request->getRouter()->redirect('/conta/perfil?msg=imagem-Nao-carregada');
             }
 
             $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
 
-            $obUsuario->imagem_us = $obUpload->getBaseName();
+            $obUsuario->imagem = $obUpload->getBaseName();
             $obUsuario->atualizarImagem();
 
             if ($sucess) {
-                $request->getRouter()->redirect('/conta?msg=imagemAlterado');
+                $request->getRouter()->redirect('/conta/perfil?msg=imagemAlterado');
                 exit;
+            } else {
+                $request->getRouter()->redirect('/conta/perfil?msg=imagemNaoAlterada');
+
             }
         }
+
+    }
+
+    // metodo para alterar dados user
+    public static function setAlterarDados($request, $id)
+    {
+        $postVars = $request->getPostVars();
+        //Pega o valor do botão cancelar
+        $cancelou = $postVars['cancelar'] ?? '';
+
+        if ($cancelou == "cancelar") {
+            $request->getRouter()->redirect('/conta/perfil');
+            exit;
+        }
+
+        // instancia do user
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        if (isset($postVars['salvar'])) {
+
+            $obUsuario->nome = $_POST['nome'] ?? $obUsuario->nome;
+            $obUsuario->genero = $_POST['genero'] ?? $obUsuario->genero;
+            $obUsuario->email = $_POST['email'] ?? $obUsuario->email;
+            $obUsuario->telefone = $_POST['telefone'] ?? $obUsuario->telefone;
+            $obUsuario->morada = $_POST['morada'] ?? $obUsuario->morada;
+            $obUsuario->atualizar();
+            $request->getRouter()->redirect('/conta/perfil?msg=contaeditada');
+            exit;
+        } else {
+            $request->getRouter()->redirect('/conta/perfil?msg=contaNaoEditada');
+
+        }
+
     }
 
     // metodo que renderiza a tela alter senha
-    public static function setApagarConta($request, $erroMsg)
+    public static function setApagarConta($request, $id)
     {
-        // Pega o id do usuario logado
-        $usuarioLogado = SessionAdmin::getAdminUserLogado();
-        $id = $usuarioLogado['id'];
-
-        $obUsuario = AdmimUserDao::getAdminUserId($id);
 
         $postVars = $request->getPostVars();
 
-        // post do form da alteracao 
-        $senhaAntiga = $postVars['senhaAntiga'] ?? '';
+        $confirmo = $_POST['confirmo'] ?? "";
 
-        $obUsuario->apagar();
+        //Pega o valor do botão cancelar
+        $cancelou = $postVars['cancelar'] ?? '';
 
-        //Redireciona a tela de login
-        $request->getRouter()->redirect('/admin/login');
+        if ($cancelou == "cancelar") {
+            $request->getRouter()->redirect('/admin/controle');
+            exit;
+        }
 
+        $obUsuario = AdmimUserDao::getAdminUserId($id);
+
+        if (isset($postVars['apagar'])) {
+
+            // Verifica se o usuario confirmou o operaçao
+            if (!$confirmo == "on") {
+                $request->getRouter()->redirect('/admin/controle?msg=confirma');
+                exit;
+            }
+
+            $obUsuario->apagar();
+
+            //Redireciona a tela de login
+            $request->getRouter()->redirect('/admin/logout');
+
+        } else {
+            $request->getRouter()->redirect('/admin/controle?msg=NaoDeletado');
+
+        }
     }
 
 }

@@ -65,7 +65,7 @@ class AdmimUserDao
     public function atualizarSenha()
     {
         return (new Database('tb_usuario'))->update('id = ' . $this->id, [
-            'senha_us' => $this->senha,
+            'senha' => $this->senha,
         ]);
     }
 

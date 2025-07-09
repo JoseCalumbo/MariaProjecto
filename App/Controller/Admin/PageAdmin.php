@@ -17,14 +17,14 @@ Class PageAdmin{
         $dados = '';
         $AdminLogado = SessionAdmin::getAdminUserLogado();
         $id=$AdminLogado['id'];
-        $nome=$AdminLogado['nome'];
+       // $nome=$AdminLogado['nome'];
         $nivel=$AdminLogado['nivel'];
 
         //Busca o Funcionario por id
         $obAdminUser = AdmimUserDao::getAdminUserId($id);
 
         $dados .= View::renderAdmin('Layouts/dadoslogado',[
-            'nome'=>$nome,
+            'nome'=>$obAdminUser->nome,
             'imagem'=>$obAdminUser->imagem,
             'nivel'=>$nivel,
         ]);

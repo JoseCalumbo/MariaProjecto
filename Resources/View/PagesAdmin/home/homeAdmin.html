@@ -10,27 +10,24 @@
         <div class="col s12 m3">
             <div class="card white darken-1">
                 <div class="card-content red-text">
-                    <span class="card-title">Card Title</span>
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                        I am convenient because I require little markup to use effectively.</p>
+                    <span class="card-title">Funcionários</span>
+                    <span class="card-title ">300</span>
+                    <p> I am convenient because I require little markup to use effectively.</p>
                 </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is a link</a>
+                <div>
+                    <canvas id="graficosConsultas" width="800" height="300"></canvas>
                 </div>
             </div>
         </div>
-
         <div class="col s12 m3">
             <div class="card white darken-1">
-                <div class="card-content orange-text">
-                    <span class="card-title">Card Title</span>
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                        I am convenient because I require little markup to use effectively.</p>
+                <div class="card-content red-text">
+                    <span class="card-title">Usuarios</span>
+                    <span class="card-title ">300</span>
+                    <p> I am convenient because I require little markup to use effectively.</p>
                 </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is a link</a>
+                <div>
+                    <canvas id="graficosUsuarios" width="800" height="300"></canvas>
                 </div>
             </div>
         </div>
@@ -68,7 +65,8 @@
             </div>
         </div>
 
-        <script src="{{URL}}/Assets/js/charts/chart.js"></script>
+    <!--Import script js charts -->
+    <script src="{{URL}}/Assets/js/charts/chart.js"></script>
 
         <!-- graficos de dados -->
         <div class="row">
@@ -85,48 +83,6 @@
             <div id="dados1" class="col s12">
                 <section class="card col-start col m11 white">
                     <canvas id="myChartcon" width="800" height="200"></canvas>
-                    <script>
-                        const ctxConsulta = document.getElementById('myChartcon').getContext('2d');
-                        const myChartcon = new Chart(ctxConsulta, {
-                            type: 'line',
-                            data: {
-                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta','Sexta','Sabado'],
-                                datasets: [{
-                                    label: 'Numero total diario de Consulta',
-                                    data: [911, 69, 373, 335, 512,22,399],
-                                    backgroundColor: [
-                                        'rgba(255, 199, 132, 0.2)',
-                                        'rgba(54, 102, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(0, 0, 222, 0.2)',
-                                        'rgba(255, 166, 1,0.1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(253, 166, 1, 1)'
-
-                                    ],
-                                    borderWidth: 3
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                },
-
-                                layout: {
-                                    padding: 0
-                                }
-
-                            }
-                        });
-                    </script>
-
                 </section>
             </div>
 
@@ -139,10 +95,10 @@
                         const myChart122 = new Chart(ctx122, {
                             type: 'line',
                             data: {
-                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta','Sexta','Sabado'],
+                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
                                 datasets: [{
                                     label: 'Numero total diario de Consulta',
-                                    data: [91, 69, 373, 5, 12,22,399],
+                                    data: [91, 69, 373, 5, 12, 22, 399],
                                     backgroundColor: [
                                         'rgba(255, 199, 132, 0.2)',
                                         'rgba(54, 102, 235, 0.2)',
@@ -187,10 +143,10 @@
                         const myChartcon1 = new Chart(ctxConsulta1, {
                             type: 'line',
                             data: {
-                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta','Sexta','Sabado'],
+                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
                                 datasets: [{
                                     label: 'Numero total diario de Consulta',
-                                    data: [111, 69, 3273, 335, 5122,22,399],
+                                    data: [111, 69, 3273, 335, 5122, 22, 399],
                                     backgroundColor: [
                                         'rgba(255, 199, 132, 0.2)',
                                         'rgba(54, 102, 235, 0.2)',
@@ -237,10 +193,10 @@
                         const myChart12 = new Chart(ctx12, {
                             type: 'line',
                             data: {
-                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta','Sexta','Sabado'],
+                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
                                 datasets: [{
                                     label: 'Numero total diario de triagem',
-                                    data: [51, 19, 33, 15, 12,122,3],
+                                    data: [51, 19, 33, 15, 12, 122, 3],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',

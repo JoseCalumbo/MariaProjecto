@@ -1,5 +1,9 @@
 <section class="row section-field">
 
+    <div class="col s12 m12 ">
+        {{msg1}}
+    </div>
+
     <div class="col s12 m12">
         <h5>
             <a href="{{URL}}/admin/conta">Minha Conta</a>
@@ -41,39 +45,40 @@
             </div>
 
             <div class="font-small">
-                <p class="negrito"><strong> Editar dados da conta</strong> </p>
+                <p><strong class="negrito"> Editar dados da conta</strong> </p>
                 <p class="">
-                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
-                    maisculas.
+                    Atualize suas informações pessoais, como nome, e-mail ou telefone.
+                    Mantenha seus dados sempre corretos para facilitar a comunicação.
+                    Todas as alterações são salvas com segurança em sua conta.
                 </p>
-                <a class="btn waves-light white-text capitalize grey darken-2">
+                <a href="#modalEditaDados" class="btn waves-light white-text capitalize grey darken-2 modal-trigger">
                     <i class="material-icons left white-text"> edit </i>Editar
                 </a>
             </div>
             <br>
 
             <div class="font-small">
-                <p class="negrito"><strong> Mudar imagem de perfil</strong> </p>
+                <p> <strong class="negrito"> Alterar imagem de perfil</strong> </p>
                 <p class="">
-                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
-                    maisculas.
+                    Personalize sua conta atualizando sua imagem de perfil.
+                    Escolha uma foto que represente você em nosso sistema.
+                    Sua imagem será exibida em comentários, mensagens e configurações da conta
                 </p>
-                <a class="btn waves-light white-text capitalize grey darken-2">
-                    <i class="material-icons left white-text"> person </i>mudar imagem
+                <a href="#modalAlterarImagem" class="btn waves-light white-text capitalize grey darken-2 modal-trigger">
+                    <i class="material-icons left white-text"> image </i>Alterar imagem
                 </a>
             </div>
             <br>
 
             <div class="font-small ">
-                <p class="negrito"><strong>Definir preferências de idioma e tema</strong> </p>
+                <p><strong class="negrito">Definir preferências de idioma e tema</strong> </p>
                 <p class="">
-                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
-                    maisculas.
-                    Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
-                    maisculas.
+                    Escolha o idioma que deseja utilizar na interface do sistema.
+                    Personalize o visual com temas claro ou escuro, conforme sua preferência.
+                    Suas configurações serão salvas e aplicadas automaticamente em todos os acessos.
                 </p>
-                <a class="btn waves-light white-text capitalize grey darken-2">
-                    <i class="material-icons left white-text">widgets</i>trocar
+                <a class="btn waves-light white-text capitalize grey darken-2 disabled">
+                    <i class="material-icons left white-text">widgets</i>Trocar
                 </a>
             </div>
             <br>
@@ -84,40 +89,116 @@
 
     <br>
     <br>
-
 </section>
 
-<!--Modal de alterar a foto-->
-<div id="modal" class="modal {{blocks}}">
-    <div class="modal-item modal-foto">
-        <label id="closeModal" class="closeModal">&times;</label>
-        <form method="post" enctype="multipart/form-data">
-            <h5>Imagem de Perfil</h5>
-            <p class="div-conta-inf">
-                A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
-                tua imagem do sistema e volta para a imagem padrão
-            </p>
-            <hr>
-            {{msgVazio}}
 
-            <div class="center">
-                <label id="image" class="label-modal-img" for="img">
-                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
-                    <div>Carregar imagem</div>
-                </label>
-                <input type="file" id="img" name="imagem">
+
+
+<!--- Modal alterar imagem -->
+<div id="modalAlterarImagem" class="modal modalMudarImagem">
+    <div class="modal-content white">
+        <form action="{{URL}}/admin/edit-image/{{id}}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col s12 m12">
+                    <h5 class="capitalize center ">
+                        <strong style="font-weight: 700;">Alterar Imagem</strong>
+                    </h5>
+                </div>
+
+                <div class="col m9 offset-m1">
+                    <p style="font-size: 13px; font-weight: 900;">Recomendações técnicas e visuais da imagem </p>
+                    <p style="font-size: 12px;">Nome do arquivo sem espaços ou caracteres especiais (ex:
+                        foto_perfil.png);</p>
+                    <p style="font-size: 12px;">Tamanho máximo 5MB e do tipo passe</p>
+                    <p style="font-size: 12px;"> Formato da imagem suportada apenas do tipo PNG </p>
+                </div>
+
+                <div class="center">
+                    <label id="image" class="label-modal-img" for="img">
+                        <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="125" height="125">
+                        <div></div>
+                    </label>
+                    <input type="file" id="img" name="imagem">
+                </div>
+
+                <div class="row center">
+                    <label class=" btn label-modal-img capitalize" for="img">
+                        Carregar imagem
+                        <i class="material-icons left white-text">arrow_upward</i>
+                    </label>
+
+                </div>
+
+
+                <div class="row col s12 offset-m1 m11">
+                    <button class="modal-close btn red darken-2 waves-effect capitalize col s6" name="cancelar"
+                        value="cancelar" type="submit">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn blue  darken-2 waves-effect capitalize col s6 " name="salvar"
+                        value="apagar" required>
+                        Salvar
+                    </button>
+                </div>
             </div>
+        </form>
+    </div>
+</div>
 
-            <div class="row flex">
-                <button class="btn col m12 indigo" name="salvar" type="submit">
-                    <i class="material-icons ">photo</i>Salvar
-                </button>
-            </div>
+<!--- Modal edita dados -->
+<div id="modalEditaDados" class="modal modalMudarEdit">
+    <div class="modal-content white">
+        <form action="{{URL}}/admin/edit-dados/{{id}}" method="post" enctype="multipart/form-data">
+            <div class="row">
 
-            <div class="row flex">
-                <button class="btn red col m12" href="">
-                    <i class="material-icons ">delete</i>Remover
-                </button>
+                <div class="col s12 m12">
+                    <h5 class="capitalize center ">
+                        <strong style="font-weight: 700;">Alterar Dados Pessoas</strong>
+                    </h5>
+                </div>
+
+                <div class=" offset-m1 col m11 row">
+                    <div class="input-field col s12 m12">
+                        <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                        <label for="nome" style="text-transform: capitalize;">Nome Completo:</label>
+                    </div>
+
+                    <div class="input-field col s12 m4">
+                        <input id="telefone" type="text" data-length="30" name="telefone" value="{{telefone}}" />
+                        <label for="telefone1" style="text-transform: capitalize;">telefone:</label>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input id="email" type="text" data-length="30" name="email" value="{{email}}" />
+                        <label for="email" style="text-transform: capitalize;">E-mail:</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <select name="genero">
+                            <option value="" disabled selected>Escolhe uma opção</option>
+                            <option value="Masculino" {{masculino}}>Masculino</option>
+                            <option value="Feminino" {{feminino}}>Feminino</option>
+                        </select>
+                        <label style="text-transform: capitalize; font-size: 14px;">Genero</label>
+                    </div>
+
+                    <div class="input-field col s12 m12">
+                        <input id="morada" type="text" data-length="30" name="morada" value="{{morada}}" />
+                        <label for="morada" style="text-transform: capitalize;">Morada:</label>
+                    </div>
+                </div>
+
+                <div class="row col s12 offset-m1 m11">
+                    <button class="modal-close btn red darken-2 waves-effect capitalize col s6" name="cancelar"
+                        value="cancelar" type="submit">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn blue  darken-2 waves-effect capitalize col s6 " name="salvar"
+                        value="apagar" required>
+                        Salvar
+                    </button>
+                </div>
             </div>
         </form>
     </div>

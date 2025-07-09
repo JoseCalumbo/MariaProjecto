@@ -185,13 +185,33 @@ document.addEventListener('DOMContentLoaded', function () {
   var modalMudarSenha = document.querySelectorAll('.modalMudarSenha');
   var instancesModal = M.Modal.init(modalMudarSenha, {
     opacity: 0.80,
-    startingTop: 10,
-    endingTop: '15%',
+    startingTop: 5,
+    endingTop: '5%',
   //  onCloseStart: function () {
       //console.log("O modal está começando a fechar.");
       // Você pode executar outras ações aqui:
       // alert("Fechando o modal!");
     //},
+  });
+});
+
+//modal alterar imagem
+document.addEventListener('DOMContentLoaded', function () {
+  var modalMudarimagem = document.querySelectorAll('.modalMudarImagem');
+  var instancesModal = M.Modal.init(modalMudarimagem, {
+    opacity: 0.80,
+    startingTop: 5,
+    endingTop: '5%',
+  });
+});
+
+//modal alterar Edita dados
+document.addEventListener('DOMContentLoaded', function () {
+  var modalMudarEdit = document.querySelectorAll('.modalMudarEdit');
+  var instancesModal = M.Modal.init(modalMudarEdit, {
+    opacity: 0.80,
+    startingTop: 5,
+    endingTop: '5%',
   });
 });
 
