@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         labels: ['Segunda', 'Treça', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo'],
         datasets: [{
             label: 'Visitas',
-            data: [150, 390, 100, 260, 80, 340, 270],
+            data: [950, 390, 100, 260, 80, 340, 270],
             fill: true,
             backgroundColor: gradient,
             borderColor: 'transparent',
