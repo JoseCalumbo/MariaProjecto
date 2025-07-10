@@ -4,10 +4,9 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Utils\Pagination;
-use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\NegocioDao;
 use \App\Controller\Mensagem\Mensagem;
-
+use App\Model\Entity\TriagemDao;
 
 class Triagem extends Page
 {
@@ -71,8 +70,8 @@ class Triagem extends Page
         $content = View::render('triagem/triagem', [
             'msg' => '',
             'pesquisar' => '',
-        //    'item' => self::getNegocio($request, $obPagination),
-         //   'paginacao' => parent::getPaginacao($request, $obPagination)
+            //    'item' => self::getNegocio($request, $obPagination),
+            //   'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Triagem', $content);
     }
@@ -80,13 +79,11 @@ class Triagem extends Page
     //cadastra novo triagem
     public static function cadastrarTriagem($request)
     {
+        $obTriagem = new TriagemDao;
 
         if (isset($_POST['nome'])) {
 
-           // $obNegocio = new NegocioDao;
-
-           // $obNegocio->negocio = $_POST['negocio'];
-            //$obNegocio->cadastrarNegocio();
+    
 
             $request->getRouter()->redirect('/triagem/comfirmar');
             exit;
@@ -116,7 +113,7 @@ class Triagem extends Page
             $request->getRouter()->redirect('/confirmar-triagem/{id_negocio}');
             exit;
         }
-      
+
         $content = View::render('triagem/confirmarTriagem', [
             'titulo' => 'Comfirmar Triagem',
             'pesquisar' => '',

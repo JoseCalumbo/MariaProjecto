@@ -21,8 +21,8 @@ class HomeAdmin extends PageAdmin
     public static function getDadosUsuario()
     {
         //quantidade total de registros da tabela user
-        $quantidadetotal = UsuarioDao::listarUsuario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
-        return $quantidadetotal;
+       // $quantidadetotal = UsuarioDao::listarUsuario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+       // return $quantidadetotal;
     }
 
     // busca o total dos Vendedor
