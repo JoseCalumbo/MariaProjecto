@@ -2,8 +2,9 @@
 
     <nav class="col m12 blue-grey darken-1">
         <div class="nav-wrapper ">
-            <a href="#!" class="brand-logo ">
-                <h5 class="white-text" style="font-size: 18px; font-weight: bold;"> Painel Usuário</h5>
+            <a href="{{URL}}/usuario" class="brand-logo white-text capitalize"
+                style="font-size: 18px; font-weight: bold; vertical-align: -6px;">
+                Painel Usuário
             </a>
             <ul class="right hide-on-med-and-down row" style="height: 50px;">
 
@@ -17,7 +18,7 @@
     </nav>
 
     <section class="col m12 s12 center">
-        <h5 class="black-text "> {{titulo}} e</h5>
+        <h5 class="black-text "> {{titulo}}</h5>
     </section>
 
     <section class="row col m8 offset-m2 " style="text-align: center;">
@@ -59,7 +60,7 @@
                                         <option value="Masculino" {{masculino}}>Masculino</option>
                                         <option value="Feminino" {{feminino}}>Feminino</option>
                                     </select>
-                                    <label style="text-transform: capitalize; font-size: 14px;" >Genero</label>
+                                    <label style="text-transform: capitalize; font-size: 14px;">Genero</label>
                                 </div>
                             </div>
                             <div class="input-field col s6 m6">
@@ -70,16 +71,15 @@
                                         <option value="normal" {{nivelNormal}}>Normal</option>
                                         <option value="visitante" {{nivelVisitante}}>Visitante</option>
                                     </select>
-                                    <label style="text-transform: capitalize; font-size: 14px;" >Nivel de Acesso</label>
+                                    <label style="text-transform: capitalize; font-size: 14px;">Nivel de Acesso</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            
+
                             <div class="input-field col s12 m12">
-                                <input id="morada" type="text" data-length="30" name="morada"
-                                    value="{{morada}}" />
+                                <input id="morada" type="text" data-length="30" name="morada" value="{{morada}}" />
                                 <label for="morada" style="text-transform: capitalize;">Morada:</label>
                             </div>
                         </div>

@@ -31,6 +31,12 @@ class PacienteDao
     public function cadastrarPaciente()
     {
 
+        echo '<pre>';
+        print_r("aqui estamos");
+        print_r($_POST);
+        echo '</pre>';
+        exit;
+
         $usuarioLogado = Session::getUsuarioLogado();
         // Pega a data actual do cadastro
         $this->create_paciente = date('y-m-d H:i:s');
@@ -59,7 +65,7 @@ class PacienteDao
             'create_paciente' => $this->create_paciente,
         ]);
 
-        return true;
+        return $id_paciente;
     }
 
     //atulizar campo de vendedor

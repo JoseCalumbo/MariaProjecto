@@ -10,7 +10,7 @@ class TriagemDao extends PacienteDao
 {
     public $id_triagem;
     public $observacao_triagem;
-    public $peso_triagem;
+    public $peso_triagem;    
     public $temperatura_triagem;
     public $presao_triagem;
     public $create_triagem;

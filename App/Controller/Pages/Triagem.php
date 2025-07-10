@@ -7,6 +7,7 @@ use \App\Utils\Pagination;
 use \App\Model\Entity\NegocioDao;
 use \App\Controller\Mensagem\Mensagem;
 use App\Model\Entity\TriagemDao;
+use App\Model\Entity\PacienteDao;
 
 class Triagem extends Page
 {
@@ -80,20 +81,30 @@ class Triagem extends Page
     public static function cadastrarTriagem($request)
     {
         $obTriagem = new TriagemDao;
+        
+        $obPaciente = new PacienteDao;
 
         if (isset($_POST['nome'])) {
 
-    
+            $obTriagem->nome_paciente = $_POST['nome'];
+            $obTriagem->genero_paciente = $_POST['genero'];
+            $obTriagem->nascimento_paciente = $_POST['nascimento'];
+            $obTriagem->nascimento_paciente = $_POST['peso'];
+            $obTriagem->nascimento_paciente = $_POST['temperatura'];
+            $obTriagem->nascimento_paciente = $_POST['presao'];
+            $obTriagem->nascimento_paciente = $_POST['obs'];
+            $obTriagem->cadastrarTriagem();
 
             $request->getRouter()->redirect('/triagem/comfirmar');
             exit;
         }
 
         $content = View::render('triagem/formTriagem', [
-            'titulo' => 'Nova Triagem',
+            'titulo' => 'Cadastrar nova triagem',
             'pesquisar' => '',
-            'negocio' => '',
-            'button' => 'Comfirmar',
+            'data' => '',
+
+            'button' => 'Salvar',
         ]);
 
         return parent::getPage('Cadastrar Novo Negócio ', $content);
