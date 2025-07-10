@@ -71,8 +71,8 @@ class Triagem extends Page
         $content = View::render('triagem/triagem', [
             'msg' => '',
             'pesquisar' => '',
-            'item' => self::getNegocio($request, $obPagination),
-            'paginacao' => parent::getPaginacao($request, $obPagination)
+        //    'item' => self::getNegocio($request, $obPagination),
+         //   'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Triagem', $content);
     }

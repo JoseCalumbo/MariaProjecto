@@ -72,8 +72,8 @@ Class Consulta extends Page{
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
         $content = View::render('consulta/consulta',[
              'pesquisar'=>$buscar,
-             'listarZona'=>self::getBusca($request,$obPagination),
-             'paginacao'=>parent::getPaginacao($request,$obPagination)
+            // 'listarZona'=>self::getBusca($request,$obPagination),
+            // 'paginacao'=>parent::getPaginacao($request,$obPagination)
         ]);
         return parent::getPage('Painel Consulta', $content);
     }
