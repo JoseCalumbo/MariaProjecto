@@ -10,7 +10,7 @@ class TriagemDao extends PacienteDao
 {
     public $id_triagem;
     public $observacao_triagem;
-    public $peso_triagem;    
+    public $peso_triagem;
     public $temperatura_triagem;
     public $presao_triagem;
     public $create_triagem;
@@ -26,7 +26,12 @@ class TriagemDao extends PacienteDao
     public function cadastrarTriagem()
     {
         parent::cadastrarPaciente();
-        
+
+        echo '<pre>';
+        print_r(parent::cadastrarPaciente());
+        echo '</pre>';
+        exit;
+
         $this->create_triagem = date('y-m-d H:i:s');
         $obDatabase = new Database('tb_triagem');
         $this->id_triagem = $obDatabase->insert([
@@ -62,7 +67,7 @@ class TriagemDao extends PacienteDao
     {
         return (new Database('usuario'))->delete('id_us = ' . $this->id_triagem, []);
     }
- 
+
 
     /** Apresenta os resultado
      * @param string $where

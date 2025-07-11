@@ -246,7 +246,6 @@ td {
 }
 
 
-
 /*form aera de crud normal*/
 .form-area {
     margin-top: 10px;
@@ -508,6 +507,11 @@ h1 {
     }
 }
 
+.collapsible-body{
+    border: none !important;
+    box-shadow: none !important;
+    
+}
 
 /* css estilo dos modal */
 #modalApagarUser {

@@ -23,16 +23,20 @@
 
     <section class="row col m11 offset-m1 " style="text-align: center;">
         <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
-            <ul class=" collapsible white">
-                <li class="active">
+            <ul class=" collapsible white" style="box-shadow: none !important; border: none !important;">
+                <li class="active" >
                     <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
                             class="material-icons">person</i>Dados pessoais</div>
-                    <div class="collapsible-body row">
+                    <div class="collapsible-body row"  >
                         <div class="row">
-                            <div class="input-field col s12 m12">
+                            <div class="input-field col s12 m10">
                                 <input id="nome" type="text" name="nome" value="" class="validate">
                                 <label for="nome" style="text-transform: capitalize;">Nome:</label>
                             </div>
+                            <div class="input-field col s12 m2">
+                                <label for="nome" style="text-transform: capitalize; font-weight: bolder;">kg</label>
+                            </div>
+                            
                         </div>
 
                         <div class="row">
@@ -97,7 +101,6 @@
                 </li>
 
             </ul>
-
 
             <div class="row col s12 m12">
                 <button class="col offset-m9 btn  m3 font-normal" type="submit">{{button}}</button>

@@ -81,19 +81,26 @@ class Triagem extends Page
     public static function cadastrarTriagem($request)
     {
         $obTriagem = new TriagemDao;
-        
+
         $obPaciente = new PacienteDao;
 
         if (isset($_POST['nome'])) {
 
-            $obTriagem->nome_paciente = $_POST['nome'];
+            $obPaciente->nome_paciente = $_POST['nome'];
             $obTriagem->genero_paciente = $_POST['genero'];
             $obTriagem->nascimento_paciente = $_POST['nascimento'];
             $obTriagem->nascimento_paciente = $_POST['peso'];
             $obTriagem->nascimento_paciente = $_POST['temperatura'];
             $obTriagem->nascimento_paciente = $_POST['presao'];
             $obTriagem->nascimento_paciente = $_POST['obs'];
+
+
             $obTriagem->cadastrarTriagem();
+
+            echo '<pre>';
+            print_r($obPaciente->cadastrarPaciente());
+            echo '</pre>';
+            exit;
 
             $request->getRouter()->redirect('/triagem/comfirmar');
             exit;

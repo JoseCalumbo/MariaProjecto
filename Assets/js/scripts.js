@@ -56,14 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Criar o gradiente vertical
     const gradient = grafConsulta.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(19, 82, 175, 0.95)')
+    gradient.addColorStop(0, 'rgba(55, 175, 19, 0.95)')
     gradient.addColorStop(1, 'rgba(38, 34, 78, 0.84)')
 
     const data = {
         labels: ['Segunda', 'Treça', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo'],
         datasets: [{
             label: 'Visitas',
-            data: [950, 390, 100, 260, 80, 340, 270],
+            data: [600, 730, 600, 700, 750, 800, 650],
             fill: true,
             backgroundColor: gradient,
             borderColor: 'transparent',
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Criar o gradiente vertical
     const gradient = grafUser.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(17, 165, 153, 0.95)')
+    gradient.addColorStop(0, 'rgba(17, 44, 165, 0.95)')
     gradient.addColorStop(1, 'rgba(26, 149, 190, 0.7)')
 
     const data = {
@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Criar o gradiente vertical
     const gradient = grafUser1.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(17, 165, 153, 0.95)')
-    gradient.addColorStop(1, 'rgba(26, 149, 190, 0.7)')
+    gradient.addColorStop(0, 'rgba(216, 68, 30, 0.95)')
+    gradient.addColorStop(1, 'rgba(45, 102, 121, 0.7)')
 
     const data = {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
