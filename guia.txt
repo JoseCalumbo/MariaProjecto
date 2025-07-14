@@ -80,3 +80,4 @@ Visualizar atividades suspeitas
 
 Aprovar/recusar acessos vinculados (API tokens, apps conectados)
 
+crítico, grave, moderado, leve e estável.

@@ -23,20 +23,17 @@
 
     <section class="row col m11 offset-m1 " style="text-align: center;">
         <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
-            <ul class=" collapsible white" style="box-shadow: none !important; border: none !important;">
-                <li class="active" >
+            <ul class=" collapsibleFrom white" style="box-shadow: none !important; border: none !important;">
+                <li class="active">
                     <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
                             class="material-icons">person</i>Dados pessoais</div>
-                    <div class="collapsible-body row"  >
+                    <div class="collapsible-body row">
                         <div class="row">
                             <div class="input-field col s12 m10">
                                 <input id="nome" type="text" name="nome" value="" class="validate">
                                 <label for="nome" style="text-transform: capitalize;">Nome:</label>
                             </div>
-                            <div class="input-field col s12 m2">
-                                <label for="nome" style="text-transform: capitalize; font-weight: bolder;">kg</label>
-                            </div>
-                            
+
                         </div>
 
                         <div class="row">
@@ -55,7 +52,8 @@
                             </div>
 
                             <div class="input-field col s12 m6 ">
-                                <input id="nascimento" type="text" name="nascimento" class="datepicker" value="{{data}}">
+                                <input id="nascimento" type="text" name="nascimento" class="datepicker"
+                                    value="{{data}}">
                                 <label for="nascimento" style="text-transform: capitalize;">Data de nascimento:</label>
                             </div>
                         </div>
@@ -64,21 +62,42 @@
 
                 <!--collapsible dados sinais Vitais-->
                 <li class="active">
-                    <div class="collapsible-header white white-text font-normal grey darken-3"> 
-                        <i class="material-icons">enhanced_encryption </i>Sinais Vitais</div>
+                    <div class="collapsible-header white white-text font-normal grey darken-3">
+                        <i class="material-icons">enhanced_encryption </i>Sinais Vitais
+                    </div>
                     <div class="collapsible-body">
                         <div class="row">
-                            <div class="input-field col s12 m12">
-                                <input id="morada" type="number" data-length="30" name="peso" value="" />
+                            <div class="input-field col s12 m5">
+                                <input id="peso" type="number" data-length="30" name="peso" value="" />
                                 <label for="morada" style="text-transform: capitalize;">Peso</label>
                             </div>
-                            <div class="input-field col s12 m12">
-                                <input id="municipio" type="number" data-length="30" name="temperatura" value="" />
-                                <label for="municipio" style="text-transform: capitalize;">Temperatura</label>
+                            <div class="input-field col s12 m1">
+                                <label for="peso" style="text-transform: capitalize; font-weight: bolder;">kg</label>
                             </div>
-                            <div class="input-field col s12 m12">
-                                <input id="bairro" type="number" data-length="30" name="presao" value="" />
-                                <label for="Bairro" style="text-transform: capitalize;">Pressão arterial</label>
+
+                            <div class="input-field col s12 m5">
+                                <input id="temperatura" type="number" data-length="39" name="temperatura" value="36" />
+                                <label for="temperatura" style="text-transform: capitalize;">Temperatura Corporal</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="temperatura" style="text-transform: capitalize; font-weight: bolder;">°C</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m5">
+                                <input id="arterial" type="number" data-length="30" name="presao" value="" />
+                                <label for="arterial" style="text-transform: capitalize;">Pressão arterial</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="peso" style="text-transform: capitalize; font-weight: bolder;">bpm</label>
+                            </div>
+                            <div class="input-field col s12 m5">
+                                <input id="fr" type="number" data-length="30" name="frequencia" value="" />
+                                <label for="fr" style="text-transform: capitalize;">Frequência respiratória </label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="fr" style="text-transform: capitalize; font-weight: bolder;">mrm </label>
                             </div>
                         </div>
                     </div>
@@ -90,7 +109,8 @@
                     <div class="collapsible-body">
                         <div class="row">
                             <div class="input-field col s12 m12">
-                                <textarea id="textarea1" class="materialize-textarea" data-length="180" name="obs"></textarea>
+                                <textarea id="textarea1" class="materialize-textarea" data-length="180"
+                                    name="obs"></textarea>
                                 <label for="textarea1" style="text-transform: capitalize;">
                                     Observação do paciente
                                 </label>

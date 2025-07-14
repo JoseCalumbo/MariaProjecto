@@ -7,6 +7,7 @@ use \App\Utils\Session;
 use \App\Http\Request;
 use \App\Model\Entity\FuncionarioDao;
 use \App\Controller\Mensagem\Mensagem;
+use App\Model\Entity\AdmimUserDao;
 
 class Login extends Page
 {
@@ -104,9 +105,9 @@ class Login extends Page
         $postVars = $request->getPostVars();
         $email = $postVars['email'] ?? '';
 
-        $obUsuario = UsuarioDao::getUsuarioEmail($email);
+        $obUsuario = AdmimUserDao::getUsuarioEmail($email);
 
-        if (!$obUsuario instanceof UsuarioDao) {
+        if (!$obUsuario instanceof AdmimUserDao) {
             return self::recuperarSenha($request, 'Erro! Não foi encontrado nenhuma conta com este email');
         }
 

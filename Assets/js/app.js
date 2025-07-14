@@ -38,6 +38,16 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// form not Acordion 
+document.addEventListener('DOMContentLoaded', function () {
+  var elems1 = document.querySelectorAll('.collapsibleFrom');
+  var instances = M.Collapsible.init(elems1, {
+    accordion: false,
+    inDuration: 100,
+    outDuration: 100,
+  });
+});
+
 
 //abas do painel de vendedor
 document.addEventListener('DOMContentLoaded', function () {

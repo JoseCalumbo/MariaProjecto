@@ -16,22 +16,25 @@ class TriagemDao extends PacienteDao
     public $create_triagem;
 
     // campos chaves estrangeiros
-    public $id_paciente; // salva o id do paciente
+    public $id_paciente; // salva o idp do paciente
     public $nome_paciente; // salva o nome do paciente
     public $genero_paciente; // salva o genero do paciente
     public $nascimento_paciente; // salva o data de nascimento do paciente
     public $id_funcionario; // salva o funcionario 
 
     //Método responsavel por Registrar uma nova triagem
-    public function cadastrarTriagem()
+    public function cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete)
     {
-        parent::cadastrarPaciente();
+                $obPacientes = new PacienteDao;
 
-        echo '<pre>';
-        print_r(parent::cadastrarPaciente());
-        echo '</pre>';
+
+       $va = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
+
+       echo '<pre>';
+       print_r($va);
+       echo '</pre>';
         exit;
-
+        /*
         $this->create_triagem = date('y-m-d H:i:s');
         $obDatabase = new Database('tb_triagem');
         $this->id_triagem = $obDatabase->insert([
@@ -45,6 +48,8 @@ class TriagemDao extends PacienteDao
             'create_triagem' => $this->create_triagem,
         ]);
         return true;
+
+        */
     }
 
     //Método responsavel por Alterar o registrar da triagem

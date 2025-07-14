@@ -47,6 +47,15 @@ class Conta extends Page
         // Busca os dados funcionario pelo id
         $obFuncionario = FuncionarioDao::getFuncionarioId($id);
 
+        $formatada = date("h", strtotime($obFuncionario->registrado));
+
+        echo '<pre>';
+        print_r($formatada);
+        echo '<pre>';
+        print_r($obFuncionario->registrado);
+        echo '</pre>';
+         exit;
+
         $item .= View::render('conta/dadosConta', [
             'id' => $obFuncionario->id_funcionario,
             'nome' => $obFuncionario->nome_funcionario,
