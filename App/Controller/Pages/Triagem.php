@@ -13,22 +13,21 @@ class Triagem extends Page
 {
 
     // Metodo para apresenatar os registos dos dados 
-    private static function getNegocio($request, &$obPagination)
+    private static function getTriagem($request, &$obPagination)
     {
-
         $item = '';
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
         $condicoes = [
-            strlen($buscar) ? 'negocio LIKE "' . $buscar . '%"' : null,
+            strlen($buscar) ? ' risco LIKE "' . $buscar . '%"' : null,
         ];
 
         // coloca na consulta sql
         $where = implode(' AND ', $condicoes);
 
-        //quantidade total de registros da tabela user
-        $quantidadetotal = NegocioDao::listarNegocio($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        //quantidade total de registros da tabela triagem
+        $quantidadetotal = TriagemDao::listarTriagem($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         //pagina actual 
         $queryParams = $request->getQueryParams();
@@ -37,17 +36,24 @@ class Triagem extends Page
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
 
-        $resultado = NegocioDao::listarNegocio($where, 'negocio ', $obPagination->getLimit());
+        $resultado = TriagemDao::listarTriagem($where, 'id_triagem ', $obPagination->getLimit());
 
-        while ($negocio = $resultado->fetchObject(NegocioDao::class)) {
+        while ($triagem = $resultado->fetchObject(TriagemDao::class)) {
 
-            $item .= View::render('triagem/listarNegocio', [
-                'id_negocio' => $negocio->id_negocio,
-                'Nome' => "Ana",
-                'Sobrenome' => "Carlos",
-                'hora' => "12:30",
-                'Atendimento' => "1",
-                'data' => 12,
+            // formata o hora 
+            $formatadaHora = date("h:i", strtotime($triagem->data_triagem));
+
+            // formata a idade do paciente
+            $formataIdade = date("Y", strtotime($triagem->nascimento_paciente));
+            $idade =  $ano = date("Y") - $formataIdade;
+
+            $item .= View::render('triagem/listarTriagem', [
+                'id_negocio' => $triagem->id_triagem,
+                'Nome' => $triagem->nome_paciente,
+                'genero' => $triagem->genero_paciente,
+                'hora' => $formatadaHora,
+                'Atendimento' => $triagem->risco,
+                'idade' => $idade,
             ]);
         }
 
@@ -65,14 +71,14 @@ class Triagem extends Page
         return $item;
     }
 
+    // Apresenta a listagem da Triagem 
     public static function pagTriagem($request)
     {
-
         $content = View::render('triagem/triagem', [
             'msg' => '',
             'pesquisar' => '',
-            //    'item' => self::getNegocio($request, $obPagination),
-            //   'paginacao' => parent::getPaginacao($request, $obPagination)
+            'item' => self::getTriagem($request, $obPagination),
+            'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Triagem', $content);
     }
@@ -88,20 +94,15 @@ class Triagem extends Page
 
         $obTriagem = new TriagemDao;
 
-        $obPaciente = new PacienteDao;
-
         if (isset($_POST['nome'], $_POST['genero'], $_POST['nascimento'],)) {
 
-            $obPaciente->nome_paciente = $_POST['nome'];
-            $obPaciente->genero_paciente = $_POST['genero'];
-            $obPaciente->nascimento_paciente = $_POST['nascimento'];
+            $obTriagem->peso_triagem = $_POST['peso'];
+            $obTriagem->temperatura_triagem = $_POST['temperatura'];
+            $obTriagem->presao_triagem = $_POST['presao'];
+            $obTriagem->frequencia_triagem = $_POST['frequencia'];
+            $obTriagem->observacao_triagem = $_POST['obs'];
 
-            $obTriagem->nascimento_paciente = $_POST['peso'];
-            $obTriagem->nascimento_paciente = $_POST['temperatura'];
-            $obTriagem->nascimento_paciente = $_POST['presao'];
-            $obTriagem->nascimento_paciente = $_POST['obs'];
-
-            $obTriagem->cadastrarTriagem($nomePacinete,$generoPacinete,$nascimentoPacinete);
+            $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete);
 
             $request->getRouter()->redirect('/triagem/comfirmar');
             exit;
@@ -111,11 +112,10 @@ class Triagem extends Page
             'titulo' => 'Cadastrar nova triagem',
             'pesquisar' => '',
             'data' => '',
-
             'button' => 'Salvar',
         ]);
 
-        return parent::getPage('Cadastrar Novo Negócio ', $content);
+        return parent::getPage('Registrar nova triagem ', $content);
     }
 
     //cadastra novo triagem

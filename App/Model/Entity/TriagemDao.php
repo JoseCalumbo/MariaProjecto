@@ -3,6 +3,8 @@
 namespace App\Model\Entity;
 
 use \App\Model\Database;
+use \App\Utils\Session;
+
 use \App\Model\Entity\PacienteDao;
 use \PDO;
 
@@ -13,6 +15,8 @@ class TriagemDao extends PacienteDao
     public $peso_triagem;
     public $temperatura_triagem;
     public $presao_triagem;
+    public $frequencia_triagem;
+    public $risco_triagem;
     public $create_triagem;
 
     // campos chaves estrangeiros
@@ -25,32 +29,33 @@ class TriagemDao extends PacienteDao
     //Método responsavel por Registrar uma nova triagem
     public function cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete)
     {
-                $obPacientes = new PacienteDao;
+        $obPacientes = new PacienteDao;
+        $idPacienteCadastrado = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
+        $this->id_paciente =$idPacienteCadastrado;
 
+        //Pega o id do usuario logado
+        $usuarioLogado = Session::getUsuarioLogado();
+        $this->id_funcionario = $usuarioLogado['id'];
 
-       $va = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
-
-       echo '<pre>';
-       print_r($va);
-       echo '</pre>';
-        exit;
-        /*
+        //Obtem a data e hora actual 
         $this->create_triagem = date('y-m-d H:i:s');
+
         $obDatabase = new Database('tb_triagem');
         $this->id_triagem = $obDatabase->insert([
             'id_triagem' => $this->id_triagem,
             'observacao_triagem' => $this->observacao_triagem,
-            'peso_triagem' => $this->peso_triagem,
-            'temperatura_triagem' => $this->temperatura_triagem,
-            'presao_triagem' => $this->presao_triagem,
+            'peso' => $this->peso_triagem,
+            'temperatura' => $this->temperatura_triagem,
+            'pressao' => $this->presao_triagem,
+            'frequencia'=> $this->frequencia_triagem,
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
-            'create_triagem' => $this->create_triagem,
+            'data_triagem'=> $this->create_triagem,
+            'risco'=> $this->risco_triagem ='Verde'
         ]);
         return true;
-
-        */
     }
+
 
     //Método responsavel por Alterar o registrar da triagem
     public function atualizar()
@@ -74,12 +79,13 @@ class TriagemDao extends PacienteDao
     }
 
 
-    /** Apresenta os resultado
+    /** Apresenta as listagem dados da triagem
      * @param string $where
      */
-    public static function listarUsuario($where = null, $order = null, $limit = null, $fields = '*')
+    public static function listarTriagem($where = null, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('usuario'))->select($where, $order, $limit, $fields);
+        return (new Database('tb_triagem JOIN tb_paciente ON 
+                              tb_triagem.id_triagem = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
     }
 
 

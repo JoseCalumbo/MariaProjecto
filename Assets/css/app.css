@@ -1,7 +1,8 @@
 /*css config da tabela*/
 
 .thead tr>th {
-    border: 1px solid rgb(94, 93, 93);
+    background-color: #546e7a8c ;
+    border: 1px solid rgb(201, 197, 197);
 }
 
 
@@ -172,14 +173,6 @@ td {
     flex-wrap: nowrap;
 }
 
-.betwen {
-    justify-content: space-between;
-}
-
-.around {
-    justify-content: space-around;
-}
-
 /* form area de pesquisa*/
 .form-area-search {
     display: flex;
@@ -187,13 +180,25 @@ td {
 
 .form-area-search input[type="search"] {
     height: 33px;
+    width: 260px;
     margin-right: 10px;
     margin-top: 10px;
+    background-color: #52646d3f;
 }
 
-.form-area-search>div {
-    margin-top: 17px;
+.input-search {
+    transition: background-color 0.9s !important;
+    border: 0.50px solid #26a69a  !important;
+} 
+
+.input-search:focus {
+    background-color: #f2f2f2 !important;
+    /* branco ao clicar */
+    outline: none !important;
+    /* remove a borda azul padrão */
+    border:none!important;
 }
+
 
 /* form input*/
 .input-radio {
@@ -215,6 +220,11 @@ td {
 }
 
 /* form area de pesquisa home pagina*/
+.iconPesquisar {
+    position: relative;
+    top: -13px;
+}
+
 .form-area-search-home {
     display: flex;
 }
@@ -232,7 +242,7 @@ td {
 
 #pesquisaHome {
     position: relative;
-    background-color: white;
+    background-color: rgb(12, 12, 12);
     width: 300px;
     top: -10px;
     color: #404241;
@@ -244,7 +254,6 @@ td {
     font-size: 9pt;
     color: rgba(0, 0, 0, 0.842);
 }
-
 
 /*form aera de crud normal*/
 .form-area {
@@ -339,7 +348,7 @@ h1 {
 
 /*minhas font de texto*/
 .font-normal {
-    font-size: 13pt;
+    font-size: 11pt;
     text-transform: none;
     font-weight: normal;
 }
@@ -424,7 +433,7 @@ h1 {
 }
 
 /* Animação pulse  Sucessso */
-.sucessoPulse{
+.sucessoPulse {
     border-radius: 1px;
     animation: pulseSucesso 3s infinite;
 }
@@ -455,7 +464,7 @@ h1 {
 }
 
 /* Animação pulse erro */
-.erroPulse  {
+.erroPulse {
     border-radius: 1px;
     animation: pulseErro 4s infinite;
 }
@@ -507,10 +516,10 @@ h1 {
     }
 }
 
-.collapsible-body{
+.collapsible-body {
     border: none !important;
     box-shadow: none !important;
-    
+
 }
 
 /* css estilo dos modal */
@@ -678,11 +687,13 @@ h1 {
     max-height: 90% !important;
 
 }
+
 .modalMudarImagem {
     width: 450px !important;
     max-height: 90% !important;
 
 }
+
 .modalMudarEdit {
     width: 450px !important;
     max-height: 90% !important;

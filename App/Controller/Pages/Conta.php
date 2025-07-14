@@ -49,12 +49,12 @@ class Conta extends Page
 
         $formatada = date("h", strtotime($obFuncionario->registrado));
 
-        echo '<pre>';
-        print_r($formatada);
-        echo '<pre>';
-        print_r($obFuncionario->registrado);
-        echo '</pre>';
-         exit;
+        //echo '<pre>';
+        //print_r($formatada);
+        //echo '<pre>';
+        //print_r($obFuncionario->registrado);
+        //echo '</pre>';
+        //exit;
 
         $item .= View::render('conta/dadosConta', [
             'id' => $obFuncionario->id_funcionario,

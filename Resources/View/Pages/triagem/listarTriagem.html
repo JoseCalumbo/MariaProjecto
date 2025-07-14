@@ -1,26 +1,25 @@
-<tr>
-    <td>{{id_negocio}}</td>
-    <td>{{Nome}}</td>
-    <td>{{Sobrenome}}</td>
-    <td> {{data}}</td>
-    <td> {{hora}}</td>
-
-    <td> {{Atendimento}}</td>
-    <td>
+<tr class="center">
+    <td class="center">{{id_negocio}}</td>
+    <td class="center">{{Nome}}</td>
+    <td class="center">{{genero}}</td>
+    <td class="center"> {{idade}}</td>
+    <td class="center"> {{hora}}</td>
+    <td class="center"> {{Atendimento}}</td>
+    <td class="center">
 
         <a class="modal-trigger" href="{{id_negocio}}" data-target="modaluser">
-            <button type="button" class="waves-effect waves-light grey accent-1 btn">
+            <button type="button" class="font-normal waves-effect waves-light green accent-4 btn">
                 <i class="material-icons left">print</i>Imprimir
             </button>
         </a>
-        <a href="{{URL}}/triagem/editar/{{id_negocio}}">
-            <button type="button " class="waves-effect waves-light btn blue lighten-1">
+        <a href="{{URL}}/triagem/editar/{{id_negocio}}" >
+            <button type="button " class="font-normal waves-effect waves-light btn blue darken-2">
                 <i class="material-icons left">edit</i>Editar
             </button>
         </a>
 
         <a class="modal-trigger" href="{{id_negocio}}" data-target="modalApagarTriagem">
-            <button type="button" class="waves-effect waves-light red accent-1 btn">
+            <button type="button" class="font-normal waves-light red lighten-1 btn">
                 <i class="material-icons left">delete</i>Apagar
             </button>
         </a>
@@ -37,7 +36,7 @@
     <div class="modal-content">
         <label class="closeModal modal-close">&times;</label>
 
-        <h5>Paciente: {{Nome}} {{Sobrenome}}</h5>
+        <h5>Paciente: {{Nome}}</h5>
 
         <p class="font-normal">
             Confirmar a impressão da ficha de Triagem <strong>Nº {{id_negocio}}</strong></p>
