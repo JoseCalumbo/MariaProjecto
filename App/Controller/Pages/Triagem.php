@@ -20,7 +20,7 @@ class Triagem extends Page
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
         $condicoes = [
-            strlen($buscar) ? ' risco LIKE "' . $buscar . '%"' : null,
+            strlen($buscar) ? ' nome_paciente LIKE "' . $buscar . '%"' : null,
         ];
 
         // coloca na consulta sql
@@ -36,7 +36,7 @@ class Triagem extends Page
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
 
-        $resultado = TriagemDao::listarTriagem($where, 'id_triagem ', $obPagination->getLimit());
+        $resultado = TriagemDao::listarTriagem($where, 'id_triagem', $obPagination->getLimit());
 
         while ($triagem = $resultado->fetchObject(TriagemDao::class)) {
 
@@ -102,16 +102,21 @@ class Triagem extends Page
             $obTriagem->frequencia_triagem = $_POST['frequencia'];
             $obTriagem->observacao_triagem = $_POST['obs'];
 
-            $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete);
+            $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete);
 
-            $request->getRouter()->redirect('/triagem/comfirmar');
+            $request->getRouter()->redirect('/triagem/comfirmar/' . $id_triagem . '');
             exit;
         }
-
         $content = View::render('triagem/formTriagem', [
             'titulo' => 'Cadastrar nova triagem',
             'pesquisar' => '',
+            'nome' => '',
+            'frequencia' => '',
+            'pressao' => '',
+            'peso' => '',
+            'temperatura' => '36',
             'data' => '',
+            'obs' => '',
             'button' => 'Salvar',
         ]);
 
@@ -119,28 +124,28 @@ class Triagem extends Page
     }
 
     //cadastra novo triagem
-    public static function ConfirmarTriagem($request)
+    public static function getTriagemRegistrada($request, $id_triagem)
     {
+        //Instancia da classe model da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
 
-        if (isset($_POST['negocio'])) {
-
-            $obNegocio = new NegocioDao;
-
-            $obNegocio->negocio = $_POST['negocio'];
-            $obNegocio->cadastrarNegocio();
-
-            $request->getRouter()->redirect('/confirmar-triagem/{id_negocio}');
+        // Verifica se tem uma triagem selecionada 
+        if (empty($triagemRegistrado)) {
+            echo 'tem selecionadado';
+            echo '<pre>';
+            print_r($triagemRegistrado);
+            echo '</pre>';
             exit;
         }
 
         $content = View::render('triagem/confirmarTriagem', [
-            'titulo' => 'Comfirmar Triagem',
+            'titulo' => 'Triagem realizada com sucesso',
             'pesquisar' => '',
             'negocio' => '',
             'nome' => 'Ana Miguel',
             'numero' => 23,
-            'button1' => 'Comfirmar',
-            'button2' => 'Cancelar'
+            'button1' => 'Finalizar',
+            'button2' => 'Nova triagem'
 
         ]);
 

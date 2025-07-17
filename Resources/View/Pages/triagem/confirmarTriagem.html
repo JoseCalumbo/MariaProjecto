@@ -1,39 +1,74 @@
 <section class="row section-field">
 
-    <nav class='flex row  grey darken-3'>
-        
-        <div class="nav-wrapper ">
-          <div class="col s12">
-            <a href="#!" class="breadcrumb white-text font-media font-normal">{{titulo}} </a>
-          </div>
-        </div>
+  <nav class="col m12 blue-grey darken-1">
+    <div class="nav-wrapper ">
+      <a href="{{URL}}/triagem" class="brand-logo white-text capitalize"
+        style="font-size: 18px; font-weight: bold; vertical-align: -6px;">
+        Painel Triagem
+      </a>
+      <ul class="right hide-on-med-and-down row" style="height: 50px;">
 
-        <div class="nav-wrapper col m3 ">
-            <div class="col s12">
-              <a href="{{URL}}" class="breadcrumb white-text font-normal">Home</a>
-              <a href="{{URL}}/triagem" class="breadcrumb white-text flow-text font-normal">Painel Triagem</a>
-            </div>
-          </div>
-    </nav>
-
-    <div class="div-form white col s12 m12 ">
-
-      <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
-
-        <div class="row">
-            Triagem comfirmada paciente número {{numero}} {{nome}}
-        </div>
-
-        <div class=" row div-input push-m8 col s12 m2">
-            <button class="button " type="submit">{{button2}}</button>
-        </div>
-
-        <div class=" row div-input push-m8 col s12 m2">
-            <button class="button" type="submit">{{button1}}</button>
-        </div>
-    </form>
-    <!-- formulario para cadastra
+        <li class="white-text " style="text-transform: capitalize;">
+          <a href="{{URL}}/triagem" class="white-text">
+            <i class=" material-icons left white-text ">arrow_back</i>voltar
+          </a>
+        </li>
+        <li class="white-text " style="text-transform: capitalize;">
+          <a href="{{URL}}/triagem/cadastrar" class="white-text">
+            <i class=" material-icons left white-text ">add</i> Nova Triagem
+          </a>
+        </li>
+      </ul>
     </div>
+  </nav>
+
+  <section class="col m12 s12 ">
+    <h5 class="black-text center"> {{titulo}} </h5>
+  </section>
+
+  <section class="row col m11 offset-m1 ">
+    <p>Os dados do paciente foram cadastrados com êxito no
+      sistema. Abaixo estão as informações registradas:</p>
+    <div class="col m9 push-m1 grey" style="border: 1px solid rgb(74, 77, 76);">
+      <h6 class="capitalize negrito white-text"> Dados da triagem</h6>
+      <div class="row white" style="padding:0px 37px;">
+        <ul>
+          <li><br></li>
+          <li class="capitalize"><strong>Nome do paciente:</strong> {{nome}}</li>
+          <li class="capitalize"><strong>Gênero:</strong> {{genero}}</li>
+          <li class="capitalize"><strong>Idade:</strong> {{ano}} anos</li>
+        </ul>
+
+        <h6 class="capitalize negrito">Sinais Vitais</h6>
+        <ul>
+          <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
+          <li class="capitalize"><strong>Pressão Arterial:</strong> {{pressao}} mmHg</li>
+          <li class="capitalize"><strong>Frequência Cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
+          <li class="capitalize"><strong>Frequência Respiratória:</strong> {{frequencia_respiratorio}} irpm</li>
+          <li class="capitalize"><strong>Temperatura Corporal:</strong> {{temperatura}} °C</li>
+        </ul>
+        <h6 class="capitalize negrito">Observação importante</h6>
+        <ul>
+          <li class="capitalize">{{observação}}:</li>
+        </ul>
+        <div class="white row">
+          <p class="capitalize">Gerar e enviar arquivo
+            <a href="gerar_pdf.php?id=123" class="capitalize blue-text darken-5" target="_blank"> 📄 Gerar PDF </a> da ficha de triagem
+          </p>
+          <p class="capitalize">
+           Clica aqui para <a href="#" class="capitalize blue-text darken-5" onclick="window.print()"> 🖨️ Imprimir</a> a ficha de triagem
+          </p>
+
+        </div>
+        <br>
+
+        <div class="white row col s12 m12">
+          <button class="col offset-m5 btn  m2 font-normal right" type="submit">{{button1}}</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
 </section>
 
 <script src="{{URL}}/Assets/js/main.js"></script>

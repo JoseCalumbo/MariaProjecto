@@ -17,7 +17,7 @@ class TriagemDao extends PacienteDao
     public $presao_triagem;
     public $frequencia_triagem;
     public $risco_triagem;
-    public $create_triagem;
+    public $data_triagem;
 
     // campos chaves estrangeiros
     public $id_paciente; // salva o idp do paciente
@@ -38,7 +38,7 @@ class TriagemDao extends PacienteDao
         $this->id_funcionario = $usuarioLogado['id'];
 
         //Obtem a data e hora actual 
-        $this->create_triagem = date('y-m-d H:i:s');
+        $this->data_triagem = date('y-m-d H:i:s');
 
         $obDatabase = new Database('tb_triagem');
         $this->id_triagem = $obDatabase->insert([
@@ -50,10 +50,10 @@ class TriagemDao extends PacienteDao
             'frequencia'=> $this->frequencia_triagem,
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
-            'data_triagem'=> $this->create_triagem,
+            'data_triagem'=> $this->data_triagem,
             'risco'=> $this->risco_triagem ='Verde'
         ]);
-        return true;
+        return $this->id_triagem;
     }
 
 
@@ -68,12 +68,12 @@ class TriagemDao extends PacienteDao
             'presao_triagem' => $this->presao_triagem,
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
-            'create_triagem' => $this->create_triagem,
+            'create_triagem' => $this->data_triagem,
         ]);
     }
 
     // faz um delete na tabela usuario
-    public function apagar()
+    public function apagarTriagem()
     {
         return (new Database('usuario'))->delete('id_us = ' . $this->id_triagem, []);
     }
@@ -89,9 +89,16 @@ class TriagemDao extends PacienteDao
     }
 
 
-    //para pegar o user id
-    public static function getUsuarioId($id_triagem)
+    // Método responsavel por selecinar uma triagem salva pelo id
+    public static function getTriagemId($id_triagem)
     {
-        return (new Database('usuario'))->select('id_us = ' . $id_triagem)->fetchObject(self::class);
+        return (new Database('tb_triagem'))->select('id_triagem = ' . $id_triagem)->fetchObject(self::class);
+    }
+
+    // Método responsavel por selecinar uma triagem salva pelo id
+    public static function getTriagemRegistradoId($id_triagem)
+    {
+        return (new Database('tb_triagem JOIN tb_paciente ON
+                              tb_triagem.id_triagem = tb_paciente.id_paciente'))->select('id_triagem = ' . $id_triagem)->fetchObject(self::class);
     }
 }

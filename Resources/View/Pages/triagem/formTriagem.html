@@ -17,8 +17,8 @@
         </div>
     </nav>
 
-    <section class="col m12 s12 center">
-        <h5 class="black-text "> {{titulo}} </h5>
+    <section class="col m12 s12 left">
+        <h5 class="black-text center"> {{titulo}} </h5>
     </section>
 
     <section class="row col m11 offset-m1 " style="text-align: center;">
@@ -30,7 +30,7 @@
                     <div class="collapsible-body row">
                         <div class="row">
                             <div class="input-field col s12 m12">
-                                <input id="nome" type="text" name="nome" value="" class="validate">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate" required>
                                 <label for="nome" style="text-transform: capitalize;">Nome:</label>
                             </div>
 
@@ -68,7 +68,7 @@
                     <div class="collapsible-body">
                         <div class="row">
                             <div class="input-field col s12 m5">
-                                <input id="peso" type="number" data-length="30" name="peso" value="" />
+                                <input id="peso" type="number" data-length="30" name="peso" value="{{peso}}" />
                                 <label for="morada" style="text-transform: capitalize;">Peso</label>
                             </div>
                             <div class="input-field col s12 m1">
@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="input-field col s12 m5">
-                                <input id="temperatura" type="number" data-length="39" name="temperatura" value="36" />
+                                <input id="temperatura" type="number" data-length="39" name="temperatura" value="{{temperatura}}" />
                                 <label for="temperatura" style="text-transform: capitalize;">Temperatura Corporal</label>
                             </div>
                             <div class="input-field col s12 m1">
@@ -86,14 +86,14 @@
 
                         <div class="row">
                             <div class="input-field col s12 m5">
-                                <input id="arterial" type="number" data-length="30" name="presao" value="" />
+                                <input id="arterial" type="number" data-length="30" name="presao" value="{{pressao}}" />
                                 <label for="arterial" style="text-transform: capitalize;">Pressão arterial</label>
                             </div>
                             <div class="input-field col s12 m1">
                                 <label for="peso" style="text-transform: capitalize; font-weight: bolder;">bpm</label>
                             </div>
                             <div class="input-field col s12 m5">
-                                <input id="fr" type="number" data-length="30" name="frequencia" value="" />
+                                <input id="fr" type="number" data-length="30" name="frequencia" value="{{frequencia}}" />
                                 <label for="fr" style="text-transform: capitalize;">Frequência respiratória </label>
                             </div>
                             <div class="input-field col s12 m1">
@@ -109,8 +109,9 @@
                     <div class="collapsible-body">
                         <div class="row">
                             <div class="input-field col s12 m12">
-                                <textarea id="textarea1" class="materialize-textarea" data-length="180"
-                                    name="obs"></textarea>
+                                <textarea id="textarea1" class="materialize-textarea" data-length="180" name="obs"  > 
+                                    {{obs}}
+                                </textarea>
                                 <label for="textarea1" style="text-transform: capitalize;">
                                     Observação do paciente
                                 </label>

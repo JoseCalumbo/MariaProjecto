@@ -33,23 +33,14 @@ $obRouter->post('/triagem/cadastrar',[
     function($request){ return new Response(200,Pages\Triagem::cadastrarTriagem($request));}
 ]);
 
-// rota formulario Triagem GET
-$obRouter->get('/triagem/comfirmar',[
+// Rota Confirma o registro da triagem 
+$obRouter->get('/triagem/confirmar/{id_triagem}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Triagem::ConfirmarTriagem($request));}
+    function($request,$id_triagem){ return new Response(200,Pages\Triagem::getTriagemRegistrada($request,$id_triagem));}
 ]);
 
-/* rota formulario Triagem POST
-$obRouter->post('/triagem/cadastrar',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\Triagem::cadastrarTriagem($request));}
-]);
-
-*/
 
 // rota para alterar um registro GET
 $obRouter->get('/triagem/editar/{id_negocio}',[
