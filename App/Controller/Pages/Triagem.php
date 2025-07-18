@@ -45,14 +45,14 @@ class Triagem extends Page
 
             // formata a idade do paciente
             $formataIdade = date("Y", strtotime($triagem->nascimento_paciente));
-            $idade =  $ano = date("Y") - $formataIdade;
+            $idade = date("Y") - $formataIdade;
 
             $item .= View::render('triagem/listarTriagem', [
                 'id_negocio' => $triagem->id_triagem,
                 'Nome' => $triagem->nome_paciente,
                 'genero' => $triagem->genero_paciente,
                 'hora' => $formatadaHora,
-                'Atendimento' => $triagem->risco,
+                'Atendimento' => $triagem->risco_triagem,
                 'idade' => $idade,
             ]);
         }
@@ -83,7 +83,7 @@ class Triagem extends Page
         return parent::getPage('Painel Triagem', $content);
     }
 
-    //cadastra novo triagem
+    //Método responsavel por cadastrar novo triagem
     public static function cadastrarTriagem($request)
     {
         $postVars = $request->getPostVars();
@@ -104,7 +104,7 @@ class Triagem extends Page
 
             $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete);
 
-            $request->getRouter()->redirect('/triagem/comfirmar/' . $id_triagem . '');
+            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '');
             exit;
         }
         $content = View::render('triagem/formTriagem', [
@@ -129,27 +129,25 @@ class Triagem extends Page
         //Instancia da classe model da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
 
-        // Verifica se tem uma triagem selecionada 
-        if (empty($triagemRegistrado)) {
-            echo 'tem selecionadado';
-            echo '<pre>';
-            print_r($triagemRegistrado);
-            echo '</pre>';
-            exit;
-        }
+        // formata a idade do paciente
+        $formataIdade = date("Y", strtotime($triagemRegistrado->nascimento_paciente));
+        $idade = date("Y") - $formataIdade;
 
         $content = View::render('triagem/confirmarTriagem', [
             'titulo' => 'Triagem realizada com sucesso',
-            'pesquisar' => '',
-            'negocio' => '',
-            'nome' => 'Ana Miguel',
-            'numero' => 23,
+            'nome' => $triagemRegistrado->nome_paciente,
+            'genero' => $triagemRegistrado->genero_paciente,
+            'ano' => $idade,
+            'peso' => $triagemRegistrado->peso_triagem,
+            'temperatura' => $triagemRegistrado->temperatura_triagem,
+            'pressao' => $triagemRegistrado->pressao_triagem,
+            'frequencia_cardiaca' => $triagemRegistrado->pressao_triagem,
+            'frequencia_respiratorio' => $triagemRegistrado->frequencia_triagem,
+            'observação' => $triagemRegistrado->observacao_triagem,
             'button1' => 'Finalizar',
-            'button2' => 'Nova triagem'
-
         ]);
 
-        return parent::getPage('Comfirmar Triagem ', $content);
+        return parent::getPage('Triagem Registrada ', $content);
     }
 
     //edita triagem

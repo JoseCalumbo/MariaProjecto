@@ -42,29 +42,34 @@
         <h6 class="capitalize negrito">Sinais Vitais</h6>
         <ul>
           <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
+          <li class="capitalize"><strong>Temperatura Corporal:</strong> {{temperatura}} °C</li>
           <li class="capitalize"><strong>Pressão Arterial:</strong> {{pressao}} mmHg</li>
           <li class="capitalize"><strong>Frequência Cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
           <li class="capitalize"><strong>Frequência Respiratória:</strong> {{frequencia_respiratorio}} irpm</li>
-          <li class="capitalize"><strong>Temperatura Corporal:</strong> {{temperatura}} °C</li>
+
         </ul>
         <h6 class="capitalize negrito">Observação importante</h6>
         <ul>
-          <li class="capitalize">{{observação}}:</li>
+          <li class="capitalize">{{observação}}</li>
         </ul>
         <div class="white row">
           <p class="capitalize">Gerar e enviar arquivo
-            <a href="gerar_pdf.php?id=123" class="capitalize blue-text darken-5" target="_blank"> 📄 Gerar PDF </a> da ficha de triagem
+            <a href="{{URL}}/triagem/ficha/diaria" class="capitalize blue-text darken-5" target="_blank"> 📄 Gerar PDF </a> da
+            ficha de triagem
           </p>
           <p class="capitalize">
-           Clica aqui para <a href="#" class="capitalize blue-text darken-5" onclick="window.print()"> 🖨️ Imprimir</a> a ficha de triagem
+            Clica aqui para <a href="#" class="capitalize blue-text darken-5" onclick="window.print()"> 🖨️ Imprimir</a>
+            a ficha de triagem
           </p>
 
         </div>
         <br>
 
-        <div class="white row col s12 m12">
-          <button class="col offset-m5 btn  m2 font-normal right" type="submit">{{button1}}</button>
+        <div>
+          <a href="{{URL}}/triagem" class="col offset-m5 btn m2 white-text font-normal right">{{button1}}</a>
+          <br>
         </div>
+        <div><br></div>
       </div>
     </div>
 

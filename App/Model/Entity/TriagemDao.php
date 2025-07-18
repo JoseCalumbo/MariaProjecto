@@ -44,14 +44,14 @@ class TriagemDao extends PacienteDao
         $this->id_triagem = $obDatabase->insert([
             'id_triagem' => $this->id_triagem,
             'observacao_triagem' => $this->observacao_triagem,
-            'peso' => $this->peso_triagem,
-            'temperatura' => $this->temperatura_triagem,
-            'pressao' => $this->presao_triagem,
-            'frequencia'=> $this->frequencia_triagem,
+            'peso_triagem' => $this->peso_triagem,
+            'temperatura_triagem' => $this->temperatura_triagem,
+            'pressao_triagem' => $this->presao_triagem,
+            'frequencia_triagem'=> $this->frequencia_triagem,
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
             'data_triagem'=> $this->data_triagem,
-            'risco'=> $this->risco_triagem ='Verde'
+            'risco_triagem'=> $this->risco_triagem ='Verde'
         ]);
         return $this->id_triagem;
     }
@@ -85,7 +85,7 @@ class TriagemDao extends PacienteDao
     public static function listarTriagem($where = null, $order = null, $limit = null, $fields = '*')
     {
         return (new Database('tb_triagem JOIN tb_paciente ON 
-                              tb_triagem.id_triagem = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
+                              tb_triagem.id_paciente = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
     }
 
 
@@ -99,6 +99,6 @@ class TriagemDao extends PacienteDao
     public static function getTriagemRegistradoId($id_triagem)
     {
         return (new Database('tb_triagem JOIN tb_paciente ON
-                              tb_triagem.id_triagem = tb_paciente.id_paciente'))->select('id_triagem = ' . $id_triagem)->fetchObject(self::class);
+                              tb_triagem.id_paciente = tb_paciente.id_paciente'))->select('id_triagem = ' . $id_triagem)->fetchObject(self::class);
     }
 }
