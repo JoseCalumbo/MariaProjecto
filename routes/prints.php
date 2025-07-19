@@ -7,23 +7,24 @@
 use \App\Http\Response;
 use \App\Controller\Imprimir;
 
-//ver a listagem de Usuario 
-$obRouter->get('/relatorio/listaUser', [
+
+//imprimir a listagem de Usuario
+$obRouter->get('/triagem/gerar-ficha/diaria', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Imprimir\TriagemPDF::ListaUserPDF($request));
+        return new Response(200, Imprimir\TriagemPDF::gerarFichaTriagem($request));
     }
 ]);
 
 //imprimir a listagem de Usuario
-$obRouter->get('/triagem/ficha/diaria', [
+$obRouter->get('/triagem/imprimir-ficha/diaria', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Imprimir\TriagemPDF::imprimirTriagem($request));
+        return new Response(200, Imprimir\TriagemPDF::imprimirFichaTriagem($request));
     }
 ]);
 

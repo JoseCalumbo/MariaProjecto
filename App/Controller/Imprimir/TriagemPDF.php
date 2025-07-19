@@ -40,26 +40,6 @@ class TriagemPDF
         return $item;
     }
 
-    // metodo responsavel que coloca os dados dos usuarios da lista na pagina HTML 
-    public static function fichaPdf($request)
-    {
-
-        //Obtem os dados do usuario
-        //  $var = self::getUsuarioPDF($request);
-
-        //obtem a data da impressao
-        $data = Date('d/m/Y - H:i');
-
-        //obtem a logo
-        $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu.png';
-
-        return View::renderPDF('triagem/fichaTriagem', [
-            // 'resultado' => $var,
-            'data-Actual' => $data,
-            'logo' => $logo
-        ]);
-    }
-
     // metodo que converte a pagina HTML em lista PDF 
     public static function ListaUserPDF($request)
     {
@@ -92,8 +72,28 @@ class TriagemPDF
         ]);
     }
 
+    // metodo responsavel que coloca os dados dos usuarios da lista na pagina HTML 
+    public static function fichaPdf($request)
+    {
+
+        //Obtem os dados do usuario
+        //  $var = self::getUsuarioPDF($request);
+
+        //obtem a data da impressao
+        $data = Date('d/m/Y - H:i');
+
+        //obtem a logo
+        $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu.png';
+
+        return View::renderPDF('triagem/fichaTriagem', [
+            // 'resultado' => $var,
+            'data-Actual' => $data,
+            'logo' => $logo
+        ]);
+    }
+
     // metodo que faz o dowload e a  impressao da lista
-    public static function imprimirTriagem($request)
+    public static function imprimirFichaTriagem($request)
     {
         $exibe = self::fichaPdf($request);
 
@@ -115,9 +115,36 @@ class TriagemPDF
         $dompdf->render();
 
         // nomeia o arquivo a se baixado
-        $dompdf->stream("ficha_triagem.pdf",[
+        $dompdf->stream("ficha_triagem.pdf", [
             "Attachment" => false,
             true
+
+        ]);
+    }
+    // metodo que faz o dowload e a  impressao da lista
+    public static function gerarFichaTriagem($request)
+    {
+        $exibe = self::fichaPdf($request);
+
+        $opcao = new Options();
+        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\View\Imprimir');
+        $opcao->setIsRemoteEnabled(true);
+        $opcao->setIsPhpEnabled(true);
+
+        // instancia o dom pdf
+        $dompdf = new Dompdf($opcao);
+
+        // carrega a pagina html
+        $dompdf->loadHtml($exibe);
+
+        // Renderiza o tipo de pagina
+        $dompdf->setPaper('A5', 'portrait');
+
+        // renderiza o arquivo pdf
+        $dompdf->render();
+
+        // nomeia o arquivo a se baixado
+        $dompdf->stream("ficha_triagem.pdf", [
 
         ]);
     }
