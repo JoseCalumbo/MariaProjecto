@@ -9,7 +9,7 @@
 
     <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
 
-    <title>Ficha de triagem {{id}} </title>
+    <title>Ficha nº {{numero}} - {{nome}} </title>
 
     <style>
         * {
@@ -22,7 +22,7 @@
         }
 
         .page {
-            margin: 10px;
+            margin: 30px 60px;
         }
 
         @page {
@@ -35,7 +35,7 @@
         }
 
         .font-normal {
-            font-size: 9pt;
+            font-size: 11pt;
             font-weight: normal;
             text-transform: none;
         }
@@ -46,32 +46,39 @@
         }
 
         .font-titulo {
-            font-size: 11pt;
+            font-size: 14pt;
             text-transform: none;
+            margin-top: 5px;
+            text-decoration: underline;
+            font-weight: bolder;
         }
 
-        .tr,
-        th,
-        td {
-            margin: 7px 0px;
-            border: none;
-            padding: 0px;
-
+        .negrito {
+            font-weight: bolder;
         }
 
         .tabela {
-
-            border: 1px solid black;
+            border: 1px solid black !important;
         }
 
-        .tr-valor {
-            margin: 0px 7px;
-            background-color: rgb(217, 218, 213);
-            border: 0.25px solid rgba(41, 39, 39, 0.418);
+        .tr {
+            border: 1px solid black !important;
+            height: 3px !important;
         }
+
+        .td {
+            border: 1px solid black !important;
+            height: 3px !important;
+        }
+
+
 
         .desc {
             border-left: 1.5px solid rgba(0, 0, 0, 0.568);
+        }
+
+        .center {
+            text-align: center;
         }
     </style>
 
@@ -79,102 +86,63 @@
 
 <body>
 
-    <div class="page">
+    <div class="page row ">
 
-        <div class="row">
-            <div class="col m4">
-                <div class="col m2"><img src="{{logo}}" height="48"></div>
-                <br>
-                <br>
-                <div>
-                    <h6 class="font-titulo">Gestão e Organização de Vendedor ambulante</h6>
-                </div>
-                <strong>--Recibo do Cliente --</strong>
-            </div>
-
-            <div class="col m6 push-m1 font-small desc">
-                <p class="font-small">Gestão e Organização de Vendedor ambulante</p>
-                <p class="font-small">Bairro da Camama II, Retunda da Camama </p>
-                <p class="font-small">Contacto: +224 998987889</p>
-            </div>
+        <div class="col m12 center">
+            <img src="{{logo}}" height="80">
         </div>
+        <h3 class="font-titulo center">Clínica Geral Gestão Auxiliar IA </h3>
 
-        <hr>
-
-
-        <div class="row">
-
-            <div class="col m4 card">
-                <p class="font-normal"> Numº Recibo :{{numRecibo}}</p>
-                <p>Moeda: AKZ</p>
-                <p>Data de Emissão:{{data-Actual}}</p>
-                <p>Hora de Emissão:{{hora-Actual}}</p>
-                <p>Data vencimento:{{vencimento}}</p>
-                <p>Codigo Conta:{{id-conta}}</p>
-
-            </div>
-
-            <div class="col m3 push-m4 card">
-                <p class="font-normal"> <strong>Exmo(a) Senhor(a)</strong> </p>
-                <p>{{nome}}</p>
-                <p>Nº {{id}}</p>
-                <p class="font-normal">{{morada}}</p>
-            </div>
-        </div>
-
-        <div class="container1">
-            <p class="font-normal"> <strong>Pagamento</strong>: Numerário</p>
-
-            <table>
-                <tr class="tr-valor">
-                    <th>Designação</th>
-                    <th>Codigo</th>
-                    <th>Preço</th>
-                    <th>Valor Pago</th>
-                    <th>Troco</th>
-                    <th>Data Pagamento</th>
-                </tr>
-
-                <tr>
-                    <td>Propina - {{mes}}</td>
-                    <td>{{id-mensal}}</td>
-                    <td>{{preco}}</td>
-                    <td>{{valor-pago}}</td>
-                    <td>{{troco}}</td>
-                    <td>{{data-pag}}</td>
-                </tr>
-            </table>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="row cor card">
-                <p class="col m2">Total Pago</p>
-                <p class="col m1 push-m8">{{total}}</p>
-            </div>
-
+        <div class="col m12 center">
+            <h6>Ficha de Triagem Médica </h6>
         </div>
 
         <br>
+        <br>
+        <br>
+        <table style="width:100%" class="tabela">
+            <tr class="tr">
+                <td style="width:55%" class="td"><strong class="font-normal negrito">Nome: </strong> {{nome}}</td>
+                <td class="td">
+                    <strong class="font-normal negrito">Data :</strong> {{registrodata}}
+                    <strong class="font-normal negrito">Hora :</strong> {{registrohora}}
+                </td>
+            </tr>
+            <tr class="tr">
+                <td style="width:55%" class="td"><strong class="font-normal negrito">Idade:</strong> {{nascimento}} Anos
+                </td>
+                <td class="td"><strong class="font-normal negrito">Número do paciente :</strong> {{numero}}</td>
+            </tr>
+        </table>
 
-        <div class="row">
+        <div>
+            <h6 class=" center">Clínica Geral Gestão Auxiliar IA </h6>
+        </div>
+        <ul>
+            <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
+            <li class="capitalize"><strong>Temperatura Corporal:</strong> {{temperatura}} °C</li>
+            <li class="capitalize"><strong>Pressão Arterial:</strong> {{pressao}} mmHg</li>
+            <li class="capitalize"><strong>Frequência Cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
+            <li class="capitalize"><strong>Frequência Respiratória:</strong> {{frequencia_respiratorio}} irpm</li>
+        </ul>
 
-            <div class="col m4">
-                Liquidado por: <strong>{{user}}</strong>
-                <p> valor recebido: {{valor-pago}}</p>
-                <p>data: {{data-Actual}}</p>
-            </div>
+    </div>
 
-            <div class="col m2 push-m3">
-                <p> ______________________</p>
-            </div>
+    <br>
 
+    <div class="row">
+
+        <div class="col m12 center">
+            <p> ___________________________________</p>
+            <p>{{funcionario}}</p>
         </div>
 
-        <br>
-        <p class="center-align">
-            <strong>Processado por computador</strong>
-        </p>
+    </div>
+
+    <br>
+    <p class="center-align">
+        <strong>Processado por computador em {{data}}</strong>
+    </p>
     </div>
 
 </body>

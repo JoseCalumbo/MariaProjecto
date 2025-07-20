@@ -9,22 +9,22 @@ use \App\Controller\Imprimir;
 
 
 //imprimir a listagem de Usuario
-$obRouter->get('/triagem/gerar-ficha/diaria', [
+$obRouter->get('/triagem/gerar-ficha/{id_triagem}', [
     'middlewares' => [
         'requer-login'
     ],
-    function ($request) {
-        return new Response(200, Imprimir\TriagemPDF::gerarFichaTriagem($request));
+    function ($request,$id_triagem) {
+        return new Response(200, Imprimir\TriagemPDF::gerarFichaTriagem($request, $id_triagem));
     }
 ]);
 
 //imprimir a listagem de Usuario
-$obRouter->get('/triagem/imprimir-ficha/diaria', [
+$obRouter->get('/triagem/imprimir-ficha/{id_triagem}', [
     'middlewares' => [
         'requer-login'
     ],
-    function ($request) {
-        return new Response(200, Imprimir\TriagemPDF::imprimirFichaTriagem($request));
+    function ($request,$id_triagem) {
+        return new Response(200, Imprimir\TriagemPDF::imprimirFichaTriagem($request,$id_triagem));
     }
 ]);
 

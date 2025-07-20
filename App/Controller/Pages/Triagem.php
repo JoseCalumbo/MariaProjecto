@@ -48,7 +48,7 @@ class Triagem extends Page
             $idade = date("Y") - $formataIdade;
 
             $item .= View::render('triagem/listarTriagem', [
-                'id_negocio' => $triagem->id_triagem,
+                'id_triagem' => $triagem->id_triagem,
                 'Nome' => $triagem->nome_paciente,
                 'genero' => $triagem->genero_paciente,
                 'hora' => $formatadaHora,
@@ -135,6 +135,7 @@ class Triagem extends Page
 
         $content = View::render('triagem/confirmarTriagem', [
             'titulo' => 'Triagem realizada com sucesso',
+            'id_triagem'=> $triagemRegistrado->id_triagem,
             'nome' => $triagemRegistrado->nome_paciente,
             'genero' => $triagemRegistrado->genero_paciente,
             'ano' => $idade,

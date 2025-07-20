@@ -15,8 +15,35 @@ class TriagemPDF
     private static function getTriagemPDF($request, $id_triagem)
     {
         $item = '';
+
+        //Instancia da classe model da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
+
+        while ($triagem = $triagemRegistrado->fetchObject(TriagemDao::class)) {
+
+            // formata o hora 
+            $formatadaHora = date("h:i", strtotime($triagem->data_triagem));
+
+            // formata a idade do paciente
+            $formataIdade = date("Y", strtotime($triagem->nascimento_paciente));
+            $idade = date("Y") - $formataIdade;
+
+            $item .= View::renderPDF('triagem/listarTriagem', [
+                'titulo' => 'Triagem realizada com sucesso',
+                'nome' => $triagemRegistrado->nome_paciente,
+                'genero' => $triagemRegistrado->genero_paciente,
+                'ano' => $idade,
+                'peso' => $triagemRegistrado->peso_triagem,
+                'temperatura' => $triagemRegistrado->temperatura_triagem,
+                'pressao' => $triagemRegistrado->pressao_triagem,
+                'frequencia_cardiaca' => $triagemRegistrado->pressao_triagem,
+                'frequencia_respiratorio' => $triagemRegistrado->frequencia_triagem,
+                'observação' => $triagemRegistrado->observacao_triagem,
+                'button1' => 'Finalizar',
+            ]);
+        }
+
         /*
- 
         while ($obUsuario = $resultado->fetchObject(TriagemDao::class)) {
 
             // formata a idade do paciente
@@ -41,10 +68,10 @@ class TriagemPDF
     }
 
     // metodo que converte a pagina HTML em lista PDF 
-    public static function ListaUserPDF($request)
+    public static function ListaUserPDF($request, $id_triagem)
     {
 
-        $exibe = self::fichaPdf($request);
+        $exibe = self::fichaPdf($request, $id_triagem);
 
         $opcao = new Options();
         $opcao->setChroot('C:\xampp\htdocs\mvcAmbulantes\App\View\Imprimir');
@@ -73,29 +100,45 @@ class TriagemPDF
     }
 
     // metodo responsavel que coloca os dados dos usuarios da lista na pagina HTML 
-    public static function fichaPdf($request)
+    public static function fichaPdf($request, $id_triagem)
     {
-
+        //Instancia da classe model da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
         //Obtem os dados do usuario
-        //  $var = self::getUsuarioPDF($request);
+        // $dados = self::getTriagemPDF($request, $id_triagem);
+
+        // formata a idade do paciente
+        $formataIdade = date("Y", strtotime($triagemRegistrado->nascimento_paciente));
+        $idade = date("Y") - $formataIdade;
+
+        // formata o data
+        $dataTriagem = date("d/m/Y", strtotime($triagemRegistrado->data_triagem));
+        // formata a hora
+        $horaTriagem = date("H:i", strtotime($triagemRegistrado->data_triagem));
 
         //obtem a data da impressao
         $data = Date('d/m/Y - H:i');
 
         //obtem a logo
-        $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu.png';
+        $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu1.png';
 
         return View::renderPDF('triagem/fichaTriagem', [
-            // 'resultado' => $var,
+            //  'resultado' => $dados,
             'data-Actual' => $data,
+
+            'numero' => $triagemRegistrado->id_paciente,
+            'nome' => $triagemRegistrado->nome_paciente,
+            'nascimento' => $idade,
+            'registrodata' => $dataTriagem,
+            'registrohora' => $horaTriagem,
             'logo' => $logo
         ]);
     }
 
     // metodo que faz o dowload e a  impressao da lista
-    public static function imprimirFichaTriagem($request)
+    public static function imprimirFichaTriagem($request, $id_triagem)
     {
-        $exibe = self::fichaPdf($request);
+        $exibe = self::fichaPdf($request, $id_triagem);
 
         $opcao = new Options();
         $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\View\Imprimir');
@@ -109,7 +152,7 @@ class TriagemPDF
         $dompdf->loadHtml($exibe);
 
         // Renderiza o tipo de pagina
-        $dompdf->setPaper('A5', 'portrait');
+        $dompdf->setPaper('A4', 'portrait');
 
         // renderiza o arquivo pdf
         $dompdf->render();
@@ -122,9 +165,9 @@ class TriagemPDF
         ]);
     }
     // metodo que faz o dowload e a  impressao da lista
-    public static function gerarFichaTriagem($request)
+    public static function gerarFichaTriagem($request, $id_triagem)
     {
-        $exibe = self::fichaPdf($request);
+        $exibe = self::fichaPdf($request, $id_triagem);
 
         $opcao = new Options();
         $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\View\Imprimir');
@@ -138,14 +181,12 @@ class TriagemPDF
         $dompdf->loadHtml($exibe);
 
         // Renderiza o tipo de pagina
-        $dompdf->setPaper('A5', 'portrait');
+        $dompdf->setPaper('A4', 'portrait');
 
         // renderiza o arquivo pdf
         $dompdf->render();
 
         // nomeia o arquivo a se baixado
-        $dompdf->stream("ficha_triagem.pdf", [
-
-        ]);
+        $dompdf->stream("ficha_triagem.pdf", []);
     }
 }
