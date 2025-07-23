@@ -11,6 +11,32 @@ use App\Model\Entity\PacienteDao;
 
 class Triagem extends Page
 {
+    /* Metodo para exibir  as mensagens
+     * @param Request 
+     * @ return string
+     */
+    public static function exibeMensagem($request)
+    {
+        $queryParam = $request->getQueryParams();
+
+        if (!isset($queryParam['msg']))
+            return '';
+
+        switch ($queryParam['msg']) {
+            case 'cadastrado':
+                return Mensagem::msgSucesso('Triagem Cadastrado com sucesso');
+                break;
+            case 'alterado':
+                return Mensagem::msgSucesso('Triagem Alterado com sucesso');
+                break;
+            case 'apagado':
+                return Mensagem::msgSucesso('Triagem Apagado com sucesso');
+                break;
+            case 'confirma':
+                return Mensagem::msgAlerta('Clica em Confirmar antes de apagar');
+                break;
+        }// fim do switch
+    }
 
     // Metodo para apresenatar os registos dos dados 
     private static function getTriagem($request, &$obPagination)
@@ -75,7 +101,7 @@ class Triagem extends Page
     public static function pagTriagem($request)
     {
         $content = View::render('triagem/triagem', [
-            'msg' => '',
+            'msg' => self::exibeMensagem($request),
             'pesquisar' => '',
             'item' => self::getTriagem($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
@@ -135,7 +161,7 @@ class Triagem extends Page
 
         $content = View::render('triagem/confirmarTriagem', [
             'titulo' => 'Triagem realizada com sucesso',
-            'id_triagem'=> $triagemRegistrado->id_triagem,
+            'id_triagem' => $triagemRegistrado->id_triagem,
             'nome' => $triagemRegistrado->nome_paciente,
             'genero' => $triagemRegistrado->genero_paciente,
             'ano' => $idade,
@@ -152,29 +178,34 @@ class Triagem extends Page
     }
 
     //edita triagem
-    public static function editarTriagem($request, $id_negocio)
+    public static function editarTriagem($request, $id_triagem)
     {
+        //Instancia da classe model da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
 
-        //Seleciona o negocio por id
-        $obNegocio = NegocioDao::getNegocio($id_negocio);
+        if (isset($_POST['nome'])) {
 
-        if (isset($_POST['negocio'])) {
+            $triagemRegistrado->negocio = $_POST['negocio'] ?? $triagemRegistrado->negocio;
+            // $triagemRegistrado->atualizarNegocio();
 
-            $obNegocio->negocio = $_POST['negocio'] ?? $obNegocio->negocio;
-            $obNegocio->atualizarNegocio();
-
-            $request->getRouter()->redirect('/negocio?msg=editar');
+            $request->getRouter()->redirect('/triagem?msg=alterado');
             exit;
         }
 
         $content = View::render('triagem/formTriagem', [
             'titulo' => ' Editar Triagem',
-            'pesquisar' => '',
-            'negocio' => $obNegocio->negocio,
+            'nome' => $triagemRegistrado->nome_paciente,
+            'data' => $triagemRegistrado->nascimento_paciente,
+            'genero' => $triagemRegistrado->genero_paciente == 'Feminino' ? 'checked' : '',
+            'peso' => $triagemRegistrado->peso_triagem,
+            'temperatura' => $triagemRegistrado->temperatura_triagem,
+            'frequencia' => $triagemRegistrado->frequencia_triagem,
+            'pressao' => $triagemRegistrado->pressao_triagem,
+            'obs' => $triagemRegistrado->observacao_triagem,
             'button' => 'Actualizar Triagem '
         ]);
 
-        return parent::getPage('Editar Negócio id {{id_negocio}}', $content);
+        return parent::getPage('Editar triagem paciente ', $content);
     }
 
     //apagar triagem
