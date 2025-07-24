@@ -97,13 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// tooltip msg de trocar a foto
+// tooltip msg de listagem de botao
 document.addEventListener('DOMContentLoaded', function () {
-  var tollFoto = document.querySelectorAll('.tooltippedListagem');
-  var instances = M.Tooltip.init(tollFoto, {
+  var tollFoto1 = document.querySelectorAll('.tooltippedListagem');
+  var instances = M.Tooltip.init(tollFoto1, {
     exitDelay: 1,
     
-
   });
 });
 
