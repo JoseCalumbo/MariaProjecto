@@ -62,19 +62,19 @@ $obRouter->post('/triagem/editar/{id_negocio}',[
 
 
 // rota para apagar Triagem GET
-$obRouter->get('/negocio/apagar/{id_negocio}',[
+$obRouter->get('/triagem/apagar/{id_triagem}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_negocio){ return new Response(200,Pages\Triagem::apagaTriagem($request,$id_negocio)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Triagem::apagaTriagem($request,$id_triagem)); }
 ]);
 
 // rota para apagar Triagem POST
-$obRouter->post('/negocio/apagar/{id_negocio}',[
+$obRouter->post('/triagem/apagar/{id_triagem}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request,$id_negocio){ return new Response(200,Pages\Triagem::apagaTriagem($request,$id_negocio)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Triagem::apagaTriagem($request,$id_triagem)); }
 ]);
 

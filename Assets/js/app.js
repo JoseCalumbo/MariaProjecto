@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  var dropitem = document.querySelectorAll('.dropdown-triggerItem');
+  var instances = M.Dropdown.init(dropitem, {
+ 
+  });
+});
+
 
 // aside Acordion
 document.addEventListener('DOMContentLoaded', function () {

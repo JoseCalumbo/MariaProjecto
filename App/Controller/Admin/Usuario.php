@@ -286,8 +286,8 @@ class Usuario extends PageAdmin
                 exit;
             }
 
-            $obUsuario = AdmimUserDao::getAdminUserId($id);
-            $obUsuario->apagar();
+            $obAdminUser = AdmimUserDao::getAdminUserId($id);
+            $obAdminUser->apagar();
             $request->getRouter()->redirect('/usuario?msg=apagado');
 
         } else {

@@ -10,7 +10,7 @@ class AdmimUserDao
     public $id; // guarda o numero ID unico do usuario Adimim
     public $nome;  // guarda o nome de identificação do usuario Adimim
     public $genero;  // guarda o genero de identificação do usuario Adimim
-    public $email;
+    public $email; // guarda o email de identificação do usuario Adimim
     public $telefone;
     public $nivel;
     public $imagem;

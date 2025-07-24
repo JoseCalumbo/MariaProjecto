@@ -87,6 +87,7 @@ class PacienteDao
             'nascimento_paciente' => $this->nascimento_paciente,
             'estado_paciente' => $this->estado_paciente = "Aberto",
             'id_funcionario' => $this->id_funcionario,
+            'imagem_paciente' => $this->imagem_paciente="anonimo.png",
             'create_paciente' => $this->create_paciente,
         ]);
 

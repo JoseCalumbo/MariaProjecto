@@ -77,6 +77,7 @@ class Triagem extends Page
                 'id_triagem' => $triagem->id_triagem,
                 'Nome' => $triagem->nome_paciente,
                 'genero' => $triagem->genero_paciente,
+                'imagem' => $triagem->imagem_paciente,
                 'hora' => $formatadaHora,
                 'Atendimento' => $triagem->risco_triagem,
                 'idade' => $idade,
@@ -209,14 +210,25 @@ class Triagem extends Page
     }
 
     //apagar triagem
-    public static function apagaTriagem($request, $id_negocio)
+    public static function apagaTriagem($request, $id_triagem)
     {
+        $cancelar = $_POST['cancelar'] ?? "";
 
-        $obNegocio = NegocioDao::getNegocio($id_negocio);
+        // Verifica se o usuario clicou em cancelar
+        if ($cancelar == "cancelar") {
+            $request->getRouter()->redirect('/triagem');
+            exit;
+        }
 
-        $obNegocio->apagarNegocio();
+        if (isset($_POST['confirmo'])) {
 
-        $request->getRouter()->redirect('/triagem?msg=apagado');
-        exit;
+            // Busca o funcionario por ID
+            $obTriagem = TriagemDao::getTriagemId($id_triagem);
+            $obTriagem->apagarTriagem();
+            $request->getRouter()->redirect('/triagem?msg=apagado');
+        }
+
+        $request->getRouter()->redirect('/triagem?msg=confirma');
     }
+    
 }
