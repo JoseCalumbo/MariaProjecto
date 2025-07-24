@@ -642,6 +642,7 @@ h1 {
 
 .material-tooltip .tooltip-content {
     font-size: 12px;
+    text-transform: capitalize !important;
 }
 
 .material-toolip {
@@ -698,11 +699,4 @@ h1 {
     width: 450px !important;
     max-height: 90% !important;
 
-}
-
-/* Configuração dos Tooltips  */
-.my-tooltip:hover {
-    color: white !important;
-    text-transform: capitalize !important;
-    background-color: aqua !important;
 }
