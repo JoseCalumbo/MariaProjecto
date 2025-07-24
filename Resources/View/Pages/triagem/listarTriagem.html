@@ -11,40 +11,25 @@
 
         <a class="modal-trigger" href="{{id_triagem}}" data-target="modaluser">
             <button type="button" class="font-normal waves-effect waves-light green accent-4 btn">
-                <i class="material-icons left">print</i>Imprimir
-            </button>
-        </a>
-        <a class="modal-trigger" href="{{id_triagem}}" data-target="modaluser">
-            <button type="button" class="font-normal waves-effect waves-light green accent-4 btn">
-                <i class="material-icons left">add</i> nova
+                <i class="material-icons center">print</i>
             </button>
         </a>
 
-  <a class='dropdown-triggerItem btn' href='#' data-target='dropdown2'>Drop Me!</a>
+          <a class="btn tooltipped1" data-position="bottom" data-tooltip="I am a tooltip">Hover me!</a>
 
 
-        <ul id='dropdown2' class='dropdown-content'>
-            <li>
+        <a href="{{URL}}/triagem/editar/{{id_triagem}}">
+            <button type="button " class="font-normal waves-effect waves-light btn blue darken-2">
+                <i class="material-icons left">edit</i>Editar
+            </button>
+        </a>
 
-                <a href="{{URL}}/triagem/editar/{{id_triagem}}">
-                    <button type="button " class="font-normal waves-effect waves-light btn blue darken-2">
-                        <i class="material-icons left">edit</i>Editar
-                    </button>
-                </a>
-            </li>
+        <a class="modal-trigger" href="#modal{{id_triagem}}">
+            <button type="button" class="font-normal waves-light red lighten-1 btn">
+                <i class="material-icons left">delete</i>Apagar
+            </button>
+        </a>
 
-            <li>
-
-                <a class="modal-trigger" href="#modal{{id_triagem}}">
-                    <button type="button" class="font-normal waves-light red lighten-1 btn">
-                        <i class="material-icons left">delete</i>Apagar
-                    </button>
-                </a>
-
-            </li>
-
-
-        </ul>
     </td>
 </tr>
 

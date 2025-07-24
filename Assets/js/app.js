@@ -18,13 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  var dropitem = document.querySelectorAll('.dropdown-triggerItem');
-  var instances = M.Dropdown.init(dropitem, {
- 
-  });
-});
-
 
 // aside Acordion
 document.addEventListener('DOMContentLoaded', function () {
@@ -204,10 +197,10 @@ document.addEventListener('DOMContentLoaded', function () {
     opacity: 0.80,
     startingTop: 5,
     endingTop: '5%',
-  //  onCloseStart: function () {
-      //console.log("O modal está começando a fechar.");
-      // Você pode executar outras ações aqui:
-      // alert("Fechando o modal!");
+    //  onCloseStart: function () {
+    //console.log("O modal está começando a fechar.");
+    // Você pode executar outras ações aqui:
+    // alert("Fechando o modal!");
     //},
   });
 });
@@ -250,4 +243,13 @@ $(document).ready(function () {
   $('input#input_text, textarea#textarea2').characterCounter();
 });
 
-
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.tooltipped1');
+    var options1 = {
+    position: 'top',       // 'top', 'right', 'bottom', 'left'
+    enterDelay: 200,       // delay ao passar o mouse
+    exitDelay: 100,        // delay ao sair do mouse
+    margin: 5              // margem entre o tooltip e o elemento
+  };
+  var instances = M.Tooltip.init(elems, options1);
+});
