@@ -9,24 +9,31 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger" href="{{id_triagem}}" data-target="modaluser">
+        <a class="modal-trigger tooltippedListagem" href="{{id_triagem}}" data-target="modaluser" data-position="top"
+            data-tooltip="Add nova Triagem">
             <button type="button" class="font-normal waves-effect waves-light green accent-4 btn">
-                <i class="material-icons center">print</i>
+                <i class="material-icons center">add</i>
             </button>
         </a>
 
-          <a class="btn tooltipped{{id_triagem}}" data-position="bottom" data-tooltip="impressão">Hover me!</a>
-
-
-        <a href="{{URL}}/triagem/editar/{{id_triagem}}">
+        <a class="tooltippedListagem" href="{{URL}}/triagem/editar/{{id_triagem}}" data-position="top"
+            data-tooltip="Editar Triagem">
             <button type="button " class="font-normal waves-effect waves-light btn blue darken-2">
-                <i class="material-icons left">edit</i>Editar
+                <i class="material-icons center">edit</i>
             </button>
         </a>
 
-        <a class="modal-trigger" href="#modal{{id_triagem}}">
+        <a class="modal-trigger tooltippedListagem" href="#modal{{id_triagem}}" data-position="top"
+            data-tooltip="Apagar Trigaem">
             <button type="button" class="font-normal waves-light red lighten-1 btn">
-                <i class="material-icons left">delete</i>Apagar
+                <i class="material-icons center">delete</i>
+            </button>
+        </a>
+
+        <a class="modal-trigger tooltippedListagem" href="{{id_triagem}}" data-target="modaluser" data-position="top"
+            data-tooltip="Imprimir Ficha">
+            <button type="button" class="font-normal waves-effect waves-light teal accent-4 btn">
+                <i class="material-icons center">print</i>
             </button>
         </a>
 
@@ -109,8 +116,8 @@
 </div>
 
 <script>
-      document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.tooltipped{{id_triagem}}');
-    var instances = M.Tooltip.init(elems, options);
-  });
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.tooltipped{{id_triagem}}');
+        var instances = M.Tooltip.init(elems, options);
+    });
 </script>

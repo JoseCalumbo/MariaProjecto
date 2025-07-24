@@ -97,6 +97,16 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// tooltip msg de trocar a foto
+document.addEventListener('DOMContentLoaded', function () {
+  var tollFoto = document.querySelectorAll('.tooltippedListagem');
+  var instances = M.Tooltip.init(tollFoto, {
+    exitDelay: 1,
+    
+
+  });
+});
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 //modal view apagar Usuario
