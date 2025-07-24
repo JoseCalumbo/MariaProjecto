@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
 // tooltip msg de trocar a foto
 document.addEventListener('DOMContentLoaded', function () {
   var tollFoto = document.querySelectorAll('.tooltippedFoto');
