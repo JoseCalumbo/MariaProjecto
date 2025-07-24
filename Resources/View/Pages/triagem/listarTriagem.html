@@ -15,7 +15,7 @@
             </button>
         </a>
 
-          <a class="btn tooltipped1" data-position="bottom" data-tooltip="I am a tooltip">Hover me!</a>
+          <a class="btn tooltipped{{id_triagem}}" data-position="bottom" data-tooltip="impressão">Hover me!</a>
 
 
         <a href="{{URL}}/triagem/editar/{{id_triagem}}">
@@ -107,3 +107,10 @@
         </form>
     </div>
 </div>
+
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped{{id_triagem}}');
+    var instances = M.Tooltip.init(elems, options);
+  });
+</script>
