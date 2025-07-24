@@ -31,7 +31,7 @@ class TriagemDao extends PacienteDao
     {
         $obPacientes = new PacienteDao;
         $idPacienteCadastrado = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
-        $this->id_paciente =$idPacienteCadastrado;
+        $this->id_paciente = $idPacienteCadastrado;
 
         //Pega o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();
@@ -47,28 +47,33 @@ class TriagemDao extends PacienteDao
             'peso_triagem' => $this->peso_triagem,
             'temperatura_triagem' => $this->temperatura_triagem,
             'pressao_triagem' => $this->presao_triagem,
-            'frequencia_triagem'=> $this->frequencia_triagem,
+            'frequencia_triagem' => $this->frequencia_triagem,
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
-            'data_triagem'=> $this->data_triagem,
-            'risco_triagem'=> $this->risco_triagem ='Verde'
+            'data_triagem' => $this->data_triagem,
+            'risco_triagem' => $this->risco_triagem = 'Verde'
         ]);
         return $this->id_triagem;
     }
 
 
     //Método responsavel por Alterar o registrar da triagem
-    public function atualizar()
+    public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente)
     {
+
+        $obPacientes = PacienteDao::getPacienteId($idPaciente);
+        $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
+        $this->id_paciente = $idPacienteEditado;
+
         return (new Database('tb_triagem'))->update('id_triagem = ' . $this->id_triagem, [
             'id_triagem' => $this->id_triagem,
             'observacao_triagem' => $this->observacao_triagem,
             'peso_triagem' => $this->peso_triagem,
             'temperatura_triagem' => $this->temperatura_triagem,
-            'presao_triagem' => $this->presao_triagem,
+            'pressao_triagem' => $this->presao_triagem,
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
-            'create_triagem' => $this->data_triagem,
+            'data_triagem' => $this->data_triagem,
         ]);
     }
 

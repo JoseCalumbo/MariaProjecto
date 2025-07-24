@@ -64,7 +64,6 @@ class PacienteDao
     // Metodo para cadastrar Paciente 
     public function registrarTriagemPaciente($nomepaciente,$generoPacinete,$nascimentoPacinete)
     {
-
         // Obtem os dados do formularios de triagem 
         $this->nome_paciente = $nomepaciente;
         $this->genero_paciente = $generoPacinete;
@@ -81,6 +80,38 @@ class PacienteDao
         $obDatabase = new Database('tb_paciente');
 
         $this->id_paciente = $obDatabase->insert([
+            'id_paciente' => $this->id_paciente,
+            'nome_paciente' => $this->nome_paciente,
+            'genero_paciente' => $this->genero_paciente,
+            'nascimento_paciente' => $this->nascimento_paciente,
+            'estado_paciente' => $this->estado_paciente = "Aberto",
+            'id_funcionario' => $this->id_funcionario,
+            'imagem_paciente' => $this->imagem_paciente="anonimo.png",
+            'create_paciente' => $this->create_paciente,
+        ]);
+
+        return $this->id_paciente;
+    }
+    
+    // Metodo para cadastrar Paciente 
+    public function AtualizarTriagemPaciente($nomepaciente,$generoPacinete,$nascimentoPacinete)
+    {
+        // Obtem os dados do formularios de triagem 
+        $this->nome_paciente = $nomepaciente;
+        $this->genero_paciente = $generoPacinete;
+        $this->nascimento_paciente = $nascimentoPacinete;
+        
+        $usuarioLogado = Session::getUsuarioLogado();
+        // Pega a data actual do cadastro
+        $this->create_paciente = date('y-m-d H:i:s');
+        //Pega o id do usuario logado
+        $this->id_funcionario = $usuarioLogado['id'];
+        // o estado actual do vendedor
+        $this->estado_paciente = 'activo';
+
+        $obDatabase = new Database('tb_paciente');
+
+        $obDatabase->update('id_paciente = ' . $this->id_paciente, [
             'id_paciente' => $this->id_paciente,
             'nome_paciente' => $this->nome_paciente,
             'genero_paciente' => $this->genero_paciente,
@@ -142,10 +173,10 @@ class PacienteDao
         '))->select($where, $order, $limit, $fields);
     }
 
-    // metodo para pegar o id do vendedor
-    public static function getVendedorId($id)
+    // Método para pegar o id do paciente
+    public static function getPacienteId($id_paciente)
     {
-        return (new Database('vendedor'))->select('id = ' . $id)->fetchObject(self::class);
+        return (new Database('tb_paciente'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);
     }
 
     /**

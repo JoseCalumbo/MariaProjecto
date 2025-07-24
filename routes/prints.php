@@ -8,7 +8,7 @@ use \App\Http\Response;
 use \App\Controller\Imprimir;
 
 
-//imprimir a listagem de Usuario
+//imprimir a listagem de triagem
 $obRouter->get('/triagem/gerar-ficha/{id_triagem}', [
     'middlewares' => [
         'requer-login'
@@ -18,7 +18,7 @@ $obRouter->get('/triagem/gerar-ficha/{id_triagem}', [
     }
 ]);
 
-//imprimir a listagem de Usuario
+//imprimir a listagem de triagem
 $obRouter->get('/triagem/imprimir-ficha/{id_triagem}', [
     'middlewares' => [
         'requer-login'

@@ -34,7 +34,7 @@ class FuncionarioDao
 
         $obDatabase = new Database('tb_funcionario');
 
-        $this->id = $obDatabase->insert([
+        $this->id_funcionario = $obDatabase->insert([
             'id_funcionario' => $this->id_funcionario,
             'nome_funcionario' => $this->nome_funcionario,
             'genero_funcionario' => $this->genero_funcionario,

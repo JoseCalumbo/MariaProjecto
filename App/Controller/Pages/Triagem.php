@@ -35,7 +35,7 @@ class Triagem extends Page
             case 'confirma':
                 return Mensagem::msgAlerta('Clica em Confirmar antes de apagar');
                 break;
-        }// fim do switch
+        } // fim do switch
     }
 
     // Metodo para apresenatar os registos dos dados 
@@ -184,10 +184,23 @@ class Triagem extends Page
         //Instancia da classe model da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
 
-        if (isset($_POST['nome'])) {
+        if (isset($_POST['nome'], $_POST['btn'])) {
 
-            $triagemRegistrado->negocio = $_POST['negocio'] ?? $triagemRegistrado->negocio;
-            // $triagemRegistrado->atualizarNegocio();
+            $postVars = $request->getPostVars();
+
+            $idPaciente = $triagemRegistrado->id_paciente;
+
+            $nomePacinete = $postVars['nome'] ?? $triagemRegistrado->nome_paciente;
+            $generoPacinete = $postVars['genero'] ?? $triagemRegistrado->genero_paciente;
+            $nascimentoPacinete = $postVars['nascimento'] ?? $triagemRegistrado->nascimento_paciente;
+
+            $triagemRegistrado->peso_triagem = $_POST['peso'] ?? $triagemRegistrado->peso_triagem ;
+            $triagemRegistrado->temperatura_triagem = $_POST['temperatura'] ?? $triagemRegistrado->temperatura_triagem;
+            $triagemRegistrado->pressao_triagem = $_POST['presao'] ??  $triagemRegistrado->pressao_triagem;
+            $triagemRegistrado->frequencia_triagem = $_POST['frequencia'] ?? $triagemRegistrado->frequencia_triagem;
+            $triagemRegistrado->observacao_triagem = $_POST['obs'] ??  $triagemRegistrado->observacao_triagem;
+
+            $triagemRegistrado->atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente);
 
             $request->getRouter()->redirect('/triagem?msg=alterado');
             exit;
@@ -230,5 +243,4 @@ class Triagem extends Page
 
         $request->getRouter()->redirect('/triagem?msg=confirma');
     }
-    
 }

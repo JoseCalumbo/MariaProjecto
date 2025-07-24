@@ -177,6 +177,17 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+//modal view imprimir triagem
+document.addEventListener('DOMContentLoaded', function () {
+  var modalImprimirTriagem = document.querySelectorAll('.modalImprimirTriagem');
+  var instancesModal = M.Modal.init(modalImprimirTriagem, {
+    preventScrolling: false,
+    opacity: 0.75,
+    endingTop: '27%',
+    startingTop: 10,
+  });
+});
+
 //modal view de relatorio da zona
 document.addEventListener('DOMContentLoaded', function () {
   var modalzona = document.querySelectorAll('.modalzona');

@@ -9,28 +9,28 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger tooltippedListagem" href="{{id_triagem}}" data-target="modaluser" data-position="top"
+        <a class="modal-trigger tooltippedListagem my-tooltip" href="{{id_triagem}}" data-target="modaluser" data-position="top"
             data-tooltip="Add nova Triagem">
             <button type="button" class="font-normal waves-effect waves-light green accent-4 btn">
                 <i class="material-icons center">add</i>
             </button>
         </a>
 
-        <a class="tooltippedListagem" href="{{URL}}/triagem/editar/{{id_triagem}}" data-position="top"
+        <a class="tooltippedListagem my-tooltip" href="{{URL}}/triagem/editar/{{id_triagem}}" data-position="top"
             data-tooltip="Editar Triagem">
             <button type="button " class="font-normal waves-effect waves-light btn blue darken-2">
                 <i class="material-icons center">edit</i>
             </button>
         </a>
 
-        <a class="modal-trigger tooltippedListagem" href="#modal{{id_triagem}}" data-position="top"
+        <a class="modal-trigger tooltippedListagem my-tooltip" href="#modal{{id_triagem}}" data-position="top"
             data-tooltip="Apagar Trigaem">
             <button type="button" class="font-normal waves-light red lighten-1 btn">
                 <i class="material-icons center">delete</i>
             </button>
         </a>
 
-        <a class="modal-trigger tooltippedListagem" href="{{id_triagem}}" data-target="modaluser" data-position="top"
+        <a class="modal-trigger tooltippedListagem my-tooltip" href="#modalPrint{{id_triagem}}"  data-position="top"
             data-tooltip="Imprimir Ficha">
             <button type="button" class="font-normal waves-effect waves-light teal accent-4 btn">
                 <i class="material-icons center">print</i>
@@ -40,37 +40,33 @@
     </td>
 </tr>
 
-<!---
-{URL}}/negocio/apagar/{{id_negocio}}
-
--->
-
-<!-- MODAL PARA imprimir ficha triagem-->
-<div id="modaluser" class="modal modaluser">
-    <div class="modal-content">
+<!-- MODAL PARA imprimir ficha triagem  -->
+<div id="modalPrint{{id_triagem}}" class="modal  modalImprimirTriagem">
+    <div class="modal-content row">
         <label class="closeModal modal-close">&times;</label>
 
-        <h5>Paciente: {{Nome}}</h5>
+        <h5 class="capitalize">Paciente: {{Nome}}</h5>
 
-        <p class="font-normal">
-            Confirmar a impressão da ficha de Triagem <strong>Nº {{id_negocio}}</strong></p>
+        <p class=" offset-m2 font-normal">
+            Confirmar a Impressão da ficha de Triagem <strong>Nº {{id_triagem}}</strong>
+        </p>
 
-        <hr>
+        <div class="modal-fixed-footer offset-m7 col s12 m5">
 
-        <div class="modal-fixed-footer ">
-            <a class="btn white-text rigth blue" href="{{URL}}/triagem/apagar/{{id_negocio}}"
-                style="text-transform: capitalize;">
-                <i class="material-icons left white-text">print</i>Imprimir
-            </a>
-
-            <a class="btn grey accent-4 white-text" href="{{URL}}/relatorio/imprimirLista"
+            <a class="btn blue darken-2  white-text" href="{{URL}}/triagem"
                 style="text-transform: capitalize;">
                 <i class="material-icons left white-text">highlight_off
                 </i>Cancelar
             </a>
+
+            <a class="btn white-text rigth teal" href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
+                style="text-transform: capitalize;" >
+                <i class="material-icons left white-text">print</i>Imprimir
+            </a>
         </div>
     </div>
 </div>
+
 
 <!--- Modal Responsavel para apresentar o modal deletar triagem -->
 <div id="modal{{id_triagem}}" class="modal modalApagarTriagem ">
@@ -90,7 +86,7 @@
             </div>
 
             <div class="col s12 m8">
-                <p>Apagar a conta de <strong style="font-weight: bold;">{{nome}}</strong> permanentemente.
+                <p>Apagar a triagem de <strong style="font-weight: bold;">{{Nome}}</strong> permanentemente.
                     Se tiver certeza disso e decidir prosseguir, todos os dados vinculados a esta conta serão excluídos
                     permanentemente. Você não poderá recuperá-los no futuro.</p>
                 <p>
@@ -114,10 +110,3 @@
         </form>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.tooltipped{{id_triagem}}');
-        var instances = M.Tooltip.init(elems, options);
-    });
-</script>

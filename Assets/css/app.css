@@ -1,7 +1,7 @@
 /*css config da tabela*/
 
 .thead tr>th {
-    background-color: #546e7a8c ;
+    background-color: #546e7a8c;
     border: 1px solid rgb(201, 197, 197);
 }
 
@@ -188,15 +188,15 @@ td {
 
 .input-search {
     transition: background-color 0.9s !important;
-    border: 0.50px solid #26a69a  !important;
-} 
+    border: 0.50px solid #26a69a !important;
+}
 
 .input-search:focus {
     background-color: #f2f2f2 !important;
     /* branco ao clicar */
     outline: none !important;
     /* remove a borda azul padrão */
-    border:none!important;
+    border: none !important;
 }
 
 
@@ -700,4 +700,9 @@ h1 {
 
 }
 
-/* Configuração de modal  */
+/* Configuração dos Tooltips  */
+.my-tooltip:hover {
+    color: white !important;
+    text-transform: capitalize !important;
+    background-color: aqua !important;
+}

@@ -104,6 +104,7 @@ class TriagemPDF
     {
         //Instancia da classe model da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
+
         //Obtem os dados do usuario
         // $dados = self::getTriagemPDF($request, $id_triagem);
 
