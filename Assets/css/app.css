@@ -691,3 +691,35 @@ h1 {
     max-height: 90% !important;
 
 }
+
+/*/////////////////////////////////////////////////////////////////////////////////////////*/
+
+.material-tooltip {
+    /* Cor de fundo (azul neste exemplo) */
+    background-color: #a5a0a0 !important;
+    /* Cor do texto */
+    color: red !important;
+    /*amarelo */
+    text-transform: capitalize !important;
+
+    padding: 8px;
+    /* Espaçamento interno */
+}
+
+.material-tooltip:hover {
+    /* Cor de fundo (azul neste exemplo) */
+    background-color: #a5a0a0 !important;
+    /* Cor do texto */
+    color: red !important;
+    /*amarelo */
+    text-transform: capitalize !important;
+
+    padding: 8px;
+    /* Espaçamento interno */
+}
+
+.material-tooltip span {
+    color: rgb(9, 252, 62) !important;
+    /* Ou qualquer cor que desejar */
+    text-transform: capitalize !important;
+}
