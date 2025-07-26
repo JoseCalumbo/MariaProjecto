@@ -9,32 +9,41 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger tooltippedListagem my-tooltip" href="{{id_triagem}}" data-target="modaluser" data-position="top"
-            data-tooltip="Add nova Triagem">
-            <button type="button" class="font-normal waves-effect waves-light green accent-4 btn">
+        <a class="modal-trigger tooltip-container " href="{{id_triagem}}" data-target="modaluser" >
+            <button type="button" class="font-normal waves-effect green accent-4 btn">
                 <i class="material-icons center">add</i>
             </button>
+            <div class="custom-tooltip">Adicionar nova triagem</div>
         </a>
 
-        <a class="tooltippedListagem my-tooltip capitalize" href="{{URL}}/triagem/editar/{{id_triagem}}" data-position="top"
-            data-tooltip="Editar Triagem">
-            <button type="button " class="font-normal waves-effect waves-light btn blue darken-2">
+        <a class="tooltip-container " href="{{URL}}/triagem/editar/{{id_triagem}}">
+            <button type="button " class="font-normal waves-effect btn blue darken-2 tooltip-btn">
                 <i class="material-icons center">edit</i>
             </button>
+            <div class="custom-tooltip">Editar triagem</div>
         </a>
 
-        <a class="modal-trigger tooltippedListagem my-tooltip" href="#modal{{id_triagem}}" data-position="top"
-            data-tooltip="Apagar Trigaem">
-            <button type="button" class="font-normal waves-light red lighten-1 btn">
+        <!--
+             <a class="tooltippedListagem tooltip-wrapper " href="{{URL}}/triagem/editar/{{id_triagem}}" data-position="top"
+            data-tooltip="Editar Triagem">
+            <button type="button " class="font-normal waves-effect waves-light btn blue darken-2 tooltip-btn">
+                <i class="material-icons center">edit</i>
+            </button>
+        </a>   
+        -->
+
+        <a class="modal-trigger tooltip-container " href="#modal{{id_triagem}}" >
+            <button type="button" class="font-normal waves-light red lighten-1 btn tooltip-btn">
                 <i class="material-icons center">delete</i>
             </button>
+            <div class="custom-tooltip">Apagar triagem</div>
         </a>
 
-        <a class="modal-trigger tooltippedListagem my-tooltip" href="#modalPrint{{id_triagem}}"  data-position="top"
-            data-tooltip="Imprimir Ficha">
-            <button type="button" class="font-normal waves-effect waves-light teal accent-4 btn">
+        <a class="modal-trigger tooltip-container" href="#modalPrint{{id_triagem}}" >
+            <button type="button" class="font-normal waves-light teal accent-4 btn tooltip-btn">
                 <i class="material-icons center">print</i>
             </button>
+            <div class="custom-tooltip">Imprimir ficha</div>
         </a>
 
     </td>
@@ -53,14 +62,13 @@
 
         <div class="modal-fixed-footer offset-m7 col s12 m5">
 
-            <a class="btn blue darken-2  white-text" href="{{URL}}/triagem"
-                style="text-transform: capitalize;">
+            <a class="btn blue darken-2  white-text" href="{{URL}}/triagem" style="text-transform: capitalize;">
                 <i class="material-icons left white-text">highlight_off
                 </i>Cancelar
             </a>
 
             <a class="btn white-text rigth teal" href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
-                style="text-transform: capitalize;" >
+                style="text-transform: capitalize;">
                 <i class="material-icons left white-text">print</i>Imprimir
             </a>
         </div>

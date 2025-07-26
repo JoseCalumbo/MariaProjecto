@@ -3,99 +3,67 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Centralizado</title>
+  <title>Tooltip com animação sem seta</title>
   <style>
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
     }
 
-    .centro-vertical {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      /* Centraliza verticalmente */
-      justify-content: center;
-      /* Centraliza horizontalmente */
-      background-color: #00796b;
+    .tooltip-wrapper .tooltip-text {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background-color: black;
+      color: yellow;
+      padding: 6px 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
     }
 
-    .conteudo {
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    .tooltip-wrapper:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
     }
+    
   </style>
 </head>
 
 <body>
-  <div class="centro-vertical">
-    <div class="conteudo">
 
-      <div class="center-page ">
-        <div class="card card-login z-depth-5 ">
-          <div class="card-content ">
-            <!-- Logo -->
-            <section class="login-img center-align">
-              <img src="Assets/img/logo01.png" height="90" width="140">
-            </section>
-
-            <!-- Título -->
-            <span class="card-title center-align negrito"><strong>Login</strong> </span>
-            {{msg}}
-            <!-- Formulário -->
-            <form class="row" method="post">
-              <div class="input-field col m11">
-                <i class="material-icons prefix teal-text darken-2 ">mail_outline</i>
-                <input id="email" type="email" class="validate" name="email" required>
-                <label for="email">Email</label>
-              </div>
-
-              <div class="input-field col m11 ">
-                <i class="material-icons prefix teal-text darken-2 ">lock_outline</i>
-                <input id="senha" type="password" class="validate" name="senha">
-                <label for="senha">Senha</label>
-              </div>
-
-              <div class="row col m10 center-align ">
-                <button class=" push-m2 col m12 btn white-text darken-2  waves-light"
-                  style="text-transform: capitalize;" type="submit" value="logar">Entrar</button>
-              </div>
-
-            </form>
-            <div class="row div-nova center-align ">
-              <p style="font-size: 16px;">Se esqueceste a tua senha? clica em
-                <a href="{{URL}}/recuperar/senha">
-                  <span class="teal-text darken-3">recuperar de senha</span>
-                </a>
-              </p>
-              <br>
-
-              <p class=" div-nova center-align " style="font-size: 14px;">
-                <a href="{{URL}}/sigin" class="">
-                  <span id="buttonCriarConta1" class="btn grey darken-2 black-text "
-                    style="font-size: 13px; text-transform: capitalize;">Criar Conta</span>
-                </a>
-              </p>
-
-              <br>
-              <p class="row div-nova center-align " style="font-size: 14px;">
-                Em caso de suporte técnico clica em
-                <a href="{{URL}}/contactos" class="teal-text darken-2 ">
-                  <span class="">Posso ajudar? </span>
-                </a>
-              </p>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- Botões com tooltip -->
+  <div class="tooltip-wrapper">
+    <button class="tooltip-btn" data-tooltip="Texto 1">Botão 1</button>
   </div>
+
+  <div class="tooltip-wrapper" style="margin-left: 20px;">
+    <button class="tooltip-btn" data-tooltip="Texto 2">Botão 2</button>
+  </div>
+
+  <script>
+
+    // Cria tooltips com base no atributo data-tooltip
+    document.querySelectorAll('.tooltip-btn').forEach(btn => {
+      const texto = btn.getAttribute('data-tooltip');
+      const tooltipDiv = document.createElement('div');
+      tooltipDiv.className = 'tooltip-text';
+      tooltipDiv.textContent = texto;
+      btn.parentElement.appendChild(tooltipDiv);
+    });
+    
+  </script>
+
 </body>
 
 </html>

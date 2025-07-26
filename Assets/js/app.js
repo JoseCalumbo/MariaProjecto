@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var tollFoto1 = document.querySelectorAll('.tooltippedListagem');
   var instances = M.Tooltip.init(tollFoto1, {
     exitDelay: 1,
-    
+
   });
 });
 
@@ -264,13 +264,20 @@ $(document).ready(function () {
   $('input#input_text, textarea#textarea2').characterCounter();
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  var elems = document.querySelectorAll('.tooltipped1');
-    var options1 = {
-    position: 'top',       // 'top', 'right', 'bottom', 'left'
-    enterDelay: 200,       // delay ao passar o mouse
-    exitDelay: 100,        // delay ao sair do mouse
-    margin: 5              // margem entre o tooltip e o elemento
-  };
-  var instances = M.Tooltip.init(elems, options1);
+// Cria tooltips com base no atributo data-tooltip
+document.querySelectorAll('.tooltip-btn').forEach(btn => {
+  const texto = btn.getAttribute('data-tooltip');
+  const tooltipDiv = document.createElement('div');
+  tooltipDiv.className = 'tooltip-text';
+  tooltipDiv.textContent = texto;
+  btn.parentElement.appendChild(tooltipDiv);
+});
+
+// Cria tooltips com base no atributo data-tooltip
+document.querySelectorAll('.my-tooltip').forEach(btn => {
+  const texto = btn.getAttribute('data-tooltip');
+  const tooltipDiv = document.createElement('div');
+  tooltipDiv.className = 'tooltip-text';
+  tooltipDiv.textContent = texto;
+  btn.parentElement.appendChild(tooltipDiv);
 });

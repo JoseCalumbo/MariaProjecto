@@ -70,19 +70,14 @@ class TriagemPDF
     // metodo que converte a pagina HTML em lista PDF 
     public static function ListaUserPDF($request, $id_triagem)
     {
-
         $exibe = self::fichaPdf($request, $id_triagem);
-
         $opcao = new Options();
         $opcao->setChroot('C:\xampp\htdocs\mvcAmbulantes\App\View\Imprimir');
         $opcao->setIsRemoteEnabled(true);
         $opcao->setIsPhpEnabled(true);
 
-
         $dompdf = new Dompdf($opcao);
-
         $dompdf->loadHtml($exibe);
-
         $dompdf->setPaper('A4', 'portrait');
 
         // renderiza o arquivo pdf
@@ -105,6 +100,7 @@ class TriagemPDF
         //Instancia da classe model da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
 
+
         //Obtem os dados do usuario
         // $dados = self::getTriagemPDF($request, $id_triagem);
 
@@ -126,7 +122,6 @@ class TriagemPDF
         return View::renderPDF('triagem/fichaTriagem', [
             //  'resultado' => $dados,
             'data-Actual' => $data,
-
             'numero' => $triagemRegistrado->id_paciente,
             'nome' => $triagemRegistrado->nome_paciente,
             'nascimento' => $idade,
@@ -159,10 +154,9 @@ class TriagemPDF
         $dompdf->render();
 
         // nomeia o arquivo a se baixado
-        $dompdf->stream("ficha_triagem.pdf", [
+        $dompdf->stream("triagem.pdf", [
             "Attachment" => false,
             true
-
         ]);
     }
     // metodo que faz o dowload e a  impressao da lista
@@ -177,17 +171,13 @@ class TriagemPDF
 
         // instancia o dom pdf
         $dompdf = new Dompdf($opcao);
-
         // carrega a pagina html
         $dompdf->loadHtml($exibe);
-
         // Renderiza o tipo de pagina
         $dompdf->setPaper('A4', 'portrait');
-
         // renderiza o arquivo pdf
         $dompdf->render();
-
         // nomeia o arquivo a se baixado
-        $dompdf->stream("ficha_triagem.pdf", []);
+        $dompdf->stream("triagem.pdf");
     }
 }
