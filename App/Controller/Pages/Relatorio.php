@@ -2,7 +2,7 @@
 
 namespace App\Controller\Pages;
 
-use \App\Model\Entity\UsuarioDao;
+use \App\Model\Entity\AdmimUserDao;
 use \App\Model\Entity\VendedorDao;
 use \App\Model\Entity\ZonaDao;
 use \App\Utils\View;
@@ -22,7 +22,7 @@ class Relatorio extends Page
     public static function getDadosUsuario()
     {
         //quantidade total de registros da tabela user
-        $quantidadetotal = UsuarioDao::listarUsuario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = AdmimUserDao::listarUsuario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
         return $quantidadetotal;
     }
 
@@ -63,9 +63,9 @@ class Relatorio extends Page
 
         $where = implode(' AND ', $condicoes);
 
-        $quantidadetotal = UsuarioDao::listarUsuario($where);
+        $quantidadetotal = AdmimUserDao::listarUsuario($where);
 
-        while ($obUsuario = $quantidadetotal->fetchObject(UsuarioDao::class)) {
+        while ($obUsuario = $quantidadetotal->fetchObject(AdmimUserDao::class)) {
 
             $item .= View::render('relatorio/dados/resultadoFiltro', [
                 'id_us' => $obUsuario->id_us,

@@ -71,7 +71,7 @@ class ZonaDao{
     * @param string $where
      */
     public static function listarZona($where = null, $order = null, $limit = null, $fields = '*'){
-         return (new Database('zona'))->select($where,$order,$limit,$fields); 
+         return (new Database('tb_paciente'))->select($where,$order,$limit,$fields); 
     }
 
     //Metodo para  selecionar um registro da tabela Zona por ID

@@ -243,7 +243,7 @@ class VendedorDao
      */
     public static function listarVendedor($where = null, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('vendedor'))->select($where, $order, $limit, $fields);
+        return (new Database('tb_usuario'))->select($where, $order, $limit, $fields);
     }
 
     /**

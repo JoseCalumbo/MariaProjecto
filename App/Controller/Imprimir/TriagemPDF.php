@@ -137,7 +137,7 @@ class TriagemPDF
         $exibe = self::fichaPdf($request, $id_triagem);
 
         $opcao = new Options();
-        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\View\Imprimir');
+        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\Controller\Imprimir');
         $opcao->setIsRemoteEnabled(true);
         $opcao->setIsPhpEnabled(true);
 
@@ -162,12 +162,14 @@ class TriagemPDF
     // metodo que faz o dowload e a  impressao da lista
     public static function gerarFichaTriagem($request, $id_triagem)
     {
-        $exibe = self::fichaPdf($request, $id_triagem);
 
+
+        $exibe = self::fichaPdf($request, $id_triagem);
         $opcao = new Options();
-        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\View\Imprimir');
+        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\Controller\Imprimir');
         $opcao->setIsRemoteEnabled(true);
         $opcao->setIsPhpEnabled(true);
+        /*
 
         // instancia o dom pdf
         $dompdf = new Dompdf($opcao);
@@ -179,5 +181,20 @@ class TriagemPDF
         $dompdf->render();
         // nomeia o arquivo a se baixado
         $dompdf->stream("triagem.pdf");
+        */
+
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf($opcao);
+        $dompdf->loadHtml($exibe);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 }

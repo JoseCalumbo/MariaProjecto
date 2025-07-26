@@ -93,7 +93,20 @@ $obRouter->get('/page/{idPagina}', [
     }
 ]);
 
-
+//ver a listagem de Usuario 
+$obRouter->get('/relatorio/listaUser',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request){ return new Response(200,Imprimir\VendedorPDF::ListaVendedorPDF($request)); }
+]);
+//ver a listagem de Usuario 
+$obRouter->get('/relatorio/imprimirLista',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request){ return new Response(200,Imprimir\VendedorPDF::imprimiVendedorPDF($request)); }
+]);
 
 /**
  * __________________________________Negocio_______________________________

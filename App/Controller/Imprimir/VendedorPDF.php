@@ -7,6 +7,7 @@ use \App\Utils\ViewPagePDF;
 use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Model\Entity\VendedorDao;
+use \App\Model\Entity\AdmimUserDao;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -18,11 +19,11 @@ class VendedorPDF{
 
         $item = '';
 
-        $resultado = VendedorDao::listarVendedorZona(null, 'nome');
+        $resultado = AdmimUserDao::listarUsuario(null);
 
         while ($obVendedor = $resultado->fetchObject(VendedorDao::class)) {
 
-            $item .= View::renderPDF('vendedor/resultadoV', [
+            $item .= View::renderPDF('funcionario/resultadoV', [
                 'id_us' => $obVendedor->id,
                 'imagem' => $obVendedor->imagem,
                 'nome' => $obVendedor->nome,
@@ -46,9 +47,9 @@ class VendedorPDF{
         $data = Date('d/m/Y - H:i');
 
         //obtem a logo
-        $logo = 'http://localhost/projectovenda/Assets/img/logo1.png';
+           $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu1.png';
 
-        return View::renderPDF('vendedor/listaVendedor',[
+        return View::renderPDF('usuario/listaUser',[
             'resultado' => $listaDados,
             'data-Actual' => $data,
             'logo' => $logo
@@ -61,7 +62,7 @@ class VendedorPDF{
         $exibe = self::listaPdf($request);
 
         $opcao = new Options();
-        $opcao->setChroot('C:\xampp\htdocs\mvcAmbulantes\Files\documentos');
+$opcao->setChroot('C:\xampp\htdocs\mvcAmbulantes\Files\documentos');
         $opcao->setIsRemoteEnabled(true);
 
         $dompdf = new Dompdf($opcao);
@@ -90,7 +91,7 @@ class VendedorPDF{
         $exibe = self::listaPdf($request);
 
         $opcao = new Options();
-        $opcao->setChroot('C:\xampp\htdocs\mvcAmbulantes\Files\documentos');
+        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\Files\pdfs');
         $opcao->setIsRemoteEnabled(true);
 
         $dompdf = new Dompdf($opcao);
