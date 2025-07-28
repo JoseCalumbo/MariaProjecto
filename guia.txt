@@ -81,3 +81,17 @@ Visualizar atividades suspeitas
 Aprovar/recusar acessos vinculados (API tokens, apps conectados)
 
 crítico, grave, moderado, leve e estável.
+
+
+
+Os sinais vitais são medidas de várias estatísticas fisiológicas procuradas por vários profissionais de saúde para avaliar as funções corporais básicas do corpo humano
+
+Seis sinais vitais - Os quatro sinais vitais básicos e dois adicionais mais
+Existem quatro sinais vitais básicos[1] na maioria das situações médicas, havendo discussão sobre a inclusão da dor como o quinto sinal vital:.[2] O sofrimento, distinto da dor, pode ser considerado em especial na área de oncologia, o 6º sinal vital.
+
+Temperatura corporal
+Pulso (ou frequência cardíaca)
+Pressão arterial
+Frequência respiratória
+Dor
+Sofrimento - em especial na área da oncologia

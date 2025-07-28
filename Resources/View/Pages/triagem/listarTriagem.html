@@ -9,7 +9,7 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger tooltip-container " href="{{id_triagem}}" data-target="modaluser" >
+        <a class="modal-trigger tooltip-container " href="{{id_triagem}}" data-target="modaluser">
             <button type="button" class="font-normal waves-effect green accent-4 btn">
                 <i class="material-icons center">add</i>
             </button>
@@ -32,14 +32,14 @@
         </a>   
         -->
 
-        <a class="modal-trigger tooltip-container " href="#modal{{id_triagem}}" >
+        <a class="modal-trigger tooltip-container " href="#modal{{id_triagem}}">
             <button type="button" class="font-normal waves-light red lighten-1 btn tooltip-btn">
                 <i class="material-icons center">delete</i>
             </button>
             <div class="custom-tooltip">Apagar triagem</div>
         </a>
 
-        <a class="modal-trigger tooltip-container" href="#modalPrint{{id_triagem}}" >
+        <a class="modal-trigger tooltip-container" href="#modalPrint{{id_triagem}}">
             <button type="button" class="font-normal waves-light teal accent-4 btn tooltip-btn">
                 <i class="material-icons center">print</i>
             </button>
@@ -49,25 +49,33 @@
     </td>
 </tr>
 
-<!-- MODAL PARA imprimir ficha triagem  -->
+<!-- MODAL PARA imprimir ficha triagem    -->
 <div id="modalPrint{{id_triagem}}" class="modal  modalImprimirTriagem">
-    <div class="modal-content row">
+    <div class="modal-content ">
         <label class="closeModal modal-close">&times;</label>
 
-        <h5 class="capitalize">Paciente: {{Nome}}</h5>
+        <h5 class=" offset-m1 col s12 m10" style="text-transform: capitalize;">
+            <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">print</i>
+            <strong style="font-weight: bold;">Preparar Impressão da Ficha de Triagem</strong>
+        </h5>
+        <p class=" offset-m1 col s12 m10">⚠️ Certifique-se de que os dados estão corretos antes de continuar.</p>
 
-        <p class=" offset-m2 font-normal">
+        <ul class=" offset-m1 col s12 m10">
+            <li class="capitalize ">Paciente Nome: <strong>{{Nome}}</strong></li>
+            <li class="capitalize ">Idade: <strong>{{idade}} anos</strong></li>
+            <li class="capitalize ">Pioridade: <strong>Atendimento {{Atendimento}}</strong></li>
+        </ul>
+
+        <p class=" offset-m1 col s12 m9 font-normal">
             Confirmar a Impressão da ficha de Triagem <strong>Nº {{id_triagem}}</strong>
         </p>
 
-        <div class="modal-fixed-footer offset-m7 col s12 m5">
-
+        <div class="offset-m7 col s12 m5 row">
             <a class="btn blue darken-2  white-text" href="{{URL}}/triagem" style="text-transform: capitalize;">
                 <i class="material-icons left white-text">highlight_off
                 </i>Cancelar
             </a>
-
-            <a class="btn white-text rigth teal" href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
+            <a class="btn white-text rigth teal" target="_blank" href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
                 style="text-transform: capitalize;">
                 <i class="material-icons left white-text">print</i>Imprimir
             </a>

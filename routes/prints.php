@@ -14,7 +14,7 @@ $obRouter->get('/triagem/gerar-ficha/{id_triagem}', [
         'requer-login'
     ],
     function ($request,$id_triagem) {
-        return new Response(200, Imprimir\TriagemPDF::gerarFichaTriagem($request, $id_triagem));
+        return new Response(200, Imprimir\TriagemPDF::baixarFichaTriagem($request, $id_triagem));
     }
 ]);
 
@@ -24,7 +24,7 @@ $obRouter->get('/triagem/imprimir-ficha/{id_triagem}', [
         'requer-login'
     ],
     function ($request,$id_triagem) {
-        return new Response(200, Imprimir\TriagemPDF::imprimirFichaTriagem($request,$id_triagem));
+        return new Response(200, Imprimir\TriagemPDF::ImprimirFichaTriagem($request,$id_triagem));
     }
 ]);
 
@@ -100,6 +100,7 @@ $obRouter->get('/relatorio/listaUser',[
     ],
     function($request){ return new Response(200,Imprimir\VendedorPDF::ListaVendedorPDF($request)); }
 ]);
+
 //ver a listagem de Usuario 
 $obRouter->get('/relatorio/imprimirLista',[
     'middlewares'=>[

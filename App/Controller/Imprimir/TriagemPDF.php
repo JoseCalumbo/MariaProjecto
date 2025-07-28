@@ -100,7 +100,6 @@ class TriagemPDF
         //Instancia da classe model da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($id_triagem);
 
-
         //Obtem os dados do usuario
         // $dados = self::getTriagemPDF($request, $id_triagem);
 
@@ -127,12 +126,17 @@ class TriagemPDF
             'nascimento' => $idade,
             'registrodata' => $dataTriagem,
             'registrohora' => $horaTriagem,
-            'logo' => $logo
+            'logo' => $logo,
+            'peso' => $logo,
+            'temperatura' => $logo,
+            'pressao' => $logo,
+            'frequencia_cardiaca' => $logo,
+            'frequencia_respiratorio' => $logo,
         ]);
     }
 
     // metodo que faz o dowload e a  impressao da lista
-    public static function imprimirFichaTriagem($request, $id_triagem)
+    public static function ImprimirFichaTriagem($request, $id_triagem)
     {
         $exibe = self::fichaPdf($request, $id_triagem);
 
@@ -152,6 +156,14 @@ class TriagemPDF
 
         // renderiza o arquivo pdf
         $dompdf->render();
+
+        // imforma que e um file pdf
+        header('Content-type: application/pdf');
+
+        ob_end_clean(); // limpa o buffer de saída
+
+        // imprime o resultado saida
+        echo ($dompdf->output());
 
         // nomeia o arquivo a se baixado
         $dompdf->stream("triagem.pdf", [
@@ -159,42 +171,33 @@ class TriagemPDF
             true
         ]);
     }
+
     // metodo que faz o dowload e a  impressao da lista
-    public static function gerarFichaTriagem($request, $id_triagem)
+    public static function baixarFichaTriagem($request, $id_triagem)
     {
-
-
         $exibe = self::fichaPdf($request, $id_triagem);
+
         $opcao = new Options();
-        $opcao->setChroot('C:\xampp\htdocs\MariaProjecto\App\Controller\Imprimir');
+
+        $opcao->setChroot(__DIR__);
+
         $opcao->setIsRemoteEnabled(true);
         $opcao->setIsPhpEnabled(true);
-        /*
-
-        // instancia o dom pdf
-        $dompdf = new Dompdf($opcao);
-        // carrega a pagina html
-        $dompdf->loadHtml($exibe);
-        // Renderiza o tipo de pagina
-        $dompdf->setPaper('A4', 'portrait');
-        // renderiza o arquivo pdf
-        $dompdf->render();
-        // nomeia o arquivo a se baixado
-        $dompdf->stream("triagem.pdf");
-        */
-
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf($opcao);
+
+        // carrega a pagina html
         $dompdf->loadHtml($exibe);
 
         // (Optional) Setup the paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
 
-        // Render the HTML as PDF
+        ob_end_clean(); // limpa o buffer de saída
+
+        // renderiza o arquivo pdf
         $dompdf->render();
 
-        // Output the generated PDF to Browser
-        $dompdf->stream();
+        $dompdf->stream("triagemFicha.pdf");
     }
 }

@@ -1,57 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
   <meta charset="UTF-8">
-  <title>Tooltip com animação</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vídeo em Modal</title>
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Material Icons (opcional) -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <style>
-    
-    .tooltip-container {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
+    body {
+      padding: 50px;
     }
-
-    .tooltip-container .custom-tooltip {
-      position: absolute;
-      bottom: 100%;
-      /* posição acima do botão */
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      /* começa mais embaixo */
-      background-color: black;
-      color: yellow;
-      padding: 6px 12px;
-      border-radius: 5px;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
-
-    .tooltip-container:hover .custom-tooltip {
-      visibility: visible;
-      opacity: 1;
-      transform: translateX(-50%) translateY(-10px);
-      /* sobe suavemente */
-    }
-
   </style>
 </head>
-
 <body>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  
-  <div class="tooltip-container">
-    <button style="padding: 10px 20px;">Passe o mouse</button>
-    <div class="custom-tooltip">Tooltip com animação</div>
+
+  <!-- Botão para abrir o modal -->
+  <a class="waves-effect waves-light btn modal-trigger" href="#modalVideo">
+    <i class="material-icons left">play_circle_filled</i>Ver Vídeo
+  </a>
+
+  <!-- Modal com vídeo -->
+  <div id="modalVideo" class="modal">
+    <div class="modal-content">
+      <h5>Assista ao Vídeo</h5>
+      <div class="video-container">
+        <iframe width="853" height="480" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+    </div>
   </div>
 
-</body>
+  <!-- Materialize JS + jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+  <!-- Inicialização do modal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.modal');
+      M.Modal.init(elems);
+    });
+  </script>
+</body>
 </html>
