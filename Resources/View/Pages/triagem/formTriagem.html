@@ -29,11 +29,14 @@
                             class="material-icons">person</i>Dados pessoais</div>
                     <div class="collapsible-body row">
                         <div class="row">
-                            <div class="input-field col s12 m12">
+                            <div class="input-field col s12 m6">
                                 <input id="nome" type="text" name="nome" value="{{nome}}" class="validate" required>
                                 <label for="nome" style="text-transform: capitalize;">Nome:</label>
                             </div>
-
+                            <div class="input-field col s12 m6">
+                                <input id="bilhete" type="text" name="bilhete" value="{{bilhete}}" class="validate" >
+                                <label for="bilhete" style="text-transform: capitalize;">Bilhete(opcional):</label>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -89,8 +92,8 @@
 
                         <div class="row">
                             <div class="input-field col s12 m5">
-                                <input id="arterial" type="number" data-length="30" name="presao" value="{{pressao}}" />
-                                <label for="arterial" style="text-transform: capitalize;">Pressão arterial</label>
+                                <input id="arterial" type="number" data-length="30" name="cardiaca" value="{{cardiaca}}" />
+                                <label for="arterial" style="text-transform: capitalize;">Frequência Cardíaca</label>
                             </div>
                             <div class="input-field col s12 m1">
                                 <label for="peso" style="text-transform: capitalize; font-weight: bolder;">bpm</label>
@@ -104,6 +107,24 @@
                                 <label for="fr" style="text-transform: capitalize; font-weight: bolder;">mrm </label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="input-field col s12 m5">
+                                <input id="oxigênio" type="number" data-length="30" name="Saturacao_oxigenio" value="{{saturacao}}" />
+                                <label for="oxigênio" style="text-transform: capitalize;">Saturação de oxigênio</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="peso" style="text-transform: capitalize; font-weight: bolder;">%</label>
+                            </div>
+
+                            <div class="input-field col s12 m5">
+                                <input id="fr" type="text" data-length="7" name="pressao"
+                                    value="{{pressao}}" />
+                                <label for="pa" style="text-transform: capitalize;">Pressão Arterial</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="pa" style="text-transform: capitalize; font-weight: bolder;">mmHg </label>
+                            </div>
+                        </div>
                     </div>
                 </li>
 
@@ -114,10 +135,20 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <textarea id="textarea1" class="materialize-textarea" name="obs">{{obs}}</textarea>
-                                <label for="textarea1" style="text-transform: capitalize;">Observação do
-                                    paciente</label>
+                                <label for="textarea1" style="text-transform: capitalize;">Avaliação Clínica Rápida</label>
                             </div>
 
+                            <div class="input-field col s12 m5">
+                                <select name="pioridade">
+                                    <option value="" disabled selected>Escolhe uma opção</option>
+                                    <option value="a" {{masculino}}>Vermelho</option>
+                                    <option value="b" {{feminino}}>Laranja</option>
+                                    <option value="c" {{feminino}}>Amarelo</option>
+                                    <option value="d" {{feminino}}>Verde</option>
+                                    <option value="e" {{feminino}}>Azul</option>
+                                </select>
+                                <label style="text-transform: capitalize; font-size: 14px;">Classificação de risco</label>
+                            </div>
                         </div>
                     </div>
                 </li>

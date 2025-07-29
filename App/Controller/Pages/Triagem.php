@@ -62,7 +62,7 @@ class Triagem extends Page
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
 
-        $resultado = TriagemDao::listarTriagem($where, 'id_triagem', $obPagination->getLimit());
+        $resultado = TriagemDao::listarTriagem($where, 'risco_triagem', $obPagination->getLimit());
 
         while ($triagem = $resultado->fetchObject(TriagemDao::class)) {
 
@@ -118,18 +118,23 @@ class Triagem extends Page
         $nomePacinete = $postVars['nome'] ?? '';
         $generoPacinete = $postVars['genero'] ?? '';
         $nascimentoPacinete = $postVars['nascimento'] ?? '';
+        $bilhetePaciente = $postVars['bilhete'] ?? '';
 
         $obTriagem = new TriagemDao;
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['nascimento'],)) {
+        if (isset($_POST['nome'], $_POST['genero'], $_POST['nascimento'])) {
 
             $obTriagem->peso_triagem = $_POST['peso'];
             $obTriagem->temperatura_triagem = $_POST['temperatura'];
-            $obTriagem->presao_triagem = $_POST['presao'];
+            $obTriagem->cardiaca_triagem = $_POST['cardiaca'];
             $obTriagem->frequencia_triagem = $_POST['frequencia'];
+            $obTriagem->saturacao_triagem = $_POST['Saturacao_oxigenio'];
+            $obTriagem->pressao_triagem = $_POST['pressao'];
+            $obTriagem->risco_triagem = $_POST['pioridade'];
             $obTriagem->observacao_triagem = $_POST['obs'];
 
-            $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete);
+            // Método de acesso para enviar dados para cadastrar triagem
+            $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
 
             $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '');
             exit;
@@ -138,6 +143,7 @@ class Triagem extends Page
             'titulo' => 'Cadastrar nova triagem',
             'pesquisar' => '',
             'nome' => '',
+            'bilhete' => '',
             'frequencia' => '',
             'pressao' => '',
             'peso' => '',
@@ -160,17 +166,43 @@ class Triagem extends Page
         $formataIdade = date("Y", strtotime($triagemRegistrado->nascimento_paciente));
         $idade = date("Y") - $formataIdade;
 
+        $atender = $triagemRegistrado->risco_triagem;
+
+        $triagemAtender = "";
+        switch ($atender) {
+            case 'a':
+                $triagemAtender = "Vermelho";
+                break;
+            case 'b':
+                $triagemAtender = "Laranja";
+                break;
+            case 'c':
+                $triagemAtender = "Amarelo";
+                break;
+            case 'd':
+                $triagemAtender = "Verde";
+                break;
+            case 'e':
+                $triagemAtender = "Azul";
+                break;
+        } // fim do switch
+
         $content = View::render('triagem/confirmarTriagem', [
             'titulo' => 'Triagem realizada com sucesso',
             'id_triagem' => $triagemRegistrado->id_triagem,
             'nome' => $triagemRegistrado->nome_paciente,
             'genero' => $triagemRegistrado->genero_paciente,
             'ano' => $idade,
+            'pioridade' => $triagemAtender,
             'peso' => $triagemRegistrado->peso_triagem,
+
             'temperatura' => $triagemRegistrado->temperatura_triagem,
-            'pressao' => $triagemRegistrado->pressao_triagem,
-            'frequencia_cardiaca' => $triagemRegistrado->pressao_triagem,
-            'frequencia_respiratorio' => $triagemRegistrado->frequencia_triagem,
+
+            'pressao' => $triagemRegistrado->pressao_arterial_triagem,
+
+            'frequencia_cardiaca' => $triagemRegistrado->frequencia_cardiaca_triagem,
+            'frequencia_respiratorio' => $triagemRegistrado->frequencia_respiratorio_triagem,
+            'saturacao' => $triagemRegistrado->Saturacao_oxigenio_triagem,
             'observação' => $triagemRegistrado->observacao_triagem,
             'button1' => 'Finalizar',
         ]);
@@ -194,7 +226,7 @@ class Triagem extends Page
             $generoPacinete = $postVars['genero'] ?? $triagemRegistrado->genero_paciente;
             $nascimentoPacinete = $postVars['nascimento'] ?? $triagemRegistrado->nascimento_paciente;
 
-            $triagemRegistrado->peso_triagem = $_POST['peso'] ?? $triagemRegistrado->peso_triagem ;
+            $triagemRegistrado->peso_triagem = $_POST['peso'] ?? $triagemRegistrado->peso_triagem;
             $triagemRegistrado->temperatura_triagem = $_POST['temperatura'] ?? $triagemRegistrado->temperatura_triagem;
             $triagemRegistrado->pressao_triagem = $_POST['presao'] ??  $triagemRegistrado->pressao_triagem;
             $triagemRegistrado->frequencia_triagem = $_POST['frequencia'] ?? $triagemRegistrado->frequencia_triagem;

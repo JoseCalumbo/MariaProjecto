@@ -12,10 +12,14 @@ class TriagemDao extends PacienteDao
 {
     public $id_triagem;
     public $observacao_triagem;
+
     public $peso_triagem;
     public $temperatura_triagem;
-    public $presao_triagem;
+    public $pressao_triagem;
     public $frequencia_triagem;
+    public $cardiaca_triagem;
+    public $saturacao_triagem;
+
     public $risco_triagem;
     public $data_triagem;
 
@@ -27,10 +31,10 @@ class TriagemDao extends PacienteDao
     public $id_funcionario; // salva o funcionario 
 
     //Método responsavel por Registrar uma nova triagem
-    public function cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete)
+    public function cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete,$bilhetePaciente)
     {
         $obPacientes = new PacienteDao;
-        $idPacienteCadastrado = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
+        $idPacienteCadastrado = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete,$bilhetePaciente);
         $this->id_paciente = $idPacienteCadastrado;
 
         //Pega o id do usuario logado
@@ -44,14 +48,18 @@ class TriagemDao extends PacienteDao
         $this->id_triagem = $obDatabase->insert([
             'id_triagem' => $this->id_triagem,
             'observacao_triagem' => $this->observacao_triagem,
+
             'peso_triagem' => $this->peso_triagem,
             'temperatura_triagem' => $this->temperatura_triagem,
-            'pressao_triagem' => $this->presao_triagem,
-            'frequencia_triagem' => $this->frequencia_triagem,
+            'pressao_arterial_triagem' => $this->pressao_triagem,
+            'frequencia_cardiaca_triagem' => $this->cardiaca_triagem,
+            'frequencia_respiratorio_triagem' => $this->frequencia_triagem,
+            'Saturacao_oxigenio_triagem' => $this->saturacao_triagem,
+
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
             'data_triagem' => $this->data_triagem,
-            'risco_triagem' => $this->risco_triagem = 'Verde'
+            'risco_triagem' => $this->risco_triagem 
         ]);
         return $this->id_triagem;
     }
@@ -68,9 +76,17 @@ class TriagemDao extends PacienteDao
         return (new Database('tb_triagem'))->update('id_triagem = ' . $this->id_triagem, [
             'id_triagem' => $this->id_triagem,
             'observacao_triagem' => $this->observacao_triagem,
+
             'peso_triagem' => $this->peso_triagem,
             'temperatura_triagem' => $this->temperatura_triagem,
-            'pressao_triagem' => $this->presao_triagem,
+            'pressao_arterial_triagem' => $this->pressao_triagem,
+
+            'frequencia_cardiaca_triagem' => $this->cardiaca_triagem,
+            'frequencia_triagem' => $this->frequencia_triagem,
+            'Saturacao_oxigenio_triagem' => $this->saturacao_triagem,
+
+            'risco_triagem' => $this->risco_triagem ,
+
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
             'data_triagem' => $this->data_triagem,

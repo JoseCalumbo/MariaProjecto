@@ -34,24 +34,26 @@
       <div class="row white" style="padding:0px 37px;">
         <ul>
           <li><br></li>
-          <li class="right capitalize">triagem Nº <span>{{id_triagem}}</span></li>
-          <li class="capitalize"><strong>Nome do paciente:</strong> {{nome}}</li>
-          <li class="capitalize"><strong>Gênero:</strong> {{genero}}</li>
-          <li class="capitalize"><strong>Idade:</strong> {{ano}} anos</li>
+          <li class="right capitalize">triagem Nº: {{id_triagem}}</li>
+          <li class="capitalize">Nome Completo: <span>{{nome}}</span> </li>
+          <li class="capitalize">Gênero: <span>{{genero}}</span></li>
+          <li class="capitalize">Idade: <span>{{ano}} anos</span></li>
+          <li class="capitalize">Pioridade: <span>{{pioridade}}</span></li>
         </ul>
 
         <h6 class="capitalize negrito">Sinais Vitais</h6>
         <ul>
-          <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
-          <li class="capitalize"><strong>Temperatura Corporal:</strong> {{temperatura}} °C</li>
-          <li class="capitalize"><strong>Pressão Arterial:</strong> {{pressao}} mmHg</li>
-          <li class="capitalize"><strong>Frequência Cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
-          <li class="capitalize"><strong>Frequência Respiratória:</strong> {{frequencia_respiratorio}} irpm</li>
+          <li class="capitalize"><strong>Peso:</strong>     {{peso}} kg</li>
+          <li class="capitalize"><strong>Temperatura corporal:</strong> {{temperatura}} °C</li>
+          <li class="capitalize"><strong>Pressão arterial:</strong> {{pressao}} mmHg</li>
+          <li class="capitalize"><strong>Frequência cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
+          <li class="capitalize"><strong>Frequência respiratória:</strong> {{frequencia_respiratorio}} Mrm</li>
+          <li class="capitalize"><strong>Saturação oxigênio:</strong> {{saturacao}}%</li>
 
         </ul>
         <h6 class="capitalize negrito">Observação importante</h6>
         <ul>
-          <li class="capitalize ">{{observação}}</li>
+          <li class="capitalize "><span>Avaliação Clínica rapida:</span> {{observação}}</li>
         </ul>
         <div class="white row">
           <p class="capitalize">Gerar e enviar arquivo

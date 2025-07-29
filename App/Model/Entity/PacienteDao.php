@@ -11,11 +11,12 @@ class PacienteDao
     // dados do paciente pessoal
     public $id_paciente;
     public $nome_paciente;
+    public $bilhete_paciente;
     public $genero_paciente;
     public $nascimento_paciente;
     public $pai_paciente;
     public $mae_paciente;
-    public $bilhete_paciente;
+
     public $email_paciente;
     public $telefone1_paciente;
     public $telefone2_paciente;
@@ -62,13 +63,14 @@ class PacienteDao
     }
 
     // Metodo para cadastrar Paciente 
-    public function registrarTriagemPaciente($nomepaciente,$generoPacinete,$nascimentoPacinete)
+    public function registrarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete, $bilhetePaciente)
     {
         // Obtem os dados do formularios de triagem 
         $this->nome_paciente = $nomepaciente;
         $this->genero_paciente = $generoPacinete;
         $this->nascimento_paciente = $nascimentoPacinete;
-        
+        $this->bilhete_paciente = $bilhetePaciente;
+
         $usuarioLogado = Session::getUsuarioLogado();
         // Pega a data actual do cadastro
         $this->create_paciente = date('y-m-d H:i:s');
@@ -83,24 +85,25 @@ class PacienteDao
             'id_paciente' => $this->id_paciente,
             'nome_paciente' => $this->nome_paciente,
             'genero_paciente' => $this->genero_paciente,
+            'bilhete_paciente' => $this->bilhete_paciente,
             'nascimento_paciente' => $this->nascimento_paciente,
             'estado_paciente' => $this->estado_paciente = "Aberto",
             'id_funcionario' => $this->id_funcionario,
-            'imagem_paciente' => $this->imagem_paciente="anonimo.png",
+            'imagem_paciente' => $this->imagem_paciente = "anonimo.png",
             'create_paciente' => $this->create_paciente,
         ]);
 
         return $this->id_paciente;
     }
-    
+
     // Metodo para cadastrar Paciente 
-    public function AtualizarTriagemPaciente($nomepaciente,$generoPacinete,$nascimentoPacinete)
+    public function AtualizarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete)
     {
         // Obtem os dados do formularios de triagem 
         $this->nome_paciente = $nomepaciente;
         $this->genero_paciente = $generoPacinete;
         $this->nascimento_paciente = $nascimentoPacinete;
-        
+
         $usuarioLogado = Session::getUsuarioLogado();
         // Pega a data actual do cadastro
         $this->create_paciente = date('y-m-d H:i:s');
@@ -114,11 +117,12 @@ class PacienteDao
         $obDatabase->update('id_paciente = ' . $this->id_paciente, [
             'id_paciente' => $this->id_paciente,
             'nome_paciente' => $this->nome_paciente,
+            'bilhete_paciente' => $this->bilhete_paciente,
             'genero_paciente' => $this->genero_paciente,
             'nascimento_paciente' => $this->nascimento_paciente,
             'estado_paciente' => $this->estado_paciente = "Aberto",
             'id_funcionario' => $this->id_funcionario,
-            'imagem_paciente' => $this->imagem_paciente="anonimo.png",
+            'imagem_paciente' => $this->imagem_paciente = "anonimo.png",
             'create_paciente' => $this->create_paciente,
         ]);
 
@@ -185,8 +189,7 @@ class PacienteDao
      */
     public static function quantidadeNeogio($where = null, $order = null, $limit = null, $fields = 'COUNT(*) as quantidade')
     {
-        return (new Database('negocio'))->select($where, $order, $limit, $fields)->fetchObject()->quantidade;
-        ;
+        return (new Database('negocio'))->select($where, $order, $limit, $fields)->fetchObject()->quantidade;;
     }
 
     // * Apresenta dados dos Vendedor negocios
