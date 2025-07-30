@@ -38,12 +38,13 @@
           <li class="capitalize">Nome Completo: <span>{{nome}}</span> </li>
           <li class="capitalize">Gênero: <span>{{genero}}</span></li>
           <li class="capitalize">Idade: <span>{{ano}} anos</span></li>
+          <li class="capitalize">Documento/bilhete: <span>{{bilhete}}</span></li>
           <li class="capitalize">Pioridade: <span>{{pioridade}}</span></li>
         </ul>
 
         <h6 class="capitalize negrito">Sinais Vitais</h6>
         <ul>
-          <li class="capitalize"><strong>Peso:</strong>     {{peso}} kg</li>
+          <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
           <li class="capitalize"><strong>Temperatura corporal:</strong> {{temperatura}} °C</li>
           <li class="capitalize"><strong>Pressão arterial:</strong> {{pressao}} mmHg</li>
           <li class="capitalize"><strong>Frequência cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
@@ -71,8 +72,13 @@
         <br>
 
         <div>
-          <a href="{{URL}}/triagem" class="col offset-m5 btn m2 white-text font-normal right">{{button1}}</a>
-          <br>
+          <form class="" method="post" enctype="multipart/form-data">
+            <button type="submit" name="finaliza" class="col offset-m9 btn m3 white-text font-normal ">
+            {{button1}}
+            </button>
+            <br>
+          </form>
+
         </div>
         <div><br></div>
       </div>

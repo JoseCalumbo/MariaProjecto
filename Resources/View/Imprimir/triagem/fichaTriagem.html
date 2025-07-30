@@ -7,14 +7,20 @@
 
     <link rel="stylesheet" href="{{URL}}/Assets/css/material">
 
-    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize1.css" />
 
     <title>Ficha nº {{numero}} - {{nome}} </title>
 
     <style>
         * {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            /* espaço entre os itens */
+            margin-left: 10px;
+            list-style: none;
         }
 
         .cor {
@@ -35,22 +41,30 @@
         }
 
         .font-normal {
-            font-size: 11pt;
+            font-size: 12pt;
             font-weight: normal;
             text-transform: none;
         }
 
         .font-small {
-            font-size: 8pt;
+            font-size: 10pt;
             text-transform: none;
+            font-weight: normal;
+
         }
 
         .font-titulo {
-            font-size: 14pt;
+            font-size: 16pt;
             text-transform: none;
             margin-top: 5px;
             text-decoration: underline;
             font-weight: bolder;
+        }
+
+        .font-subtitulo {
+            font-size: 14pt;
+            text-transform: none;
+            margin-top: 8px;
         }
 
         .negrito {
@@ -58,20 +72,22 @@
         }
 
         .tabela {
-            border: 1px solid black !important;
+            border: 0.5px solid black !important;
+            border-collapse: collapse;
+            margin: 0 auto;
         }
 
         .tr {
-            border: 1px solid black !important;
-            height: 3px !important;
+            border: 0.5px solid black !important;
         }
 
         .td {
             border: 1px solid black !important;
-            height: 3px !important;
+            height: 30px !important;
+            font-size: 11pt;
+            vertical-align: middle !important;
+            padding-left: 11px;
         }
-
-
 
         .desc {
             border-left: 1.5px solid rgba(0, 0, 0, 0.568);
@@ -80,6 +96,15 @@
         .center {
             text-align: center;
         }
+
+        .card-li{
+            height: 120px;
+            border: 0.5px solid rgba(73, 73, 73, 0.432);
+            list-style: none;
+       }
+       .div-obs{
+        padding: 5px;
+       }
     </style>
 
 </head>
@@ -93,42 +118,54 @@
         </div>
         <h3 class="font-titulo center">Clínica Geral Gestão Auxiliar IA </h3>
 
-        <div class="col m12 center">
-            <h6>Ficha de Triagem Médica </h6>
-        </div>
+        <p class=" center font-subtitulo negrito">Ficha de Triagem Médica </p>
 
-        <br>
-        <br>
-        <br>
-        <table style="width:100%" class="tabela">
+        <table style="width:90%" class="tabela">
             <tr class="tr">
-                <td style="width:55%" class="td"><strong class="font-normal negrito">Nome: </strong> {{nome}}</td>
+
+                <td style="width:50%" class="td">
+                    <strong class="font-normal negrito">Nome: </strong> {{nome}}
+                </td>
                 <td class="td">
-                    <strong class="font-normal negrito">Data :</strong> {{registrodata}}
-                    <strong class="font-normal negrito">Hora :</strong> {{registrohora}}
+                    <strong class="negrito font-normal">Data :</strong> {{registrodata}}
+                    <strong class="negrito font-normal">Hora :</strong> {{registrohora}}
                 </td>
             </tr>
             <tr class="tr">
-                <td style="width:55%" class="td"><strong class="font-normal negrito">Idade:</strong> {{nascimento}} Anos
+
+                <td style="width:50%;" class="td">
+                    <strong class="font-normal negrito">Idade:</strong> {{nascimento}} anos
                 </td>
-                <td class="td"><strong class="font-normal negrito">Número do paciente :</strong> {{numero}}</td>
+                <td class="td">
+                    <strong class="font-normal negrito">Número do paciente :</strong> {{numero}}
+                </td>
             </tr>
         </table>
 
         <div>
-            <h6 class=" center">Sinais vitais analizados</h6>
+            <div><br></div>
+            <p class="font-subtitulo center negrito">Sinais Vitais</p>
         </div>
-        <ul>
+        
+        <ul class="lista-sinal">
             <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
             <li class="capitalize"><strong>Temperatura Corporal:</strong> {{temperatura}} °C</li>
             <li class="capitalize"><strong>Pressão Arterial:</strong> {{pressao}} mmHg</li>
             <li class="capitalize"><strong>Frequência Cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
             <li class="capitalize"><strong>Frequência Respiratória:</strong> {{frequencia_respiratorio}} irpm</li>
+            <li class="capitalize"><strong>Saturação de Oxigênio:</strong> {{saturacao}} %</li>
+        </ul>
+
+        <div>
+            <div><br></div>
+            <p class="font-subtitulo center negrito">Avaliação Clínica Rapida</p>
+        </div>
+        <ul class="lista-sinal">
+            <li class="capitalize"><strong>Pioridade:</strong> {{pioridade}}</li>
+            <li class="capitalize"><strong>Observação:</strong> {{obs}}</li>
         </ul>
 
     </div>
-
-    <br>
 
     <div class="row">
 
@@ -140,7 +177,7 @@
     </div>
 
     <br>
-    <p class="center-align">
+    <p class="center font-small">
         <strong>Processado por computador em {{data}}</strong>
     </p>
     </div>

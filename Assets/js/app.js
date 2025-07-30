@@ -48,6 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// form not Acordion 
+document.addEventListener('DOMContentLoaded', function () {
+  var elemsNovos = document.querySelectorAll('.collapsibleFromNovo');
+  var instances = M.Collapsible.init(elemsNovos, {
+    accordion: true,
+    inDuration: 100,
+    outDuration: 100,
+  });
+});
+
 
 //abas do painel de vendedor
 document.addEventListener('DOMContentLoaded', function () {

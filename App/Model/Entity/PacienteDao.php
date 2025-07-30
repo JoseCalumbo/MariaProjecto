@@ -97,12 +97,13 @@ class PacienteDao
     }
 
     // Metodo para cadastrar Paciente 
-    public function AtualizarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete)
+    public function AtualizarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete,$bilhetePaciente )
     {
         // Obtem os dados do formularios de triagem 
         $this->nome_paciente = $nomepaciente;
         $this->genero_paciente = $generoPacinete;
         $this->nascimento_paciente = $nascimentoPacinete;
+        $this->bilhete_paciente = $bilhetePaciente;
 
         $usuarioLogado = Session::getUsuarioLogado();
         // Pega a data actual do cadastro

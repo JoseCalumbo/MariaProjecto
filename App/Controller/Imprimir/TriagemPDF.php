@@ -103,6 +103,10 @@ class TriagemPDF
         //Obtem os dados do usuario
         // $dados = self::getTriagemPDF($request, $id_triagem);
 
+         //Pega o id do usuario logado
+        $usuarioLogado = Session::getUsuarioLogado();
+        $funcionario = $usuarioLogado['nome'];
+
         // formata a idade do paciente
         $formataIdade = date("Y", strtotime($triagemRegistrado->nascimento_paciente));
         $idade = date("Y") - $formataIdade;
@@ -114,6 +118,30 @@ class TriagemPDF
 
         //obtem a data da impressao
         $data = Date('d/m/Y - H:i');
+
+        // pioridade de atendimento
+        $atender = $triagemRegistrado->risco_triagem;
+        $triagemAtender = "";
+        switch ($atender) {
+            case 'a':
+                $triagemAtender = "Vermelho";
+                break;
+            case 'b':
+                $triagemAtender = "Laranja";
+                break;
+            case 'c':
+                $triagemAtender = "Amarelo";
+                break;
+            case 'd':
+                $triagemAtender = "Verde";
+                break;
+            case 'e':
+                $triagemAtender = "Azul";
+                break;
+        } // fim do switch
+
+                //Obtem a data e hora actual 
+        $dataHoje = date('d-m-Y H:i:s');
 
         //obtem a logo
         $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu1.png';
@@ -127,11 +155,18 @@ class TriagemPDF
             'registrodata' => $dataTriagem,
             'registrohora' => $horaTriagem,
             'logo' => $logo,
-            'peso' => $logo,
-            'temperatura' => $logo,
-            'pressao' => $logo,
-            'frequencia_cardiaca' => $logo,
-            'frequencia_respiratorio' => $logo,
+
+            'peso' => $triagemRegistrado->peso_triagem,
+            'temperatura' => $triagemRegistrado->temperatura_triagem,
+            'pressao' => $triagemRegistrado->pressao_arterial_triagem,
+            'frequencia_cardiaca' => $triagemRegistrado->frequencia_cardiaca_triagem = empty($triagemRegistrado -> frequencia_cardiaca_triagem) ? '______ ': $triagemRegistrado -> frequencia_cardiaca_triagem,
+            'frequencia_respiratorio' => $triagemRegistrado->frequencia_respiratorio_triagem  = empty($triagemRegistrado->frequencia_respiratorio_triagem) ? '______ ': $triagemRegistrado->frequencia_respiratorio_triagem,
+            'saturacao' => $triagemRegistrado->Saturacao_oxigenio_triagem = empty($triagemRegistrado->Saturacao_oxigenio_triagem) ? '______ ':$triagemRegistrado->Saturacao_oxigenio_triagem,
+            'pioridade' => $triagemAtender,
+            'obs' => $triagemRegistrado->observacao_triagem,
+            'funcionario' => $funcionario,
+            'data' => $dataHoje,
+
         ]);
     }
 

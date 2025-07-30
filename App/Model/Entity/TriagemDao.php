@@ -66,11 +66,11 @@ class TriagemDao extends PacienteDao
 
 
     //Método responsavel por Alterar o registrar da triagem
-    public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente)
+    public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente, $bilhetePaciente )
     {
 
         $obPacientes = PacienteDao::getPacienteId($idPaciente);
-        $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete);
+        $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete,$bilhetePaciente );
         $this->id_paciente = $idPacienteEditado;
 
         return (new Database('tb_triagem'))->update('id_triagem = ' . $this->id_triagem, [
@@ -82,7 +82,7 @@ class TriagemDao extends PacienteDao
             'pressao_arterial_triagem' => $this->pressao_triagem,
 
             'frequencia_cardiaca_triagem' => $this->cardiaca_triagem,
-            'frequencia_triagem' => $this->frequencia_triagem,
+            'frequencia_respiratorio_triagem' => $this->frequencia_triagem,
             'Saturacao_oxigenio_triagem' => $this->saturacao_triagem,
 
             'risco_triagem' => $this->risco_triagem ,

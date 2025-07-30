@@ -9,7 +9,7 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger tooltip-container " href="{{id_triagem}}" data-target="modaluser">
+        <a class="modal-trigger tooltip-container " href="{{URL}}/triagem/add-registro/{{id_triagem}}" data-target="modaluser">
             <button type="button" class="font-normal waves-effect green accent-4 btn">
                 <i class="material-icons center">add</i>
             </button>
@@ -22,15 +22,6 @@
             </button>
             <div class="custom-tooltip">Editar triagem</div>
         </a>
-
-        <!--
-             <a class="tooltippedListagem tooltip-wrapper " href="{{URL}}/triagem/editar/{{id_triagem}}" data-position="top"
-            data-tooltip="Editar Triagem">
-            <button type="button " class="font-normal waves-effect waves-light btn blue darken-2 tooltip-btn">
-                <i class="material-icons center">edit</i>
-            </button>
-        </a>   
-        -->
 
         <a class="modal-trigger tooltip-container " href="#modal{{id_triagem}}">
             <button type="button" class="font-normal waves-light red lighten-1 btn tooltip-btn">
@@ -81,7 +72,6 @@
         </div>
     </div>
 </div>
-
 
 <!--- Modal Responsavel para apresentar o modal deletar triagem -->
 <div id="modal{{id_triagem}}" class="modal modalApagarTriagem ">
