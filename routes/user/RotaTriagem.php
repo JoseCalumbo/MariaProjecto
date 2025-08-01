@@ -58,6 +58,13 @@ $obRouter->get('/triagem/add-registro/{id_triagem}',[
     ],
     function($request,$id_triagem){ return new Response(200,Pages\Triagem::cadastrarNovaTriagem($request,$id_triagem));}
 ]);
+// Rota add um novo registro da triagem GET
+$obRouter->post('/triagem/add-registro/{id_triagem}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request,$id_triagem){ return new Response(200,Pages\Triagem::cadastrarNovaTriagem($request,$id_triagem));}
+]);
 
 
 

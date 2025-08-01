@@ -63,6 +63,37 @@ class TriagemDao extends PacienteDao
         ]);
         return $this->id_triagem;
     }
+    //Método responsavel por Registrar 
+    public function cadastrarNovaTriagem($idPacinete)
+    {
+        //Pega o id do usuario logado
+        $usuarioLogado = Session::getUsuarioLogado();
+        $this->id_funcionario = $usuarioLogado['id'];
+
+        $this->id_paciente = $idPacinete;
+
+        //Obtem a data e hora actual 
+        $this->data_triagem = date('y-m-d H:i:s');
+
+        $obDatabase = new Database('tb_triagem');
+        $this->id_triagem = $obDatabase->insert([
+            'id_triagem' => $this->id_triagem,
+            'observacao_triagem' => $this->observacao_triagem,
+
+            'peso_triagem' => $this->peso_triagem,
+            'temperatura_triagem' => $this->temperatura_triagem,
+            'pressao_arterial_triagem' => $this->pressao_triagem,
+            'frequencia_cardiaca_triagem' => $this->cardiaca_triagem,
+            'frequencia_respiratorio_triagem' => $this->frequencia_triagem,
+            'Saturacao_oxigenio_triagem' => $this->saturacao_triagem,
+
+            'id_paciente' => $this->id_paciente,
+            'id_funcionario' => $this->id_funcionario,
+            'data_triagem' => $this->data_triagem,
+            'risco_triagem' => $this->risco_triagem 
+        ]);
+        return $this->id_triagem;
+    }
 
 
     //Método responsavel por Alterar o registrar da triagem

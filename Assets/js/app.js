@@ -28,15 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// form not Acordion 
-document.addEventListener('DOMContentLoaded', function () {
-  var elems = document.querySelectorAll('.collapsibleF');
-  var instances = M.Collapsible.init(elems, {
-    accordion: false,
-    inDuration: 100,
-    outDuration: 100,
-  });
-});
 
 // form not Acordion 
 document.addEventListener('DOMContentLoaded', function () {
@@ -48,14 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// form not Acordion 
-document.addEventListener('DOMContentLoaded', function () {
-  var elemsNovos = document.querySelectorAll('.collapsibleFromNovo');
-  var instances = M.Collapsible.init(elemsNovos, {
-    accordion: true,
-    inDuration: 100,
-    outDuration: 100,
-  });
+
+// Inicializa o collapsible expansível
+var expandable = document.querySelectorAll('.collapsible.expandable');
+M.Collapsible.init(expandable, {
+  accordion: false
 });
 
 

@@ -46,6 +46,25 @@
             /* (Opcional) cor de fundo */
             font-weight: bold !important;
         }
+
+        .custom-search input[type="search"] {
+            color: white !important;
+            /* Cor branca padrão */
+            font-size: 13pt;
+            background-color: #607d8b !important;
+        }
+
+        .custom-search input[type="search"]:focus {
+            background-color: white !important;
+            /* muda o fundo ao focar */
+            color: black !important;
+            /* muda a cor do texto ao focar */
+        }
+
+        /* Muda a cor do placeholder também (opcional) */
+        .custom-search input[type="search"]::placeholder {
+            color: #0c0c0c !important;
+        }
     </style>
 </head>
 
@@ -57,11 +76,14 @@
 
     {{footer}}
 
+    <!--Import script js materialize do app -->
+    <script src="{{URL}}/Assets/js/materialize.js"></script>
+
     <!--Import script js principal do app -->
     <script src="{{URL}}/Assets/js/app.js"></script>
 
-    <!--Import script js materialize do app -->
-    <script src="{{URL}}/Assets/js/materialize.js"></script>
+    <!--Import script js principal do app -->
+    <script src="{{URL}}/Assets/js/scripts.js"></script>
 
 </body>
 

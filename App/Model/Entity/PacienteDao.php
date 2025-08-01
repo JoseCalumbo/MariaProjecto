@@ -159,12 +159,12 @@ class PacienteDao
     }
 
     /**
-     * lista todos os dados do vendedor
+     * Lista todos os dados dos Paciente
      * @param string $where
      */
-    public static function listarVendedor($where = null, $order = null, $limit = null, $fields = '*')
+    public static function listarPaciente($where = null, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('vendedor'))->select($where, $order, $limit, $fields);
+        return (new Database('tb_paciente'))->select($where, $order, $limit, $fields);
     }
 
     /**
@@ -191,25 +191,5 @@ class PacienteDao
     public static function quantidadeNeogio($where = null, $order = null, $limit = null, $fields = 'COUNT(*) as quantidade')
     {
         return (new Database('negocio'))->select($where, $order, $limit, $fields)->fetchObject()->quantidade;;
-    }
-
-    // * Apresenta dados dos Vendedor negocios
-    // * @param string $where
-    // *
-    public static function negocioVendedor($id)
-    {
-        return (new Database('negocio_vendedor JOIN negocio ON 
-        negocio.id_negocio = negocio_vendedor.id_negocio 
-        '))->select('id_vendedor = ' . $id)->fetchAll(PDO::FETCH_CLASS, self::class);
-    }
-
-    // * Apresenta dados zonas vendedor
-    // * @param string $where
-    // *
-    public static function negocioZona($id)
-    {
-        return (new Database('vendedor JOIN zona ON 
-        vendedor.id_zona = zona.id_zona 
-        '))->select('id = ' . $id)->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 }

@@ -45,9 +45,19 @@ class Triagem extends Page
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
-        $condicoes = [
-            strlen($buscar) ? ' nome_paciente LIKE "' . $buscar . '%"' : null,
-        ];
+        $buscar1 = filter_input(INPUT_GET, 'pesquisar1', FILTER_SANITIZE_STRING);
+
+        if (empty($buscar1)) {
+            # code...
+            $condicoes = [
+                strlen($buscar) ? ' nome_paciente LIKE "' . $buscar . '%"' : null,
+            ];
+        } else {
+            # code...
+            $condicoes = [
+                strlen($buscar1) ? ' bilhete_paciente LIKE "' . $buscar1 . '%"' : null,
+            ];
+        }
 
         // coloca na consulta sql
         $where = implode(' AND ', $condicoes);
@@ -67,7 +77,7 @@ class Triagem extends Page
         while ($triagem = $resultado->fetchObject(TriagemDao::class)) {
 
             // formata o hora 
-            $formatadaHora = date("h:i", strtotime($triagem->data_triagem));
+            $formatadaHora = date("d-m-Y / h:i", strtotime($triagem->data_triagem));
 
             $atender =  $triagem->risco_triagem;
             $triagemAtender = "";
@@ -177,21 +187,18 @@ class Triagem extends Page
     }
 
     //Método responsavel por cadastrar novo triagem para os paciente
-    public static function cadastrarNovaTriagem($request,$id_triagem)
+    public static function cadastrarNovaTriagem($request, $id_triagem)
     {
         //Instancia da classe model da triagem
         $triagemCadastrar = TriagemDao::getTriagemRegistradoId($id_triagem);
 
-        $postVars = $request->getPostVars();
+        $idPaciente = $triagemCadastrar->id_paciente;
 
-        $nomePacinete = $postVars['nome'] ?? '';
-        $generoPacinete = $postVars['genero'] ?? '';
-        $nascimentoPacinete = $postVars['nascimento'] ?? '';
-        $bilhetePaciente = $postVars['bilhete'] ?? '';
+        $postVars = $request->getPostVars();
 
         $obTriagem = new TriagemDao;
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['nascimento'])) {
+        if (isset($_POST['peso'], $_POST['temperatura'])) {
 
             $obTriagem->peso_triagem = $_POST['peso'];
             $obTriagem->temperatura_triagem = $_POST['temperatura'];
@@ -203,21 +210,25 @@ class Triagem extends Page
             $obTriagem->observacao_triagem = $_POST['obs'];
 
             // Método de acesso para enviar dados para cadastrar triagem
-            $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
+            $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
 
             $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '');
             exit;
         }
         $content = View::render('triagem/formTriagemNova', [
-            'titulo' => ' '.$triagemCadastrar->nome_paciente.' - Cadastrar  Nova triagem',
+            'titulo' => ' ' . $triagemCadastrar->nome_paciente . ' - Cadastrar  Nova triagem',
             'pesquisar' => '',
             'nome' => $triagemCadastrar->nome_paciente,
-            'bilhete' => '',
+            'data' => $triagemCadastrar->nascimento_paciente,
+            'bilhete' => $triagemCadastrar->bilhete_paciente,
+            'genero' => $triagemCadastrar->genero_paciente == 'Feminino' ? 'checked' : '',
             'frequencia' => '',
             'pressao' => '',
+            'saturacao' => '',
+            'cardiaca' => '',
             'peso' => '',
             'temperatura' => '36',
-            'data' => '',
+
             'obs' => '',
             'button' => 'Salvar',
         ]);

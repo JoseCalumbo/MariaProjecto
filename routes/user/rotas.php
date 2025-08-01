@@ -19,64 +19,6 @@ $obRouter->get('/home',[
 ]);
 
 
-//_________________________________Paciente___________________________________
-$obRouter->get('/vendedor',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\vendedor::telaVendedor($request));}
-]);
-
-$obRouter->post('/vendedor',[
-    function($request){ return new Response(200,Pages\vendedor::telaVendedor($request));}
-]);
-
-// rota para cadastrar um vendedor
-$obRouter->get('/cadastrarvendedor',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\vendedor::cadastrarVendedor($request,$id));}
-]);
-
-// rota para post cadastrar um vendedor
-$obRouter->post('/cadastrarvendedor',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\vendedor::cadastrarVendedor($request,$id));}
-]);
-
-// rota para editar um vendedor
-$obRouter->get('/vendedor/editar/{id}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\vendedor::atualizarVendedor($request,$id));}
-]);
-
-// rota para editar um vendedor
-$obRouter->post('/vendedor/editar/{id}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\vendedor::atualizarVendedor($request,$id));}
-]);
-
-$obRouter->get('/vendedor/apagar/{id}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\vendedor::apagarVendedor($request,$id));}
-]);
-
-// rota para apagar um vendedor
-$obRouter->post('/vendedor/apagar/{id}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\vendedor::apagarVendedor($request,$id));}
-]);
 
 //________________________________relatorio__________________________
 $obRouter->get('/relatorio',[
@@ -213,9 +155,9 @@ $obRouter->get('/acesso/negado',[
 ]);
 
 /**
- * __________________________________Tesouraria_______________________________
+ * __________________________________Paciente _______________________________
  * inclui as rotas de RotaTesouraria
 */
-include __DIR__.'/RotaTesouraria.php';
+include __DIR__.'/RotaPaciente.php';
 
 

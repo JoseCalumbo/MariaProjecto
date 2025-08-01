@@ -2,51 +2,63 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vídeo em Modal</title>
-
-  <!-- Materialize CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-  <!-- Material Icons (opcional) -->
+  <title>Collapsibles Múltiplos</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <style>
-    body {
-      padding: 50px;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
 
-  <!-- Botão para abrir o modal -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modalVideo">
-    <i class="material-icons left">play_circle_filled</i>Ver Vídeo
-  </a>
+<div class="container">
+  <h5>Collapsible Expandable (Vários abertos)</h5>
+  <ul class="collapsible expandable">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">folder</i>Item 1</div>
+      <div class="collapsible-body"><span>Conteúdo do item 1.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">folder</i>Item 2</div>
+      <div class="collapsible-body"><span>Conteúdo do item 2.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">folder</i>Item 3</div>
+      <div class="collapsible-body"><span>Conteúdo do item 3.</span></div>
+    </li>
+  </ul>
 
-  <!-- Modal com vídeo -->
-  <div id="modalVideo" class="modal">
-    <div class="modal-content">
-      <h5>Assista ao Vídeo</h5>
-      <div class="video-container">
-        <iframe width="853" height="480" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
-    </div>
-  </div>
+  <h5>Collapsible Accordion (Um aberto de cada vez)</h5>
+  <ul class="collapsible accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">folder_open</i>Item A</div>
+      <div class="collapsible-body"><span>Conteúdo do item A.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">folder_open</i>Item B</div>
+      <div class="collapsible-body"><span>Conteúdo do item B.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">folder_open</i>Item C</div>
+      <div class="collapsible-body"><span>Conteúdo do item C.</span></div>
+    </li>
+  </ul>
+</div>
 
-  <!-- Materialize JS + jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-  <!-- Inicialização do modal -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.modal');
-      M.Modal.init(elems);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inicializa o collapsible expansível
+    var expandable = document.querySelectorAll('.collapsible.expandable');
+    M.Collapsible.init(expandable, {
+      accordion: false
     });
-  </script>
+
+    // Inicializa o collapsible padrão (accordion)
+    var accordion = document.querySelectorAll('.collapsible.accordion');
+    M.Collapsible.init(accordion, {
+      accordion: true
+    });
+    
+  });
+</script>
+
 </body>
 </html>
