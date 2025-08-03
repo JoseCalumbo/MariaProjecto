@@ -11,18 +11,26 @@ class PacienteDao
     // dados do paciente pessoal
     public $id_paciente;
     public $nome_paciente;
-    public $bilhete_paciente;
-    public $genero_paciente;
-    public $nascimento_paciente;
     public $pai_paciente;
     public $mae_paciente;
+    public $genero_paciente;
+    public $nascimento_paciente;
+    public $nacionalidade_paciente;
+    public $bilhete_paciente;
 
-    public $email_paciente;
     public $telefone1_paciente;
     public $telefone2_paciente;
+    public $email_paciente;
     public $morada_paciente;
-    public $imagem_paciente;
+
+    public $motivo_paciente;
     public $estado_paciente;
+    public $responsavelNome_paciente;
+    public $responsavelTelefone_paciente;
+
+    public $imagem_paciente;
+    public $documentos_paciente;
+    
     public $create_paciente;
 
     // campos chaves estrageiras 
@@ -36,24 +44,30 @@ class PacienteDao
         $this->create_paciente = date('y-m-d H:i:s');
         //Pega o id do usuario logado
         $this->id_funcionario = $usuarioLogado['id'];
+        
         // o estado actual do vendedor
-        $this->estado_paciente = 'activo';
+        $this->estado_paciente = 'Em atendimento';
 
         $obDatabase = new Database('tb_paciente');
 
         $this->id_paciente = $obDatabase->insert([
             'id_paciente' => $this->id_paciente,
             'nome_paciente' => $this->nome_paciente,
+            'bilhete_paciente' => $this->bilhete_paciente,
             'genero_paciente' => $this->genero_paciente,
+            'nacionalidade_paciente' => $this->nacionalidade_paciente,
             'nascimento_paciente' => $this->nascimento_paciente,
             'pai_paciente' => $this->pai_paciente,
             'mae_paciente' => $this->mae_paciente,
-            'bilhete_paciente' => $this->bilhete_paciente,
+            'responsavel_paciente' => $this->responsavelNome_paciente,
+            'telefoneResponsavel_paciente' => $this->responsavelTelefone_paciente,
+            'motivo_paciente' => $this->morada_paciente,
             'email_paciente' => $this->email_paciente,
             'telefone1_paciente' => $this->telefone1_paciente,
             'telefone2_paciente' => $this->telefone2_paciente,
             'morada_paciente' => $this->morada_paciente,
             'imagem_paciente' => $this->imagem_paciente,
+            'documentos_paciente' => $this->documentos_paciente,
             'estado_paciente' => $this->estado_paciente,
             'id_funcionario' => $this->id_funcionario,
             'create_paciente' => $this->create_paciente,
@@ -97,7 +111,7 @@ class PacienteDao
     }
 
     // Metodo para cadastrar Paciente 
-    public function AtualizarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete,$bilhetePaciente )
+    public function AtualizarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete, $bilhetePaciente)
     {
         // Obtem os dados do formularios de triagem 
         $this->nome_paciente = $nomepaciente;
@@ -133,19 +147,24 @@ class PacienteDao
     //atulizar campo de vendedor
     public function atualizar()
     {
-        return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_funcionario, [
+        return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
             'id_paciente' => $this->id_paciente,
             'nome_paciente' => $this->nome_paciente,
+            'bilhete_paciente' => $this->bilhete_paciente,
             'genero_paciente' => $this->genero_paciente,
+            'nacionalidade_paciente' => $this->nacionalidade_paciente,
             'nascimento_paciente' => $this->nascimento_paciente,
             'pai_paciente' => $this->pai_paciente,
             'mae_paciente' => $this->mae_paciente,
-            'bilhete_paciente' => $this->bilhete_paciente,
+            'responsavel_paciente' => $this->responsavelNome_paciente,
+            'telefoneResponsavel_paciente' => $this->responsavelTelefone_paciente,
+            'motivo_paciente' => $this->motivo_paciente,
             'email_paciente' => $this->email_paciente,
             'telefone1_paciente' => $this->telefone1_paciente,
             'telefone2_paciente' => $this->telefone2_paciente,
             'morada_paciente' => $this->morada_paciente,
             'imagem_paciente' => $this->imagem_paciente,
+            'documentos_paciente' => $this->documentos_paciente,
             'estado_paciente' => $this->estado_paciente,
             'id_funcionario' => $this->id_funcionario,
             'create_paciente' => $this->create_paciente,

@@ -38,21 +38,53 @@ $obRouter->post('/paciente/cadastrar',[
 ]);
 
 
-// rota para editar um vendedor
-$obRouter->get('/vendedor/editar/{id}',[
+// rota para editar um paciente
+$obRouter->get('/paciente/editar/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request,$id){ return new Response(200,Pages\Paciente::atualizarVendedor($request,$id));}
+    function($request,$id_paciente){ return new Response(200,Pages\Paciente::editarPaciente($request,$id_paciente));}
 ]);
 
-// rota para editar um vendedor
-$obRouter->post('/vendedor/editar/{id}',[
+// rota para editar um paciente
+$obRouter->post('/paciente/editar/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request,$id){ return new Response(200,Pages\Paciente::atualizarVendedor($request,$id));}
+    function($request,$id_paciente){ return new Response(200,Pages\Paciente::editarPaciente($request,$id_paciente));}
 ]);
+
+// rota para conta do paciente
+$obRouter->get('/paciente/{id_paciente}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    
+    function($request,$id_paciente){ return new Response(200,Pages\Paciente::contaPaciente($request,$id_paciente));}
+]);
+
+// rota para conta do paciente
+$obRouter->get('/triagem/paciente/{id_paciente}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    
+    function($request,$id_paciente){ return new Response(200,Pages\Paciente::addTriagem($request,$id_paciente));}
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $obRouter->get('/vendedor/apagar/{id}',[
     'middlewares'=>[

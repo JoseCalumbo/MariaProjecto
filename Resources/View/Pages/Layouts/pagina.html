@@ -9,6 +9,8 @@
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <link href="{{URL}}/Assets/css/material-icons.css" rel="stylesheet">
 
+    <link rel="icon" href="{{URL}}/icon.png" type="image/x-icon">
+
     <!-- fontawesome-->
     <link rel="stylesheet" href="{{URL}}/Assets/icon/fontawesome-free-6.7.2-web/css/all.css">
 
@@ -54,6 +56,13 @@
             background-color: #607d8b !important;
         }
 
+        .tab-content {
+            min-height: 300px !important;
+            padding: 20px !important;
+            border: 1px solid #dddddd2f !important;
+            border-top: none !important;
+        }
+
         .custom-search input[type="search"]:focus {
             background-color: white !important;
             /* muda o fundo ao focar */
@@ -64,6 +73,29 @@
         /* Muda a cor do placeholder também (opcional) */
         .custom-search input[type="search"]::placeholder {
             color: #0c0c0c !important;
+        }
+
+        /* Cor da linha indicadora da aba ativa */
+        .tabs .indicator {
+            background-color: #004d40 !important;
+            /* Laranja forte */
+        }
+
+        /* Cor do texto das abas padrão */
+        .tabs .tab a {
+            color: #fdfcfc !important;
+            /* Cinza escuro */
+        }
+
+        /* Cor ao passar o mouse */
+        .tabs .tab a:hover {
+            color: #ffffff !important;
+        }
+
+        /* Cor da aba ativa */
+        .tabs .tab a.active {
+            color: #ffffff !important;
+            font-weight: bold !important;
         }
     </style>
 </head>

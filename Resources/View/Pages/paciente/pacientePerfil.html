@@ -1,0 +1,85 @@
+<div class="container" style="margin-top: 30px;">
+  <div class="row">
+    <div class="col s12 m4 center-align">
+      <!-- Foto do Paciente -->
+      <img src="{{URL}}/Files/imagem/paciente/{{imagem}}" width="120" height="89" alt="Foto do Paciente"
+        class="profile-pic ">
+
+      <h6>{{nome}}</h6>
+      <p class="grey-text">Paciente desde 2021</p>
+      <ul class="collection with-header ">
+        <a href="{{URL}}/admin/conta" class="collection-item capitalize {{active}}">Editar conta</a>
+        <a href="{{URL}}/admin/seguranca" class="collection-item capitalize ">Imprimir Ficha</a>
+        <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Apagar conta</a>
+
+      </ul>
+    </div>
+
+    <div class="col s12 m8">
+      <!-- Abas -->
+      <ul class="tabs teal accent-4">
+        <li class="tab col s2 m3 capitalize"><a class="active" href="#dados">Dados</a></li>
+        <li class="tab col s2 m3 capitalize"><a href="#consultas">Consultas</a></li>
+        <li class="tab col s2 m3 capitalize"><a href="#triagem">Triagem</a></li>
+        <li class="tab col s2 m3 capitalize"><a href="#exames">Exames</a></li>
+        <li class="tab col s2 m3 capitalize"><a href="#historico">Histórico</a></li>
+      </ul>
+
+      <!-- Conteúdo das Abas -->
+      <div id="dados" class="tab-content">
+        <h6 class="capitalize"> <strong>📄 Dados do Paciente</strong></h6>
+        <p> <strong>Nome:</strong>  {{nome}}  <strong>Bilhete:</strong> {{bilhete}} </p>
+        <p><strong>Filiação:</strong>  {{pai}} e {{mae}}</p>
+        <p>Nacionalidade: {{estrageiro}}  |  Gênero: {{genero}} </p>
+        <p>Data de nascimento: {{data}} </p>
+        <p>Telefone: {{telefone1}} e {{telefone2}}  </p>
+        <p>Email: {{email}} </p>
+        <p>Endereço: {{morada}} </p>
+        <h6 class="capitalize"> <strong>📄 Informações Clínicas Iniciais e Administrativas</strong></h6>
+        <p><strong>Motivo da entrada:</strong> {{motivo}}  </p>
+        <p><strong>Estado:</strong>  {{estado}}</p>
+        <p><strong>Responsavel do Paciente:</strong>  {{responsavelNome}} e <strong>Telefone do Responsavel:</strong>{{responsavelTelefone}} </p>
+
+      </div>
+
+      <div id="consultas" class="tab-content">
+        <h6>👨‍⚕️ Consultas</h6>
+        <ul class="collection">
+          <li class="collection-item">Consulta com Dr. Marcos - 10/07/2025</li>
+          <li class="collection-item">Retorno agendado - 05/08/2025</li>
+        </ul>
+      </div>
+
+      <div id="triagem" class="tab-content">
+        <h6>🩺 Triagem</h6>
+        <p>Pressão: 120/80 mmHg</p>
+        <p>Frequência Cardíaca: 78 bpm</p>
+        <p>Temperatura: 37,2 ºC</p>
+        <p>Peso: 72 kg</p>
+      </div>
+
+      <div id="exames" class="tab-content">
+        <h6>🧪 Exames</h6>
+        <ul class="collection">
+          <li class="collection-item">Hemograma completo - 01/07/2025</li>
+          <li class="collection-item">Raio-X Tórax - 15/06/2025</li>
+        </ul>
+      </div>
+
+      <div id="historico" class="tab-content">
+        <h6>📚 Histórico</h6>
+        <p>Doenças anteriores: Sinusite, Gripe</p>
+        <p>Internações: Nenhuma</p>
+        <p>Última atualização: 30/07/2025</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.tabs');
+    M.Tabs.init(elems);
+  });
+</script>

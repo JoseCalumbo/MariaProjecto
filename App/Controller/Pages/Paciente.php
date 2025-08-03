@@ -7,7 +7,7 @@ use \App\Utils\Pagination;
 use \App\Utils\Upload;
 use \App\Model\Entity\PacienteDao;
 use \App\Controller\Mensagem\Mensagem;
-use App\Model\Entity\AddNegocioDao;
+use App\Model\Entity\TriagemDao;
 use App\Model\Entity\ContaDao;
 
 
@@ -24,13 +24,16 @@ class Paciente extends Page
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
-                return Mensagem::msgSucesso('Vendedor Cadastrado com sucesso');
+                return Mensagem::msgSucesso('Paciente Cadastrado com sucesso');
+                break;
+            case 'cadastrados':
+                return Mensagem::msgSucesso('Triagem Registrada com sucesso');
                 break;
             case 'alterado':
-                return Mensagem::msgSucesso('Vendedor Alterado com sucesso');
+                return Mensagem::msgSucesso('Paciente Alterado com sucesso');
                 break;
             case 'apagado':
-                return Mensagem::msgSucesso('Vendedor Apagdo com sucesso');
+                return Mensagem::msgSucesso('Paciente Apagdo com sucesso');
                 break;
         } // fim do switch
     }
@@ -42,7 +45,7 @@ class Paciente extends Page
         $item = '';
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $condicoes = [
-            strlen($buscar) ? 'nome LIKE "' . $buscar . '%"' : null,
+            strlen($buscar) ? 'nome_paciente LIKE "' . $buscar . '%"' : null,
         ];
 
         // coloca na consulta sql
@@ -108,55 +111,73 @@ class Paciente extends Page
     // funcao que cadastra um novo registros na tabela vendedor
     public static function cadastrarPaciente($request)
     {
-
         $obPaciente = new PacienteDao;
 
         $postVars = $request->getPostVars();
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_POST['nivel'], $_FILES['imagem'])) {
+        if (isset($_POST['cadastrar'], $_POST['nome'], $_POST['genero'], $_POST['nascimento'], $_POST['bilhete'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_FILES['imagem'])) {
 
             $obUpload = new Upload($_FILES['imagem']) ?? '';
 
             if ($_FILES['imagem']['error'] == 4) {
 
                 $obPaciente->nome_paciente = $postVars['nome'];
-                $obPaciente->genero_paciente = $postVars['genero'];
-                $obPaciente->nascimento_paciente = $postVars['data'];
                 $obPaciente->pai_paciente = $postVars['pai'];
                 $obPaciente->mae_paciente = $postVars['mae'];
+                $obPaciente->genero_paciente = $postVars['genero'];
+                $obPaciente->nascimento_paciente = $postVars['nascimento'];
+                $obPaciente->nacionalidade_paciente = $postVars['nacionalidade'];
                 $obPaciente->bilhete_paciente = $postVars['bilhete'];
+
                 $obPaciente->telefone1_paciente = $postVars['telefone1'];
                 $obPaciente->telefone2_paciente = $postVars['telefone2'];
                 $obPaciente->email_paciente = $postVars['email'];
                 $obPaciente->morada_paciente = $postVars['morada'];
+
+                $obPaciente->motivo_paciente = $postVars['motivo'];
+                $obPaciente->estado_paciente = $postVars['estado'];
+
+
+                $obPaciente->responsavelNome_paciente = $postVars['responsavelNome'];
+                $obPaciente->responsavelTelefone_paciente = $postVars['responsavelTelefone'];
+
                 $obPaciente->imagem_paciente = 'anonimo.png';
+                $obPaciente->documentos_paciente = 'documentos';
                 $obPaciente->cadastrarPaciente();
 
-                $request->getRouter()->redirect('/vendedor?msg=cadastrado');
+                $request->getRouter()->redirect('/paciente?msg=cadastrado');
                 exit;
             }
 
-            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/vendedor', false);
+            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/paciente', false);
 
             $obPaciente->nome_paciente = $postVars['nome'];
-            $obPaciente->genero_paciente = $postVars['genero'];
-            $obPaciente->nascimento_paciente = $postVars['data'];
             $obPaciente->pai_paciente = $postVars['pai'];
             $obPaciente->mae_paciente = $postVars['mae'];
+            $obPaciente->genero_paciente = $postVars['genero'];
+            $obPaciente->nascimento_paciente = $postVars['nascimento'];
+            $obPaciente->nacionalidade_paciente = $postVars['nacionalidade'];
             $obPaciente->bilhete_paciente = $postVars['bilhete'];
+
             $obPaciente->telefone1_paciente = $postVars['telefone1'];
             $obPaciente->telefone2_paciente = $postVars['telefone2'];
             $obPaciente->email_paciente = $postVars['email'];
             $obPaciente->morada_paciente = $postVars['morada'];
-            // $obPaciente->nivelacademico = $postVars['nivel'];
+
+            $obPaciente->motivo_paciente = $postVars['motivo'];
+            $obPaciente->estado_paciente = $postVars['estado'];
+            $obPaciente->responsavelNome_paciente = $postVars['responsavelNome'];
+            $obPaciente->responsavelTelefone_paciente = $postVars['responsavelTelefone'];
+
+            $obPaciente->documentos_paciente = 'documentos';
             $obPaciente->imagem_paciente = $obUpload->getBaseName();
             $obPaciente->cadastrarPaciente();
 
             if ($sucess) {
-                $request->getRouter()->redirect('/vendedor?msg=cadastrado');
+                $request->getRouter()->redirect('/paciente?msg=cadastrado');
                 exit;
             } else {
-                echo 'Ficheiro nao Enviado';
+                echo 'Ficheiro não Enviado';
             }
         }
 
@@ -173,100 +194,231 @@ class Paciente extends Page
             'email' => '',
             'pai' => '',
             'mae' => '',
+            'motivo' => '',
+            'responsavelNome' => '',
+            'responsavelTelefone' => '',
             'morada' => '',
             'imagem' => 'anonimo.png'
         ]);
 
-        return parent::getPage('Cadastrar Vendedor', $content);
+        return parent::getPage('Registrar paciente', $content);
     }
 
-    // funcao que actualizar um novo registros na tabela vendedor
-    public static function atualizarVendedor($request, $id)
+    // funcao que actualizar um novo registros na tabela paciente
+    public static function editarPaciente($request, $id_paciente)
     {
+        // Seleciona o paciente pelo ID
+        $obPaciente = PacienteDao::getPacienteId($id_paciente);
 
-        $obPaciente = PacienteDao::getPacienteId($id);
         $postVars = $request->getPostVars();
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_POST['nivel'], $_FILES['imagem'])) {
+        if (isset($_POST['cadastrar'], $_POST['nome'], $_POST['genero'], $_POST['nascimento'], $_POST['bilhete'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_FILES['imagem'])) {
 
             $obUpload = new Upload($_FILES['imagem']) ?? '';
 
             if ($_FILES['imagem']['error'] == 4) {
 
-                $obPaciente->nome = $postVars['nome'] ?? $obPaciente->nome;
-                $obPaciente->genero = $postVars['genero'] ?? $obPaciente->genero;
-                $obPaciente->nascimento = $postVars['data'] ?? $obPaciente->nascimento;
-                $obPaciente->pai = $postVars['pai'] ?? $obPaciente->pai;
-                $obPaciente->mae = $postVars['mae'] ?? $obPaciente->mae;
-                $obPaciente->bilhete = $postVars['bilhete'] ?? $obPaciente->bilhete;
-                $obPaciente->telefone1 = $postVars['telefone1'] ?? $obPaciente->telefone1;
-                $obPaciente->telefone2 = $postVars['telefone2'] ?? $obPaciente->telefone2;
-                $obPaciente->email = $postVars['email'] ?? $obPaciente->email;
-                $obPaciente->morada = $postVars['morada'] ?? $obPaciente->morada;
-                $obPaciente->id_zona = $postVars['zona'] ?? $obPaciente->id_zona;
-                $obPaciente->nivelAcademico = $postVars['nivel'] ?? $obPaciente->nivelacademico;
-                $obPaciente->imagem =  $obPaciente->imagem != null ? $obPaciente->imagem : 'anonimo.png';
+                $obPaciente->nome_paciente = $postVars['nome'] ?? $obPaciente->nome_paciente;
+                $obPaciente->pai_paciente = $postVars['pai'] ?? $obPaciente->pai_paciente;
+                $obPaciente->mae_paciente = $postVars['mae'] ?? $obPaciente->mae_paciente;
+                $obPaciente->genero_paciente = $postVars['genero'] ?? $obPaciente->genero_paciente;
+                $obPaciente->nascimento_paciente = $postVars['nascimento'] ?? $obPaciente->nascimento_paciente;
+                $obPaciente->nacionalidade_paciente = $postVars['nacionalidade'] ?? $obPaciente->nacionalidade_paciente;
+                $obPaciente->bilhete_paciente = $postVars['bilhete'] ?? $obPaciente->bilhete_paciente;
+
+                $obPaciente->telefone1_paciente = $postVars['telefone1'] ?? $obPaciente->telefone1_paciente;
+                $obPaciente->telefone2_paciente = $postVars['telefone2'] ?? $obPaciente->telefone2_paciente;
+                $obPaciente->email_paciente = $postVars['email'] ?? $obPaciente->email_paciente;
+                $obPaciente->morada_paciente = $postVars['morada'] ?? $obPaciente->morada_paciente;
+
+                $obPaciente->motivo_paciente = $postVars['motivo'] ?? $obPaciente->motivo_paciente;
+
+                $obPaciente->estado_paciente = $postVars['estado'] ?? $obPaciente->estado_paciente;
+                $obPaciente->responsavelNome_paciente = $postVars['responsavelNome'];
+                $obPaciente->responsavelTelefone_paciente = $postVars['responsavelTelefone'];
+
+                $obPaciente->imagem_paciente =  $obPaciente->imagem_paciente != null ? $obPaciente->imagem_paciente : 'anonimo.png';
 
                 $obPaciente->atualizar();
 
-                $request->getRouter()->redirect('/vendedor?msg=alterado' . $obPaciente->nome . '');
+                $request->getRouter()->redirect('/paciente?msg=alterado' . $obPaciente->nome_paciente . '');
                 exit;
             } // fim do if da verificacao da imagem
 
-            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/vendedor', false);
+            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/paciente', false);
 
-            $obPaciente->nome = $postVars['nome'] ?? $obPaciente->nome;
-            $obPaciente->genero = $postVars['genero'] ?? $obPaciente->genero;
-            $obPaciente->nascimento = $postVars['data'] ?? $obPaciente->nascimento;
-            $obPaciente->pai = $postVars['pai'] ?? $obPaciente->pai;
-            $obPaciente->mae = $postVars['mae'] ?? $obPaciente->mae;
-            $obPaciente->bilhete = $postVars['bilhete'] ?? $obPaciente->bilhete;
-            $obPaciente->telefone1 = $postVars['telefone1'] ?? $obPaciente->telefone1;
-            $obPaciente->telefone2 = $postVars['telefone2'] ?? $obPaciente->telefone2;
-            $obPaciente->email = $postVars['email'] ?? $obPaciente->email;
-            $obPaciente->morada = $postVars['morada'] ?? $obPaciente->morada;
-            $obPaciente->id_zona = $postVars['zona'] ?? $obPaciente->id_zona;
-            $obPaciente->nivelAcademico = $postVars['nivel'] ?? $obPaciente->nivelacademico;
-            $obPaciente->imagem = $obUpload->getBaseName() ?? $obPaciente->imagem;;
+            $obPaciente->nome_paciente = $postVars['nome'] ?? $obPaciente->nome_paciente;
+            $obPaciente->pai_paciente = $postVars['pai'] ?? $obPaciente->pai_paciente;
+            $obPaciente->mae_paciente = $postVars['mae'] ?? $obPaciente->mae_paciente;
+            $obPaciente->genero_paciente = $postVars['genero'] ?? $obPaciente->genero_paciente;
+            $obPaciente->nascimento_paciente = $postVars['nascimento'] ?? $obPaciente->nascimento_paciente;
+            $obPaciente->nacionalidade_paciente = $postVars['nacionalidade'] ?? $obPaciente->nacionalidade_paciente;
+            $obPaciente->bilhete_paciente = $postVars['bilhete'] ?? $obPaciente->bilhete_paciente;
+
+            $obPaciente->telefone1_paciente = $postVars['telefone1'] ?? $obPaciente->telefone1_paciente;
+            $obPaciente->telefone2_paciente = $postVars['telefone2'] ?? $obPaciente->telefone2_paciente;
+            $obPaciente->email_paciente = $postVars['email'] ?? $obPaciente->email_paciente;
+            $obPaciente->morada_paciente = $postVars['morada'] ?? $obPaciente->morada_paciente;
+
+            $obPaciente->motivo_paciente = $postVars['motivo'] ?? $obPaciente->motivo_paciente;
+            $obPaciente->estado_paciente = $postVars['estado'] ?? $obPaciente->estado_paciente;
+            $obPaciente->responsavelNome_paciente = $postVars['responsavelNome'];
+            $obPaciente->responsavelTelefone_paciente = $postVars['responsavelTelefone'];
+
+            $obPaciente->imagem_paciente = $obUpload->getBaseName() ?? $obPaciente->imagem_paciente;
             $obPaciente->atualizar();
 
             if ($sucess) {
-                $request->getRouter()->redirect('/vendedor?msg=alterado' . $obPaciente->nome . '');
+                $request->getRouter()->redirect('/paciente?msg=alterado' . $obPaciente->nome . '');
                 exit;
             } else {
                 echo 'Ficheiro nao Enviado';
             }
         }
 
-        $content = View::render('vendedor/formVendedor1', [
-            'titulo' => 'Editar Vendedor',
+        $content = View::render('paciente/formPaciente', [
+            'titulo' => 'Editar Paciente',
             'button' => 'Actualizar',
             'msg' => '',
-            'nome' => $obPaciente->nome,
-            'genero' => $obPaciente->genero == 'Feminino' ? 'checked' : '',
-            'data' => $obPaciente->nascimento,
-            'pai' => $obPaciente->pai,
-            'mae' => $obPaciente->mae,
-            'bilhete' => $obPaciente->bilhete,
-            'telefone1' => $obPaciente->telefone1,
-            'telefone2' => $obPaciente->telefone2,
-            'email' => $obPaciente->email,
-            'morada' => $obPaciente->morada,
-            'base-nivel' => $obPaciente->nivelAcademico == 'base' ? 'selected' : '',
-            'medio' => $obPaciente->nivelAcademico == 'medio' ? 'selected' : '',
-            'licenciado' => $obPaciente->nivelAcademico == 'licenciado' ? 'selected' : '',
-            'imagem' => $obPaciente->imagem,
+            'nome' => $obPaciente->nome_paciente,
+            'pai' => $obPaciente->pai_paciente,
+            'mae' => $obPaciente->mae_paciente,
+            'genero' => $obPaciente->genero_paciente == 'Feminino' ? 'checked' : '',
+            'data' => $obPaciente->nascimento_paciente,
+
+            'bilhete' => $obPaciente->bilhete_paciente,
+            'angolana' => $obPaciente->nacionalidade_paciente == 'Angolana' ? 'selected' : '',
+            'estrageiro' => $obPaciente->nacionalidade_paciente == 'Estrangeiro' ? 'selected' : '',
+
+            'telefone1' => $obPaciente->telefone1_paciente,
+            'telefone2' => $obPaciente->telefone2_paciente,
+            'email' => $obPaciente->email_paciente,
+            'morada' => $obPaciente->morada_paciente,
+            'motivo' => $obPaciente->motivo_paciente,
+            'Atendimento agendado' => $obPaciente->estado_paciente == 'Atendimento agendado' ? 'selected' : '',
+            'Em Triagem' => $obPaciente->estado_paciente == 'Em Triagem' ? 'selected' : '',
+            'Em tratamento' => $obPaciente->estado_paciente == 'Em tratamento' ? 'selected' : '',
+            'Em atendimento' => $obPaciente->estado_paciente == 'Em atendimento' ? 'selected' : '',
+            'Consulta Marcada' => $obPaciente->estado_paciente == 'Consulta Marcada' ? 'selected' : '',
+            'Alta' => $obPaciente->estado_paciente == 'Alta' ? 'selected' : '',
+            'Aberto' => $obPaciente->estado_paciente == 'Aberto' ? 'selected' : '',
+
+            'responsavelNome' => $obPaciente->responsavel_paciente,
+            'responsavelTelefone' => $obPaciente->telefoneResponsavel_paciente,
+            'imagem' => $obPaciente->imagem_paciente,
 
         ]);
 
-        return parent::getPage('Editar Vendedor', $content);
+        return parent::getPage('Editar paciente', $content);
     }
+
+    // Metodo para apresenta a conta do paciente
+    public static function contaPaciente($request, $id_paciente)
+    {
+        // Seleciona o paciente pelo ID
+        $obPaciente = PacienteDao::getPacienteId($id_paciente);
+
+        $content = View::render('paciente/pacientePerfil', [
+            'nome' => $obPaciente->nome_paciente,
+            'pai' => $obPaciente->pai_paciente,
+            'mae' => $obPaciente->mae_paciente,
+            'genero' => $obPaciente->genero_paciente,
+            'data' => $obPaciente->nascimento_paciente,
+
+            'bilhete' => $obPaciente->bilhete_paciente,
+            'angolana' => $obPaciente->nacionalidade_paciente == 'Angolana' ? 'selected' : '',
+            'estrageiro' => $obPaciente->nacionalidade_paciente,
+
+            'telefone1' => $obPaciente->telefone1_paciente,
+            'telefone2' => $obPaciente->telefone2_paciente,
+            'email' => $obPaciente->email_paciente,
+            'morada' => $obPaciente->morada_paciente,
+            'motivo' => $obPaciente->motivo_paciente,
+            'Atendimento agendado' => $obPaciente->estado_paciente == 'Atendimento agendado' ? 'selected' : '',
+            'Em Triagem' => $obPaciente->estado_paciente == 'Em Triagem' ? 'selected' : '',
+            'Em tratamento' => $obPaciente->estado_paciente == 'Em tratamento' ? 'selected' : '',
+            'Em atendimento' => $obPaciente->estado_paciente == 'Em atendimento' ? 'selected' : '',
+            'Consulta Marcada' => $obPaciente->estado_paciente == 'Consulta Marcada' ? 'selected' : '',
+            'Alta' => $obPaciente->estado_paciente == 'Alta' ? 'selected' : '',
+            'estado' => $obPaciente->estado_paciente,
+
+            'responsavelNome' => $obPaciente->responsavel_paciente,
+            'responsavelTelefone' => $obPaciente->telefoneResponsavel_paciente,
+            'imagem' => $obPaciente->imagem_paciente,
+
+        ]);
+
+        return parent::getPage('Conta paciente', $content);
+    }
+
+    //Método responsavel por cadastrar novo triagem para os paciente
+    public static function addTriagem($request, $id_paciente)
+    {
+        // Seleciona o paciente pelo ID
+        $obPaciente = PacienteDao::getPacienteId($id_paciente);
+
+        $idPaciente = $obPaciente->id_paciente;
+
+        $obTriagem = new TriagemDao;
+
+        if (isset($_POST['peso'], $_POST['temperatura'])) {
+
+            $obTriagem->peso_triagem = $_POST['peso'];
+            $obTriagem->temperatura_triagem = $_POST['temperatura'];
+            $obTriagem->cardiaca_triagem = $_POST['cardiaca'];
+            $obTriagem->frequencia_triagem = $_POST['frequencia'];
+            $obTriagem->saturacao_triagem = $_POST['Saturacao_oxigenio'];
+            $obTriagem->pressao_triagem = $_POST['pressao'];
+            $obTriagem->risco_triagem = $_POST['pioridade'];
+            $obTriagem->observacao_triagem = $_POST['obs'];
+
+            // Método de acesso para enviar dados para cadastrar triagem
+            $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
+
+            $request->getRouter()->redirect('/paciente?msg=cadastrados');
+            exit;
+        }
+        $content = View::render('triagem/formAddTriagem', [
+            'titulo' => ' ' . $obPaciente->nome_paciente . ' - Registrar Nova triagem',
+            'pesquisar' => '',
+            'nome' => $obPaciente->nome_paciente,
+            'data' => $obPaciente->nascimento_paciente,
+            'bilhete' => $obPaciente->bilhete_paciente,
+            'genero' => $obPaciente->genero_paciente == 'Feminino' ? 'checked' : '',
+            'frequencia' => '',
+            'pressao' => '',
+            'saturacao' => '',
+            'cardiaca' => '',
+            'peso' => '',
+            'temperatura' => '36',
+
+            'obs' => '',
+            'button' => 'Salvar',
+        ]);
+
+        return parent::getPage('Registrar nova triagem ', $content);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // metodo para apagar um vendedor
     public static function apagarVendedor($request, $id)
     {
 
-        $obAddNegocio = new AddNegocioDao();
+        $obAddNegocio = new TriagemDao();
 
         $conta = new ContaDao();
 
@@ -275,7 +427,7 @@ class Paciente extends Page
         // validacao do click do botao apagar
         if (isset($_POST['apagar'])) {
 
-            $obAddNegocio->deleteAddNegocio($id);
+           // $obAddNegocio->deleteAddNegocio($id);
 
             $conta->apagarConta($id);
 

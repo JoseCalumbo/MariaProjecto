@@ -39,14 +39,27 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
-// Inicializa o collapsible expansível
-var expandable = document.querySelectorAll('.collapsible.expandable');
-M.Collapsible.init(expandable, {
-  accordion: false
+// form not Acordion 
+document.addEventListener('DOMContentLoaded', function () {
+  var elems1 = document.querySelectorAll('.expandable');
+  var instances = M.Collapsible.init(elems1, {
+    accordion: false,
+    inDuration: 100,
+    outDuration: 100,
+  });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
 
+  // Inicializa o collapsible expansível
+  var expandable = document.querySelectorAll('.collapsible.expandable');
+  M.Collapsible.init(expandable, {
+    accordion: false
+  });
+
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //abas do painel de vendedor
 document.addEventListener('DOMContentLoaded', function () {
   var tabs = document.querySelectorAll('.tabsvendedor');
@@ -258,9 +271,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // texto areia
-$(document).ready(function () {
-  $('input#input_text, textarea#textarea2').characterCounter();
-});
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('input[data-length], textarea');
+    M.CharacterCounter.init(elems);
+  });
 
 // Cria tooltips com base no atributo data-tooltip
 document.querySelectorAll('.tooltip-btn').forEach(btn => {

@@ -112,13 +112,6 @@ div>.collapsible-header:hover {
     margin-bottom: 10px;
 }
 
-/* aumento collapsible areia carregar imagem  
-em formVendedor
-*/
-.bodyy {
-    line-height: normal;
-    height: 110px;
-}
 
 /* #form-collapsible{
     background-color: #0f25a1;
@@ -732,3 +725,25 @@ h1 {
     transform: translateX(-50%) translateY(-3px);
     /* sobe suavemente */
 }
+
+  /* Cor da linha indicadora da aba ativa */
+  .tabs .indicator {
+    background-color: #26a69a !important; /* cor teal por exemplo */
+  }
+
+  /* Cor do texto das abas */
+  .tabs .tab a {
+    color: #555 !important; /* cinza escuro padrão */
+  }
+
+  /* Cor do texto ao passar o mouse */
+  .tabs .tab a:hover {
+    color: #26a69a !important; /* mesma cor da barra, ou outra */
+  }
+
+  /* Cor da aba ativa */
+  .tabs .tab a.active {
+    color: #26a69a !important;
+    font-weight: bold !important;
+  }
+
