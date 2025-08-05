@@ -36,15 +36,6 @@ span {
 
 
 /* css header*/
-.header {
-    background-color: #00695c;
-    z-index: 4;
-}
-
-.menu {
-    background-color: #00695c;
-}
-
 .ul-pesquisa {
     position: fixed;
     left: 232px;

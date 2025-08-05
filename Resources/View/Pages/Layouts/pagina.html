@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Import Google Icon Font-->
+
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <link href="{{URL}}/Assets/css/material-icons.css" rel="stylesheet">
 
@@ -21,8 +22,21 @@
     <title>{{title}}</title>
 
     <style>
-        #dropdownNotifica>div>a {
-            width: 600px !important;
+        .dropdown-content{
+            min-width: 220px;
+        }
+
+        .icon-tight {
+            margin-right:6px  !important;
+            vertical-align: middle !important;
+
+        }
+
+        .disabled-link {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+            color: #555657fa !important;
         }
 
         .minusculo {

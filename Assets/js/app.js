@@ -4,19 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var instances = M.Dropdown.init(drop, {
     coverTrigger: false,
     closeOnClick: false,
+    constrainWidth: false,
     alignment: 'left'
   });
 });
 
-//navbar dropdown do notificação
-document.addEventListener('DOMContentLoaded', function () {
-  var drop = document.querySelectorAll('.dropdown-trigger2');
-  var instances = M.Dropdown.init(drop, {
-    coverTrigger: false,
-    closeOnClick: false,
-    alignment: 'right'
-  });
-});
 
 
 // aside Acordion
@@ -271,10 +263,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // texto areia
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('input[data-length], textarea');
-    M.CharacterCounter.init(elems);
-  });
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('input[data-length], textarea');
+  M.CharacterCounter.init(elems);
+});
 
 // Cria tooltips com base no atributo data-tooltip
 document.querySelectorAll('.tooltip-btn').forEach(btn => {

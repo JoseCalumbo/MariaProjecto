@@ -1,69 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt">
-
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Tooltip com animação sem seta</title>
+  <title>Ícones Atualizados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
-    .tooltip-wrapper {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
     }
-
-    .tooltip-wrapper .tooltip-text {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background-color: black;
-      color: yellow;
-      padding: 6px 12px;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
-
-    .tooltip-wrapper:hover .tooltip-text {
-      visibility: visible;
-      opacity: 1;
-      transform: translateX(-50%) translateY(-10px);
-    }
-    
   </style>
 </head>
-
 <body>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <!-- Botões com tooltip -->
-  <div class="tooltip-wrapper">
-    <button class="tooltip-btn" data-tooltip="Texto 1">Botão 1</button>
-  </div>
-
-  <div class="tooltip-wrapper" style="margin-left: 20px;">
-    <button class="tooltip-btn" data-tooltip="Texto 2">Botão 2</button>
-  </div>
-
-  <script>
-
-    // Cria tooltips com base no atributo data-tooltip
-    document.querySelectorAll('.tooltip-btn').forEach(btn => {
-      const texto = btn.getAttribute('data-tooltip');
-      const tooltipDiv = document.createElement('div');
-      tooltipDiv.className = 'tooltip-text';
-      tooltipDiv.textContent = texto;
-      btn.parentElement.appendChild(tooltipDiv);
-    });
-    
-  </script>
+  <a class="btn">
+    <span class="material-symbols-outlined">medication</span>
+    Farmácia
+  </a>
 
 </body>
-
 </html>

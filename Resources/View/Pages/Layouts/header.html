@@ -1,14 +1,13 @@
 <!--HEADER-->
-<header class="header navbar-fixed">
+<header class="header navbar-fixed ">
 
-    <nav class="menu teal  navbar-fixed">
+    <nav class="menu teal lighten-1 navbar-fixed">
+
         <div class="nav-wrapper">
-            <ul>
-                <a href="{{URL}}" class="brand-logo logotipo black"
-                    style="width: 180px;  height: 65px; text-align: center; border-bottom: 1px white solid; ">
-                    <img class="" src="{{URL}}/Assets/img/logoMenu2.png" width="90">
-                </a>
-            </ul>
+
+            <a href="{{URL}}" class="brand-logo" style="position: relative; left: 18px;">
+                <img class="" src="{{URL}}/Assets/img/logoMenu.png" width="80">
+            </a>
 
             <ul class="right hide-on-med-and-down ">
                 <li class="rigth">
@@ -18,58 +17,141 @@
                 </li>
             </ul>
 
-            <ul id="dropdown1" class="dropdown-content">
-                <li class=" {{nivel}}">
-                    <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
-                </li>
-                <li class="{{nivel}}">
-                    <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
-                </li>
-                <li class="{{nivel}} ">
-                    <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessaos</a>
-                </li>
-            </ul>
-
-                        <!--nome icon item-->
             <ul class="right hide-on-med-and-down">
-                <li><a href="{{URL}}/admin"><i class="material-icons white-text">search</i></a></li>
-                <li><a href=""><i class="material-icons white-text">refresh</i></a></li>
-                <li>
-                    <a class="dropdown-trigger2" href="#!" data-target="dropdown2">
-                        <i class="material-icons white-text">notifications</i>
+
+
+                <li class="capitalize disabled">
+                    <a class="disabled" href="{{URL}}">
+                        <i class="material-icons left icon-tight">home</i>Home
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a href="{{URL}}/triagem">
+                        <i class="material-icons left icon-tight">assignment_ind</i> Triagem
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a href="#!" class="dropdown-trigger " data-target="dropdown-consulta">
+                        <i class="material-icons left icon-tight">medical_services</i> Consultas
+                        <i class="material-icons right ">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a href="#!"  class="dropdown-trigger "  data-target="dropdown-cadstramento">
+                        <i class="material-icons left icon-tight">person_add</i> Cadastramento
+                        <i class="material-icons right ">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a href="badges.html">
+                        <i class="material-icons left icon-tight">donut_small</i> Relatorios
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a class="dropdown-trigger" href="#!" data-target="dropdown-lab">
+                        <i class="material-icons left icon-tight">science</i> Laboratório
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a href="#!" class="dropdown-trigger" data-target="dropdown-far">
+                        <i class="material-icons left icon-tight">vaccines</i> Farmácia 
+                        <i class="material-icons right ">arrow_drop_down</i>
                     </a>
                 </li>
             </ul>
+
         </div>
+
+        <ul id="dropdown1" class="dropdown-content">
+            <li class=" {{nivel}}">
+                <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
+            </li>
+            <li class="{{nivel}}">
+                <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
+            </li>
+            <li class="{{nivel}} ">
+                <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessaos</a>
+            </li>
+        </ul>
+
+        <ul id="dropdown-consulta" class="dropdown-content">
+            <li class=" {{nivel}}">
+                <a class=" font-normal" href="{{URL}}/consulta">Cardiologia </a>
+            </li>
+            <li class="{{nivel}}">
+                <a class="font-normal" href="{{URL}}/consulta">Oftalmológica Geral</a>
+            </li>
+            <li class="{{nivel}} ">
+                <a class=" font-normal" href="{{URL}}/consulta">Oftalmopediátrica</a>
+            </li>
+            <li class="{{nivel}} ">
+                <a class=" font-normal" href="{{URL}}/consulta">Consulta para Lentes de Contato</a>
+            </li>
+        </ul>
+
+        <!-- Dropdown Laboratório -->
+        <ul id="dropdown-lab" class="dropdown-content">
+            <li><a href="#!" class="capitalize" >Solicitar Exame </a></li>
+            <li><a href="#!" class="capitalize" >Exames Pendentes</a></li>
+            <li><a href="#!" class="capitalize" >Resultados</a></li>
+            <li><a href="#!" class="capitalize" >Histórico de Exames</a></li>
+            <li><a href="#!" class="capitalize" >Relatórios Laboratoriais</a></li>
+            <li><a href="#!" class="capitalize disabled-link">Histórico</a></li>
+        </ul>
+
+        <!-- Dropdown Cadastramento -->
+        <ul id="dropdown-cadstramento" class="dropdown-content">
+            <li><a href="{{URL}}/funcionario" class="capitalize" >Funcionário</a></li>
+            <li><a href="{{URL}}/paciente" class="capitalize" >Pacientes</a></li>
+            <li><a href="{{URL}}/" class="capitalize" >Serviços</a></li>
+        </ul>
+
+        <!-- Dropdown Farmacia -->
+        <ul id="dropdown-far" class="dropdown-content">
+            <li><a href="#!" class="capitalize" >Cadastrar Medicamentos</a></li>
+            <li><a href="#!" class="capitalize" >Exames Pendentes</a></li>
+            <li><a href="#!" class="capitalize" >Resultados</a></li>
+            <li><a href="#!" class="capitalize" >Histórico de Exames</a></li>
+        </ul>
     </nav>
 
 </header>
 
 <main class="row grey lighten-4 ">
 
-    <div class="col m2">
+    <!--
+    
+
+        <div class="col m2">
         <aside id="aside">
             <ul class="fixed collapsible">
                 <li>
                     <a class="collapsible-header capitalize " href="{{URL}}">
-                        <i class="fa-solid fa-house teal-text" ></i>
-                        Home 
+                        <i class="fa-solid fa-house teal-text"></i>
+                        Home
                     </a>
                 </li>
 
                 <li class="sub-menu">
                     <a href="#" class="collapsible-header capitalize">
-                        <i class="fa-solid fa-notes-medical teal-text" ></i>
-                         Consultas
+                        <i class="fa-solid fa-notes-medical teal-text"></i>
+                        Consultas
                     </a>
                     <ul id="collapsible-body" class="collapsible-body ">
 
-                        <li class="teal" >
+                        <li class="teal">
                             <a class="item-menu" href="{{URL}}/consulta-diaria" style="text-transform: capitalize;">
                                 <i class="material-icons white-text " style="vertical-align: -6px;">timer</i>
                                 Diaria
                             </a>
-                        </li >
+                        </li>
 
                         <li class="teal">
                             <a class="" href="{{URL}}/consulta" style="text-transform: capitalize;">
@@ -81,22 +163,22 @@
 
                 <li>
                     <a class="collapsible-header capitalize" href="{{URL}}/triagem">
-                        <i class="fa-solid fa-temperature-arrow-up teal-text" ></i>
+                        <i class="fa-solid fa-temperature-arrow-up teal-text"></i>
                         Triagem
                     </a>
                 </li>
 
                 <li>
-                    <a class="collapsible-header capitalize" href="{{URL}}/relatorio" 
-                     style="display: flex; align-items: center; ">
-                        <i class="fa-solid fa-chart-pie teal-text" ></i>
+                    <a class="collapsible-header capitalize" href="{{URL}}/relatorio"
+                        style="display: flex; align-items: center; ">
+                        <i class="fa-solid fa-chart-pie teal-text"></i>
                         Relatorios
                     </a>
                 </li>
 
                 <li class="sub-menu">
                     <a href="#" class="collapsible-header capitalize">
-                        <i class="fa-solid fa-square-plus teal-text" ></i>
+                        <i class="fa-solid fa-square-plus teal-text"></i>
                         Cadastrar
                     </a>
 
@@ -118,19 +200,19 @@
 
                 <li class="sub-menu">
                     <a href="#" class="collapsible-header capitalize">
-                        <i class="fa-solid fa-user teal-text " ></i>
-                       Conta
+                        <i class="fa-solid fa-user teal-text "></i>
+                        Conta
                     </a>
 
                     <ul class="collapsible-body">
-                        <li class="teal" >
+                        <li class="teal">
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/conta">
                                 <i class="material-icons white-text" style="vertical-align: -6px;">account_box</i>
                                 Editar
                                 Conta
                             </a>
                         </li>
-                        <li class="teal" >
+                        <li class="teal">
                             <a class="" style="text-transform: capitalize;" href="{{URL}}/logout">
                                 <i class="material-icons white-text" style="vertical-align: -6px;"> streetview</i>
                                 Bloquear</a>
@@ -150,8 +232,11 @@
                 </li>
             </ul>
 
-            <!-- sidebar menu end-->
+            
         </aside>
     </div>
+    -->
 
-    <d id="conteudo" class="col m10 white lighten-4 section-field">
+
+
+    <div id="" class="col m10 white lighten-4 section-field">

@@ -1,111 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Paciente</title>
-
+  <title>Menu com Dropdown - Materialize</title>
   <!-- Materialize CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-  <style>
-    .profile-pic {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    .tab-content {
-      padding-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
 
+  <!-- Barra de Navegação -->
   <nav class="blue darken-3">
     <div class="nav-wrapper container">
-      <a href="#!" class="brand-logo">Clínica Saúde+</a>
+      <a href="#" class="brand-logo">Clínica</a>
       <ul class="right">
-        <li><a href="#!">Sair</a></li>
+        <li><a href="#!">Homea</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown-triagem">Triagem</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown-consulta">Consulta</a></li>
+        <li><a href="#!">Farmácia</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown-lab">Laboratório</a></li>
+        <li><a href="#!">Relatórios</a></li>
       </ul>
     </div>
   </nav>
 
-  <div class="container" style="margin-top: 30px;">
-    <div class="row">
-      <div class="col s12 m3 center-align">
-        <!-- Foto do Paciente -->
-        <img src="https://via.placeholder.com/120" alt="Foto do Paciente" class="profile-pic z-depth-2">
-        <h6>João da Silva</h6>
-        <p class="grey-text">Paciente desde 2021</p>
-      </div>
+  <!-- Dropdown Triagem -->
+  <ul id="dropdown-triagem" class="dropdown-content">
+    <li><a href="#!">Nova Triagem</a></li>
+    <li><a href="#!">Histórico</a></li>
+  </ul>
 
-      <div class="col s12 m9">
-        <!-- Abas -->
-        <ul class="tabs">
-          <li class="tab col s2"><a class="active" href="#dados">Dados</a></li>
-          <li class="tab col s2"><a href="#consultas">Consultas</a></li>
-          <li class="tab col s2"><a href="#triagem">Triagem</a></li>
-          <li class="tab col s2"><a href="#exames">Exames</a></li>
-          <li class="tab col s2"><a href="#historico">Histórico</a></li>
-        </ul>
+  <!-- Dropdown Consulta -->
+  <ul id="dropdown-consulta" class="dropdown-content">
+    <li><a href="#!">Nova Consulta</a></li>
+    <li><a href="#!">Consultas de Hoje</a></li>
+    <li><a href="#!">Histórico de Consultas</a></li>
+  </ul>
 
-        <!-- Conteúdo das Abas -->
-        <div id="dados" class="tab-content">
-          <h6>📄 Dados do Paciente</h6>
-          <p>Nome: João da Silva</p>
-          <p>Gênero: Masculino</p>
-          <p>Idade: 34 anos</p>
-          <p>Telefone: (99) 99999-9999</p>
-          <p>Email: joao@email.com</p>
-        </div>
-
-        <div id="consultas" class="tab-content">
-          <h6>👨‍⚕️ Consultas</h6>
-          <ul class="collection">
-            <li class="collection-item">Consulta com Dr. Marcos - 10/07/2025</li>
-            <li class="collection-item">Retorno agendado - 05/08/2025</li>
-          </ul>
-        </div>
-
-        <div id="triagem" class="tab-content">
-          <h6>🩺 Triagem</h6>
-          <p>Pressão: 120/80 mmHg</p>
-          <p>Frequência Cardíaca: 78 bpm</p>
-          <p>Temperatura: 37,2 ºC</p>
-          <p>Peso: 72 kg</p>
-        </div>
-
-        <div id="exames" class="tab-content">
-          <h6>🧪 Exames</h6>
-          <ul class="collection">
-            <li class="collection-item">Hemograma completo - 01/07/2025</li>
-            <li class="collection-item">Raio-X Tórax - 15/06/2025</li>
-          </ul>
-        </div>
-
-        <div id="historico" class="tab-content">
-          <h6>📚 Histórico</h6>
-          <p>Doenças anteriores: Sinusite, Gripe</p>
-          <p>Internações: Nenhuma</p>
-          <p>Última atualização: 30/07/2025</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="page-footer blue darken-3">
-    <div class="container center-align">
-      © 2025 Clínica Saúde+ — Todos os direitos reservados
-    </div>
-  </footer>
+  <!-- Dropdown Laboratório -->
+  <ul id="dropdown-lab" class="dropdown-content">
+    <li><a href="#!">Solicitar Exame</a></li>
+    <li><a href="#!">Exames Pendentes</a></li>
+    <li><a href="#!">Resultados</a></li>
+    <li><a href="#!">Histórico de Exames</a></li>
+    <li><a href="#!">Relatórios Laboratoriais sasasasasasasa ssssssssssssssss</a></li>
+  </ul>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.tabs');
-      M.Tabs.init(elems);
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      M.Dropdown.init(elems, {
+        coverTrigger: false,
+        constrainWidth: false
+      });
     });
   </script>
+
 </body>
 </html>
