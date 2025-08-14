@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 //navbar dropdown do menu dos usuario logado
 document.addEventListener('DOMContentLoaded', function () {
-  var drop = document.querySelectorAll('.dropdown-trigger-sub');
+  var drop = document.querySelectorAll('.dropdown-trigger-sub1');
   var instances = M.Dropdown.init(drop, {
     coverTrigger: false,
     closeOnClick: false,
     constrainWidth: false,
-    alignment: 'left',
+    alignment: 'right',
     hover: true
   });
 });
