@@ -2,9 +2,10 @@
 
 namespace App\Controller\Pages;
 
+use App\Model\Entity\FuncionarioDao;
 use \App\Utils\View;
 use \App\Model\Entity\VendedorDao;
-use \App\Model\Entity\UsuarioDao;
+use \App\Model\Entity\FuncionarioDaoDao;
 use App\Model\Entity\ZonaDao;
 
 class Home extends Page
@@ -21,7 +22,7 @@ class Home extends Page
     public static function getDadosUsuario()
     {
         //quantidade total de registros da tabela user
-        $quantidadetotal = UsuarioDao::listarUsuario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = FuncionarioDao::listarFuncionario(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
         return $quantidadetotal;
     }
 
@@ -86,13 +87,14 @@ class Home extends Page
     {
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/homeMedico', [
+        $content = View::render('home/home', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
             //'totalUsuario' => self::getDadosUsuario(),
             // 'totalVendedor' => self::getDadosVendedor(),
             //'totalzona' => self::getzonas(),
         ]);
+
         // Retorna o metedo que renderiza a (Layouts) pagina 
         return parent::getPage('Auxiliar Médico', $content);
     }

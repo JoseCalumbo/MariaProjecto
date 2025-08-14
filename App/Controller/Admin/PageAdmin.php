@@ -28,6 +28,7 @@ Class PageAdmin{
             'imagem'=>$obAdminUser->imagem,
             'nivel'=>$nivel,
         ]);
+        
         return View::renderAdmin('Layouts/itemdados',[
             'links'=>$dados,
        ]);

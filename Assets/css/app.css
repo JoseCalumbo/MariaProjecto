@@ -13,20 +13,19 @@ tr:hover {
 /*Largura do campo da pagina*/
 .section-field {
     margin-top: 10px;
-    width: 98%;
+    width: 100%;
     background-color: rgba(245, 245, 245, 0.199);
 }
 
 .section-field p,
 div,
 span {
-    text-transform: none;
+    text-transform: capitalize;
     font-weight: normal;
 
 }
 
 .section-field>section {
-    margin-left: 20px;
     width: 100%;
 }
 

@@ -18,9 +18,14 @@ $obRouter->get('/home',[
     function($request){ return new Response(200,Pages\Home::getHomeBalcao($request)); }
 ]);
 
+/** __________________________________Funcionario_______________________________
+ * inclui as rotas dos Funcionario
+*/
+include __DIR__.'/RotaFuncionario.php';
 
 
 //________________________________relatorio__________________________
+
 $obRouter->get('/relatorio',[
     'middlewares'=>[
         'requer-login',
@@ -28,6 +33,7 @@ $obRouter->get('/relatorio',[
     ],
     function(){ return new Response(200,Pages\Relatorio::telaRelatorio());}
 ]);
+
 //relatorio
 $obRouter->get('/relatorio/finaceiro',[
     'middlewares'=>[
@@ -36,6 +42,7 @@ $obRouter->get('/relatorio/finaceiro',[
     ],
     function($request){ return new Response(200,Pages\Relatorio::RelatorioFinaceiro($request));}
 ]);
+
 //relatorio
 $obRouter->get('/relatorio/dados',[
     'middlewares'=>[
@@ -44,6 +51,13 @@ $obRouter->get('/relatorio/dados',[
     ],
     function($request){ return new Response(200,Pages\Relatorio::RelatorioDados($request));}
 ]);
+
+//________________________ rota configuração___________________________
+
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaConfiguracao.php';
 
 //________________________ rota Zona___________________________
 
@@ -59,8 +73,8 @@ include __DIR__.'/RotaZona.php';
 */
 include __DIR__.'/RotaConsulta.php';
 
-//________________________ Rota Consulta Diaria___________________________
 
+//________________________ Rota Consulta Diaria___________________________
 /**
  * inclui as rotas da zona  
 */

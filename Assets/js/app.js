@@ -5,7 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
     coverTrigger: false,
     closeOnClick: false,
     constrainWidth: false,
-    alignment: 'left'
+    alignment: 'left',
+
+  });
+});
+//navbar dropdown do menu dos usuario logado
+document.addEventListener('DOMContentLoaded', function () {
+  var drop = document.querySelectorAll('.dropdown-trigger-sub');
+  var instances = M.Dropdown.init(drop, {
+    coverTrigger: false,
+    closeOnClick: false,
+    constrainWidth: false,
+    alignment: 'left',
+    hover: true
   });
 });
 

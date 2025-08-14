@@ -1,4 +1,4 @@
-<section class="section-field">
+<section class="section-field white">
     <!-- start Item  da parte da pesquisaaa -->
     <div class="area-busca ">
         {{BuscaVendedor}}
@@ -6,16 +6,242 @@
     <!-- end Item  da parte da pesquisa  mail notifications-->
 
     <br>
-    <section id="card-relatorio-dados" class=" row white font-normal">
-        <p class="blue-text text-darken-4 col m2"><strong>Registros</strong></p>
+
+    <section class="row col m12 white">
+
+        <div class="col s12 m3">
+            <div class="card white darken-1">
+                <div class="card-content red-text">
+                    <span class="card-title">Funcionários</span>
+                    <span class="card-title ">300</span>
+                    <p> I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div>
+                    <canvas id="graficosConsultas" width="800" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3">
+            <div class="card white darken-1">
+                <div class="card-content red-text">
+                    <span class="card-title">Médicos</span>
+                    <span class="card-title ">300</span>
+                    <p> I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div>
+                    <canvas id="graficosUsuarios" width="800" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3">
+            <div class="card white darken-1">
+                <div class="card-content red-text">
+                    <span class="card-title">Enfermeiro</span>
+                    <span class="card-title ">300</span>
+                    <p> I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div>
+                    <canvas id="graficosUsuarios2" width="800" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col s12 m3">
+            <div class="card white darken-1">
+                <div class="card-content red-text">
+                    <span class="card-title">Analista</span>
+                    <span class="card-title ">300</span>
+                    <p> I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div>
+                    <canvas id="graficosUsuarios1" width="800" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+    <!--Import script js charts -->
+    <script src="{{URL}}/Assets/js/charts/chart.js"></script>
+
+        <!-- graficos de dados -->
+        <div class="row">
+            <div class="col s12 ">
+                <!--header das abas-->
+                <ul class="tabs tabsvendedor">
+                    <li class="tab col s3"><a class="active" href="#dados1">Dados Consulta diaria</a></li>
+                    <li class="tab col s3"><a class="active" href="#pagamento2">Triagem Mensal</a></li>
+                    <li class="tab col s3"><a href="#registro3">Exames</a></li>
+                    <li class="tab col s3"><a href="#opcoes4">Triagem diaria</a></li>
+                </ul>
+            </div>
+            <!--pagina das abas-->
+            <div id="dados1" class="col s12">
+                <section class="card col-start col m11 white">
+                    <canvas id="myChartcon" width="800" height="200"></canvas>
+                </section>
+            </div>
+
+            <!--Aba content do pagamento-->
+            <div id="pagamento2" class="col s12">
+                <section class="card col-start col m11 white">
+                    <canvas id="myChart122" width="800" height="200"></canvas>
+                    <script>
+                        const ctx122 = document.getElementById('myChart122').getContext('2d');
+                        const myChart122 = new Chart(ctx122, {
+                            type: 'line',
+                            data: {
+                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+                                datasets: [{
+                                    label: 'Numero total diario de Consulta',
+                                    data: [91, 69, 373, 5, 12, 22, 399],
+                                    backgroundColor: [
+                                        'rgba(255, 199, 132, 0.2)',
+                                        'rgba(54, 102, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(0, 0, 222, 0.2)',
+                                        'rgba(255, 166, 1,0.1)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(253, 166, 1, 1)'
+
+                                    ],
+                                    borderWidth: 3
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+
+                                layout: {
+                                    padding: 0
+                                }
+
+                            }
+                        });
+                    </script>
+
+                </section>
+            </div>
+
+            <div id="registro3" class="col s12">
+                <section class="card col-start col m11 white">
+                    <canvas id="myChartcon1" width="800" height="200"></canvas>
+                    <script>
+                        const ctxConsulta1 = document.getElementById('myChartcon1').getContext('2d');
+                        const myChartcon1 = new Chart(ctxConsulta1, {
+                            type: 'line',
+                            data: {
+                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+                                datasets: [{
+                                    label: 'Numero total diario de Consulta',
+                                    data: [111, 69, 3273, 335, 5122, 22, 399],
+                                    backgroundColor: [
+                                        'rgba(255, 199, 132, 0.2)',
+                                        'rgba(54, 102, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(0, 0, 222, 0.2)',
+                                        'rgba(255, 166, 1,0.1)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(253, 166, 1, 1)'
+
+                                    ],
+                                    borderWidth: 3
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+
+                                layout: {
+                                    padding: 0
+                                }
+
+                            }
+                        });
+                    </script>
+
+                </section>
+            </div>
+
+            <!--Aba content da opcoes-->
+            <div id="opcoes4" class="col s12">
+                <!-- graficos de dados -->
+                <section class="card col-start col m11 white">
+                    <canvas id="myChart12" width="800" height="200"></canvas>
+                    <script>
+                        const ctx12 = document.getElementById('myChart12').getContext('2d');
+                        const myChart12 = new Chart(ctx12, {
+                            type: 'line',
+                            data: {
+                                labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+                                datasets: [{
+                                    label: 'Numero total diario de triagem',
+                                    data: [51, 19, 33, 15, 12, 122, 3],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(0, 0, 222, 0.2)',
+                                        'rgba(255, 166, 1,0.1)'
+
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(253, 166, 1, 1)'
+
+                                    ],
+                                    borderWidth: 3
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+
+                                layout: {
+                                    padding: 0
+                                }
+
+                            }
+                        });
+                    </script>
+
+                </section>
+            </div>
+
+        </div>
+
+
     </section>
+
 
     <section id="card-relatorio-dados" class="row col m12 white">
 
-        <div class="card-relatorio col s12 m4 teal accent-3">
+        <div class="card-relatorio col s12 m2 teal accent-3">
             <div class="row">
                 <div class="col m7">
-                    <h4 class="white-text font-large">{{totalUsuario}}</h4>
+                    
                     <p class="white-text font-normal">Consultas Diarias</p>
                 </div>
                 <div class="col m4">
@@ -25,10 +251,10 @@
                 </div>
             </div>
         </div>
-        <div class="card-relatorio col s12 m4 teal accent-3">
+
+        <div class="card-relatorio col s12 m3 teal accent-3">
             <div class="row">
                 <div class="col m7">
-                    <h4 class="white-text font-large">{{totalUsuario}}</h4>
                     <p class="white-text font-normal">Consultas Marcada</p>
                 </div>
                 <div class="col m4">
@@ -39,10 +265,9 @@
             </div>
         </div>
 
-        <div class="card-relatorio1 col s12 m4 teal accent-3 ">
+        <div class="card-relatorio1 col s12 m3 teal accent-3 ">
             <div class="row card-relatorio1">
                 <div class="col m8">
-                    <h4 class="white-text font-large">{{totalVendedor}}</h4>
                     <p class="white-text font-normal">Resultados de Ánalise</p>
                 </div>
                 <div class="col m4">
@@ -53,7 +278,20 @@
             </div>
         </div>
 
-        <div class="card-relatorio1 col s12 m4 teal accent-3 ">
+        <div class="card-relatorio1 col s12 m3 teal accent-3 ">
+            <div class="row card-relatorio1">
+                <div class="col m8">
+                    <p class="white-text font-normal">Resultados de Ánalise</p>
+                </div>
+                <div class="col m4">
+                    <i class="material-icons large orange-text text-darken-4">people</i>
+                </div>
+                <div class="center col m12 button-print modal-trigger" data-target="modalvendedor">
+                </div>
+            </div>
+        </div>
+
+        <div class="card-relatorio1 col s12 m3 teal accent-3 ">
             <div class="row card-relatorio1">
                 <div class="col m8">
                     <h4 class="white-text font-large">{{totalVendedor}}</h4>
@@ -68,7 +306,7 @@
         </div>
 
         <!--card zona-->
-        <div class="card-relatorio col s12 m4 teal accent-3">
+        <div class="card-relatorio col s12 m3 teal accent-3">
             <div class="row">
                 <div class="col m8">
                     <h4 class="white-text font-large">{{totalzona}}</h4>
@@ -82,7 +320,7 @@
             </div>
         </div>
         <!--card zona-->
-        <div class="card-relatorio col s12 m4 teal accent-3">
+        <div class="card-relatorio col s12 m3 teal accent-3">
             <div class="row">
                 <div class="col m8">
                     <h4 class="white-text font-large">{{totalzona}}</h4>
@@ -96,10 +334,10 @@
             </div>
         </div>
         <section id="card-relatorio-dados" class=" row white font-normal">
-            <p class="blue-text text-darken-4 col m2"><strong>Tarefas</strong></p>
+            <p class="blue-text text-darken-4 col m12"><strong>Tarefas</strong></p>
         </section>
         <!--card zona-->
-        <div class="card-relatorio col s12 m4 teal accent-3">
+        <div class="card-relatorio col s12 m3 teal accent-3">
             <div class="row">
                 <div class="col m8">
                     <h4 class="white-text font-large">{{totalzona}}</h4>
@@ -113,4 +351,5 @@
             </div>
         </div>
     </section>
+
 </section>

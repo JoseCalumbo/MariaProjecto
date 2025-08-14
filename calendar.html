@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Agenda Semanal - Seleção de Horário</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#fff; --accent:#0b68d7; --muted:#666;
+    --cell-h:48px; --time-col-w:90px;
+  }
+  body{
+    font-family: Inter, system-ui, Arial; background:var(--bg); margin:20px;
+    color:#222;
+  }
+  .container{max-width:980px;margin:0 auto;}
+  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  h1{font-size:20px;margin:0}
+  .controls{display:flex;gap:8px;align-items:center}
+  button{background:var(--card);border:1px solid #e6e9ee;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .calendar{background:var(--card);border-radius:12px;padding:12px;border:1px solid #e6e9ee;box-shadow:0 6px 18px rgba(13,25,39,0.04)}
+  .week-header{display:grid;grid-template-columns:var(--time-col-w) 1fr 1fr 1fr 1fr 1fr 1fr 1fr;align-items:center}
+  .day {padding:6px 8px;text-align:center;border-bottom:1px solid #f1f3f6}
+  .day .label{font-weight:600}
+  .day .date{font-size:12px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:var(--time-col-w) repeat(7,1fr);border-top:1px solid #f1f3f6}
+  .time-col{border-right:1px solid #f1f3f6}
+  .time-cell{height:var(--cell-h);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:var(--muted);font-size:13px}
+  .slot-cell{min-height:var(--cell-h);border-right:1px solid #f1f3f6;border-bottom:1px dashed #f4f6f8;padding:6px}
+  .slots {display:flex;flex-direction:column;gap:6px}
+  .slot {
+    display:inline-block;padding:6px 8px;border-radius:8px;border:1px solid #e9eef8;background:#fff;cursor:pointer;
+    font-size:13px;box-shadow:0 1px 0 rgba(10,20,40,0.02)
+  }
+  .slot.disabled{opacity:0.35;cursor:not-allowed}
+  .slot.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .today-badge{background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px;font-size:12px}
+  @media (max-width:720px){
+    .week-header{grid-template-columns:var(--time-col-w) repeat(7, minmax(80px,1fr));}
+    h1{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Selecionar data e horário</h1>
+    <div class="controls">
+      <button id="prevWeek">&larr; Semana anterior</button>
+      <button id="nextWeek">Próxima semana &rarr;</button>
+    </div>
+  </div>
+
+  <div class="calendar" id="calendar">
+    <div class="week-header" id="weekHeader">
+      <!-- colunas geradas por JS -->
+    </div>
+
+    <div class="grid" id="grid">
+      <!-- linhas geradas por JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  Exemplo de agenda semanal com slots.
+  Ajuste 'startHour', 'endHour', e 'slotMinutes' conforme necessário.
+  `availability` simula horários disponíveis por dia (0=domingo..6=sabado).
+  No onSlotSelected você faz fetch() ao seu endpoint PHP.
+*/
+
+const startHour = 9;    // início do dia de atendimento (9:00)
+const endHour = 17;     // fim (17:00)
+const slotMinutes = 30; // duração do slot
+const tzOffset = new Date().getTimezoneOffset(); // apenas para info
+
+// exemplo de disponibilidade: por weekday array de horários livres
+const availability = {
+  0: [], // domingo
+  1: ['09:00','09:30','10:00','11:00','14:00','15:30'],
+  2: ['09:00','10:00','10:30','11:30','13:00','14:30','16:00'],
+  3: ['09:00','09:30','10:00','10:30','13:30','14:00','15:00'],
+  4: ['09:00','09:30','10:00','11:00','11:30','15:00','15:30'],
+  5: ['09:00','10:00','11:00','13:00','14:00'],
+  6: []  // sabado
+};
+
+// estado
+let currentMonday = getMonday(new Date());
+let selectedSlot = null;
+
+// helpers
+function pad(n){return String(n).padStart(2,'0')}
+function getMonday(d){
+  const dt = new Date(d);
+  const day = dt.getDay();
+  const diff = (day + 6) % 7; // dias desde segunda
+  dt.setDate(dt.getDate() - diff);
+  dt.setHours(0,0,0,0);
+  return dt;
+}
+function formatDate(d){ return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'short'}) }
+function formatISODate(d){ return d.toISOString().slice(0,10) }
+function timeToString(h,m=0){ return `${pad(h)}:${pad(m)}` }
+function isToday(d){
+  const t = new Date(); t.setHours(0,0,0,0);
+  const x = new Date(d); x.setHours(0,0,0,0);
+  return t.getTime() === x.getTime();
+}
+
+// render
+function renderWeek(){
+  const weekHeader = document.getElementById('weekHeader');
+  const grid = document.getElementById('grid');
+  weekHeader.innerHTML = '';
+  grid.innerHTML = '';
+
+  // header row: first cell empty (time column)
+  const firstCell = document.createElement('div');
+  firstCell.className = 'day';
+  firstCell.innerHTML = '<div style="height:20px"></div>';
+  weekHeader.appendChild(firstCell);
+
+  const days = [];
+  for(let i=0;i<7;i++){
+    const dayDate = new Date(currentMonday);
+    dayDate.setDate(dayDate.getDate() + i);
+    days.push(dayDate);
+    const dcol = document.createElement('div');
+    dcol.className = 'day';
+    dcol.innerHTML = `<div class="label">${dayDate.toLocaleDateString('pt-BR', {weekday:'short'})}</div>
+                      <div class="date">${formatDate(dayDate)} ${isToday(dayDate) ? '<span class="today-badge">Hoje</span>' : ''}</div>`;
+    weekHeader.appendChild(dcol);
+  }
+
+  // build time rows
+  for(let hour = startHour; hour < endHour; hour++){
+    // Each slotMinutes may create multiple sub-rows (we'll render each timeslot as a row)
+    for(let minute=0; minute < 60; minute += slotMinutes){
+      const timeRowIdx = document.createElement('div');
+      timeRowIdx.style.display = 'contents';
+
+      // time column
+      if(minute === 0){
+        const timeCol = document.createElement('div');
+        timeCol.className = 'time-col';
+        timeCol.innerHTML = `<div class="time-cell">${timeToString(hour, minute)}</div>`;
+        grid.appendChild(timeCol);
+      } else {
+        // empty filler to keep grid structure
+        const filler = document.createElement('div');
+        filler.className = 'time-col';
+        filler.innerHTML = `<div class="time-cell">${timeToString(hour, minute)}</div>`;
+        grid.appendChild(filler);
+      }
+
+      // for each day create a cell
+      for(let d=0; d<7; d++){
+        const cell = document.createElement('div');
+        cell.className = 'slot-cell';
+        // compute slot time string and check availability
+        const dayDate = days[d];
+        const slotTimeStr = timeToString(hour, minute);
+        const weekday = dayDate.getDay();
+        const isAvailable = availability[weekday] && availability[weekday].includes(slotTimeStr);
+
+        // build slot button if available
+        if(isAvailable){
+          const btn = document.createElement('button');
+          btn.className = 'slot';
+          btn.textContent = formatTimeHuman(slotTimeStr);
+          btn.dataset.date = formatISODate(dayDate);
+          btn.dataset.time = slotTimeStr;
+          btn.onclick = () => selectSlot(btn);
+          cell.appendChild(btn);
+        } else {
+          // optionally leave blank or show disabled
+          // cell.innerHTML = '<div style="opacity:.05;height:18px"></div>';
+        }
+        grid.appendChild(cell);
+      }
+    }
+  }
+}
+
+function formatTimeHuman(t){
+  // "09:30" -> "9:30 AM" locale pt-BR uses 24h, but user may prefer 12h. We'll use 24h for clinics:
+  return t;
+}
+
+function selectSlot(btn){
+  // deselect previous
+  document.querySelectorAll('.slot.selected').forEach(s=>s.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedSlot = { date: btn.dataset.date, time: btn.dataset.time };
+  // call callback (e.g. enviar ao backend)
+  onSlotSelected(selectedSlot);
+}
+
+function onSlotSelected(slot){
+  // exemplo: payload para enviar ao backend
+  const payload = {
+    patient_id: 123,            // substitua conforme seu fluxo (ou abra modal para escolher paciente)
+    practitioner_id: 45,
+    service_id: 2,
+    start_date: slot.date,      // formato YYYY-MM-DD
+    start_time: slot.time,      // formato HH:MM
+    duration_minutes: slotMinutes,
+    channel: 'online'
+  };
+  alert(`Slot selecionado: ${slot.date} ${slot.time}`);
+  console.log('Payload pronto para enviar ao backend:', payload);
+
+  // exemplo de chamada fetch (descomente e ajuste a URL/backend se quiser testar):
+  /*
+  fetch('/api/appointments', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(r=>r.json())
+  .then(data=>{ console.log('Resposta backend:', data); alert('Consulta marcada!'); })
+  .catch(err=> { console.error(err); alert('Erro ao marcar consulta'); });
+  */
+}
+
+// semana anterior / próxima
+document.getElementById('prevWeek').addEventListener('click', ()=> {
+  currentMonday.setDate(currentMonday.getDate() - 7);
+  renderWeek();
+});
+document.getElementById('nextWeek').addEventListener('click', ()=> {
+  currentMonday.setDate(currentMonday.getDate() + 7);
+  renderWeek();
+});
+
+// inicializar
+renderWeek();
+</script>
+</body>
+</html>

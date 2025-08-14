@@ -1,125 +1,205 @@
-<section class="section-field">
+<section class="section-field white">
     <!-- start Item  da parte da pesquisaaa -->
     <div class="area-busca ">
         {{BuscaVendedor}}
     </div>
     <!-- end Item  da parte da pesquisa  mail notifications-->
     <br>
-    <section id="card-relatorio-dados" class=" row white font-normal">
-        <p class="blue-text text-darken-4 col m2"><strong>Atalhos</strong></p>
-        <i class="material-icons-round">
-            balance
-        </i>
+
+    <section class="row col m12 white">
+        <h4 class="teal-text">Minhas Ações </h4>
+        <br>
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">person_add</i>
+                    </a>
+                    <p class="teal-text">Cadastrar Funcionarios</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">password</i>
+                    </a>
+                    <p class="teal-text">Atualizar Senha</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">person_add</i>
+                    </a>
+                    <p class="teal-text">Editar conta</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">settings</i>
+                    </a>
+                    <p class="teal-text">Configuração de sistemas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">add</i>
+                    </a>
+                    <p class="teal-text">Cadastrar Funcionarios</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a href="{{URL}}/permissao" class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">lock_clock</i>
+                    </a>
+                    <p class="teal-text">Definir Permissões</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">person</i>
+                    </a>
+                    <p class="teal-text">Editar conta</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m3 ">
+            <br>
+            <div class=" ">
+                <div class="card-content red-text center">
+                    <a class="btn-floating btn-large waves-effect waves-light teal">
+                        <i class="material-icons large">settings</i>
+                    </a>
+                    <p class="teal-text">Configuração de sistemas</p>
+                </div>
+            </div>
+        </div>
+
     </section>
 
-    <section id="card-relatorio-dados" class="row col m12 white">
+    <section class="row col m12 white">
 
-        <div class="card-relatorio col s12 m4 teal accent-3">
-            <div class="row">
-                <div class="col m7">
-                    <h4 class="white-text font-large">{{totalUsuario}}</h4>
-                    <p class="white-text font-normal">Consultas</p>
-                    <span class="material-symbols-outlined">
-                        lab_research
-                    </span>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">lab_research</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modaluser">
-                </div>
+        <h4 class="teal-text">Os meus processos</h4>
+        <br>
+        <div class="col s12 m12 teal row">
+            <div class="col m10 white-text">
+                <h5 class="white-text capitalize">Funcionarios Cadastrados</h5>
+                <a class="waves-effect waves-light teal">
+                    <i class="material-icons  center" style="font-size: 40px;">person_search</i>
+                    <span style="font-size: 40px;" class="capitalize">23</span>
+                </a>
             </div>
-        </div>
-        <div class="card-relatorio col s12 m4 teal accent-3">
-            <div class="row">
-                <div class="col m7">
-                    <h4 class="white-text font-large">{{totalUsuario}}</h4>
-                    <p class="white-text font-normal">Triagem</p>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">person</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modaluser">
-                </div>
+            <div class="col m2 ">
+                <h5 class="center ">
+                    <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
+                </h5>
             </div>
         </div>
 
-        <div class="card-relatorio1 col s12 m4 teal accent-3 ">
-            <div class="row card-relatorio1">
-                <div class="col m8">
-                    <h4 class="white-text font-large">{{totalVendedor}}</h4>
-                    <p class="white-text font-normal">Cadastramentos</p>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">people</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modalvendedor">
-                </div>
+        <div class="col s12 m12 teal row">
+            <div class="col m10 white-text">
+                <h5 class="white-text capitalize">Triagem Cadastrados</h5>
+                <a class="waves-effect waves-light teal">
+                    <i class="material-icons  center" style="font-size: 40px;">assignment_ind</i>
+                    <span style="font-size: 40px;" class="capitalize">161</span>
+                </a>
+            </div>
+            <div class="col m2 ">
+                <h5 class="center ">
+                    <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
+                </h5>
             </div>
         </div>
 
-        <section id="card-relatorio-dados" class=" row white font-normal">
-            <p class="blue-text text-darken-4 col m2"><strong>Registros</strong></p>
-        </section>
-
-        <div class="card-relatorio1 col s12 m4 teal accent-3 ">
-            <div class="row card-relatorio1">
-                <div class="col m8">
-                    <h4 class="white-text font-large">{{totalVendedor}}</h4>
-                    <p class="white-text font-normal">Pacientes</p>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">people</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modalvendedor">
-                </div>
+        <div class="col s12 m12 teal row">
+            <div class="col m10 white-text">
+                <h5 class="white-text capitalize">Consultas Cadastrados</h5>
+                <a class="waves-effect waves-light teal">
+                    <i class="material-icons  center" style="font-size: 40px;">medical_services</i>
+                    <span style="font-size: 40px;" class="capitalize">92</span>
+                </a>
+            </div>
+            <div class="col m2 ">
+                <h5 class="center ">
+                    <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
+                </h5>
             </div>
         </div>
 
-        <!--card zona-->
-        <div class="card-relatorio col s12 m4 teal accent-3">
-            <div class="row">
-                <div class="col m8">
-                    <h4 class="white-text font-large">{{totalzona}}</h4>
-                    <p class="white-text font-normal">Consultas</p>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">place</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modalzona">
-                </div>
-            </div>
-        </div>
-        <!--card zona-->
-        <div class="card-relatorio col s12 m4 teal accent-3">
-            <div class="row">
-                <div class="col m8">
-                    <h4 class="white-text font-large">{{totalzona}}</h4>
-                    <p class="white-text font-normal">Consultas</p>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">place</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modalzona">
+        <h4 class="teal-text">Notificação e Avisos</h4>
+        <br>
+        <div class="col s12 m12 row">
+            
+            <div class="col m3 offset-m1 teal">
+                <div class="col m10 white-text">
+                    <h5 class="white-text capitalize">Configuração de sistemas</h5>
+                    <a class="waves-effect waves-light teal">
+                        <i class="material-icons  center" style="font-size: 40px;">settings</i>
+                        <span style="font-size: 40px;" class="capitalize">23</span>
+                    </a>
+                                        <h5 class="center ">
+                        <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
+                    </h5>
                 </div>
             </div>
-        </div>
-        <section id="card-relatorio-dados" class=" row white font-normal">
-            <p class="blue-text text-darken-4 col m2"><strong>Tarefas</strong></p>
-        </section>
-        <!--card zona-->
-        <div class="card-relatorio col s12 m4 teal accent-3">
-            <div class="row">
-                <div class="col m8">
-                    <h4 class="white-text font-large">{{totalzona}}</h4>
-                    <p class="white-text font-normal">Consultas</p>
-                </div>
-                <div class="col m4">
-                    <i class="material-icons large orange-text text-darken-4">place</i>
-                </div>
-                <div class="center col m12 button-print modal-trigger" data-target="modalzona">
+
+            <div class="col m3 offset-m1 teal">
+                <div class="col m10 white-text">
+                    <h5 class="white-text capitalize">Configuração de sistemas</h5>
+                    <a class="waves-effect waves-light teal">
+                        <i class="material-icons  center" style="font-size: 40px;">settings</i>
+                        <span style="font-size: 40px;" class="capitalize">23</span>
+                    </a>
+                                        <h5 class="center ">
+                        <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
+                    </h5>
                 </div>
             </div>
+
+            <div class="col m3 offset-m1 teal">
+                <div class="col m10 white-text">
+                    <h5 class="white-text capitalize">Configuração de sistemas</h5>
+                    <a class="waves-effect waves-light teal">
+                        <i class="material-icons  center" style="font-size: 40px;">settings</i>
+                        <span style="font-size: 40px;" class="capitalize">23</span>
+                    </a>
+                                        <h5 class="center ">
+                        <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
+                    </h5>
+                </div>
+            </div>
+
         </div>
     </section>
+
 </section>

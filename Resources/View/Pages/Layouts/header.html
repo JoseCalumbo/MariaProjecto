@@ -19,48 +19,47 @@
 
             <ul class="right hide-on-med-and-down">
 
-
                 <li class="capitalize disabled">
-                    <a class="disabled" href="{{URL}}">
+                    <a href="{{URL}}" class="{{acessoNegado}}">
                         <i class="material-icons left icon-tight">home</i>Home
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="{{URL}}/triagem">
+                    <a href="{{URL}}/triagem"  class="{{acessoNegado}}">
                         <i class="material-icons left icon-tight">assignment_ind</i> Triagem
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger " data-target="dropdown-consulta">
+                    <a href="#!" class="dropdown-trigger {{acessoNegado}}" data-target="dropdown-consulta">
                         <i class="material-icons left icon-tight">medical_services</i> Consultas
                         <i class="material-icons right ">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!"  class="dropdown-trigger "  data-target="dropdown-cadstramento">
+                    <a href="#!"  class="dropdown-trigger {{acessoNegado}}"  data-target="dropdown-cadstramento">
                         <i class="material-icons left icon-tight">person_add</i> Cadastramento
                         <i class="material-icons right ">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="badges.html">
+                    <a href="{{URL}}/relatorio" class="{{acessoNegado}}">
                         <i class="material-icons left icon-tight">donut_small</i> Relatorios
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a class="dropdown-trigger" href="#!" data-target="dropdown-lab">
+                    <a href="#!" class="dropdown-trigger {{acessoNegado}}"  data-target="dropdown-lab">
                         <i class="material-icons left icon-tight">science</i> Laboratório
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger" data-target="dropdown-far">
+                    <a href="#!" class="dropdown-trigger {{acessoNegado}}" data-target="dropdown-far">
                         <i class="material-icons left icon-tight">vaccines</i> Farmácia 
                         <i class="material-icons right ">arrow_drop_down</i>
                     </a>
@@ -70,28 +69,39 @@
         </div>
 
         <ul id="dropdown1" class="dropdown-content">
-            <li class=" {{nivel}}">
+            <li>
                 <a class="black-text font-normal" href="{{URL}}/conta">Minha Conta </a>
             </li>
-            <li class="{{nivel}}">
+
+            <li >
                 <a class="black-text font-normal" href="{{URL}}/logout">Bloquear</a>
             </li>
-            <li class="{{nivel}} ">
+
+            <li>
                 <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessaos</a>
             </li>
         </ul>
 
         <ul id="dropdown-consulta" class="dropdown-content">
-            <li class=" {{nivel}}">
+            <li>
+                <a href="#!"  class="dropdown-trigger {{acessoNegado}} font-normal"  data-target="dropdown-cadstramento">
+                    Verificar consultas
+                 </a>
+            </li>
+
+            <li>
                 <a class=" font-normal" href="{{URL}}/consulta">Cardiologia </a>
             </li>
-            <li class="{{nivel}}">
+
+            <li>
                 <a class="font-normal" href="{{URL}}/consulta">Oftalmológica Geral</a>
             </li>
-            <li class="{{nivel}} ">
+
+            <li >
                 <a class=" font-normal" href="{{URL}}/consulta">Oftalmopediátrica</a>
             </li>
-            <li class="{{nivel}} ">
+
+            <li>
                 <a class=" font-normal" href="{{URL}}/consulta">Consulta para Lentes de Contato</a>
             </li>
         </ul>
@@ -116,9 +126,8 @@
         <!-- Dropdown Farmacia -->
         <ul id="dropdown-far" class="dropdown-content">
             <li><a href="#!" class="capitalize" >Cadastrar Medicamentos</a></li>
-            <li><a href="#!" class="capitalize" >Exames Pendentes</a></li>
-            <li><a href="#!" class="capitalize" >Resultados</a></li>
-            <li><a href="#!" class="capitalize" >Histórico de Exames</a></li>
+            <li><a href="#!" class="capitalize" >Registros</a></li>
+            <li><a href="#!" class="capitalize" >Histórico de vendas</a></li>
         </ul>
     </nav>
 
@@ -127,8 +136,6 @@
 <main class="row grey lighten-4 ">
 
     <!--
-    
-
         <div class="col m2">
         <aside id="aside">
             <ul class="fixed collapsible">
@@ -236,7 +243,3 @@
         </aside>
     </div>
     -->
-
-
-
-    <div id="" class="col m10 white lighten-4 section-field">
