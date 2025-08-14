@@ -88,9 +88,12 @@ class Page
 
         return View::render('Layouts/header', [
             'info' => self::getFuncionarioLogado($obFuncionario),
-            'acessoNegadoMedico' => $obFuncionarioAgora->cargo_funcionario == 'Médico' ? 'disabled-link' : '',
-            'acessoNegado' => $obFuncionarioAgora->cargo_funcionario == 'Administrador' ? 'disabled-link' : '',
-            'acessoNegado' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
+            'acessoTriagem' => $obFuncionarioAgora->cargo_funcionario == 'Médico' ? 'disabled-link' : '',
+            'acessoConsuta' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
+            'acessoCadastrar' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
+            'acessoRelatorio' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
+            'acessoLaboratorio' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
+            'acessoFarmacia' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
         ]);
     }
 
