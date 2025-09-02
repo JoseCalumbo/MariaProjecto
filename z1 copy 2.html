@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Botão que chama a função -->
+  <button onclick="abrirModal()">Abrir Modal via Função</button>
+
+  <!-- Estrutura do Modal -->
+  <div id="meuModal" class="modal">
+    <div class="modal-content">
+      <h4>Título do Modal</h4>
+      <p>Conteúdo do modal...</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+    </div>
+  </div>
+
+  <!-- Importando Materialize -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    // Inicializa os modais quando a página carrega
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+      M.Modal.init(elems);
+    });
+
+    // Função para abrir o modal
+    function abrirModal() {
+      var elem = document.getElementById('meuModal');
+      var instance = M.Modal.getInstance(elem);
+      instance.open();
+    }
+  </script>
+
+</body>
+
+</html>
