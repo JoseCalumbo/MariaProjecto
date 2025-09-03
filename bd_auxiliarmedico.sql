@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Ago-2025 às 02:28
+-- Tempo de geração: 02-Set-2025 às 19:21
 -- Versão do servidor: 10.4.19-MariaDB
 -- versão do PHP: 8.0.6
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_funcionario` (
   `id_funcionario` int(11) NOT NULL,
   `nome_funcionario` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cargo_funcionario` enum('Médico','Enfermeiro','Analista Clínico','Farmacêuticos','Técnicos de Enfermagem','Administrador') COLLATE utf8mb4_unicode_ci NOT NULL,
   `nascimento_funcionario` date DEFAULT NULL,
   `genero_funcionario` enum('Masculino','Feminino') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `morada_funcionario` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -38,7 +39,6 @@ CREATE TABLE `tb_funcionario` (
   `email_funcionario` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone1_funcionario` int(11) DEFAULT NULL,
   `telefone2_funcionario` int(11) DEFAULT NULL,
-  `cargo_funcionario` enum('Médico','Enfermeiro','Analista Clínico','Farmacêuticos','Técnicos de Enfermagem','Administrador') COLLATE utf8mb4_unicode_ci NOT NULL,
   `imagem_funcionario` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `senha_funcionario` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
   `registrado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -48,14 +48,37 @@ CREATE TABLE `tb_funcionario` (
 -- Extraindo dados da tabela `tb_funcionario`
 --
 
-INSERT INTO `tb_funcionario` (`id_funcionario`, `nome_funcionario`, `nascimento_funcionario`, `genero_funcionario`, `morada_funcionario`, `bilhete_funcionario`, `numeroordem_funcionario`, `email_funcionario`, `telefone1_funcionario`, `telefone2_funcionario`, `cargo_funcionario`, `imagem_funcionario`, `senha_funcionario`, `registrado`) VALUES
-(7, 'Higino Daniel Carlino', '0000-00-00', 'Masculino', NULL, '', '', 'higino@gmail.com', 0, 0, 'Enfermeiro', 'anonimo.png', '$2y$10$d..054MDxl3hpDFpWGVOae25UpM1cKsKTJGFVnCtWv146JV05zkvq', '2025-06-19 20:11:15'),
-(9, 'Isabel Bartolomeu', '2025-06-11', 'Feminino', 'a', '123', '005472882', 'isabel@gmail.com', 954332111, 956636773, 'Analista Clínico', 'perfil22-1.png', '$2y$10$y7ipZVWRCFQcSK6aFoGelOEok36rvmpx3q/vt8GrEqG8CzeuH2oVO', '2025-06-26 01:39:48'),
-(11, 'Maria  Zelma Gabi', '0000-00-00', 'Feminino', 'as Luanda', '12345', '00044511', 'maria@gmail.com', 94383390, 905432231, 'Médico', 'perfil11.png', '$2y$10$nW3J2cTRVyOnNLS.IBUD1u41u7zTePI/lTO4SVMtwYHbY/MgG.rGy', '2025-06-26 01:14:08'),
-(12, 'Ana  Zelma Erva', '2015-06-15', 'Feminino', 'as', '12345', '00044511', 'ana@gmail.com', 903800990, 985432231, 'Administrador', 'perfil01.png', '$2y$10$KkWkI8wWGgWBPWB58gPwOOkEfZ2TpqSBIiY.mRjR3TnFsHd4De722', '2025-06-26 01:39:53'),
-(13, 'Santos Silva Daniel ', '2025-06-05', 'Masculino', NULL, '12345', '00044511', 'santos@gmail.com', 901761291, 0, 'Médico', 'perfil5-1.png', '$2y$10$HKZp911jX6VsxYOMR8H0fufTb2t2AQ/9dDeEC8OYd0ljngmaUYUUy', '2025-06-26 02:42:20'),
-(14, 'Telmos Silva Daniel', '2025-06-25', 'Masculino', 'Rua n2 , Bairro luanda', '12345', '00044511', 'telmos@gmail.com', 901761291, 905432231, 'Técnicos de Enfermagem', 'anonimo.png', '$2y$10$Qy1lBsF4YfrUIJyoF43QMuDhyiQIsgSIClCZzCvs/oaTtclD4CyfG', '2025-06-26 02:45:12'),
-(15, 'Xavier Silva Daniel', '2025-06-04', 'Masculino', 'Rua n2 , Bairro Kilamba Kiaxe', '12345', '00044511', 'xavier@gmail.com', 943800990, 985432231, 'Farmacêuticos', 'anonimo.png', '$2y$10$Mgs.xlpG9YhSK9yaHWs1b.Wd9pKI6ewNhMyi4DsLvP6TNWkXFb0ZO', '2025-06-26 02:51:06');
+INSERT INTO `tb_funcionario` (`id_funcionario`, `nome_funcionario`, `cargo_funcionario`, `nascimento_funcionario`, `genero_funcionario`, `morada_funcionario`, `bilhete_funcionario`, `numeroordem_funcionario`, `email_funcionario`, `telefone1_funcionario`, `telefone2_funcionario`, `imagem_funcionario`, `senha_funcionario`, `registrado`) VALUES
+(7, 'Higino Daniel Carlino', 'Enfermeiro', '1936-03-12', 'Masculino', NULL, '123', '', 'higino@gmail.com', 0, 0, 'anonimo.png', '$2y$10$d..054MDxl3hpDFpWGVOae25UpM1cKsKTJGFVnCtWv146JV05zkvq', '2025-08-06 00:42:47'),
+(9, 'Isabel Bartolomeu', 'Analista Clínico', '2025-06-11', 'Feminino', 'a', '123', '005472882', 'isabel@gmail.com', 954332111, 956636773, 'perfil22-1.png', '$2y$10$y7ipZVWRCFQcSK6aFoGelOEok36rvmpx3q/vt8GrEqG8CzeuH2oVO', '2025-06-26 01:39:48'),
+(11, 'Maria  Zelma Gabi', 'Médico', '0000-00-00', 'Feminino', 'as Luanda', '12345', '00044511', 'maria@gmail.com', 94383390, 905432231, 'perfil11.png', '$2y$10$nW3J2cTRVyOnNLS.IBUD1u41u7zTePI/lTO4SVMtwYHbY/MgG.rGy', '2025-06-26 01:14:08'),
+(12, 'Ana  Zelma Erva', 'Administrador', '2015-06-15', 'Feminino', 'as', '12345', '00044511', 'ana@gmail.com', 903800990, 985432231, 'perfil01.png', '$2y$10$KkWkI8wWGgWBPWB58gPwOOkEfZ2TpqSBIiY.mRjR3TnFsHd4De722', '2025-06-26 01:39:53'),
+(13, 'Santos Silva Daniel ', 'Médico', '2025-06-05', 'Masculino', '', '12345', '123', 'santos@gmail.com', 901761291, 0, 'perfil5-1.png', '$2y$10$HKZp911jX6VsxYOMR8H0fufTb2t2AQ/9dDeEC8OYd0ljngmaUYUUy', '2025-06-26 02:42:20'),
+(14, 'Telmos Silva Daniel', 'Técnicos de Enfermagem', '2025-06-25', 'Masculino', 'Rua n2 , Bairro luanda', '12345', '00044511', 'telmos@gmail.com', 901761291, 905432231, 'anonimo.png', '$2y$10$Qy1lBsF4YfrUIJyoF43QMuDhyiQIsgSIClCZzCvs/oaTtclD4CyfG', '2025-06-26 02:45:12'),
+(15, 'Xavier Silva Daniel', 'Enfermeiro', '2025-06-04', 'Masculino', 'Rua n2 , Bairro Kilamba Kiaxe', '12345', '00044511', 'xavier@gmail.com', 943800990, 985432231, 'anonimo.png', '$2y$10$Mgs.xlpG9YhSK9yaHWs1b.Wd9pKI6ewNhMyi4DsLvP6TNWkXFb0ZO', '2025-08-05 22:39:58');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_nivel`
+--
+
+CREATE TABLE `tb_nivel` (
+  `id_nivel` int(15) NOT NULL,
+  `nome_nivel` varchar(20) NOT NULL,
+  `descricao_nivel` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_nivel_permissoes`
+--
+
+CREATE TABLE `tb_nivel_permissoes` (
+  `id_nivel` int(20) NOT NULL,
+  `id_permissoes` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -125,6 +148,18 @@ INSERT INTO `tb_paciente` (`id_paciente`, `nome_paciente`, `bilhete_paciente`, `
 (32, 'Saul Moculo Calumbo', '009', 'Masculino', 'Estrangeiro', '2025-08-15', 'Paulo', 'Solange', ' Moculo Calumbo', 2147483647, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'josecalumbo@gmail.com', 945328161, 945328160, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'Capturar-removebg-preview (7)-1.png', 'documentos', NULL, 12, '2025-08-02 02:20:54'),
 (33, 'José Moculo Calumbo', '0009676767LA090', 'Masculino', 'Estrangeiro', '2025-08-07', 'Paulo', 'Solange', 'José Moculo Calumbo', 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'josecalumbo@gmail.com', 945328161, 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'Capturar-removebg-preview (8)-1.png', 'documentos', 'Alta', 12, '2025-08-02 10:26:35'),
 (34, 'Aael José  Calumbo Carmelo', '0009676767LA09099', 'Masculino', 'Estrangeiro', '2001-08-02', 'Paulo Carmelo', 'Solange Calumbo', 'Sandrinha Calumbo', 996321212, 'Dor no pescoso 2 dias', 'josecalumbo@gmail.com', 14, 45, 'camama 2, rua A ', 'josemc-1.png', 'documentos', 'Em Triagem', 12, '2025-08-02 15:23:43');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_permissoes`
+--
+
+CREATE TABLE `tb_permissoes` (
+  `id_permissao` int(15) NOT NULL,
+  `nome_permissao` int(11) NOT NULL,
+  `codigo_permisao` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -205,6 +240,17 @@ INSERT INTO `tb_usuario` (`id`, `nome`, `genero`, `telefone`, `email`, `nivel`, 
 (22, 'Mendonça Zalmire', 'Feminino', 982212198, 'mendonca@gmail.com', 'Administrador', 'perfil22.png', '', '$2y$10$f6B993DoNOsjz5lRFATvaubB/eN6eSpTKvwjUSKAEiqx7O9TFxpfq', '2025-06-19 19:58:07'),
 (25, 'Maria  Zelma Erva', 'Feminino', 977543216, 'maria@gmail.com', 'Administrador', 'perfil5.png', 'Rua n2 , Bairro luanda', '$2y$10$GZlloWye2/DjzbYxnPiPAeGTN2YEPKhwLC9mrGaSyryXSnxO3/v16', '2025-06-26 01:34:53');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_usuario_nivel`
+--
+
+CREATE TABLE `tb_usuario_nivel` (
+  `id_usuario` int(11) NOT NULL,
+  `id_nivel` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Índices para tabelas despejadas
 --
@@ -214,6 +260,12 @@ INSERT INTO `tb_usuario` (`id`, `nome`, `genero`, `telefone`, `email`, `nivel`, 
 --
 ALTER TABLE `tb_funcionario`
   ADD PRIMARY KEY (`id_funcionario`);
+
+--
+-- Índices para tabela `tb_nivel`
+--
+ALTER TABLE `tb_nivel`
+  ADD PRIMARY KEY (`id_nivel`);
 
 --
 -- Índices para tabela `tb_paciente`
@@ -242,7 +294,13 @@ ALTER TABLE `tb_usuario`
 -- AUTO_INCREMENT de tabela `tb_funcionario`
 --
 ALTER TABLE `tb_funcionario`
-  MODIFY `id_funcionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_funcionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de tabela `tb_nivel`
+--
+ALTER TABLE `tb_nivel`
+  MODIFY `id_nivel` int(15) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `tb_paciente`

@@ -4,11 +4,12 @@
     <nav class="menu teal lighten-1 navbar-fixed">
 
         <div class="nav-wrapper">
-
+            <!-- logotipo-->
             <a href="{{URL}}" class="brand-logo" style="position: relative; left: 18px;">
-                <img class="" src="{{URL}}/Assets/img/logoMenu.png" width="80">
+                <img class="" src="{{URL}}/Assets/img/logoMenu.png" width="65" height="55">
             </a>
 
+            <!--dados ou foto de perfil-->
             <ul class="right hide-on-med-and-down ">
                 <li class="rigth">
                     <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1"> {{info}}
@@ -17,51 +18,63 @@
                 </li>
             </ul>
 
+            <!-- itens de menu-->
             <ul class="right hide-on-med-and-down">
 
                 <li class="capitalize disabled">
-                    <a href="{{URL}}" class="{{acessoNegado}}">
-                        <i class="material-icons left icon-tight">home</i>Home
+                    <a href="{{URL}}" class="{{acessoNegado}}" style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">home</i>Home
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="{{URL}}/triagem"  class="{{acessoNegado}}">
-                        <i class="material-icons left icon-tight">assignment_ind</i> Triagem
+                    <a href="{{URL}}/triagem"  class="{{acessoNegado}}" style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">assignment_ind</i> Triagem
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger disabled-link  {{acessoNegado}}" data-target="dropdown-consulta">
-                        <i class="material-icons left icon-tight">medical_services</i> Consultas
-                        <i class="material-icons right ">arrow_drop_down</i>
+                    <a href="#!" class="dropdown-trigger disabled-link  {{acessoNegado}}" data-target="dropdown-consulta"
+                    style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">medical_services</i> Consultas
+                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!"  class="dropdown-trigger {{acessoNegado}}"  data-target="dropdown-cadstramento">
-                        <i class="material-icons left icon-tight">person_add</i> Cadastramento
-                        <i class="material-icons right ">arrow_drop_down</i>
+                    <a href="#!"  class="dropdown-trigger {{acessoNegado}}"  data-target="dropdown-cadstramento"
+                    style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">person_add</i> Cadastramento
+                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="{{URL}}/relatorio" class="{{acessoNegado}}">
-                        <i class="material-icons left icon-tight">donut_small</i> Relatorios
+                    <a href="{{URL}}/relatorio" class="{{acessoNegado}}" style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">donut_small</i> Relatorios
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoNegado}}"  data-target="dropdown-lab">
-                        <i class="material-icons left icon-tight">science</i> Laboratório
-                        <i class="material-icons right">arrow_drop_down</i>
+                    <a href="#!" class="dropdown-trigger {{acessoNegado}}"  data-target="dropdown-lab" 
+                    style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">science</i> Laboratório
+                        <i class="material-icons right" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoNegado}}" data-target="dropdown-far">
-                        <i class="material-icons left icon-tight">vaccines</i> Farmácia 
-                        <i class="material-icons right ">arrow_drop_down</i>
+                    <a href="#!" class="dropdown-trigger {{acessoNegado}}" data-target="dropdown-far"
+                    style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">vaccines</i> Farmácia 
+                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
+                    </a>
+                </li>
+                <li class="capitalize">
+                    <a href="#!" class="dropdown-trigger {{acessoNegado}}" data-target="dropdown-tesouraria"
+                    style="font-size: 14px;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">payments</i> Tesouraria
+                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
             </ul>
@@ -81,6 +94,7 @@
                 <a class="black-text font-normal" href="{{URL}}/logout">Terminar Sessaos</a>
             </li>
         </ul>
+
          <!--dropdown consulta-->
         <ul id="dropdown-consulta" class="dropdown-content">
             <li>
@@ -129,6 +143,14 @@
             <li><a href="#!" class="capitalize" >Registros</a></li>
             <li><a href="#!" class="capitalize" >Histórico de vendas</a></li>
         </ul>
+
+        <!-- Dropdown tesouraria -->
+        <ul id="dropdown-tesouraria" class="dropdown-content">
+            <li><a href="#!" class="capitalize" >Entradas e Saidas</a></li>
+            <li><a href="#!" class="capitalize" >Finalidade de pagamentos</a></li>
+            <li><a href="#!" class="capitalize" >Gerar Salft</a></li>
+        </ul>
+
     </nav>
 
 </header>

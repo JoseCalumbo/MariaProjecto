@@ -9,3 +9,12 @@ BD:basedados
 (2) Documentos enviados em cadastramento de paciente
 
 
+Fluxo de funcionamento
+
+Usuário faz login → sistema verifica senha.
+
+O sistema identifica o nível de acesso do usuário.
+
+Com base no nível, o sistema carrega as permissões.
+
+Só são liberados menus, botões e ações permitidas.
