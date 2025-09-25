@@ -6,21 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
     closeOnClick: false,
     constrainWidth: false,
     alignment: 'left',
+    closeOnClick: false // mantém aberto enquanto navega
 
   });
 });
-//navbar dropdown do menu dos usuario logado
-document.addEventListener('DOMContentLoaded', function () {
-  var drop = document.querySelectorAll('.dropdown-trigger-sub1 ');
-  var instances = M.Dropdown.init(drop, {
-    coverTrigger: false,
-    closeOnClick: false,
-    constrainWidth: false,
-    alignment: 'right',
-    hover: true
-  });
-});
-
 
 
 // aside Acordion

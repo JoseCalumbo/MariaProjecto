@@ -5,7 +5,6 @@ namespace App\Controller\Pages;
 use App\Model\Entity\FuncionarioDao;
 use \App\Utils\View;
 use \App\Model\Entity\VendedorDao;
-use \App\Model\Entity\FuncionarioDaoDao;
 use App\Model\Entity\ZonaDao;
 
 class Home extends Page

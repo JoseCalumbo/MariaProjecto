@@ -4,22 +4,22 @@ use \App\Http\Response;
 use \App\Controller\Pages;
 
 /**
- *  Arquivo php de Rotas de Configuração do sistema
+ *  Arquivo php de Rotas de Configuração de perfil
  *  foi incluido em routas.php
  */
 
 //Apresenta a tela para definir permisao
-$obRouter->get('/permissao', [
+$obRouter->get('/perfil', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200,Pages\Configuracao::Permissao($request));
+        return new Response(200,Pages\Perfil::getPerfilAcesso($request));
     }
 ]);
 
-//Apresenta a tela de Funcionario e sua listagem POST
-$obRouter->post('/funcionario', [
+//Apresenta a tela para definir permisao
+$obRouter->post('/perfil', [
     'middlewares' => [
         'requer-login'
     ],

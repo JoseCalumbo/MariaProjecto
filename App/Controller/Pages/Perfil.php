@@ -3,15 +3,11 @@
 namespace App\Controller\Pages;
 
 use \App\Utils\View;
-
 use \App\Model\Entity\FuncionarioDao;
 use \App\Utils\Pagination;
-
-
 use \App\Controller\Mensagem\Mensagem;
 
-
-Class Configuracao extends Page {
+Class Perfil extends Page {
 
     // exibe a messagem de operacao
     public static function exibeMensagem($request){
@@ -33,7 +29,7 @@ Class Configuracao extends Page {
     }
 
         // Método para apresenatar os registos dos Funcionario
-    private static function getFuncionario($request, &$obPagination)
+    private static function getPerfil($request, &$obPagination)
     {
 
         $item = '';
@@ -91,16 +87,16 @@ Class Configuracao extends Page {
     }
 
     // Método que apresenta a tela do Funcionario
-    public static function Permissao($request)
+    public static function getPerfilAcesso($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('configuracao/permisao', [
+        $content = View::render('configuracao/perfil', [
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
-            'item' => self::getFuncionario($request, $obPagination),
+            'item' => self::getPerfil($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
-        return parent::getPage('Editar Configuração', $content);
+        return parent::getPage('Perfil de Acesso', $content);
     }
 
 }

@@ -1,3 +1,7 @@
+CREATE 
+UPDATE
+DELETE
+VIEW
 
 E-MAIL:josecalumbo@gmail.com
 SENHA: 12345
@@ -9,12 +13,18 @@ BD:basedados
 (2) Documentos enviados em cadastramento de paciente
 
 
+
 Fluxo de funcionamento
 
 Usuário faz login → sistema verifica senha.
-
 O sistema identifica o nível de acesso do usuário.
-
 Com base no nível, o sistema carrega as permissões.
-
 Só são liberados menus, botões e ações permitidas.
+
+
+🔹 Resultado esperado
+O Administrador (id_nivel = 1) tem todas as permissões.
+O Recepcionista (id_nivel = 2) só pode cadastrar/editar paciente e agendar consultas.
+O Médico (id_nivel = 3) pode editar consulta, registrar triagem e solicitar exames.
+O Farmácia (id_nivel = 4) gerencia medicamentos.
+O Laboratório (id_nivel = 5) gerencia exames.

@@ -6,6 +6,7 @@ use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Http\Request;
 use \App\Model\Entity\FuncionarioDao;
+use \App\Model\Entity\NivelDao;
 use \App\Utils\Pagination;
 
 class Page
@@ -14,9 +15,7 @@ class Page
     //pega os dados do usuario logado no momento
     public static function getFuncionarioLogado($obFuncionario)
     {
-
         $dados = '';
-
         $funcionarioLogado = Session::getUsuarioLogado();
         $id = $funcionarioLogado['id'];
         $nome = $funcionarioLogado['nome'];
@@ -30,9 +29,30 @@ class Page
             'imagem' => $obFuncionario->imagem_funcionario,
 
         ]);
+
         return View::render('Layouts/itemdados', [
             'links' => $dados,
         ]);
+    }
+
+    //metodo para buscar header principal
+    public static function setVerificarPermissao($obFuncionario)
+    {
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+        $resultado = NivelDao::VerificarNivel1($id);
+        $permissoes = array_column($resultado, "codigo_permisao");
+
+        print_r($permissoes);
+
+        $mensagem = in_array("TRIAGEM_UPDATE", $permissoes)
+            ? "Usuário pode editar triagem"
+            : "Sem permissão";
+
+        echo '<pre>';
+        print_r($mensagem);
+        echo '</pre>';
+        exit;
     }
 
     /** Função para mostrar a paginacao 
@@ -80,22 +100,24 @@ class Page
     //metodo para buscar header principal
     public static function getHeader($obFuncionario)
     {
-
         $funcionarioLogado = Session::getUsuarioLogado();
         $id = $funcionarioLogado['id'];
-        //Buscar o Funcionario por id
-        $obFuncionarioAgora = FuncionarioDao::getFuncionarioId($id);
+        $resultado = NivelDao::VerificarNivel1($id);
+        $permissoes = array_column($resultado, "codigo_permisao");
 
         return View::render('Layouts/header', [
             'info' => self::getFuncionarioLogado($obFuncionario),
-            'acessoTriagem' => $obFuncionarioAgora->cargo_funcionario == 'Médico' ? 'disabled-link' : '',
-            'acessoConsuta' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
-            'acessoCadastrar' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
-            'acessoRelatorio' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
-            'acessoLaboratorio' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
-            'acessoFarmacia' => $obFuncionarioAgora->cargo_funcionario != 'Administrador' ? 'disabled-link' : '',
+
+            'acessoConsulta' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+            'acessoTriagem' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+            'acessoCadastrameto' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+            'acessoRelatorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+            'acessoLaboratorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+            'acessoFarmacia' => in_array("FARMACIA_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoTesouraria' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
         ]);
     }
+
 
     //metodo busca footer
     public static function getFooter()

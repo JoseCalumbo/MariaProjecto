@@ -22,12 +22,68 @@
     <title>{{title}}</title>
 
     <style>
-        .dropdown-content{
+        /* Deixa o carousel em modo hero (tela cheia) */
+        .hero-carousel {
+            height: 100vh;
+            /* altura total da tela */
+        }
+
+        .hero-carousel .carousel-item img {
+            object-fit: cover;
+            /* cobre a área toda */
+            height: 100vh;
+            /* força a imagem ocupar toda a altura */
+            width: 100%;
+            /* largura total */
+        }
+
+        /* Texto centralizado sobre a imagem */
+        .hero-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero-caption h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .nav {
+            height: 46px;
+            line-height: 46px;
+            /* Centraliza os itens verticalmente */
+        }
+
+        .nav .brand-logo,
+        .nav ul li a i {
+            height: 46px;
+            line-height: 46px;
+        }
+
+        .large-btn {
+            font-size: 18px !important;
+            /* aumenta o texto */
+            padding: 12px 24px !important;
+            /* aumenta a altura e largura */
+        }
+
+        .btn-large-flat {
+            font-size: 32px;
+            line-height: 45px;
+            height: 90px;
+            padding: 0 48px;
+        }
+
+        .dropdown-content {
             min-width: 220px;
         }
 
         .icon-tight {
-            margin-right:6px  !important;
+            margin-right: 6px !important;
             vertical-align: middle !important;
 
         }
@@ -111,6 +167,22 @@
             color: #ffffff !important;
             font-weight: bold !important;
         }
+
+
+        .dropdown-content li>a {
+            display: flex;
+            align-items: center;
+            /* centraliza verticalmente */
+        }
+
+
+        /* Aproxima o ícone do texto */
+        .dropdown-content li>a i {
+            margin-right: 4px;
+            /* diminui o espaço do ícone */
+            font-size: 18px;
+            /* mantém fixo o tamanho */
+        }
     </style>
 </head>
 
@@ -136,7 +208,7 @@
 
 
 
-    
+
     <!---------------------------------------ADD CONTEUDO------------------------------------------>
     {{footer}}
 

@@ -1,3 +1,14 @@
+nav {
+  height: 49px;
+  line-height: 49px; /* Centraliza os itens verticalmente */
+}
+
+nav .brand-logo,
+nav ul li a {
+  height: 49px;
+  line-height: 49b px;
+}
+
 /*css config da tabela*/
 
 .thead tr>th {
@@ -46,6 +57,29 @@ span {
     left: 232px;
     top: 22px;
 }
+
+    /* Deixa o carousel em modo hero (tela cheia) */
+    .hero-carousel {
+      height: 100vh; /* altura total da tela */
+    }
+    .hero-carousel .carousel-item img {
+      object-fit: cover;   /* cobre a área toda */
+      height: 100vh;       /* força a imagem ocupar toda a altura */
+      width: 100%;         /* largura total */
+    }
+    /* Texto centralizado sobre a imagem */
+    .hero-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+    .hero-caption h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
 
 /* css aside*/
 .collapsible {
