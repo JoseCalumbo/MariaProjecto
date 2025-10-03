@@ -1,16 +1,15 @@
-<section class="row section-field card">
+<section class="row section-field white">
+  <div></div>
+  <h4 class="center"> Painel de Pacientes</h4>
+
   <nav class="row col m12  blue-grey darken-1 ">
     <div class="col m4 nav-wrapper ">
-      <a href="{{URL}}/paciente" class="brand-logo white-text capitalize"
-        style="font-size: 18px; font-weight: bold; vertical-align: -6px;">
-        <h5 class="minuscula">Painel Paciente</h5>
-      </a>
     </div>
 
     <div class="col m4 nav-wrapper">
       <form>
         <div class="input-field custom-search">
-          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar"  required>
+          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons center">close</i>
         </div>
@@ -19,16 +18,15 @@
 
     <div class="col m4 nav-wrapper  ">
       <ul class="right hide-on-med-and-down row" style="height: 50px;">
-        <li class="white-text " style="text-transform: capitalize;">
-          <a href="{{URL}}/paciente/cadastrar" class="white-text">
-            <i class=" material-icons left white-text ">add</i> Cadastrar Novo Paciente
+        <li class="white-text blue-grey" style="text-transform: capitalize;">
+          <a href="{{URL}}/paciente/cadastrar" class="white-text" style="display: flex; align-items: center;">
+            <i class=" material-icons left white-text ">add</i>Novo Paciente
           </a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <br>
   <br>
   <section class="{{msgs}} col s12 m12 l12 ">{{msg}}</section>
 

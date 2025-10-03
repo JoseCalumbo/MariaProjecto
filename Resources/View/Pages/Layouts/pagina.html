@@ -64,20 +64,6 @@
             line-height: 46px;
         }
 
-        .large-btn {
-            font-size: 18px !important;
-            /* aumenta o texto */
-            padding: 12px 24px !important;
-            /* aumenta a altura e largura */
-        }
-
-        .btn-large-flat {
-            font-size: 32px;
-            line-height: 45px;
-            height: 90px;
-            padding: 0 48px;
-        }
-
         .dropdown-content {
             min-width: 220px;
         }
@@ -183,10 +169,33 @@
             font-size: 18px;
             /* mantém fixo o tamanho */
         }
+
+        .brand-logo {
+            font-size: 2.5rem;
+            /* aumenta o tamanho do texto */
+            padding: 0 40px;
+            /* aumenta espaço lateral */
+            width: 100px !important;
+            /* define uma largura fixa */
+            text-align: center !important;
+            /* centraliza dentro do espaço */
+        }
+
+        table th,
+        table td {
+            padding: 5px 6px !important;
+            /* reduz espaço interno */
+            line-height: 1.2 !important;
+            /* reduz altura da linha */
+            font-size: 13px;
+            /* fonte um pouco menor para caber mais dados */
+        }
+
+
     </style>
 </head>
 
-<body class="grey lighten-4">
+<body class="white lighten-4">
 
     {{header}}
     <!----------------------------------------------add CONTEUDO--------------------------------- -->
@@ -197,10 +206,6 @@
 
 
     {{content}}
-
-
-
-
 
 
 

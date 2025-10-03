@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller\Pages;
 
@@ -6,14 +6,17 @@ use \App\Utils\View;
 use \App\Model\Entity\FuncionarioDao;
 use \App\Utils\Pagination;
 use \App\Controller\Mensagem\Mensagem;
+use App\Model\Entity\PermissaoDao;
 
-Class Perfil extends Page {
+class Perfil extends Page
+{
 
     // exibe a messagem de operacao
-    public static function exibeMensagem($request){
+    public static function exibeMensagem($request)
+    {
         $queryParam = $request->getQueryParams();
-        
-        if(!isset($queryParam['msg'])) return '';
+
+        if (!isset($queryParam['msg'])) return '';
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
@@ -25,10 +28,10 @@ Class Perfil extends Page {
             case 'apagado':
                 return Mensagem::msgSucesso('Vendedor Apagdo com sucesso');
                 break;
-        }// fim do switch
+        } // fim do switch
     }
 
-        // Método para apresenatar os registos dos Funcionario
+    // Método para apresenatar os registos dos Funcionario
     private static function getPerfil($request, &$obPagination)
     {
 
@@ -57,7 +60,7 @@ Class Perfil extends Page {
 
 
         while ($obFuncionario = $resultado->fetchObject(FuncionarioDao::class)) {
-            $item .= View::render('configuracao/listarPermissao', [
+            $item .= View::render('configuracao/user/listarPerfil', [
                 'id_funcionario' => $obFuncionario->id_funcionario,
                 'imagem' => $obFuncionario->imagem_funcionario,
                 'nome' => $obFuncionario->nome_funcionario,
@@ -80,17 +83,16 @@ Class Perfil extends Page {
                 'item' => $item,
                 'numResultado' => $quantidadetotal,
             ]);
-
         }
 
         return $item;
     }
 
-    // Método que apresenta a tela do Funcionario
+    // Método que apresentar a tela de perfil de acesso
     public static function getPerfilAcesso($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('configuracao/perfil', [
+        $content = View::render('configuracao/user/perfilUtilizador', [
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
             'item' => self::getPerfil($request, $obPagination),
@@ -99,4 +101,79 @@ Class Perfil extends Page {
         return parent::getPage('Perfil de Acesso', $content);
     }
 
+    // Método que apresenta cadastrar o perfil de acesso
+    public static function getFormPermisao($request)
+    {
+        $item = '';
+        $codigos = [];
+        $IDcodigos = [];
+
+        $resultado = PermissaoDao::listarPermissao();
+
+        while ($obPermisao = $resultado->fetchObject(PermissaoDao::class)) {
+            $codigos[] = $obPermisao->codigo_permisao;
+        }
+        return $codigos;
+    }
+
+
+
+
+
+    // Método que apresenta cadastrar o perfil de acesso
+    public static function cadastrarPerfil($request)
+    {
+
+        $codigos = [];
+        $nomes = [];
+        $IdPermissao = [];
+
+        $resultado = PermissaoDao::listarPermissao();
+
+        while ($obPermisao = $resultado->fetchObject(PermissaoDao::class)) {
+            $codigos[] = $obPermisao->codigo_permisao;
+            $nomes[] = $obPermisao->nome_permissao;
+            $IdPermissao[] = $obPermisao->id_permissao;
+        }
+
+        echo '<pre>';
+        print_r($codigos);
+        print_r($IdPermissao);
+        print_r($nomes[8]);
+        echo '</pre>';
+        
+
+        $resultado = PermissaoDao::listarPermissao()->fetchObject(PermissaoDao::class);
+
+        $content = View::render('configuracao/user/formPerfil', [
+            'titulo' => 'Cadastrar Perfil de Acesso e Permissão',
+            'button' => 'Salvar',
+            'msg' => self::exibeMensagem($request),
+            // 'item' => self::getFormPermisao($request),
+            'FARMACIA_VIEW' => $nomes[8],
+
+        ]);
+        return parent::getPage('Cadastramento Perfil de Acesso', $content);
+    }
+
+
+
+    // Método que apresenta cadastrar o perfil de acesso
+    public static function setCadastrarPerfil($request)
+    {
+        $postVars = $request->getPostVars();
+        echo '<pre>';
+        print_r($postVars);
+        echo '</pre>';
+        exit;
+
+        $content = View::render('configuracao/user/formPerfil', [
+            'titulo' => 'Cadastrar Perfil de Acesso e Permissão',
+            'button' => 'Salvar',
+            'msg' => self::exibeMensagem($request),
+            'item' => self::getPerfil($request, $obPagination),
+
+        ]);
+        return parent::getPage('Cadastramento Perfil de Acesso', $content);
+    }
 }

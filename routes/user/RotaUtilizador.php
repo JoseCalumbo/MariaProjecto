@@ -4,12 +4,12 @@ use \App\Http\Response;
 use \App\Controller\Pages;
 
 /**
- *  Arquivo php de Rotas dos Funcionarios do sistema
+ *  Arquivo php de Rotas dos Utilizadores do sistema
  *  foi incluido em routas.php
  */
 
-//Apresenta a tela de Funcionario e sua listagem GET
-$obRouter->get('/funcionario', [
+//Apresenta a tela de Utilizador e sua listagem GET
+$obRouter->get('/utilizadores', [
     'middlewares' => [
         'requer-login'
     ],
@@ -18,8 +18,8 @@ $obRouter->get('/funcionario', [
     }
 ]);
 
-//Apresenta a tela de Funcionario e sua listagem POST
-$obRouter->post('/funcionario', [
+//Apresenta a tela de utilizadores e sua listagem POST
+$obRouter->post('/utilizadores', [
     'middlewares' => [
         'requer-login'
     ],
@@ -29,7 +29,7 @@ $obRouter->post('/funcionario', [
 ]);
 
 // Rota para cadastrar funcionario get
-$obRouter->get('/funcionario/cadastrar', [
+$obRouter->get('/utilizadores/cadastrar', [
     'middlewares' => [
         'requer-login'
     ],
@@ -38,7 +38,7 @@ $obRouter->get('/funcionario/cadastrar', [
     }
 ]);
 // Rota para cadastrar funcionario get
-$obRouter->post('/funcionario/cadastrar', [
+$obRouter->post('/utilizadores/cadastrar', [
     'middlewares' => [
         'requer-login'
     ],

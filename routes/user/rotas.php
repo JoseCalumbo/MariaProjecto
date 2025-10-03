@@ -18,10 +18,15 @@ $obRouter->get('/home',[
     function($request){ return new Response(200,Pages\Home::getHomeBalcao($request)); }
 ]);
 
-/** __________________________________Funcionario_______________________________
- * inclui as rotas dos Funcionario
+/** __________________________________Utilizador _______________________________
+ * inclui as rotas dos utilizador
 */
-include __DIR__.'/RotaFuncionario.php';
+include __DIR__.'/RotaUtilizador.php';
+
+/** __________________________________Perfil utiliador _______________________________
+ * inclui as rotas de perfil do utilizador
+*/
+include __DIR__.'/RotaPerfil.php';
 
 
 //________________________________relatorio__________________________

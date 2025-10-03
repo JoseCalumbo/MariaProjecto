@@ -8,7 +8,7 @@ use \App\Controller\Pages;
  *  foi incluido em routas.php
  */
 
-//Apresenta a tela para definir permisao
+//Apresenta a tela para definir perfil de acesso
 $obRouter->get('/perfil', [
     'middlewares' => [
         'requer-login'
@@ -18,36 +18,35 @@ $obRouter->get('/perfil', [
     }
 ]);
 
-//Apresenta a tela para definir permisao
+//Apresenta a tela para definir perfil de acesso
 $obRouter->post('/perfil', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200,Pages\Funcionario::telaFuncionario($request));
+        return new Response(200,Pages\Perfil::getPerfilAcesso($request));
     }
 ]);
 
-// Rota para cadastrar funcionario get
-$obRouter->get('/funcionario/cadastrar', [
+// Rota para cadastrar perfil de acesso
+$obRouter->get('/cadastrar/perfil', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Pages\Funcionario::cadastrarFuncionario($request));
+        return new Response(200, Pages\Perfil::cadastrarPerfil($request));
     }
 ]);
-// Rota para cadastrar funcionario get
-$obRouter->post('/funcionario/cadastrar', [
+
+// Rota para cadastrar perfil de acesso
+$obRouter->post('/cadastrar/perfil', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Pages\Funcionario::cadastrarFuncionario($request));
+        return new Response(200, Pages\Perfil::setCadastrarPerfil($request));
     }
 ]);
-
-
 
 
 // rota para alterar um registro GET

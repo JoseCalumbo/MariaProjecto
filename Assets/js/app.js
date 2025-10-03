@@ -14,21 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // aside Acordion
 document.addEventListener('DOMContentLoaded', function () {
-  var elemss = document.querySelectorAll('.collapsible');
+  var elemss = document.querySelectorAll('.collapsible.expandable');
   var instances = M.Collapsible.init(elemss, {
     accordion: true,
     inDuration: 600
-  });
-});
-
-
-// form not Acordion 
-document.addEventListener('DOMContentLoaded', function () {
-  var elems1 = document.querySelectorAll('.collapsibleFrom');
-  var instances = M.Collapsible.init(elems1, {
-    accordion: false,
-    inDuration: 100,
-    outDuration: 100,
   });
 });
 
@@ -42,15 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
 
-  // Inicializa o collapsible expansível
-  var expandable = document.querySelectorAll('.collapsible.expandable');
-  M.Collapsible.init(expandable, {
-    accordion: false
-  });
-
-});
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //abas do painel de vendedor

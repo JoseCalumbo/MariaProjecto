@@ -1,6 +1,6 @@
 <section class="row section-field white">
   <br>
-  <h4 class="center"> Painel de Utilizadores</h4>
+  <h4 class="center"> Painel de Perfil de Acesso</h4>
 
   <nav class="row col m12  blue-grey darken-1 ">
     <div class="col m4 nav-wrapper ">
@@ -17,23 +17,33 @@
     </div>
 
     <div class="col m4 nav-wrapper  ">
-      <ul class="right hide-on-med-and-down row" style="height: 50px; ">
+      <ul class="right hide-on-med-and-down row" style="height: 50px;">
         <li>
-          <a href="{{URL}}/utilizadores" style="display: flex; align-items: center; text-transform: capitalize;">
+          <a href="{{URL}}/perfil" style="display: flex; align-items: center;text-transform: capitalize;">
             <i class="material-icons">refresh</i>Actulizar
           </a>
         </li>
 
         <li class="white-text " style="text-transform: capitalize;">
-          <a href="{{URL}}/perfil" class="white-text" style="display: flex; align-items: center;">
-            <i class=" material-icons left white-text ">manage_accounts</i>Novo Perfil
+          <a href="{{URL}}/funcionario/cadastrar" class="white-text" style="display: flex; align-items: center;">
+            <i class=" material-icons left white-text ">person_add</i>Novo Utilizador
           </a>
         </li>
+
         <li class="" style="text-transform: capitalize;">
-          <a href=" {{URL}}/funcionario/cadastrar" class="white-text" style="display: flex; align-items: center;">
+          <a href=" {{URL}}/cadastrar/perfil" class="white-text" style="display: flex; align-items: center;">
             <i class="material-icons left white-text">add</i>Novo
           </a>
         </li>
+
+        <!--
+           <li class="" style="text-transform: capitalize;">
+          <a href=" {{URL}}/relatorio/listaUser" class="white-text" style="display: flex; align-items: center;">
+            <i class="material-icons left white-text">co_present</i>Imprimir
+          </a>
+        </li>   
+        -->
+  
       </ul>
     </div>
   </nav>
@@ -45,16 +55,13 @@
 
   <section class="  white col m12">
 
-    <table class="row col m12 ">
+    <table class="row col m12 responsive-table ">
       <thead class="">
-        <tr class="center">
-          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Nº</th>
-          <th><i id="coluna" class="material-icons black-white" style="vertical-align: -6px;">image</i>Imagem</th>
-          <th><i class="material-icons black-white" style="vertical-align: -6px;">person</i> Nome</th>
-          <th> <i class="material-icons black-white " style="vertical-align: -6px;">phone</i>Telefone </th>
-          <th> <i class="material-icons black-white " style="vertical-align: -6px;">email</i>Telefone </th>
-          <th> <i class="material-icons black-white " style="vertical-align: -6px;">place</i>Cargo</th>
-          <th> <i class="material-icons black-white " style="vertical-align: -6px;">place</i>Data Registro</th>
+        <tr class="center blue-grey lighten-5">
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i>Código</th>
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">person</i> Nivel de Acesso</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">list_alt</i>Descrisão </th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>Data</th>
           <th> <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>Opção</th>
 
         </tr>
