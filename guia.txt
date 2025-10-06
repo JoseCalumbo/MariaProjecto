@@ -28,3 +28,114 @@ O Recepcionista (id_nivel = 2) só pode cadastrar/editar paciente e agendar cons
 O Médico (id_nivel = 3) pode editar consulta, registrar triagem e solicitar exames.
 O Farmácia (id_nivel = 4) gerencia medicamentos.
 O Laboratório (id_nivel = 5) gerencia exames.
+
+
+
+
+. Início / Dashboard
+
+Resumo geral do laboratório: Quantidade de exames realizados, exames pendentes, resultados aguardando validação.
+
+Status atual: Notificações rápidas sobre exames urgentes ou resultados críticos.
+
+Relatórios rápidos: Opções para gerar relatórios de produtividade do laboratório ou resultados pendentes.
+
+2. Cadastro de Exames
+
+Cadastrar novo exame
+
+Cadastrar tipos de exames (ex.: exames de sangue, imagem, microbiológicos)
+
+Cadastrar materiais necessários (kits de teste, reagentes, etc.)
+
+Cadastrar novos pacientes (com a opção de importar dados de prontuários eletrônicos)
+
+3. Solicitação de Exames
+
+Nova solicitação de exames
+
+Aqui, o usuário poderá adicionar exames solicitados pelos médicos para um paciente específico.
+
+Busca por paciente: Permitir busca pelo nome do paciente, código do paciente ou número do prontuário.
+
+Selecionar tipos de exames: Exames laboratoriais específicos (como exames de sangue, urina, fezes, etc.).
+
+Exames de urgência: Adicionar ou priorizar exames urgentes.
+
+Cancelar ou alterar solicitação: Opção para alterar ou cancelar exames já solicitados.
+
+4. Resultados de Exames
+
+Consultar resultados por paciente: Buscar e visualizar resultados de exames anteriores.
+
+Consultar resultados por tipo de exame: Visualizar todos os resultados de um determinado tipo de exame (ex.: todos os hemogramas, todos os exames de sangue, etc.)
+
+Filtrar resultados: Opções para filtrar por data, tipo de exame ou status (pendente, em análise, pronto).
+
+Notificação de resultados críticos: Área onde os resultados com alterações significativas são destacados.
+
+Emitir laudos: Gerar ou visualizar os laudos de exames já concluídos.
+
+5. Controle de Amostras
+
+Cadastro de amostras: Registro de amostras recebidas no laboratório.
+
+Acompanhamento do status da amostra: Visualizar o status das amostras, desde a coleta até o resultado final.
+
+Armazenamento de amostras: Controle sobre onde as amostras estão armazenadas (ex.: geladeira, freezer, temperatura ambiente).
+
+Validade das amostras: Alertas de vencimento ou necessidade de novo teste devido a amostras comprometidas.
+
+6. Controle de Qualidade
+
+Relatórios de controle de qualidade: Gerar relatórios periódicos sobre a qualidade dos exames realizados.
+
+Avaliação de erros de laboratório: Relatar ou revisar incidentes ou erros em exames realizados.
+
+Manutenção de equipamentos: Controle de manutenção preventiva e corretiva dos equipamentos laboratoriais.
+
+Controle de reagentes e insumos: Monitoramento de estoque de reagentes e insumos necessários para os exames.
+
+7. Agendamento de Exames
+
+Agendar exames para pacientes: Permitir que o laboratório agende exames com os pacientes, definindo horários e datas.
+
+Reagendar exames: Alterar datas ou horários de exames já agendados.
+
+Exames urgentes: Agendamento prioritário para exames de urgência.
+
+8. Relatórios e Estatísticas
+
+Relatório de exames realizados: Exibir a quantidade de exames realizados por período (diário, semanal, mensal).
+
+Relatório de produtividade: Mostrar a produtividade do laboratório e os resultados em relação às metas estabelecidas.
+
+Relatório financeiro: Relatórios sobre custos dos exames, faturamento, reembolsos e pagamentos.
+
+Indicadores de desempenho (KPIs): Visualização de KPIs como tempo médio de execução de exames, tempo de resposta para laudos, etc.
+
+9. Gestão de Funcionários
+
+Cadastro de técnicos e analistas de laboratório: Registrar informações sobre os funcionários do laboratório.
+
+Controle de escalas: Definir e visualizar a escala de trabalho dos profissionais.
+
+Gestão de permissões: Controle de acesso e permissões de cada usuário no sistema (quem pode ver/editar o quê).
+
+10. Configurações
+
+Configuração de parâmetros laboratoriais: Como unidades de medida, limites de referência para exames, etc.
+
+Gerenciamento de listas de exames: Adicionar, editar ou excluir tipos de exames no sistema.
+
+Alertas e notificações: Definir alertas para exames urgentes, resultados pendentes, etc.
+
+Integração com outros sistemas: Integrar com sistemas de prontuário eletrônico, sistemas de faturamento ou outros módulos hospitalares.
+
+11. Ajudas e Suporte
+
+Manual do usuário: Disponibilizar um guia ou tutorial sobre como usar o sistema.
+
+Suporte técnico: Área para chamar assistência técnica ou esclarecer dúvidas.
+
+FAQ: Perguntas frequentes e resoluções de problemas comuns.

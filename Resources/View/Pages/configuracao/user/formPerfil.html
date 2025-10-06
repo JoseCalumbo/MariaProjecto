@@ -38,13 +38,13 @@
                             </div>
 
                             <div class="input-field col s12 m6">
-                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <input id="nome" type="text" name="serie" value="{{nome}}" class="validate">
                                 <label for="nome" style="text-transform: capitalize;">Serie Perfil:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m12">
-                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <input id="nome" type="text" name="descrisao" value="{{nome}}" class="validate">
                                 <label for="nome" style="text-transform: capitalize;">DescrisãoPerfil:</label>
                             </div>
                         </div>
@@ -60,17 +60,18 @@
                     <div class="collapsible-header white-text font-normal blue-grey darken-1"><i
                             class="material-icons">list</i>Administrativo
                     </div>
+
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" name="codigo_permisao[]" class="filled-in" checked=""  />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{DATABASE_VIEW}}" class="filled-in" checked=""  />
                                 <span>Actulizar Base de dados</span>
                             </label>
                         </div>
     
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" name="codigo_permisao[]" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{IMPORT_DATABASE_VIEW}}"  class="filled-in" checked=""  />
                                 <span>Importar e exportar dados</span>
                             </label>
                         </div>
@@ -85,20 +86,26 @@
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" name="c[]" value="EXAME_VIEW" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{EXAME_ACESS}}" class="filled-in" checked="" />
                                 <span>Exames</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" name="c[]"  class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]"  value="{{EXAME_RESULT}}" class="filled-in" checked="" />
                                 <span>Lancar Resultado de exames</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" name="c[]"  class="filled-in" checked="" />
-                                <span>Histórico dos exames</span>
+                                <input type="checkbox" name="codigo_permisao[]" value="{{EXAME_CREATE}}"  class="filled-in" checked="" />
+                                <span>Cadastrar novos Exame</span>
+                            </label>
+                        </div>
+                        <div class=" row col s12 m12">
+                            <label>
+                                <input type="checkbox" name="codigo_permisao[]" value="{{EXAME_SOLICITACAO}}"  class="filled-in" checked="" />
+                                <span>Solicitação de Exame</span>
                             </label>
                         </div>
                     </div>
@@ -112,31 +119,31 @@
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]"  value="{{USER_VIEW}}" class="filled-in" checked="" />
                                 <span>Cadastrar Utilizadores</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]"  value="{{USER_PERFIL_VIEW}}" class="filled-in" checked="" />
                                 <span>Cadastrar Perfil</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{CREATE_SERVICE}}" class="filled-in" checked="" />
                                 <span>Cadastramento de Serviços </span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]"  value="{{PERSONALIZAR}}" class="filled-in" checked="" />
                                 <span>Personalizar</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]"  value="{{AGENDAR}}" class="filled-in" checked="" />
                                 <span>Agenda</span>
                             </label>
                         </div>
@@ -151,26 +158,26 @@
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{MEDICAMENTO_CREATE}}" class="filled-in" checked="" />
                                 <span>Cadastrar Medicamentos</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{FORNECEDOR_VIEW}}" class="filled-in" checked="" />
                                 <span>Cadastrar Fornecedores</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{GERIR_ESTOQUE_VIEW}}" class="filled-in" checked="" />
                                 <span>Gerir Estoque</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
-                                <span>Vendas</span>
+                                <input type="checkbox" name="codigo_permisao[]"  value="{{RECEPÇAO}}" class="filled-in" checked="" />
+                                <span>Recepção</span>
                             </label>
                         </div>
                     </div>
@@ -184,26 +191,20 @@
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{CAIXA_VIEW}}" class="filled-in" checked="" />
                                 <span>Caixa</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{PAGAMENTO_VIEW}}" class="filled-in" checked="" />
                                 <span>Finalidade de pagamentos</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{SALFT}}" class="filled-in" checked="" />
                                 <span>Gerar Salft</span>
-                            </label>
-                        </div>
-                        <div class=" row col s12 m12">
-                            <label>
-                                <input type="checkbox" class="filled-in" checked="" />
-                                <span>Receber e efetuar pagamentos</span>
                             </label>
                         </div>
                     </div>
@@ -212,48 +213,48 @@
                 <!-- Hospital -->
                 <li class="active col m4">
                     <div class="collapsible-header white-text font-normal blue-grey darken-1"><i
-                            class="material-icons">medical_services</i> Consultorio e Enfermagem
+                            class="material-icons">medical_services</i>Recepção e Consultorio
                     </div>
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{PACIENTE_CREATE}}" class="filled-in" checked="" />
                                 <span>Cadastrar Pacientes</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{INTERNAMENTO_VIEW}}" class="filled-in" checked="" />
                                 <span>Gerir Internamentos</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{TRANSFERIR_VIEW}}" class="filled-in" checked="" />
                                 <span>Gerir Transferencia</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{CONSULTA_VIEW}}" class="filled-in" checked="" />
                                 <span>Gerir consulta</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{MARCAR_CONSULTA_VIEW}}" class="filled-in" checked="" />
                                 <span>Marcar Consulta</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{EXAME_VIEW}}" class="filled-in" checked="" />
                                 <span>Exames</span>
                             </label>
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="" />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{ATENDIMENTO_VIEW}}" class="filled-in" checked="" />
                                 <span>Atendimento</span>
                             </label>
                         </div>

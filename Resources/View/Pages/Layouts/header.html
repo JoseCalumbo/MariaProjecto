@@ -31,7 +31,7 @@
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoRecepição}}" data-target="dropdown-hospital"
                         style="font-size: 14px;">
-                        <i class="material-icons left icon-tight" style="font-size: 18px;">local_hospital</i> Hospital
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">local_hospital</i> Recepção
                         <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
@@ -139,19 +139,32 @@
 
             <li>
                 <a href="{{URL}}/paciente" class="capitalize">
-                    <i class="material-icons left">medical_information</i>Atendimento - Recepcão
+                    <i class="material-icons left">medical_information</i>Atendimento - Check-in
+                </a>
+            </li>
+            <li>
+                <a href="{{URL}}/paciente" class="capitalize">
+                    <i class="material-icons left">medical_information</i>Histórico de atendimentos
+                </a>
+            </li>
+
+            <li class="divider"></li> <!-- Linha de separação -->
+
+            <li>
+                <a href="{{URL}}/paciente" class="capitalize">
+                    <i class="material-icons left">event</i>Agendar nova consulta
                 </a>
             </li>
 
             <li>
                 <a href="{{URL}}/paciente" class="capitalize">
-                    <i class="material-icons left">event</i>Marcações de Consulta
+                    <i class="material-icons left">biotech</i>Agendar Exame
                 </a>
             </li>
 
             <li>
                 <a href="{{URL}}/paciente" class="capitalize">
-                    <i class="material-icons left">biotech</i>Verificar Exames
+                    <i class="material-icons left">biotech</i>Visualizar agenda por profissional
                 </a>
             </li>
 
@@ -215,8 +228,9 @@
         <ul id="dropdown-lab" class="dropdown-content">
             <li><a href="#!" class="capitalize">Exames </a></li>
             <li><a href="#!" class="capitalize">Lançar Resultado de exame</a></li>
-            <li><a href="#!" class="capitalize">Histórico de Exames</a></li>
-            <li><a href="#!" class="capitalize disabled-link">Relatórios Laboratoriais</a></li>
+            <li><a href="#!" class="capitalize">Cadastrar novos Exame</a></li>
+            <li><a href="#!" class="capitalize disabled-link">Agendamento de Exame</a></li>
+            <li><a href="#!" class="capitalize disabled-link">Solicitação de Exame</a></li>
         </ul>
 
         <!-- Dropdown paciente -->
