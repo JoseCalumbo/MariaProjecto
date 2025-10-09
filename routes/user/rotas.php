@@ -94,12 +94,7 @@ include __DIR__.'/RotaConsultaDiaria.php';
 
 
 //________________________ rota para ir na pagina conta___________________________
-$obRouter->get('/conta',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\Conta::telaConta($request));}
-]);
+
 
 // rota para ir na pagina conta
 $obRouter->post('/conta',[
@@ -139,7 +134,11 @@ $obRouter->get('/conta/editar',[
 */
 include __DIR__.'/RotaLogin.php';
 
-
+/**
+ * __________________________________ Conta _______________________________
+ * inclui as rotas da conta 
+ */
+include __DIR__.'/RotaConta.php';
 
 /**
  * __________________________________Triagem_______________________________

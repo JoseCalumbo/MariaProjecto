@@ -24,6 +24,36 @@
         <form method="post" enctype="multipart/form-data">
 
             <ul class="row white collapsible1 expandable ">
+                <li class="active col m12">
+                    <div id="form-collapsible" class="collapsible-header white-text font-normal  blue-grey darken-1">
+                        <i class="material-icons">person</i> Perfil de Acesso
+                    </div>
+
+                    <div class="collapsible-body row" style="padding: 5px 0px !important; margin: 0px !important;">
+
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <label for="nome" style="text-transform: capitalize;">Nome Perfil:</label>
+                            </div>
+
+                            <div class="input-field col s12 m6">
+                                <input id="serie" type="text" name="serie" value="{{serie}}" class="validate">
+                                <label for="serie" style="text-transform: capitalize;">Serie Perfil:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <input id="descrisao" type="text" name="descrisao" value="{{descrisao}}"
+                                    class="validate">
+                                <label for="descrisao" style="text-transform: capitalize;">DescrisãoPerfil:</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="row white collapsible1 expandable ">
 
                 <!-- Administrativo -->
                 <li class="active col m4">
@@ -31,7 +61,7 @@
                             class="material-icons">list</i>Administrativo
                     </div>
 
-                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;" >
+                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
                                 <input type="checkbox" name="codigo_permisao[]" value="{{DATABASE_VIEW}}"
@@ -191,8 +221,7 @@
                         </div>
                         <div class=" row col s12 m12">
                             <label>
-                                <input type="checkbox" name="codigo_permisao[]" value="{{SALFT}}" class="filled-in"
-                                    {{salft1}} />
+                                <input type="checkbox" name="codigo_permisao[]" value="{{SALFT}}" class="filled-in" {{salft1}} />
                                 <span>Gerar Salft</span>
                             </label>
                         </div>
@@ -267,9 +296,5 @@
 
     </section>
 </section>
-
-
-
-{{msg1}}
 
 <script src="{{URL}}/Assets/js/main.js"></script>

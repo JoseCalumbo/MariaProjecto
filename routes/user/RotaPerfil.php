@@ -29,16 +29,6 @@ $obRouter->post('/perfil', [
 ]);
 
 // Rota para cadastrar perfil de acesso
-$obRouter->get('/cadastrar/perfil', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request) {
-        return new Response(200, Pages\Perfil::cadastrarPerfil($request));
-    }
-]);
-
-// Rota para cadastrar perfil de acesso
 $obRouter->post('/cadastrar/perfil', [
     'middlewares' => [
         'requer-login'
@@ -48,32 +38,55 @@ $obRouter->post('/cadastrar/perfil', [
     }
 ]);
 
-
-// rota para alterar um registro GET
-$obRouter->get('/funcionario/editar/{id_funcionario}', [
+// Rota para cadastrar perfil de acesso
+$obRouter->get('/cadastrar/permissao/{id_Nivel}', [
     'middlewares' => [
         'requer-login'
     ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::getAtualizarFuncionario($request, $id_funcionario));
-    }
-]);
-// rota para alterar um registro POST 
-$obRouter->post('/funcionario/editar/{id_funcionario}', [
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setAtualizarFuncionario($request, $id_funcionario));
+    function ($request, $id_Nivel) {
+        return new Response(200, Pages\Perfil::cadastrarPermissao($request,$id_Nivel));
     }
 ]);
 
-
-
-// Rota para apagar funcionario
-$obRouter->post('/funcionario/apagar/{id_funcionario}', [
+// Rota para cadastrar perfil de acesso
+$obRouter->post('/cadastrar/permissao/{id_Nivel}', [
     'middlewares' => [
-        'requer-loginAdmin'
+        'requer-login'
     ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setApagarFuncionario($request, $id_funcionario));
+    function ($request, $id_Nivel) {
+        return new Response(200, Pages\Perfil::setCadastrarPermissao($request,$id_Nivel));
     }
 ]);
+
+
+// Rota para editar perfil de acesso
+$obRouter->get('/editar/perfil/{id_Nivel}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request, $id_Nivel) {
+        return new Response(200, Pages\Perfil::editarPermissao($request,$id_Nivel));
+    }
+]);
+// Rota para apagar perfil de acesso
+$obRouter->get('/apagar/perfil/{id_Nivel}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request, $id_Nivel) {
+        return new Response(200, Pages\Perfil::apagarPermissao($request,$id_Nivel));
+    }
+]);
+
+
+
+
+
+
+
+
+
+
+
+
 

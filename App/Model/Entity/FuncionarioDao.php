@@ -51,7 +51,7 @@ class FuncionarioDao
             'registrado' => $this->registrado,
         ]);
 
-        return true;
+        return $this->id_funcionario;
     }
 
     /**

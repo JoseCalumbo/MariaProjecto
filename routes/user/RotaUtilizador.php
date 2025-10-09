@@ -48,8 +48,6 @@ $obRouter->post('/utilizadores/cadastrar', [
 ]);
 
 
-
-
 // rota para alterar um registro GET
 $obRouter->get('/funcionario/editar/{id_funcionario}', [
     'middlewares' => [
@@ -67,11 +65,54 @@ $obRouter->post('/funcionario/editar/{id_funcionario}', [
 ]);
 
 
-
-// Rota para apagar funcionario
-$obRouter->post('/funcionario/apagar/{id_funcionario}', [
+// Rota para cadastrar funcionario get
+$obRouter->get('/utilizadores/{id_funcionario}', [
     'middlewares' => [
-        'requer-loginAdmin'
+        'requer-login'
+    ],
+    function ($request, $id_funcionario) {
+        return new Response(200, Pages\Funcionario::getFuncionarioConta($request, $id_funcionario));
+    }
+]);
+
+// Rota para alterar perfil de acesso get
+$obRouter->get('/utilizadores-perfil/{id_funcionario}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request, $id_funcionario) {
+        return new Response(200, Pages\Funcionario::editarPerfilU($request, $id_funcionario));
+    }
+]);
+
+// Rota para alterar perfil de acesso post
+$obRouter->post('/utilizadores-perfil/{id_funcionario}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request, $id_funcionario) {
+        return new Response(200, Pages\Funcionario::setEditarPerfilU($request, $id_funcionario));
+    }
+]);
+
+
+
+// Rota para apagar utilizadores
+$obRouter->get('/apagar/{id_funcionario}', [
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function ($request, $id_funcionario) {
+        return new Response(200, Pages\Funcionario::setApagarFuncionario($request, $id_funcionario));
+    }
+]);
+
+// Rota para apagar utilizadores
+$obRouter->post('/apagar/{id_funcionario}', [
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
     ],
     function ($request, $id_funcionario) {
         return new Response(200, Pages\Funcionario::setApagarFuncionario($request, $id_funcionario));

@@ -689,10 +689,6 @@ h1 {
     text-transform: uppercase;
 }
 
-.capitalize {
-    text-transform: capitalize;
-}
-
 .negrito1 {
     font-weight: 900;
 }

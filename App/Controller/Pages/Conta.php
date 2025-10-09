@@ -33,7 +33,7 @@ class Conta extends Page
             case 'contaeditada':
                 return Mensagem::msgSucesso('Conta editada com sucesso');
                 break;
-        }// fim do switch
+        } // fim do switch
     }
 
     // funcão para apresentar os dados do user 
@@ -62,6 +62,7 @@ class Conta extends Page
             'genero' => $obFuncionario->genero_funcionario,
             'nascimento' => $obFuncionario->nascimento_funcionario,
             'bilhete' => $obFuncionario->bilhete_funcionario,
+            'morada' => $obFuncionario->morada_funcionario,
             'email' => $obFuncionario->email_funcionario,
             'telefone' => $obFuncionario->telefone1_funcionario,
             'telefone1' => $obFuncionario->telefone2_funcionario,
@@ -105,11 +106,108 @@ class Conta extends Page
             'dadosconta' => self::getUsuarioConta(),
             'menuconta' => self::getUsuarioMenu(),
             'imagem' => $obFuncionario->imagem_funcionario,
+            'nome' => $obFuncionario->nome_funcionario,
             'msg' => self::exibeMensagem($request),
             'msgVazio' => ''
         ]);
         return parent::getPage('Painel Usuario', $content);
     }
+
+    // metodo que renderiza a tela de Segurança controle
+    public static function getTelaSeguranca($request, $erroMsg)
+    {
+        // Obetm o id do usuario da sessão
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+
+        // Busca os dados funcionario pelo id
+        $obUsuario = FuncionarioDao::getFuncionarioId($id);
+        $postVars = $request->getPostVars();
+
+        // post do form da alteracao 
+        $senhaAntiga = $postVars['senhaAntiga'] ?? '';
+        $senhaNova = $postVars['senhaNova'] ?? '';
+        $senhaConfirmada = $postVars['senhaConfirmada'] ?? '';
+
+        $status = !is_null($erroMsg) ? Mensagem::mensagemErro($erroMsg) : '';
+
+        $content = View::render('conta/contaSeguranca', [
+            'senhaAntiga' => $senhaAntiga,
+            'senhaNova' => $senhaNova,
+            'senhaConf' => $senhaConfirmada,
+            'id' => $obUsuario->id_funcionario,
+            'nome' => $obUsuario->nome_funcionario,
+            'active' => 'blue-grey darken-3 white-text',
+            'msg' => $status,
+            'msgVazio' => '',
+            'imagem' => $obUsuario->imagem_funcionario,
+            'msg1' => self::exibeMensagem($request),
+        ]);
+        return parent::getPage('Admin Segurança', $content);
+    }
+
+    /** Metodo para editar os dados 
+     *@param Request $request
+     *@return string
+     */
+    public static function getEditarConta($request)
+    {
+        // Obetm o id do usuario da sessão
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+
+        // busca o usuario po id
+        $obUsuario = FuncionarioDao::getFuncionarioId($id);
+
+        $content = View::render('conta/contaPerfil', [
+            'msg' => '',
+            'nome' => $obUsuario->nome_funcionario,
+            'genero' => $obUsuario->genero_funcionario,
+            'nascimento' => $obUsuario->nascimento_funcionario,
+            'bilhete' => $obUsuario->bilhete_funcionario,
+            'morada' => $obUsuario->morada_funcionario,
+
+            'masculino' => $obUsuario->genero_funcionario == 'Masculino' ? 'selected' : '',
+            'feminino' => $obUsuario->genero_funcionario == 'Feminino' ? 'selected' : '',
+            'id' => $obUsuario->id_funcionario,
+            'active' => 'blue-grey darken-3 white-text',
+            'msg1' => self::exibeMensagem($request),
+
+        ]);
+        return parent::getPage('Personalização', $content);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Metodo para editar os dados 
@@ -133,7 +231,6 @@ class Conta extends Page
             'imagem' => $obFuncionario->imagem_funcionario,
         ]);
         return parent::getPage('Editar conta', $content);
-
     }
 
     // metodo que renderiza a tela alter senha
@@ -251,5 +348,4 @@ class Conta extends Page
             }
         }
     }
-
 }

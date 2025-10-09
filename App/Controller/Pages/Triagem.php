@@ -70,7 +70,7 @@ class Triagem extends Page
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 6);
 
         $resultado = TriagemDao::listarTriagem($where, 'id_triagem', $obPagination->getLimit());
 

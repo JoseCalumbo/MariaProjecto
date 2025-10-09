@@ -6,11 +6,15 @@ use \App\Utils\View;
 use \App\Utils\Pagination;
 use \App\Utils\Upload;
 use \App\Model\Entity\FuncionarioDao;
+use \App\Model\Entity\PacienteDao;
+use \App\Model\Entity\FuncionarioNivelDao;
+use \App\Model\Entity\NivelDao;
 use \App\Controller\Mensagem\MensagemAdmin;
 
 
 class Funcionario extends Page
 {
+
     /* Metodo para exibir  as mensagens
      *@param Request 
      *@ return string
@@ -29,13 +33,38 @@ class Funcionario extends Page
             case 'alterado':
                 return MensagemAdmin::msgSucesso('Funcionario Alterado com sucesso');
                 break;
+            case 'alteradonivel':
+                return MensagemAdmin::msgSucesso('Nivel de acesso Alterado com sucesso');
+                break;
+            case 'seleciona':
+                return MensagemAdmin::msgAlerta('Clica em selecionar antes de salvar');
+                break;
             case 'apagado':
                 return MensagemAdmin::msgSucesso('Funcionario Apagado com sucesso');
                 break;
             case 'confirma':
                 return MensagemAdmin::msgAlerta('Clica em Confirmar antes de apagar');
                 break;
-        }// fim do switch
+        } // fim do switch
+    }
+
+    // busca todos os Zona cadastrado
+    public static function getPerfil()
+    {
+
+        $resultadoPerfil = '';
+
+        $listarNivelPerfil = NivelDao::listarNivelPerfil(null, 'nome_nivel');
+
+        while ($obPerfil = $listarNivelPerfil->fetchObject(NivelDao::class)) {
+
+            $resultadoPerfil .= View::render('funcionario/itemFuncionario/perfil', [
+                'value' => $obPerfil->id_nivel,
+                'perfil' => $obPerfil->nome_nivel,
+                //'checado'=>$obNegocio->nome,
+            ]);
+        }
+        return $resultadoPerfil;
     }
 
     // Método para apresenatar os registos dos Funcionario
@@ -61,7 +90,7 @@ class Funcionario extends Page
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 11);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 8);
 
         $resultado = FuncionarioDao::listarFuncionario($where, 'nome_funcionario ', $obPagination->getLimit());
 
@@ -90,7 +119,6 @@ class Funcionario extends Page
                 'item' => $item,
                 'numResultado' => $quantidadetotal,
             ]);
-
         }
 
         return $item;
@@ -106,7 +134,7 @@ class Funcionario extends Page
             'item' => self::getFuncionario($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
-        return parent::getPage('Admin Painel Funcionario', $content);
+        return parent::getPage('Admin Painel Utilizadores', $content);
     }
 
     // Metodo que cadastra novo Funcionario
@@ -114,6 +142,9 @@ class Funcionario extends Page
     {
         // Instancia o Model Funcionario
         $obFuncionario = new FuncionarioDao;
+
+        // Instancia o Model Funcionario
+        $obFuncionarioNivel = new FuncionarioNivelDao;
 
         $postVars = $request->getPostVars();
 
@@ -133,11 +164,16 @@ class Funcionario extends Page
                 $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
                 $obFuncionario->cargo_funcionario = $_POST['cargo'];
                 $obFuncionario->morada_funcionario = $_POST['morada'];
-                $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
+                $obFuncionario->senha_funcionario = password_hash($_POST['senha'], PASSWORD_DEFAULT);
                 $obFuncionario->imagem_funcionario = 'anonimo.png';
-                $obFuncionario->cadastrarFuncionario();
+                // faz o cadastramento e obtem o id registrado do funcionario
+                $idFuncionario = $obFuncionario->cadastrarFuncionario();
 
-                $request->getRouter()->redirect('/funcionario?msg=cadastrado');
+                $obFuncionarioNivel->id_funcionario = $idFuncionario;
+                $obFuncionarioNivel->id_nivel = $_POST['perfilAcesso'];
+                $obFuncionarioNivel->addNivelAcesso();
+
+                $request->getRouter()->redirect('/utilizadores?msg=cadastrado');
                 exit;
             }
 
@@ -153,22 +189,28 @@ class Funcionario extends Page
             $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
             $obFuncionario->morada_funcionario = $_POST['morada'];
             $obFuncionario->cargo_funcionario = $_POST['cargo'];
-            $obFuncionario->senha_funcionario = password_hash($_POST['bilhete'], PASSWORD_DEFAULT);
+            $obFuncionario->senha_funcionario = password_hash($_POST['senha'], PASSWORD_DEFAULT);
             $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
-            $obFuncionario->cadastrarFuncionario();
+
+            $idFuncionario =  $obFuncionario->cadastrarFuncionario();
+
+            $obFuncionarioNivel->id_funcionario = $idFuncionario;
+            $obFuncionarioNivel->id_nivel = $_POST['perfilAcesso'];
+            $obFuncionarioNivel->addNivelAcesso();
 
             if ($sucess) {
-                $request->getRouter()->redirect('/funcionario?msg=cadastrado');
+                $request->getRouter()->redirect('/utilizadores?msg=cadastrado');
                 exit;
             } else {
                 echo 'Ficheiro não Enviado';
             }
         }
 
-        // Renderiza a tela de formulario do funcionario
+        // Renderiza a tela de formulario do funcionario add
         $content = View::render('funcionario/formFuncionario', [
-            'titulo' => 'Cadastrar Novo Funcionario',
-            'button' => 'Cadastrar',
+            'perfilCadastrado' => self::getPerfil(),
+            'titulo' => 'Cadastrar Novo Utilizadores',
+            'button' => 'salvar',
             'msg' => '',
             'nome' => '',
             'ordem' => '',
@@ -180,10 +222,13 @@ class Funcionario extends Page
             'telefone2' => '',
             'telefone1' => '',
             'nivel' => '',
+
+            'senha' => '',
+            'senhaConfirma' => '',
             'imagem' => 'anonimo.png',
         ]);
 
-        return parent::getPage('Cadastrar Funcionario', $content);
+        return parent::getPage('Novo Utilizador', $content);
     }
 
     // Método que edita dados do Funcionario
@@ -192,9 +237,10 @@ class Funcionario extends Page
         // Busca um Funcionario por id
         $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
 
-        $content = View::renderAdmin('funcionario/formFuncionario', [
-            'titulo' => 'Edita Dados do Funcionario',
-            'button' => 'Actulizar',
+        $content = View::render('funcionario/formFuncionarioEditar', [
+            'perfilCadastrado' => self::getPerfil(),
+            'titulo' => 'Edita Dados Utilizadores',
+            'button' => 'salvar',
             'nome' => $obFuncionario->nome_funcionario,
             'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
             'data' => $obFuncionario->nascimento_funcionario,
@@ -211,6 +257,9 @@ class Funcionario extends Page
             'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
             'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
             'imagem' => $obFuncionario->imagem_funcionario,
+
+            'senha' => '',
+            'senhaConfirma' => '',
         ]);
 
         return parent::getPage('Eidtar dados Funcionario', $content);
@@ -230,7 +279,7 @@ class Funcionario extends Page
 
             if ($_FILES['imagem']['error'] == 4) {
 
-                $obFuncionario->nome_funcionario = $_POST['nome']; 
+                $obFuncionario->nome_funcionario = $_POST['nome'];
                 $obFuncionario->genero_funcionario = $_POST['genero'];
                 $obFuncionario->nascimento_funcionario = $_POST['data'];
                 $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
@@ -243,12 +292,12 @@ class Funcionario extends Page
                 $obFuncionario->imagem_funcionario = 'anonimo.png' != null ? $obFuncionario->imagem_funcionario : 'anonimo.png';;
                 $obFuncionario->atualizarFuncionario();
 
-                $request->getRouter()->redirect('/funcionario?msg=alterado');
+                $request->getRouter()->redirect('/utilizadores?msg=alterado');
             }
 
             $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
 
-            $obFuncionario->nome_funcionario = $_POST['nome'] ?? $obFuncionario->nome_funcionario; 
+            $obFuncionario->nome_funcionario = $_POST['nome'] ?? $obFuncionario->nome_funcionario;
             $obFuncionario->genero_funcionario = $_POST['genero'] ?? $obFuncionario->genero_funcionario;
             $obFuncionario->nascimento_funcionario = $_POST['data'];
             $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
@@ -263,15 +312,14 @@ class Funcionario extends Page
             $obFuncionario->atualizarFuncionario();
 
             if ($sucess) {
-
-                $request->getRouter()->redirect('/funcionario?msg=alterado');
+                $request->getRouter()->redirect('/utilizadores?msg=alterado');
             } else {
                 echo 'Ficheiro nao Enviado';
             }
         }
-        $content = View::renderAdmin('funcionario/formFuncionario', []);
+        $content = View::render('funcionario/formFuncionarioEditar', []);
 
-        return parent::getPage('Actualizar Funcionario', $content);
+        return parent::getPage('Actualizar utilizador', $content);
     }
 
     // Metodo para apagar Funcionario
@@ -281,7 +329,7 @@ class Funcionario extends Page
 
         // Verifica se o usuario clicou em cancelar
         if ($cancelar == "cancelar") {
-            $request->getRouter()->redirect('/funcionario');
+            $request->getRouter()->redirect('/utilizadores');
             exit;
         }
 
@@ -290,12 +338,102 @@ class Funcionario extends Page
             // Busca o funcionario por ID
             $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
             $obFuncionario->apagarFuncionario();
-            $request->getRouter()->redirect('/funcionario?msg=apagado');
+            $request->getRouter()->redirect('/utilizadores?msg=apagado');
         }
 
-        $request->getRouter()->redirect('/funcionario?msg=confirma');
+        $request->getRouter()->redirect('/utilizadores?msg=confirma');
+    }
+
+    // Método conta Funcionario
+    public static function getFuncionarioConta($request, $id_funcionario)
+    {
+        // Busca um Funcionario por id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+
+        $content = View::render('funcionario/funcionarioConta', [
+            'perfilCadastrado' => self::getPerfil(),
+            'titulo' => 'Edita Dados Utilizadores',
+            'button' => 'salvar',
+            'nome' => $obFuncionario->nome_funcionario,
+            'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
+            'data' => $obFuncionario->nascimento_funcionario,
+            'bilhete' => $obFuncionario->bilhete_funcionario,
+            'ordem' => $obFuncionario->numeroordem_funcionario,
+            'email' => $obFuncionario->email_funcionario,
+            'telefone1' => $obFuncionario->telefone1_funcionario,
+            'telefone2' => $obFuncionario->telefone2_funcionario,
+            'morada' => $obFuncionario->morada_funcionario,
+            'cargo-admin' => $obFuncionario->cargo_funcionario == 'Administrador' ? 'selected' : '',
+            'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
+            'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
+            'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
+            'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
+            'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
+            'imagem' => $obFuncionario->imagem_funcionario,
+
+            'senha' => '',
+            'senhaConfirma' => '',
+        ]);
+
+        return parent::getPage('Conta Funcionario', $content);
+    }
+
+    // Método editar perfil Funcionario
+    public static function editarPerfilU($request, $id_funcionario)
+    {
+        // Busca um Funcionario por id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+
+        // Busca um Funcionario por id
+        $obFuncionarioNivel = FuncionarioNivelDao::getFuncionarioNivelId($id_funcionario);
+
+        $content = View::render('funcionario/funcionarioPerfilAcesso', [
+            'perfilCadastrado' => self::getPerfil(),
+            'msg' => self::exibeMensagem($request),
+
+            'titulo' => 'Editar Nivel de Acesso',
+            'button' => 'salvar',
+            'nome' => $obFuncionario->nome_funcionario,
+            'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
+            'data' => $obFuncionario->nascimento_funcionario,
+            'bilhete' => $obFuncionario->bilhete_funcionario,
+            'ordem' => $obFuncionario->numeroordem_funcionario,
+            'email' => $obFuncionario->email_funcionario,
+            'telefone1' => $obFuncionario->telefone1_funcionario,
+            'telefone2' => $obFuncionario->telefone2_funcionario,
+            'morada' => $obFuncionario->morada_funcionario,
+            'cargo-admin' => $obFuncionario->cargo_funcionario == 'Administrador' ? 'selected' : '',
+            'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
+            'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
+            'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
+            'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
+            'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
+            'imagem' => $obFuncionario->imagem_funcionario,
+
+        ]);
+
+        return parent::getPage('Alter Perfil Funcionario', $content);
+    }
+
+    // Metodo editar perfil Funcionario
+    public static function setEditarPerfilU($request, $id_funcionario)
+    {
+
+        $idFuncionarioSelecionado = $id_funcionario;
+
+        if (isset($_POST['perfilAcesso'])) {
+
+            // Busca um Funcionario por id
+            $obFuncionarioNivel2 = FuncionarioNivelDao::getFuncionarioNivelId($id_funcionario)->fetchObject(FuncionarioNivelDao::class);
+
+            $obFuncionarioNivel2->id_funcionario = $idFuncionarioSelecionado;
+            $obFuncionarioNivel2->id_nivel = $_POST['perfilAcesso'];
+
+            $obFuncionarioNivel2->atualizarNivelAcesso();
+
+            $request->getRouter()->redirect('/utilizadores?msg=alteradonivel');
+        }
+
+        $request->getRouter()->redirect('/utilizadores-perfil/' . $id_funcionario . '?msg=seleciona');
     }
 }
-
-
-

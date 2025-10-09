@@ -59,8 +59,7 @@ $obRouter->get('/paciente/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
-    
-    function($request,$id_paciente){ return new Response(200,Pages\Paciente::contaPaciente($request,$id_paciente));}
+        function($request,$id_paciente){ return new Response(200,Pages\Paciente::contaPaciente($request,$id_paciente));}
 ]);
 
 // rota para conta do paciente

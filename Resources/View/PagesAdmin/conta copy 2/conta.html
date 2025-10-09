@@ -1,27 +1,31 @@
-<section class="section-field row ">
+<section class="row section-field">
 
-    <br>
-    <h4 class="center"> Minha Conta</h4>
-    <hr>
+    <div class="col s12 m12">
+        <h5>
+            <a href="{{URL}}/admin/conta">Minha Conta</a>
+            <hr>
+        </h5>
+    </div>
 
-    <section class="offset-m1 col s12 m3 white card-menu ">
-        <ul class="collection with-header ">
+    <section class=" col s12 m3 white card-menu ">
+        <ul class="collection with-header card">
 
             <div class="item-conta-img center ">
-                <img class="img-conta red-text" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100">
+                <img class="img-conta red-text"
+                    src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100" >
             </div>
 
             <li class="collection-header center ">
                 <h6>{{nome}}</h6>
             </li>
 
-            <a href="{{URL}}/conta" class="collection-item font-normal {{active}}">Informações Pessoais</a>
-            <a href="{{URL}}/conta/seguranca" class="collection-item font-normal ">Segurança da Conta</a>
-            <a href="{{URL}}/contas/perfil" class="collection-item font-normal ">Personalização de Perfil</a>
-            <a href="{{URL}}/admin/controle" class="collection-item font-normal ">Controles de Conta</a>
-            <a href="{{URL}}/admin/conta" class="collection-item font-normal">Preferências e Notificações</a>
-            <a href="{{URL}}/admin/registros" class="collection-item font-normal disabled ">Registros de Dados</a>
-            <a href="{{URL}}/logout" class="collection-item font-normal ">Terminar Sessão</a>
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize {{active}}">Informações Pessoais</a>
+            <a href="{{URL}}/admin/seguranca" class="collection-item capitalize ">Segurança da Conta</a>
+            <a href="{{URL}}/conta/perfil" class="collection-item capitalize ">Personalização de Perfil</a>
+            <a href="{{URL}}/admin/controle" class="collection-item capitalize ">Controles de Conta</a>
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Preferências e Notificações</a>
+            <a href="{{URL}}/admin/registros" class="collection-item capitalize disabled ">Registros de Dados</a>
+            <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Terminar Sessão</a>
 
         </ul>
     </section>
@@ -35,8 +39,8 @@
             <br>
             <table>
                 <caption>
-                    <h6 class="negrito"> Informação de Loguin</h6>
-                    <br>
+                     <h6 class="negrito"> Informação de Loguin</h6>
+                <br>
                 </caption>
 
                 <tr class="centered">

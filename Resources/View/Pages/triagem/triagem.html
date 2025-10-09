@@ -1,31 +1,47 @@
-<section class="row section-field card">
+<section class="row section-field">
 
-  <nav class="col m12  blue-grey darken-1 ">
-    <div class="nav-wrapper  ">
-      <a href="{{URL}}/triagem" class="brand-logo white-text capitalize"
-        style="font-size: 18px; font-weight: bold; vertical-align: -6px;">
-        <h5 class="minuscula">Painel Triagem</h5>
-      </a>
-      <ul class="right hide-on-med-and-down row" style="height: 50px;">
-        <li class="col pull-m6">
-          <form class="form-area-search">
-            <input class="input-search" type="search" name="pesquisar" placeholder=" Pesquisar por nome"
-              value="{{pesquisar}}">
-            <button class="button-search btn" type="submit">
-              <i class="material-icons white-text iconPesquisar">search</i>
-            </button>
-          </form>
-        </li>
-        <li class="white-text " style="text-transform: capitalize;">
-          <a href="{{URL}}/triagem/cadastrar" class="white-text">
-            <i class=" material-icons left white-text ">add</i> Cadastrar Triagem
+  <h4 class="center"> Painel de Triagem </h4>
+
+  <nav class="row col m12  blue-grey darken-1 ">
+    <div class="col m4 nav-wrapper ">
+    </div>
+
+    <div class="col m4 nav-wrapper">
+      <form>
+        <div class="input-field custom-search">
+          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons center">close</i>
+        </div>
+      </form>
+    </div>
+
+    <div class="col m4 nav-wrapper  ">
+      <ul class="right hide-on-med-and-down row" style="height: 50px; ">
+        <li>
+          <a href="{{URL}}/triagem" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">refresh</i>Actulizar
           </a>
         </li>
+
+        <li class="white-text " style="text-transform: capitalize;">
+          <a href="{{URL}}/marcar" class="white-text" style="display: flex; align-items: center;">
+            <i class=" material-icons left white-text ">calendar_month</i>Marcar consulta
+          </a>
+        </li>
+        
+        <li class="" style="text-transform: capitalize;">
+          <a href=" {{URL}}/triagem/cadastrar" class="white-text" style="display: flex; align-items: center;">
+            <i class="material-icons left white-text">add</i>Novo
+          </a>
+        </li>
+
       </ul>
     </div>
   </nav>
 
-  <div class="row"></div>
+  <div class="row">
+  </div>
 
   <div class="{{msgs}} col s12 m12">{{msg}}</div>
 

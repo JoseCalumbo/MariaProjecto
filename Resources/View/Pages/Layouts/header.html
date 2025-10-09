@@ -23,28 +23,28 @@
             <ul class="right hide-on-med-and-down">
 
                 <li class="capitalize disabled">
-                    <a href="{{URL}}" class="{{acessoHome}}" style="font-size: 14px;">
+                    <a href="{{URL}}" class="{{acessoHome}}" style="font-size: 14px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">home</i>Inicio
                     </a>
                 </li>
 
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoRecepição}}" data-target="dropdown-hospital"
-                        style="font-size: 14px;">
+                        style="font-size: 14px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">local_hospital</i> Recepção
                         <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="{{URL}}/triagem" class="{{acessoTriagem}}" style="font-size: 14px;">
+                    <a href="{{URL}}/triagem" class="{{acessoTriagem}}" style="font-size: 14px;  text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">assignment_ind</i> Triagem
                     </a>
                 </li>
 
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoConsulta}}" data-target="dropdown-consulta"
-                        style="font-size: 14px;">
+                        style="font-size: 14px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">medical_services</i>
                         Consultório
                         <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
@@ -53,25 +53,23 @@
 
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoCadastrameto}}" data-target="dropdown-paciente"
-                        style="font-size: 14px;">
+                        style="font-size: 14px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">person</i> Paciente
                         <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
-
-
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoLaboratorio}}" data-target="dropdown-lab"
-                        style="font-size: 14px;">
-                        <i class="material-icons left icon-tight" style="font-size: 18px;">science</i> Laboratório
+                        style="font-size: 14px; text-transform: capitalize;">
+                        <i class="material-icons left icon-tight" style="font-size: 18px; ">science</i> Laboratório
                         <i class="material-icons right" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoRelatorio}}" data-target="dropdown-config"
-                        style="font-size: 14px;">
+                        style="font-size: 14px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">settings</i> Configuração
                         <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
@@ -79,7 +77,7 @@
 
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger {{acessoTesourarias}}" data-target="dropdown-mais"
-                        style="font-size: 14px;">
+                        style="font-size: 14px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">view_list</i> Mais
                         <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
                     </a>
@@ -117,17 +115,17 @@
         <!-- Dropdown mais -->
         <ul id="dropdown-mais" class="dropdown-content">
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize">
+                <a href="{{URL}}/relatorio" class="capitalize font-normal">
                     <i class="material-icons left">donut_small</i>Relatorios
                 </a>
             </li>
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="capitalize font-normal">
                     <i class="material-icons left">local_hospital</i>Tesouraria
                 </a>
             </li>
             <li>
-                <a href="#!" class="dropdown-trigger {{acessoFarmacia}} capitalize " data-target="dropdown-far">
+                <a href="#!" class="dropdown-trigger {{acessoFarmacia}} font-normal" data-target="dropdown-far">
                     <i class="material-icons left">vaccines</i>Farmácia
                     <i class="material-icons right">chevron_right</i>
                 </a>
@@ -138,12 +136,12 @@
         <ul id="dropdown-hospital" class="dropdown-content">
 
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal" >
                     <i class="material-icons left">medical_information</i>Atendimento - Check-in
                 </a>
             </li>
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal" style="text-transform: capitalize;">
                     <i class="material-icons left">medical_information</i>Histórico de atendimentos
                 </a>
             </li>
@@ -151,30 +149,30 @@
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal" >
                     <i class="material-icons left">event</i>Agendar nova consulta
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal" >
                     <i class="material-icons left">biotech</i>Agendar Exame
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal">
                     <i class="material-icons left">biotech</i>Visualizar agenda por profissional
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal">
                     <i class="material-icons left">hotel</i>Internamentos
                 </a>
             </li>
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal">
                     <i class="material-icons left">calendar_today</i>Agenda Médica
                 </a>
             </li>
@@ -186,14 +184,14 @@
             <li>
                 <a href="#!" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
                     data-target="dropdown-cadstramento">
-                    Atendimento - consultório
+                   <i class="material-icons left">medical_information</i> Atendimento - consultório
                 </a>
             </li>
 
             <li>
                 <a href="#!" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
                     data-target="dropdown-cadstramento">
-                    Minhas Consultas
+                   <i class="material-icons left">medical_information</i> Minhas Consultas
                 </a>
             </li>
 
@@ -201,56 +199,56 @@
 
 
             <li>
-                <a class="disabled-link  font-normal" href="{{URL}}/consulta">Cardiologia </a>
+                <a class="disabled-link  font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Cardiologia </a>
             </li>
 
             <li>
-                <a class="font-normal" href="{{URL}}/consulta">Oftalmológica Geral</a>
+                <a class="font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Oftalmológica Geral</a>
             </li>
 
             <li>
-                <a class=" font-normal" href="{{URL}}/consulta">Oftalmopediátrica</a>
+                <a class=" font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Oftalmopediátrica</a>
             </li>
 
             <li>
-                <a class=" font-normal" href="{{URL}}/consulta">Consulta para Lentes de Contato</a>
+                <a class=" font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Consulta para Lentes de Contato</a>
             </li>
 
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a class=" font-normal" href="{{URL}}/consulta">Minha Agendas</a>
+                <a class=" font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Minha Agendas</a>
             </li>
 
         </ul>
 
         <!-- Dropdown Laboratório -->
         <ul id="dropdown-lab" class="dropdown-content">
-            <li><a href="#!" class="capitalize">Exames </a></li>
-            <li><a href="#!" class="capitalize">Lançar Resultado de exame</a></li>
-            <li><a href="#!" class="capitalize">Cadastrar novos Exame</a></li>
-            <li><a href="#!" class="capitalize disabled-link">Agendamento de Exame</a></li>
-            <li><a href="#!" class="capitalize disabled-link">Solicitação de Exame</a></li>
+            <li><a href="#!" class="font-normal" > <i class="material-icons left">science</i> Exames </a></li>
+            <li><a href="#!" class="font-normal" > <i class="material-icons left">health_and_safety</i>Lançar Resultado de exame</a></li>
+            <li><a href="#!" class="font-normal" > <i class="material-icons left">biotech</i>Cadastrar novos Exame</a></li>
+            <li><a href="#!" class="font-normal disabled-link"> <i class="material-icons left">calendar_today</i>Agendamento de Exame</a></li>
+            <li><a href="#!" class="font-normal disabled-link" ><i class="material-icons left">add</i>Solicitação de Exame</a></li>
         </ul>
 
         <!-- Dropdown paciente -->
         <ul id="dropdown-paciente" class="dropdown-content">
 
             <li>
-                <a href="{{URL}}/paciente" class="capitalize">
+                <a href="{{URL}}/paciente" class="font-normal">
                     <i class="material-icons left">person_add</i>Cadastrar Pacientes
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/funcionario" class="capitalize">
+                <a href="{{URL}}/funcionario" class="font-normal">
                     <i class="material-icons left">people</i>Transferência de Paciente
                 </a>
             </li>
 
             <li class="divider"></li> <!-- Linha de separação -->
             <li>
-                <a href="{{URL}}/perfil" class="capitalize">
+                <a href="{{URL}}/perfil" class="font-normal">
                     <i class="material-icons left">hotel</i>Paciente Recebidos
                 </a>
             </li>
@@ -266,19 +264,19 @@
         <!-- Dropdown configuração -->
         <ul id="dropdown-config" class="dropdown-content">
             <li>
-                <a href="{{URL}}/utilizadores" class="capitalize">
+                <a href="{{URL}}/utilizadores" class="font-normal">
                     <i class="material-icons left">group</i>Utilizadores
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/perfil" class="capitalize">
+                <a href="{{URL}}/perfil" class="font-normal">
                     <i class="material-icons left">manage_accounts</i>Perfil De Utilizadores
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize">
+                <a href="{{URL}}/relatorio" class="font-normal">
                     <i class="material-icons left">add</i>Cadastramento de serviços
                 </a>
             </li>
@@ -286,7 +284,7 @@
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize">
+                <a href="{{URL}}/relatorio" class="font-normal">
                     <i class="material-icons left">backup</i>Cópia de Segurança
                 </a>
             </li>
@@ -294,19 +292,19 @@
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize">
+                <a href="{{URL}}/relatorio" class="font-normal">
                     <i class="material-icons left">build</i>Personalizar
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize">
+                <a href="{{URL}}/relatorio" class="font-normal">
                     <i class="material-icons left">support_agent</i>Suporte técnico
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize">
+                <a href="{{URL}}/relatorio" class="font-normal">
                     <i class="material-icons left">help</i>Ajuda
                 </a>
             </li>

@@ -8,25 +8,27 @@ use \PDO;
 
 class NivelPermissaoDao
 {
-    // dados do paciente pessoal
-    public $id_nivel;
-    public $id_permissao;
+    public $id; // id nivel e permissao
 
-    // metodo para inserir um novo funcionario na tabela
+    // dados de permissao
+    public $id_nivel;
+
+    // dados de permissao
+    public $id_permissoes;
+
+
+    // metodo para inserir um novas permissão na tabela
     public function addPermissao()
     {
         $obDatabase = new Database('tb_nivel_permissoes');
-        $this->id_nivel = $obDatabase->insert([
-            'id_nivel' => $this->id_nivel=2,
-            'id_permissoes' => $this->id_permissao,
+        $obDatabase->insert([
+            'id_nivel' => $this->id_nivel,
+            'id_permissoes' => $this->id_permissoes,
         ]);
-
         return true;
     }
-    
 
-    /**
-     * Listar todas as permissoes nivel possivel
+    /** Listar todas as permissoes nivel possivel
      * @param string $where
      */
     public static function listarPermissao($where = null, $order = null, $limit = null, $fields = '*')
@@ -35,8 +37,8 @@ class NivelPermissaoDao
     }
 
     // Método para pegar o id dos nivel
-    public static function getNiveld($id_paciente)
+    public static function getNivelPermissaoID($id_nivel)
     {
-        return (new Database('tb_paciente'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);
+        return (new Database('tb_nivel_permissoes'))->select('id_nivel = ' . $id_nivel);
     }
 }

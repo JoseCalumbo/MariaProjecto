@@ -115,6 +115,7 @@ Class Vendedor1 extends Page {
         }
        return $resultadoZona;
     }
+    
     // busca todos os negocios cadastrado
     public static function getNegocio(){
 

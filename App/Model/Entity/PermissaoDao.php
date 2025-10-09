@@ -8,7 +8,7 @@ use \PDO;
 
 class PermissaoDao
 {
-    // dados do paciente pessoal
+    // dados de permissao
     public $id_permissao;
     public $nome_permissao;
     public $codigo_permisao;
@@ -23,9 +23,9 @@ class PermissaoDao
     }
 
     // Método para pegar o id dos nivel
-    public static function getNiveld($id_paciente)
+    public static function getPermissaoID($id_paciente)
     {
-        return (new Database('tb_paciente'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);
+        return (new Database('tb_nivel_permissoes'))->select('id_nivel = ' . $id_paciente)->fetchObject(self::class);
     }
 
 }
