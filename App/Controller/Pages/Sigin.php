@@ -34,6 +34,8 @@ class Sigin extends Page
      * M+etodo que faz o cadastramento do funcionario 
      * @param Request  
      */
+
+    
     public static function criarConta($request)
     {
         $obFuncionario = new FuncionarioDao;
