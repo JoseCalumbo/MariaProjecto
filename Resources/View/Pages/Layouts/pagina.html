@@ -69,9 +69,13 @@
         }
 
         .icon-tight {
-            margin-right: 6px !important;
+            margin-right: 2px !important;
             vertical-align: middle !important;
+        }
 
+        .icon-tight-left {
+            margin-left: 2px !important;
+            vertical-align: middle !important;
         }
 
         .disabled-link {
@@ -192,6 +196,46 @@
         }
 
 
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1565c0;
+            /* Azul Materialize */
+            color: white;
+            z-index: 1000;
+            padding: 4px 0;
+            /* <--- menor altura */
+            height: 30px;
+            /* <--- define uma altura fixa menor */
+            display: flex;
+            align-items: center;
+            box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        footer .btn-flat {
+            color: white;
+            height: 36px;
+            line-height: 23px;
+            padding: 0 8px;
+            min-width: 40px;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 8px;
+            /* Espaçamento entre os botões */
+        }
+
+        /* Remove margens dos ícones */
+        .footer-buttons i {
+            margin: 0;
+            font-size: 20px;
+        }
     </style>
 </head>
 

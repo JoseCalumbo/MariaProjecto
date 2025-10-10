@@ -1,0 +1,221 @@
+<section class="row section-field white">
+
+  <div class="col m5">
+        <section class="col s12 m12 ">
+        <div class="row">
+            <div class="col s12 blue-grey darken-1 ">
+                <!--header das abas-->
+                <ul class="tabs tabsvendedor blue-grey darken-1  row">
+                    <li class="tab col s3 m4"><a class="active font-normal" href="#dados1">Ultima consulta</a></li>
+                    <li class="tab col s3 m4"><a class="active font-normal" href="#pagamento2">Exames solicitados</a></li>
+                    <li class="tab col s3 m4"><a class="active font-normal" href="#opcoes4">Receitas</a></li>
+                </ul>
+            </div>
+            <!--pagina das abas-->
+            <div id="dados1" class="col s12">
+                <div>
+                    <br>
+                    <p class="font-small grey">Dados Pessoal</p>
+                    <hr>
+                    <p>Nome Completo: <strong>{{nome}}</strong></p>
+                    <p>Data de Nascimento: <strong>{{nascimento}}</strong></p>
+                    <br>
+
+                    <p class="font-small grey">Negócios</p>
+                    <hr>
+                    {{negocios}}
+                    <br>
+
+                    <p class="font-small grey">Inicio</p>
+                    <hr>
+                    <p>Data de Cadastramento: <strong>{{criado}}</strong></p>
+                </div>
+            </div>
+
+            <!--Aba content do pagamento-->
+            <div id="pagamento2" class="col s12">
+
+                <br>
+
+                <!-- <table class="row col m12">
+                    <thead tbody class="thead">
+                      <tr class="centered">
+                        <th><i class="material-icons black-white ">format_list_numbered</i> Número</th>
+                        <th> <i class="material-icons black-white ">more</i>Designação</th>
+                        <th><i class="material-icons black-white ">attach_money</i>Valor Pago </th>
+                        <th> <i class="material-icons black-white ">date_range</i>Data</th>
+                        <th> <i class="material-icons black-white ">phone</i>Status</th>
+                        <th>Opção</th>
+                      </tr>
+                    </thead>
+              
+                    <tbody tbody class="tbody">
+                      {{item}}
+                    </tbody>
+                  </table> -->
+
+                <div>
+                    <a href="{{URL}}/pagamento/{{id}}" class="font-normal row black-text ">
+                        <button type="button " class="waves-effect waves-light btn teal darken-3">
+                              <i class="material-icons left">attach_money</i>Fazer Pagamento
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Aba content dos registros
+            <div id="registro3" class="col s12">
+                <br>
+                <div>
+                    <h6>Ultimo Pagamento</h6>
+                    <p>21 de Maio de 2022</p>
+                    <p class="blue-text">ver mais</p>
+                </div>
+                <br>
+                <div>
+                    <h6>Ultima Impressão da ficha</h6>
+                    <p>21 de Maio de 2022</p>
+                    <p class="blue-text">ver mais</p>
+                </div>
+
+            </div> -->
+
+            <!--Aba content da opcoes-->
+            <div id="opcoes4" class="col s12">
+                <br>
+                <div>
+                    <p>Status de Conta</p>
+                    <form action="" method="post">
+
+                        <div class="card ">
+
+                            <div class="switch row ">
+
+                                <div class="col l8">
+                                    <p><strong class="font-normal">Desactivar a conta</strong></p>
+                                    <p class="font-small">Se a conta estiver desativada todos os serviços são suspenso
+                                    </p>
+                                </div>
+
+                                <label class="col l1 push-l2">
+                                    <input class="blue" type="checkbox" id="mudar">
+                                    <span class="lever"></span>
+                                </label>
+
+                                
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <br>
+                <div>
+                    <button type="button" class="waves-effect waves-light blue accent-4 btn disabled button-normal">
+                        <a class="white-text" href="{{URL}}/vendedor/{{id}}">
+                            <i class="material-icons right">print</i>
+                            <span class="left maiscula">Imprimir Declaração</span>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </div>
+
+  <div class="col m7">
+    <nav class="blue-grey darken-1 ">
+      <div class="nav-wrapper">
+        <form>
+          <div class="input-field custom-search">
+            <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons center">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
+
+
+
+    <section class="  white col m12">
+
+      <table class="row col m12 responsive-table ">
+        <thead class="">
+          <tr class="center blue-grey lighten-5">
+            <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i>Código</th>
+            <th><i class="material-icons black-white" style="vertical-align: -6px;">person</i>Nome de Acesso</th>
+            <th> <i class="material-icons black-white " style="vertical-align: -6px;">list_alt</i>Descrisão </th>
+            <th> <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>Data</th>
+            <th> <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>Opção</th>
+
+          </tr>
+        </thead>
+
+        <tbody tbody class="tbody">
+          {{item}}
+        </tbody>
+      </table>
+
+    </section>
+
+    <section class="col m12 white">
+      {{paginacao}}
+    </section>
+  </div>
+
+
+
+</section>
+
+
+<!-- MODAL para cadastrar nivel -->
+<div id="modalNivel" class="modal  modalImprimirTriagem" style="width: 600px; height: 390px;">
+  <div class="row modal-content white">
+    <h5 class=" offset-m1 col s12 m10 capitalize" style="text-transform: lowercase;">
+      <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">admin_panel_settings</i>
+      <strong style="font-weight: bold;">Cadastrar Nivel e Permissão </strong>
+    </h5>
+
+
+
+    <form action="{{URL}}/cadastrar/perfil" method="post" class="center white push-m2">
+      <div class="row" style="position: relative; top: -20px;">
+        <div class="input-field col s12 m8">
+          <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+          <label for="nome" class="capitalize" style="text-transform:lowercase;">Nome do perfil de acesso:</label>
+        </div>
+
+        <div class="input-field col s12 m4">
+          <input id="serie" type="text" name="serie" value="{{nome}}" class="validate">
+          <label for="serie" style="text-transform: capitalize;">Serie Perfil:</label>
+        </div>
+
+        <div class="input-field col s12 m12">
+          <input id="perfil" type="text" name="descrisao" value="{{nome}}" class="validate">
+          <label for="perfil" style="text-transform: capitalize;">Descrisão do Perfil:</label>
+        </div>
+      </div>
+
+      <div class="offset-m10 col s12 " style="display: none;">
+        <input type="submit" id="submite">
+      </div>
+    </form>
+
+    <div class="row" style="position: relative; top: -20px; margin-bottom: 0px;">
+      <div class="offset-m7 col s12 m5 row">
+
+        <a class="btn blue-grey darken-5  white-text modal-close" style="text-transform: capitalize;">
+          Cancelar
+        </a>
+
+        <a class="btn teal darken-5 white-text" style="text-transform: capitalize;">
+          <label class="white-text col m12" for="submite">salvar</label>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</div>

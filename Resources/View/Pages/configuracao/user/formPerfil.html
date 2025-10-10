@@ -1,7 +1,6 @@
 <section class="row section-field ">
 
-    <br>
-    <h4 class="center"> {{titulo}} </h4>
+    <h5 class="center"> {{titulo}} </h5>
 
     <nav class="col m12 blue-grey darken-1">
         <div class="nav-wrapper ">
@@ -31,7 +30,7 @@
                             class="material-icons">list</i>Administrativo
                     </div>
 
-                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;" >
+                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
                         <div class=" row col s12 m12">
                             <label>
                                 <input type="checkbox" name="codigo_permisao[]" value="{{DATABASE_VIEW}}"
@@ -175,6 +174,16 @@
                             class="material-icons">payments</i>Tesouraria e Contabilidade
                     </div>
                     <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
+                        <!--
+                        <div class=" row col s12 m12">
+                            <label>
+                                <input type="checkbox" name="codigo_permisao[]" value="{{CAIXA_VIEW}}" class="filled-in"
+                                    {{caixa_view1}} />
+                                <span>Relatorios</span>
+                            </label>
+                        </div>
+                       -->
+
                         <div class=" row col s12 m12">
                             <label>
                                 <input type="checkbox" name="codigo_permisao[]" value="{{CAIXA_VIEW}}" class="filled-in"
@@ -247,6 +256,16 @@
                                 <span>Exames</span>
                             </label>
                         </div>
+                        <!--
+                        <div class=" row col s12 m12">
+                            <label>
+                                <input type="checkbox" name="codigo_permisao[]" value="{{TRIAGEM_VIEW}}" class="filled-in"
+                                    {{triagem_view1}} />
+                                <span>Triagem</span>
+                            </label>
+                        </div>
+                        -->
+
                         <div class=" row col s12 m12">
                             <label>
                                 <input type="checkbox" name="codigo_permisao[]" value="{{ATENDIMENTO_VIEW}}"

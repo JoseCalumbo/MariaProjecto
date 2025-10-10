@@ -96,13 +96,22 @@ class FuncionarioDao
         return (new Database('tb_funcionario'))->select('id_funcionario = ' . $id_funcionario)->fetchObject(self::class);
     }
 
+    // método para buscar(selecionar) o Funcionario por Id para obter nivel de acesso
+    public static function getFuncionarioNivelAcessoId($id_funcionario)
+    {
+        return (new Database(
+            'tb_funcionario 
+             Inner Join tb_funcionario_nivel on tb_funcionario.id_funcionario= tb_funcionario_nivel.id_usuario
+             Inner Join tb_nivel n on tb_funcionario_nivel.id_nivel = n.id_nivel '
+        ))->select('id_funcionario = ' . $id_funcionario)->fetchObject(self::class);
+    }
+
     /** metodo para buscar(selecionar) o Funcionario por Email
      * @param string $email_us
      */
     public static function getFuncionarioEmail($email_funcionario)
     {
         return (new Database('tb_funcionario'))->select('email_funcionario = "' . $email_funcionario . '"')->fetchObject(self::class);
-
     }
 
     // responsavel para alterar imagem do usuario
@@ -121,18 +130,3 @@ class FuncionarioDao
         ]);
     }
 }
-
-
-// public id_funcionario;	
-// public nome_funcionario;
-// public nascimento_funcionario;	
-// public genero_funcionario;	
-// public bilhete_funcionario;	
-// public numeroordem_funcionario;	
-// public email_funcionario;	
-// public telefone1_funcionario;	
-// public telefone2_funcionario;	
-// public cargo_funcionario;	
-// public imagem_funcionario;	
-// public senha_funcionario;	
-// public registrado;

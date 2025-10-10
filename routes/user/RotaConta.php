@@ -70,9 +70,9 @@ $obRouter->get('/admin/registros',[
 // -------------------------------------------------------------------------------------------------------------------
 
 // rota para alterar imagem
-$obRouter->post('/admin/edit-image/{id}',[
+$obRouter->post('/conta/edit-image/{id}',[
     'middlewares'=>[
-        'requer-loginAdmin'
+        'requer-login'
     ],
     function($request,$id){ return new Response(200,Admin\ContaAdmin::alterarImagem($request,$id));}
 ]);

@@ -1,11 +1,11 @@
 <!--HEADER-->
-<header class="header ">
+<header class="header  navbar-fixed">
 
     <nav class="nav menu teal lighten-1 navbar-fixed">
 
         <div class="nav-wrapper">
             <!-- logotipo-->
-            <a href="{{URL}}" class="brand-logo" style="position: relative; left: 18px;">
+            <a href="{{URL}}" class="brand-logo" style="position: relative; left: 85px;">
                 <img class="" src="{{URL}}/Assets/img/logoMenu.png" width="65" height="50">
             </a>
 
@@ -14,7 +14,7 @@
                 <li class="rigth">
                     <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1">
                         {{info}}
-                        <i class="material-icons right lighten-2">arrow_drop_down</i>
+                        <i class="material-icons right lighten-2 icon-tight-left">arrow_drop_down</i>
                     </a>
                 </li>
             </ul>
@@ -23,63 +23,65 @@
             <ul class="right hide-on-med-and-down">
 
                 <li class="capitalize disabled">
-                    <a href="{{URL}}" class="{{acessoHome}}" style="font-size: 14px; text-transform: capitalize;">
+                    <a href="{{URL}}" class="{{acessoHome}}" style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">home</i>Inicio
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoRecepição}}" data-target="dropdown-hospital"
-                        style="font-size: 14px; text-transform: capitalize;">
+                    <a href="#!" class="dropdown-trigger {{ATENDIMENTO_VIEW}}" data-target="dropdown-hospital"
+                        style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">local_hospital</i> Recepção
-                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
+                        <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="{{URL}}/triagem" class="{{acessoTriagem}}" style="font-size: 14px;  text-transform: capitalize;">
-                        <i class="material-icons left icon-tight" style="font-size: 18px;">assignment_ind</i> Triagem
-                    </a>
-                </li>
-
-                <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoConsulta}}" data-target="dropdown-consulta"
-                        style="font-size: 14px; text-transform: capitalize;">
+                    <a href="#!" class="dropdown-trigger {{CONSULTA_VIEW}}" data-target="dropdown-consulta"
+                        style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">medical_services</i>
                         Consultório
-                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
+                        <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoCadastrameto}}" data-target="dropdown-paciente"
-                        style="font-size: 14px; text-transform: capitalize;">
+                    <a href="#!" class="dropdown-trigger {{PACIENTE_CREATE}}" data-target="dropdown-paciente"
+                        style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">person</i> Paciente
-                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
+                        <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoLaboratorio}}" data-target="dropdown-lab"
-                        style="font-size: 14px; text-transform: capitalize;">
+                    <a href="#!" class="dropdown-trigger {{LABORATORIO_ACESS}}" data-target="dropdown-lab"
+                        style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px; ">science</i> Laboratório
-                        <i class="material-icons right" style="font-size: 18px;">arrow_drop_down</i>
+                        <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoRelatorio}}" data-target="dropdown-config"
-                        style="font-size: 14px; text-transform: capitalize;">
+                    <a href="#!" class="dropdown-trigger {{RECEPÇAO}} " data-target="dropdown-farmacia"
+                        style="font-size: 13px; text-transform: capitalize;">
+                        <i class="material-icons left icon-tight">vaccines</i>Farmácia
+                        <i class="material-icons right icon-tight-left " style="font-size: 18px;">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li class="capitalize">
+                    <a href="#!" class="dropdown-trigger " data-target="dropdown-config"
+                        style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">settings</i> Configuração
-                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
+                        <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
                 <li class="capitalize">
-                    <a href="#!" class="dropdown-trigger {{acessoTesourarias}}" data-target="dropdown-mais"
-                        style="font-size: 14px; text-transform: capitalize;">
+                    <a href="#!" class="dropdown-trigger " data-target="dropdown-mais"
+                        style="font-size: 13px; text-transform: capitalize;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">view_list</i> Mais
-                        <i class="material-icons right " style="font-size: 18px;">arrow_drop_down</i>
+                        <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
 
@@ -90,43 +92,52 @@
         <ul id="dropdown1" class="dropdown-content">
 
             <li>
-                <p class="black-text font-normal center negrito">Ena Elizabet</p>
+                <p class="black-text font-normal center negrito">{{nome1}}</p>
             </li>
 
             <li class="divider teal"></li> <!-- Linha de separação -->
 
-            <li><a class="black-text font-normal" href="{{URL}}/conta"><i class="material-icons left">account_circle</i>Minha Conta</a></li>
-            <li><a class="black-text font-normal" href="{{URL}}/conta"><i class="material-icons left">tungsten</i>Meu turno</a></li>
-            <li><a class="black-text font-normal" href="{{URL}}/logout"><i class="material-icons left">note_alt</i>Alter senha</a></li>
-            <li><a class="black-text font-normal" href="{{URL}}/logout"><i class="material-icons left">calendar_month</i>Agenda</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/conta"><i
+                        class="material-icons left">account_circle</i>Minha Conta</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/conta"><i class="material-icons left">tungsten</i>Meu
+                    turno</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/conta/seguranca"><i class="material-icons left">note_alt</i>Alter
+                    senha</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/conta"><i
+                        class="material-icons left">calendar_month</i>Agenda</a></li>
 
             <li class="divider teal"></li> <!-- Linha de separação -->
-            <li><a class="black-text font-normal" href="{{URL}}/logout"> <i class="material-icons left">email</i> Mensagem</a></li>
-            <li><a class="black-text font-normal" href="{{URL}}/logout"> <i class="material-icons left">notifications</i> Notificação</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/contas/perfil"> <i class="material-icons left">email</i>
+                    Mensagem</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/conta"> <i
+                        class="material-icons left">notifications</i> Notificação</a></li>
             <li class="divider teal"></li> <!-- Linha de separação -->
 
-            <li> <a class="black-text font-normal " href="{{URL}}/logout"><i class="material-icons left">dvr</i>Logs</a></li>
-            <li> <a class="black-text font-normal " href="{{URL}}/logout"><i class="material-icons left">stop</i>Bloquear</a></li>
+            <li> <a class="black-text font-normal " href="{{URL}}/conta"><i class="material-icons left">dvr</i>Logs</a>
+            </li>
+            <li> <a class="black-text font-normal " href="{{URL}}/logout"><i
+                        class="material-icons left">stop</i>Bloquear</a></li>
 
-            <li><a class="black-text font-normal" href="{{URL}}/logout"> <i class="material-icons left">exit_to_app</i> Terminar Sessão</a></li>
+            <li><a class="black-text font-normal" href="{{URL}}/logout"> <i class="material-icons left">exit_to_app</i>
+                    Terminar Sessão</a></li>
 
         </ul>
 
         <!-- Dropdown mais -->
         <ul id="dropdown-mais" class="dropdown-content">
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize font-normal">
+                <a href="{{URL}}/relatorio" class="capitalize font-normal {{SALFT}} ">
                     <i class="material-icons left">donut_small</i>Relatorios
                 </a>
             </li>
             <li>
-                <a href="{{URL}}/paciente" class="capitalize font-normal">
+                <a href="{{URL}}/paciente" class="capitalize font-normal {{CAIXA_VIEW}}">
                     <i class="material-icons left">local_hospital</i>Tesouraria
                 </a>
             </li>
             <li>
-                <a href="#!" class="dropdown-trigger {{acessoFarmacia}} font-normal" data-target="dropdown-far">
-                    <i class="material-icons left">vaccines</i>Farmácia
+                <a href="#!" class="dropdown-trigger {{{{PERSONALIZAR}}}} font-normal" data-target="dropdown-far">
+                    <i class="material-icons left">stack</i>Utilitarios
                     <i class="material-icons right">chevron_right</i>
                 </a>
             </li>
@@ -136,43 +147,40 @@
         <ul id="dropdown-hospital" class="dropdown-content">
 
             <li>
-                <a href="{{URL}}/paciente" class="font-normal" >
+                <a href="{{URL}}/paciente" class="font-normal  {{ATENDIMENTO_VIEW}}">
                     <i class="material-icons left">medical_information</i>Atendimento - Check-in
                 </a>
             </li>
+
             <li>
-                <a href="{{URL}}/paciente" class="font-normal" style="text-transform: capitalize;">
-                    <i class="material-icons left">medical_information</i>Histórico de atendimentos
+                <a href="{{URL}}/triagem" class="font-normal {{PACIENTE_CREATE}}">
+                    <i class="material-icons left icon-tight" style="font-size: 18px;">assignment_ind</i> Gerenciar
+                    triagem
                 </a>
             </li>
 
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a href="{{URL}}/paciente" class="font-normal" >
-                    <i class="material-icons left">event</i>Agendar nova consulta
+                <a href="{{URL}}/paciente {{MARCAR_CONSULTA_VIEW}}" class="font-normal">
+                    <i class="material-icons left">event</i>Marcar consulta
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/paciente" class="font-normal" >
+                <a href="{{URL}}/paciente" class="font-normal {{EXAME_VIEW}}">
                     <i class="material-icons left">biotech</i>Agendar Exame
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/paciente" class="font-normal">
-                    <i class="material-icons left">biotech</i>Visualizar agenda por profissional
+                <a href="{{URL}}/paciente" class="font-normal {{INTERNAMENTO_VIEW}}">
+                    <i class="material-icons left">hotel</i>Internamentos
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/paciente" class="font-normal">
-                    <i class="material-icons left">hotel</i>Internamentos
-                </a>
-            </li>
-            <li>
-                <a href="{{URL}}/paciente" class="font-normal">
+                <a href="{{URL}}/paciente" class="font-normal {{AGENDAR}}">
                     <i class="material-icons left">calendar_today</i>Agenda Médica
                 </a>
             </li>
@@ -182,16 +190,16 @@
         <!--dropdown consultório-->
         <ul id="dropdown-consulta" class="dropdown-content">
             <li>
-                <a href="#!" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
+                <a href="{{URL}}/consulta" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
                     data-target="dropdown-cadstramento">
-                   <i class="material-icons left">medical_information</i> Atendimento - consultório
+                    <i class="material-icons left">medical_information</i> Atendimento - consultório
                 </a>
             </li>
 
             <li>
                 <a href="#!" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
                     data-target="dropdown-cadstramento">
-                   <i class="material-icons left">medical_information</i> Minhas Consultas
+                    <i class="material-icons left">medical_information</i> Minhas Consultas
                 </a>
             </li>
 
@@ -199,84 +207,115 @@
 
 
             <li>
-                <a class="disabled-link  font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Cardiologia </a>
+                <a class="disabled-link  font-normal" href="{{URL}}/consulta"><i
+                        class="material-icons left">medical_information</i>Cardiologia </a>
             </li>
 
             <li>
-                <a class="font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Oftalmológica Geral</a>
+                <a class="font-normal" href="{{URL}}/consulta"><i
+                        class="material-icons left">medical_information</i>Oftalmológica Geral</a>
             </li>
 
             <li>
-                <a class=" font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Oftalmopediátrica</a>
+                <a class=" font-normal" href="{{URL}}/consulta"><i
+                        class="material-icons left">medical_information</i>Oftalmopediátrica</a>
             </li>
 
             <li>
-                <a class=" font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Consulta para Lentes de Contato</a>
+                <a class=" font-normal" href="{{URL}}/consulta"><i
+                        class="material-icons left">medical_information</i>Consulta para Lentes de Contato</a>
             </li>
 
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a class=" font-normal" href="{{URL}}/consulta"><i class="material-icons left">medical_information</i>Minha Agendas</a>
+                <a class="font-normal {{}}" href="{{URL}}/consulta">
+                    <i class="material-icons left">medical_information</i>Minha Agendas
+                </a>
             </li>
 
         </ul>
 
         <!-- Dropdown Laboratório -->
         <ul id="dropdown-lab" class="dropdown-content">
-            <li><a href="#!" class="font-normal" > <i class="material-icons left">science</i> Exames </a></li>
-            <li><a href="#!" class="font-normal" > <i class="material-icons left">health_and_safety</i>Lançar Resultado de exame</a></li>
-            <li><a href="#!" class="font-normal" > <i class="material-icons left">biotech</i>Cadastrar novos Exame</a></li>
-            <li><a href="#!" class="font-normal disabled-link"> <i class="material-icons left">calendar_today</i>Agendamento de Exame</a></li>
-            <li><a href="#!" class="font-normal disabled-link" ><i class="material-icons left">add</i>Solicitação de Exame</a></li>
+            <li>
+                <a href="#!" class="font-normal">
+                     <i class="material-icons left">science</i> Exames
+                </a>
+            </li>
+            <li>
+                <a href="#!" class="font-normal">
+                    <i class="material-icons left">health_and_safety</i>Lançar Resultado
+                    de exame
+                </a>
+            </li>
+
+            <li>
+                <a href="#!" class="font-normal">
+                    <i class="material-icons left">biotech</i>Cadastrar novos Exame
+                </a>
+            </li>
+
+            <li>
+                <a href="#!" class="font-normal "> <i
+                        class="material-icons left">calendar_today</i>Agendamento de Exame
+                </a>
+            </li>
+
+            <li>
+                <a href="#!" class="font-normal ">
+                    <i class="material-icons left">add</i>Solicitação de Exame
+                </a>
+            </li>
         </ul>
 
         <!-- Dropdown paciente -->
         <ul id="dropdown-paciente" class="dropdown-content">
 
             <li>
-                <a href="{{URL}}/paciente" class="font-normal">
+                <a href="{{URL}}/paciente" class="font-normal {{PACIENTE_CREATE}}">
                     <i class="material-icons left">person_add</i>Cadastrar Pacientes
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/funcionario" class="font-normal">
+                <a href="{{URL}}/funcionario" class="font-normal {{TRANSFERIR_VIEW}}">
                     <i class="material-icons left">people</i>Transferência de Paciente
                 </a>
             </li>
 
             <li class="divider"></li> <!-- Linha de separação -->
             <li>
-                <a href="{{URL}}/perfil" class="font-normal">
+                <a href="{{URL}}/perfil" class="font-normal {{INTERNAMENTO_VIEW}}">
                     <i class="material-icons left">hotel</i>Paciente Recebidos
                 </a>
             </li>
         </ul>
 
         <!-- Dropdown Farmacia -->
-        <ul id="dropdown-far" class="dropdown-content">
-            <li><a href="#!" class="capitalize">Cadastrar Medicamentos</a></li>
-            <li><a href="#!" class="capitalize">Gerenciar medicamentos</a></li>
-            <li><a href="#!" class="capitalize">Visualizar medicamentos</a></li>
+        <ul id="dropdown-farmacia" class="dropdown-content">
+            <li><a href="#!" class="font-normal"><i class="material-icons left">medical_services</i>Atendimento farmacêutico</a></li>
+            <li><a href="#!" class="font-normal"><i class="material-icons left">local_pharmacy</i>Cadastrar medicamentos</a></li>
+            <li><a href="#!" class="font-normal"><i class="material-icons left">medication_liquid</i>Fornecedores</a></li>
+            <li><a href="#!" class="font-normal"><i class="material-icons left">inventory_2</i>Gestão de estoque</a></li>
         </ul>
 
         <!-- Dropdown configuração -->
         <ul id="dropdown-config" class="dropdown-content">
             <li>
-                <a href="{{URL}}/utilizadores" class="font-normal">
+                <a href="{{URL}}/utilizadores" class="font-normal {{USER_VIEW}}">
                     <i class="material-icons left">group</i>Utilizadores
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/perfil" class="font-normal">
+                <a href="{{URL}}/perfil" class="font-normal {{USER_PERFIL_VIEW}}">
                     <i class="material-icons left">manage_accounts</i>Perfil De Utilizadores
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/relatorio" class="font-normal">
+                <a href="{{URL}}/relatorio" class="font-normal {{CREATE_SERVICE}}">
                     <i class="material-icons left">add</i>Cadastramento de serviços
                 </a>
             </li>
@@ -284,7 +323,7 @@
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a href="{{URL}}/relatorio" class="font-normal">
+                <a href="{{URL}}/relatorio" class="font-normal {{DATABASE_VIEW}}">
                     <i class="material-icons left">backup</i>Cópia de Segurança
                 </a>
             </li>
@@ -292,19 +331,19 @@
             <li class="divider"></li> <!-- Linha de separação -->
 
             <li>
-                <a href="{{URL}}/relatorio" class="font-normal">
+                <a href="{{URL}}/relatorio" class="font-normal {{PERSONALIZAR}}">
                     <i class="material-icons left">build</i>Personalizar
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/relatorio" class="font-normal">
+                <a href="{{URL}}/site" class="font-normal">
                     <i class="material-icons left">support_agent</i>Suporte técnico
                 </a>
             </li>
 
             <li>
-                <a href="{{URL}}/relatorio" class="font-normal">
+                <a href="{{URL}}/site" class="font-normal">
                     <i class="material-icons left">help</i>Ajuda
                 </a>
             </li>

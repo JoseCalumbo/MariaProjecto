@@ -99,6 +99,9 @@ class Conta extends Page
         $funcionarioLogado = Session::getUsuarioLogado();
         $id = $funcionarioLogado['id'];
 
+        // Busca os dados funcionario para nivel de acesso
+        $obFuncionarioNivelAcesso = FuncionarioDao::getFuncionarioNivelAcessoId($id);
+
         // Busca os dados funcionario pelo id
         $obFuncionario = FuncionarioDao::getFuncionarioId($id);
 
@@ -107,6 +110,7 @@ class Conta extends Page
             'menuconta' => self::getUsuarioMenu(),
             'imagem' => $obFuncionario->imagem_funcionario,
             'nome' => $obFuncionario->nome_funcionario,
+            'acesso' => $obFuncionarioNivelAcesso->nome_nivel,
             'msg' => self::exibeMensagem($request),
             'msgVazio' => ''
         ]);
@@ -162,11 +166,14 @@ class Conta extends Page
         $content = View::render('conta/contaPerfil', [
             'msg' => '',
             'nome' => $obUsuario->nome_funcionario,
+            'imagem' => $obUsuario->imagem_funcionario,
             'genero' => $obUsuario->genero_funcionario,
             'nascimento' => $obUsuario->nascimento_funcionario,
             'bilhete' => $obUsuario->bilhete_funcionario,
             'morada' => $obUsuario->morada_funcionario,
-
+            'email' => $obUsuario->email_funcionario,
+            'telefone' => $obUsuario->telefone1_funcionario,
+            'telefone1' => $obUsuario->telefone2_funcionario,
             'masculino' => $obUsuario->genero_funcionario == 'Masculino' ? 'selected' : '',
             'feminino' => $obUsuario->genero_funcionario == 'Feminino' ? 'selected' : '',
             'id' => $obUsuario->id_funcionario,

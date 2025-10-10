@@ -1,23 +1,17 @@
 <section class="row section-field">
+    <br>
+    <h4 class="" style="margin-left: 60px;"> Minha Conta</h4>
+    <hr>
 
     <div class="col s12 m12 ">
         {{msg1}}
     </div>
 
-    <div class="col s12 m12">
-        <h5>
-            <a href="{{URL}}/admin/conta">Minha Conta</a>
-            <hr>
-        </h5>
-    </div>
-
-    <section class=" col s12 m3 white card-menu ">
-        <ul class="collection with-header card">
+    <section class="offset-m1 col s12 m3 white card-menu ">
+        <ul class="collection with-header ">
 
             <div class="item-conta-img center ">
-                <img class="img-conta modal-trigger openModal tooltippedFoto red-text"
-                    src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100" data-position="buttonn"
-                    data-tooltip="Trocar a foto">
+                <img class="img-conta red-text" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100">
             </div>
 
             <li class="collection-header center ">
@@ -51,7 +45,7 @@
                     Mantenha seus dados sempre corretos para facilitar a comunicação.
                     Todas as alterações são salvas com segurança em sua conta.
                 </p>
-                <a href="#modalEditaDados" class="btn waves-light white-text capitalize grey darken-2 modal-trigger">
+                <a href="#modalEditaDados" class="btn waves-light white-text font-normal grey darken-2 modal-trigger">
                     <i class="material-icons left white-text"> edit </i>Editar
                 </a>
             </div>
@@ -64,7 +58,7 @@
                     Escolha uma foto que represente você em nosso sistema.
                     Sua imagem será exibida em comentários, mensagens e configurações da conta
                 </p>
-                <a href="#modalAlterarImagem" class="btn waves-light white-text capitalize grey darken-2 modal-trigger">
+                <a href="#modalAlterarImagem" class="btn waves-light white-text font-normal grey darken-2 modal-trigger">
                     <i class="material-icons left white-text"> image </i>Alterar imagem
                 </a>
             </div>
@@ -77,7 +71,7 @@
                     Personalize o visual com temas claro ou escuro, conforme sua preferência.
                     Suas configurações serão salvas e aplicadas automaticamente em todos os acessos.
                 </p>
-                <a class="btn waves-light white-text capitalize grey darken-2 disabled">
+                <a class="btn waves-light white-text font-normal grey darken-2 disabled">
                     <i class="material-icons left white-text">widgets</i>Trocar
                 </a>
             </div>
@@ -92,12 +86,10 @@
 </section>
 
 
-
-
 <!--- Modal alterar imagem -->
 <div id="modalAlterarImagem" class="modal modalMudarImagem">
     <div class="modal-content white">
-        <form action="{{URL}}/admin/edit-image/{{id}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL}}/conta/edit-image/{{id}}" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col s12 m12">
                     <h5 class="capitalize center ">
@@ -129,20 +121,23 @@
 
                 </div>
 
-
-                <div class="row col s12 offset-m1 m11">
-                    <button class="modal-close btn red darken-2 waves-effect capitalize col s6" name="cancelar"
-                        value="cancelar" type="submit">
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="btn blue  darken-2 waves-effect capitalize col s6 " name="salvar"
-                        value="apagar" required>
-                        Salvar
-                    </button>
+                <div class=" col s12 " style="display: none;">
+                    <input type="submit" id="submetFoto">
                 </div>
             </div>
         </form>
+
+        <div class="row col s12 offset-m1 m11">
+            <button class="modal-close btn red darken-2 waves-effect font-normal col s6" name="cancelar"
+                value="cancelar" type="submit">
+                <label class="white-text col m12">Cancelar</label>
+            </button>
+
+            <button type="submit" class="btn blue  darken-2 waves-effect font-normal col s6 " name="salvar"
+                value="apagar" required>
+                <label class="white-text col m12" for="submetFoto">Salvar</label>
+            </button>
+        </div>
     </div>
 </div>
 
@@ -188,18 +183,24 @@
                     </div>
                 </div>
 
-                <div class="row col s12 offset-m1 m11">
-                    <button class="modal-close btn red darken-2 waves-effect capitalize col s6" name="cancelar"
-                        value="cancelar" type="submit">
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="btn blue  darken-2 waves-effect capitalize col s6 " name="salvar"
-                        value="apagar" required>
-                        Salvar
-                    </button>
+                <div class=" col s12 " style="display: none;">
+                    <input type="submit" id="submetEdit">
                 </div>
+
             </div>
         </form>
+
+        <div class="row col s12 offset-m1 m11">
+            <button class="modal-close btn red darken-2 waves-effect font-normal col s6" name="cancelar"
+                value="cancelar" type="submit">
+                <label class="white-text col m12">Cancelar</label>
+            </button>
+
+            <button type="submit" class="btn blue  darken-2 waves-effect font-normal col s6 " name="salvar"
+                value="apagar" required>
+                <label class="white-text col m12" for="submetEdit">Salvar</label>
+            </button>
+        </div>
+
     </div>
 </div>

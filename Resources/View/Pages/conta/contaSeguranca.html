@@ -1,15 +1,14 @@
 <section class="row section-field">
-
     <br>
-    <h4 class="center"> Minha Conta</h4>
+    <h4 class="" style="margin-left: 60px;"> Minha Conta</h4>
     <hr>
 
     <div class="col s12 m12 ">
         {{msg1}}
     </div>
 
-    <section class=" col s12 m3 white card-menu ">
-        <ul class="collection with-header card">
+    <section class="offset-m1 col s12 m3 white card-menu ">
+        <ul class="collection with-header ">
 
             <div class="item-conta-img center ">
                 <img class="img-conta modal-trigger openModal tooltippedFoto red-text"
@@ -31,9 +30,9 @@
         </ul>
     </section>
 
-    <section class=" col s12 m8 white ">
+    <section class="offset-m1 col s12 m8 white ">
 
-        <section class="row col m12 push-m1">
+        <section class="row col m12">
 
             <div class="col m12 pull-m1 center">
                 <h6 class="negrito"> Segurança da Conta</h6>
@@ -66,11 +65,8 @@
             <br>
 
         </section>
-
-
-
     </section>
-    <br>
+
     <br>
 
 </section>
@@ -88,9 +84,9 @@
                 </div>
 
                 <div class="col m9 offset-m1">
-                    <p style="font-size: 13px; font-weight: 900;">Padrões de segurança para cadastrar senha</p>
-                    <p style="font-size: 12px;">A senha deve possuir de 7 a 15 caracteres;</p>
-                    <p style="font-size: 12px;"> A senha deve ser diferente da senha atual e diferente das 5 últimas
+                    <p class="font-normal" style="font-size: 13px; font-weight: 900;">Padrões de segurança para cadastrar senha</p>
+                    <p class="font-normal" style="font-size: 12px;">A senha deve possuir de 7 a 15 caracteres;</p>
+                    <p class="font-normal" style="font-size: 12px;"> A senha deve ser diferente da senha atual e diferente das 5 últimas
                         senhas utilizadas.</p>
                 </div>
 
@@ -109,18 +105,24 @@
                     <label for="con_senha" class="font-small">Confirme a nova senha:</label>
                 </div>
 
-                <div class="row col s12 offset-m1 m11">
-                    <button class="modal-close btn blue darken-2 waves-effect capitalize col s6" name="cancelar"
-                        value="cancelar" type="submit">
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="btn red darken-2 waves-effect capitalize col s6 " name="apagar"
-                        value="apagar" required>
-                        Alterar
-                    </button>
+                <div class=" col s12 " style="display: none;">
+                    <input type="submit" id="submetSenha">
                 </div>
+
             </div>
         </form>
+
+        <div class="row col s12 offset-m1 m11">
+            <button class="modal-close btn blue darken-2 waves-effect font-normal col s6" name="cancelar"
+                value="cancelar" type="submit">
+                <label class="white-text col m12">Cancelar</label>
+            </button>
+
+            <button type="submit" class="btn red darken-2 waves-effect font-normal col s6 " name="apagar" value="apagar"
+                required>
+                <label class="white-text col m12" for="submetSenha">Alterar</label>
+            </button>
+        </div>
+
     </div>
 </div>

@@ -105,16 +105,58 @@ class Page
         $resultado = NivelDao::VerificarNivel1($id);
         $permissoes = array_column($resultado, "codigo_permisao");
 
-        return View::render('Layouts/header', [
-            'info' => self::getFuncionarioLogado($obFuncionario),
+        // busca o usuario po id
+        $obUsuario = FuncionarioDao::getFuncionarioId($id);
 
-            'acessoConsulta' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
-            'acessoTriagem' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
-            'acessoCadastrameto' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
-            'acessoRelatorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
-            'acessoLaboratorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+        return View::render('Layouts/header', [
+
+
+
+            'info' => self::getFuncionarioLogado($obFuncionario),
+            'nome1' => $obUsuario->nome_funcionario,
+
+            'acessoConsulta' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoTriagem' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoCadastrameto' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoRelatorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoLaboratorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoRelatorio' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'acessoTesouraria' => in_array("TRIAGEM_UPDATE", $permissoes) ? "Com permissão " : "disabled-link",
             'acessoFarmacia' => in_array("FARMACIA_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
-            'acessoTesouraria' => in_array("TRIAGEM_UPDATE", $permissoes) ? "disabled-link " : "Sem permissão",
+
+            'DATABASE_VIEW'        => in_array("DATABASE_VIEW", $permissoes) ? "Com permissão " : "disabled-link",
+            'IMPORT_DATABASE_VIEW' => in_array("IMPORT_DATABASE_VIEW", $permissoes) ? "Com permissão " : "disabled-link",
+            'LABORATORIO_ACESS'    => in_array("LABORATORIO_ACESS", $permissoes) ? "com permissao" : "disabled-link",
+            'EXAME_ACESS'          => in_array("EXAME_ACESS", $permissoes) ? "Com permissão" : "disabled-link",
+            'EXAME_CREATE'         => in_array("EXAME_CREATE", $permissoes) ? "Com permissão " : "disabled-link",
+            'EXAME_RESULT'         => in_array("EXAME_RESULT", $permissoes) ? "Com permissão" : "disabled-link",
+            'EXAME_SOLICITACAO'    => in_array("EXAME_SOLICITACAO", $permissoes) ? "Com permissão" : "disabled-link",
+            'EXAME_AGENDAR'        => in_array("EXAME_AGENDAR", $permissoes) ? "Com permissão " : "disabled-link",
+
+            'USER_VIEW'            => in_array("USER_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'USER_PERFIL_VIEW'     => in_array("USER_PERFIL_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'CREATE_SERVICE'       => in_array("CREATE_SERVICE", $permissoes) ? "Com permissão" : "disabled-link",
+            'PERSONALIZAR'         => in_array("PERSONALIZAR", $permissoes) ? "Com permissão" : "disabled-link",
+            'AGENDAR'              => in_array("AGENDAR", $permissoes) ? "Com permissão" : "disabled-link",
+
+            'FARMACIA_ACESS'       => in_array("FARMACIA_ACESS", $permissoes) ? "Com permissão" : "disabled-link",
+            'MEDICAMENTO_CREATE'   => in_array("MEDICAMENTO_CREATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'FORNECEDOR_VIEW'      => in_array("FORNECEDOR_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'GERIR_ESTOQUE_VIEW'   => in_array("GERIR_ESTOQUE_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'RECEPÇAO'             => in_array("RECEPÇAO", $permissoes) ? "Com permissão" : "disabled-link",
+
+            'TESORARIA_ACESS'      => in_array("TESORARIA_ACESS", $permissoes) ? "Com permissão" : "disabled-link",
+            'CAIXA_VIEW'           => in_array("CAIXA_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'PAGAMENTO_VIEW'       => in_array("PAGAMENTO_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'SALFT'                => in_array("SALFT", $permissoes) ? "Com permissão" : "disabled-link",
+
+            'PACIENTE_CREATE'      => in_array("PACIENTE_CREATE", $permissoes) ? "Com permissão" : "disabled-link",
+            'INTERNAMENTO_VIEW'    => in_array("INTERNAMENTO_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'TRANSFERIR_VIEW'      => in_array("TRANSFERIR_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'CONSULTA_VIEW'        => in_array("CONSULTA_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'MARCAR_CONSULTA_VIEW' => in_array("MARCAR_CONSULTA_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'EXAME_VIEW'           => in_array("EXAME_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
+            'ATENDIMENTO_VIEW'     => in_array("ATENDIMENTO_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
         ]);
     }
 
