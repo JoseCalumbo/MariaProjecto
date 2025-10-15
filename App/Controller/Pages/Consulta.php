@@ -1,6 +1,8 @@
 <?php 
 
 namespace App\Controller\Pages;
+
+use App\Model\Entity\ConsultorioDao;
 use \App\Utils\Pagination;
 use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\ZonaDao;
@@ -11,11 +13,11 @@ use \App\Utils\View;
 Class Consulta extends Page{
 
     // funcão para fazer pesquisa 
-    private static function getBusca($request,&$obPagination){
+    private static function getConsultasEspera($request,&$obPagination){
 
         $queryParam = $request->getQueryParams();
 
-      //  $obPagination = new Pagination(null,null,null);
+        $obPagination = new Pagination(null,null,null);
             
          // Var que retorna o conteudo
          $item='';
@@ -23,14 +25,14 @@ Class Consulta extends Page{
          $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
              
              $condicoes = [
-                 strlen($buscar) ? 'zona LIKE "%'.$buscar.'%"': null,
+                 strlen($buscar) ? 'nome_paciente LIKE "%'.$buscar.'%"': null,
             ];
                 
             // coloca na consulta sql
             $where = implode(' AND ',$condicoes);
                 
             //quantidade total de registros da tabela user
-             $quantidadetotal = ZonaDao::listarZona($where,'zona',null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
+             $quantidadetotal = ConsultorioDao::listarTriagemFeita($where,'risco_triagem',null,'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
              //pagina actual 
               $queryParams = $request->getQueryParams();
@@ -39,16 +41,16 @@ Class Consulta extends Page{
               // instancia de paginacao
               $obPagination = new Pagination($quantidadetotal,$paginaAtual,9);
 
-             $resultado = ZonaDao::listarZona($where,'zona',$obPagination->getLimit());
+             $resultado = ConsultorioDao::listarTriagemFeita($where,'zona',$obPagination->getLimit());
 
-             while($obZona = $resultado->fetchObject(ZonaDao::class)){
+             while($obPacientesEspera = $resultado->fetchObject(ConsultorioDao::class)){
 
                 $item .= View::render('consulta/listarConsulta',[
-                    'id_zona'=>$obZona->id_zona,
-                    'zona'=>$obZona->zona,
-                    'iniciovenda'=>$obZona->inicio_venda,
-                    'fimvenda'=>$obZona->fim_venda,
-                    'mercado'=>$obZona->mercado
+                    'id_zona'=>$obPacientesEspera->id_triagem,
+                    'zona'=>$obPacientesEspera->zona,
+                    'iniciovenda'=>$obPacientesEspera->inicio_venda,
+                    'fimvenda'=>$obPacientesEspera->fim_venda,
+                    'mercado'=>$obPacientesEspera->mercado
                 ]);
             }
 
@@ -72,8 +74,8 @@ Class Consulta extends Page{
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
         $content = View::render('consulta/Consultorio',[
              'pesquisar'=>$buscar,
-            // 'listarZona'=>self::getBusca($request,$obPagination),
-            // 'paginacao'=>parent::getPaginacao($request,$obPagination)
+            'listarConsulta'=>self::getConsultasEspera($request,$obPagination),
+            'paginacao'=>parent::getPaginacao($request,$obPagination)
         ]);
         return parent::getPage('Painel Consulta', $content);
     }
@@ -120,13 +122,14 @@ Class Consulta extends Page{
         ]);
         return parent::getPage('Cadastrar nova Zona', $content);
     }
+
     // Metodo para apresentar a tela Consulta 
     public static function comfirmarConsulta($request){
 
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
         $content = View::render('consulta/formConfirmaConsulta',[
              'pesquisar'=>$buscar,
-             'listarZona'=>self::getBusca($request,$obPagination),
+             'listarZona'=>self::getConsultasEspera($request,$obPagination),
              'paginacao'=>parent::getPaginacao($request,$obPagination)
         ]);
         return parent::getPage('Painel Consulta', $content);
