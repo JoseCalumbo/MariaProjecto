@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer Fixo Materialize</title>
+  <!-- Importa MaterializeCSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1565c0; /* Azul Materialize */
+      color: white;
+      z-index: 1000;
+      padding: 4px 0; /* <--- menor altura */
+      height: 42px;   /* <--- define uma altura fixa menor */
+      display: flex;
+      align-items: center;
+      box-shadow: 0 -1px 4px rgba(0,0,0,0.3);
+    }
+
+    footer .btn-flat {
+      color: white;
+      height: 36px;
+      line-height: 36px;
+      padding: 0 8px;
+      min-width: 40px;
+    }
+
+    .footer-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      gap: 8px; /* Espaçamento entre os botões */
+    }
+
+    /* Remove margens dos ícones */
+    .footer-buttons i {
+      margin: 0;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h5>Conteúdo da Página</h5>
+    <p>Exemplo de footer fixo com altura reduzida (barra de tarefas).</p>
+  </main>
+
+  <!-- Footer fixo e fino -->
+  <footer class="page-footer">
+    <div class="footer-buttons">
+      <a class="btn-flat waves-effect tooltipped" data-tooltip="Início"><i class="material-icons">home</i></a>
+      <a class="btn-flat waves-effect tooltipped" data-tooltip="Consultas"><i class="material-icons">assignment</i></a>
+      <a class="btn-flat waves-effect tooltipped" data-tooltip="Triagem"><i class="material-icons">healing</i></a>
+      <a class="btn-flat waves-effect tooltipped" data-tooltip="Sair"><i class="material-icons">logout</i></a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.tooltipped');
+      M.Tooltip.init(elems);
+    });
+  </script>
+</body>
+</html>

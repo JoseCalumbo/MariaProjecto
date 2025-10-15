@@ -1,0 +1,170 @@
+<section class="row section-field card">
+
+    <nav class="col m12 blue-grey darken-1">
+        <div class="nav-wrapper ">
+            <a href="{{URL}}/triagem" class="brand-logo white-text capitalize"
+                style="font-size: 18px; font-weight: bold; vertical-align: -6px;">
+                <h5 class="minuscula">Painel Triagem</h5>
+            </a>
+            <ul class="right hide-on-med-and-down row" style="height: 50px;">
+
+                <li class="white-text " style="text-transform: capitalize;">
+                    <a href="{{URL}}/triagem" class="white-text">
+                        <i class=" material-icons left white-text ">arrow_back</i>voltar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="col m12 s12 left">
+        <h5 class="black-text center"> {{titulo}} </h5>
+    </section>
+
+    <section class="row col m11 offset-m1 " style="text-align: center;">
+        <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
+            <ul class=" collapsible expandable white" style="box-shadow: none !important; border: none !important;">
+                <li class="">
+                    <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
+                            class="material-icons">person</i>Dados pessoais</div>
+                    <div class="collapsible-body row">
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate" required
+                                    disabled>
+                                <label for="nome" style="text-transform: capitalize;">Nome:</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="bilhete" type="text" name="bilhete" value="{{bilhete}}" class="validate"
+                                    disabled>
+                                <label for="bilhete" style="text-transform: capitalize;">Bilhete(opcional):</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class=" input-radio col s12 m6 rigth">
+                                <label>
+                                    <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap"
+                                        checked disabled>
+                                    <span for="masc">Masculino </span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap"
+                                        {{genero}} disabled>
+                                    <span for="fem">Feminino</span>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12 m6 ">
+                                <input id="nascimento" type="text" name="nascimento" class="datepicker" value="{{data}}"
+                                    disabled>
+                                <label for="nascimento" style="text-transform: capitalize;">Data de nascimento:</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!--collapsible dados sinais Vitais-->
+                <li class="active">
+                    <div class="collapsible-header white white-text font-normal grey darken-3">
+                        <i class="material-icons">enhanced_encryption </i>Sinais Vitais
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="input-field col s12 m5">
+                                <input id="peso" type="number" data-length="30" name="peso" value="{{peso}}" />
+                                <label for="morada" style="text-transform: capitalize;">Peso</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="peso" style="text-transform: capitalize; font-weight: bolder;">kg</label>
+                            </div>
+
+                            <div class="input-field col s12 m5">
+                                <input id="temperatura" type="number" data-length="39" name="temperatura"
+                                    value="{{temperatura}}" />
+                                <label for="temperatura" style="text-transform: capitalize;">Temperatura
+                                    Corporal</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="temperatura"
+                                    style="text-transform: capitalize; font-weight: bolder;">°C</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m5">
+                                <input id="arterial" type="number" data-length="30" name="cardiaca"
+                                    value="{{cardiaca}}" />
+                                <label for="arterial" style="text-transform: capitalize;">Frequência Cardíaca</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="peso" style="text-transform: capitalize; font-weight: bolder;">bpm</label>
+                            </div>
+                            <div class="input-field col s12 m5">
+                                <input id="fr" type="number" data-length="30" name="frequencia"
+                                    value="{{frequencia}}" />
+                                <label for="fr" style="text-transform: capitalize;">Frequência respiratória </label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="fr" style="text-transform: capitalize; font-weight: bolder;">mrm </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m5">
+                                <input id="oxigênio" type="number" data-length="30" name="Saturacao_oxigenio"
+                                    value="{{saturacao}}" />
+                                <label for="oxigênio" style="text-transform: capitalize;">Saturação de oxigênio</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="peso" style="text-transform: capitalize; font-weight: bolder;">%</label>
+                            </div>
+
+                            <div class="input-field col s12 m5">
+                                <input id="fr" type="text" data-length="7" name="pressao" value="{{pressao}}" />
+                                <label for="pa" style="text-transform: capitalize;">Pressão Arterial</label>
+                            </div>
+                            <div class="input-field col s12 m1">
+                                <label for="pa" style="text-transform: capitalize; font-weight: bolder;">mmHg </label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="active">
+                    <div class="collapsible-header white white-text font-normal grey darken-3"> <i
+                            class="material-icons">comment</i>Observação</div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" class="materialize-textarea" name="obs">{{obs}}</textarea>
+                                <label for="textarea1" style="text-transform: capitalize;">Avaliação Clínica
+                                    Rápida</label>
+                            </div>
+
+                            <div class="input-field col s12 m5">
+                                <select name="pioridade">
+                                    <option value="" disabled selected>Escolhe uma opção</option>
+                                    <option value="a" {{a}}>Vermelho</option>
+                                    <option value="b" {{b}}>Laranja</option>
+                                    <option value="c" {{c}}>Amarelo</option>
+                                    <option value="d" {{d}}>Verde</option>
+                                    <option value="e" {{e}}>Azul</option>
+                                </select>
+                                <label style="text-transform: capitalize; font-size: 14px;">Classificação de
+                                    risco</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="row col s12 m12">
+                <button class="col offset-m9 btn  m3 font-normal" type="submit" name="btn">{{button}}</button>
+            </div>
+        </form>
+
+    </section>
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

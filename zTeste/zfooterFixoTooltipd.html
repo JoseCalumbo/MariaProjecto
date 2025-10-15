@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Footer Fino com Tooltip Customizado</title>
+
+  <!-- Ícones do Google -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    body {
+      background: #eceff1;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 5px 0;
+      text-align: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    footer a {
+      color: white;
+      margin: 0 15px;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.2s ease, color 0.2s ease;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      transform: scale(1.2);
+      color: #64b5f6;
+    }
+
+    footer i {
+      font-size: 26px;
+      vertical-align: middle;
+    }
+
+    /* Tooltip customizado */
+    footer a::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 130%; /* posição acima do ícone */
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(214, 11, 11, 0.8);
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    footer a:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-3px);
+    }
+
+    /* Triângulo do tooltip */
+    footer a::before {
+      content: "";
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    footer a:hover::before {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="margin-bottom:70px; padding:20px;">
+    <h5>Conteúdo da Página</h5>
+    <p>Este é um exemplo de footer fixo com tooltip feito apenas com CSS, sem Materialize.</p>
+  </div>
+
+  <footer>
+    <a href="#inicio" data-tooltip="Início">
+      <i class="material-icons">home</i>
+    </a>
+    <a href="#pacientes" data-tooltip="Pacientes">
+      <i class="material-icons">people</i>
+    </a>
+    <a href="#consultas" data-tooltip="Consultas">
+      <i class="material-icons">event</i>
+    </a>
+    <a href="#exames" data-tooltip="Exames">
+      <i class="material-icons">assignment</i>
+    </a>
+    <a href="#config" data-tooltip="Configurações">
+      <i class="material-icons">settings</i>
+    </a>
+  </footer>
+
+</body>
+</html>

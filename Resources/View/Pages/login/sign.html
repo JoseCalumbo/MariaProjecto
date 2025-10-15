@@ -1,0 +1,62 @@
+<div class="center-page">
+  <div class="card card-login ">
+    <div class="card-content ">
+      <!-- Logo -->
+      <section class="login-img center-align">
+        <img class="login-img center-align" src="Assets/img/logo01.png" height="60" width="100">
+      </section>
+
+      <!-- Título -->
+      <span class="card-title center-align" >Criar conta</span>
+      {{msg}}
+      <!-- Formulário -->
+      <form class="row" method="post" enctype="multipart/form-data" style="padding: 5px 3px !important; margin: 0px !important;">
+        <div class="input-field col m11" style="padding: 10px 3px !important; margin: 0px !important;">
+          <i class="material-icons prefix teal-text darken-2">perm_identity</i>
+          <input id="nome" type="text" class="validate" name="nome" required value="{{nome}}">
+          <label for="nome">Nome</label>
+        </div>
+
+        <div class="input-field col m11" style="padding: 10px 3px !important; margin: 0px !important;">
+          <i class="material-icons prefix teal-text darken-2">mail_outline</i>
+          <input id="email" type="email" class="validate" name="email" required value="{{email}}">
+          <label for="email">Email</label>
+        </div>
+
+        <div class="input-field col m11 " style="padding: 10px 3px !important; margin: 0px !important;">
+          <i class="material-icons prefix teal-text darken-2">lock_outline</i>
+          <input id="senha" type="password" class="validate" name="senha">
+          <label for="senha">Senha</label>
+        </div>
+
+        <div class="input-field col m11 " style="padding: 5px 3px !important; margin: 0px !important;">
+          <i class="material-icons prefix teal-text darken-2">lock_outline</i>
+          <input id="ConfirmaSenha" type="password" class="validate" name="ConfirmaSenha">
+          <label for="ConfirmaSenha">Confirma Senha</label>
+        </div>
+ 
+        <div class="row col m10 center-align "  style="padding: 5px 3px !important; margin: 0px !important;">
+          <button class="push-m2 col m12 btn teal darken-2  waves-effect waves-light" style="text-transform: capitalize;"
+            type="submit" value="logar">Criar Conta</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+  <footer>
+    <a href="{{URL}}/site" data-tooltip="Pagina inical">
+      <i class="material-icons">home</i>
+    </a>
+    <a href="{{URL}}/login" data-tooltip="Logar na conta">
+      <i class="material-icons">login</i>
+    </a>
+    <a href="{{URL}}/recuperar/senha" data-tooltip="Recuperar senha">
+      <i class="material-icons">lock_reset</i>
+    </a>
+    <a href="{{URL}}/contactos" data-tooltip="Suporte técnico">
+      <i class="material-icons">support_agent</i>
+    </a>
+  </footer>

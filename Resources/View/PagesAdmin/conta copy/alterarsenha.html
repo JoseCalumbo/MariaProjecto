@@ -1,0 +1,97 @@
+<section class="row section-field">
+
+    <div class="col s12 m12">
+        <h5>
+            <a href="{{URL}}/admin/conta">Minha Conta</a>
+            <hr>
+        </h5>
+    </div>
+
+    <section class=" col s12 m3 white card-menu ">
+        {{menuconta}}
+    </section>
+
+    <section class=" col s12 m8 offset-m1 white ">
+
+        <form class="row form-area col m12 push-m2" method="post">
+            <div class="col m12 pull-m1 center">
+                <h6>Alterar Senha</h6>
+            </div>
+
+            <div class="red lighten-4 font-small col s12 m8">{{msg}}</div>
+
+            <div class="row">
+                <div class="input-field col m8">
+                    <input id="last_senha" type="password" name="senhaAntiga" value="{{senhaAntiga}}" class="validate">
+                    <label for="last_senha" class="font-small">Senha antiga</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col m8">
+                    <input id="nova_senha" type="password" name="senhaNova" value="{{senhaNova}}" class="validate">
+                    <label for="nova_senha" class="font-small">Nova antiga</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col m8">
+                    <input id="con_senha" type="password" name="senhaConfirmada" value="{{senhaConf}}" class="validate">
+                    <label for="con_senha" class="font-small">Confirma a senha</label>
+                </div>
+            </div>
+
+            <div class="col s12 m8">
+                <button class="button" type="submit">
+                    Alterar senha
+                </button>
+            </div>
+
+            <div class="font-small col m8 ">
+                Certifique-se que a senha contenha 8 ou mais digitos, incluindo números e letras
+                maisculas.
+            </div>
+        </form>
+
+    </section>
+
+    <br>
+    <br>
+
+</section>
+
+<!--Modal de alterar a foto-->
+<div id="modal" class="modal {{blocks}}">
+    <div class="modal-item modal-foto">
+        <label id="closeModal" class="closeModal">&times;</label>
+        <form method="post" enctype="multipart/form-data">
+            <h5>Imagem de Perfil</h5>
+            <p class="div-conta-inf">
+                A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
+                tua imagem do sistema e volta para a imagem padrão
+            </p>
+            <hr>
+            {{msgVazio}}
+
+            <div class="center">
+                <label id="image" class="label-modal-img" for="img">
+                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="180" height="180">
+                    <div>Carregar imagem</div>
+                </label>
+                <input type="file" id="img" name="imagem">
+            </div>
+
+            <div class="row flex">
+                <button class="btn col m12 indigo" name="salvar" type="submit">
+                    <i class="material-icons ">photo</i>Salvar
+                </button>
+            </div>
+
+            <div class="row flex">
+                <button class="btn red col m12" href="">
+                    <i class="material-icons ">delete</i>Remover
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

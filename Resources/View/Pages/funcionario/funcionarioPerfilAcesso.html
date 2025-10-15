@@ -1,0 +1,149 @@
+<section class="row section-field ">
+
+    <br>
+    <h4 class="center"> {{titulo}} </h4>
+
+    <nav class="col m12 blue-grey darken-1">
+        <div class="nav-wrapper ">
+            <ul class="right hide-on-med-and-down row" style="height: 50px;">
+
+
+                <li class="" style="text-transform: capitalize;">
+                    <a href="#modalNivel" class="white-text modal-trigger" style="display: flex; align-items: center;">
+                        <i class="material-icons left white-text">add</i>Nivel de Acesso
+                    </a>
+                </li>
+
+                <li class="white-text " style="text-transform: capitalize;">
+                    <a href="{{URL}}/utilizadores" class="white-text"
+                        style="display: flex; align-items: center; text-transform: capitalize;">
+                        <i class=" material-icons left white-text ">arrow_back</i>voltar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="col m12 s12 center">
+        <br>
+        <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
+    </section>
+
+    <section class="row col m8 offset-m2 ">
+        <!-- formulario para cadastramento de usuario start -->
+        <form class="" method="post" enctype="multipart/form-data">
+            <ul class=" collapsibleF white expandable">
+                <li class="active">
+                    <div id="form-collapsible" class="collapsible-header white-text font-normal  blue-grey darken-1 ">
+                        <i class="material-icons ">person</i> {{nome}}
+                    </div>
+                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
+                        <div class="row">
+                            <div class="font-normal col s12 m12">
+                                <p> <strong>Atenção:</strong></p>
+                                Está prestes a alterar o nível de acesso deste utilizador.
+                                Essa mudança pode afetar as permissões e funcionalidades disponíveis no sistema
+                                hospitalar.
+                                <p class="font-normal"> <strong class="font-normal negrito">Clica em escolher uma nova
+                                        opção e depois salvar para confirmar a alteraçã</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6 m6">
+                                <div class="input-field col s12">
+                                    <select name="cargo">
+                                        <option value="" disabled selected>Escolhe uma opção</option>
+                                        <option value="Médico" {{cargo-medico}}>Médico</option>
+                                        <option value="Enfermeiro" {{cargo-enfermero}}>Enfermeiro</option>
+                                        <option value="Analista Clínico" {{cargo-analista}}>Analista Clínico</option>
+                                        <option value="Farmacêuticos" {{cargo-farmaceutico}}>Farmacêuticos</option>
+                                        <option value="Técnicos de Enfermagem" {{cargo-tecnico}}>Técnicos de Enfermagem
+                                        </option>
+                                        <option value="Administrador" {{cargo-admin}}>Administrador</option>
+                                    </select>
+                                    <label class="font-normal">Seleciona Cargo</label>
+                                </div>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <div class="input-field col s12">
+                                    <select name="perfilAcesso">
+                                        <option value="" disabled selected>Escolhe nova opção</option>
+                                        {{perfilCadastrado}}
+                                    </select>
+                                    <label class="font-normal negrito">Seleciona Nivel de Acesso</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+
+            <div class="row col s12 m12">
+                <br>
+                <br>
+                <button class="col offset-m10 m2 btn font-normal" type="submit">{{button}}</button>
+            </div>
+        </form>
+        <!-- formulario para cadastramento de usuario end -->
+
+    </section>
+</section>
+
+
+<!-- MODAL para cadastrar nivel -->
+<div id="modalNivel" class="modal  modalImprimirTriagem" style="width: 600px; height: 390px;">
+    <div class="row modal-content white">
+        <h5 class=" offset-m1 col s12 m10 capitalize" style="text-transform: lowercase;">
+            <i class="material-icons left teal-text medium"
+                style="position: relative; top: -12px;">admin_panel_settings</i>
+            <strong style="font-weight: bold;">Cadastrar Nivel e Permissão </strong>
+        </h5>
+
+
+
+        <form action="{{URL}}/cadastrar/perfil" method="post" class="center white push-m2">
+            <div class="row" style="position: relative; top: -20px;">
+                <div class="input-field col s12 m8">
+                    <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                    <label for="nome" class="capitalize" style="text-transform:lowercase;">Nome do perfil de
+                        acesso:</label>
+                </div>
+
+                <div class="input-field col s12 m4">
+                    <input id="serie" type="text" name="serie" value="{{nome}}" class="validate">
+                    <label for="serie" style="text-transform: capitalize;">Serie Perfil:</label>
+                </div>
+
+                <div class="input-field col s12 m12">
+                    <input id="perfil" type="text" name="descrisao" value="{{nome}}" class="validate">
+                    <label for="perfil" style="text-transform: capitalize;">Descrisão do Perfil:</label>
+                </div>
+            </div>
+
+            <div class="offset-m10 col s12 " style="display: none;">
+                <input type="submit" id="submite">
+            </div>
+        </form>
+
+        <div class="row" style="position: relative; top: -20px; margin-bottom: 0px;">
+            <div class="offset-m7 col s12 m5 row">
+
+                <a class="btn blue-grey darken-5  white-text modal-close" style="text-transform: capitalize;">
+                    Cancelar
+                </a>
+
+                <a class="btn teal darken-5 white-text" style="text-transform: capitalize;">
+                    <label class="white-text col m12" for="submite">salvar</label>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

@@ -1,0 +1,206 @@
+<section class="row section-field">
+    <br>
+    <h4 class="" style="margin-left: 60px;"> Minha Conta</h4>
+    <hr>
+
+    <div class="col s12 m12 ">
+        {{msg1}}
+    </div>
+
+    <section class="offset-m1 col s12 m3 white card-menu ">
+        <ul class="collection with-header ">
+
+            <div class="item-conta-img center ">
+                <img class="img-conta red-text" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100">
+            </div>
+
+            <li class="collection-header center ">
+                <h6>{{nome}}</h6>
+            </li>
+
+            <a href="{{URL}}/conta" class="collection-item font-normal ">Informações Pessoais</a>
+            <a href="{{URL}}/conta/seguranca" class="collection-item font-normal ">Segurança da Conta</a>
+            <a href="{{URL}}/contas/perfil" class="collection-item font-normal {{active}}">Personalização de Perfil</a>
+            <a href="{{URL}}/admin/controle" class="collection-item font-normal">Controles de Conta</a>
+            <a href="{{URL}}/admin/conta" class="collection-item font-normal ">Preferências e Notificações</a>
+            <a href="{{URL}}/admin/registros" class="collection-item font-normal ">Registros de Dados</a>
+            <a href="{{URL}}/logout" class="collection-item font-normal ">Terminar Sessão</a>
+
+        </ul>
+    </section>
+
+    <section class=" col s12 m8 white ">
+
+        <section class="row col m12 push-m1">
+
+            <div class="col m12 pull-m1 center">
+                <h6 class="negrito"> Personalização de Perfil</h6>
+                <br>
+            </div>
+
+            <div class="font-small">
+                <p><strong class="negrito"> Editar dados da conta</strong> </p>
+                <p class="">
+                    Atualize suas informações pessoais, como nome, e-mail ou telefone.
+                    Mantenha seus dados sempre corretos para facilitar a comunicação.
+                    Todas as alterações são salvas com segurança em sua conta.
+                </p>
+                <a href="#modalEditaDados" class="btn waves-light white-text font-normal grey darken-2 modal-trigger">
+                    <i class="material-icons left white-text"> edit </i>Editar
+                </a>
+            </div>
+            <br>
+
+            <div class="font-small">
+                <p> <strong class="negrito"> Alterar imagem de perfil</strong> </p>
+                <p class="">
+                    Personalize sua conta atualizando sua imagem de perfil.
+                    Escolha uma foto que represente você em nosso sistema.
+                    Sua imagem será exibida em comentários, mensagens e configurações da conta
+                </p>
+                <a href="#modalAlterarImagem" class="btn waves-light white-text font-normal grey darken-2 modal-trigger">
+                    <i class="material-icons left white-text"> image </i>Alterar imagem
+                </a>
+            </div>
+            <br>
+
+            <div class="font-small ">
+                <p><strong class="negrito">Definir preferências de idioma e tema</strong> </p>
+                <p class="">
+                    Escolha o idioma que deseja utilizar na interface do sistema.
+                    Personalize o visual com temas claro ou escuro, conforme sua preferência.
+                    Suas configurações serão salvas e aplicadas automaticamente em todos os acessos.
+                </p>
+                <a class="btn waves-light white-text font-normal grey darken-2 disabled">
+                    <i class="material-icons left white-text">widgets</i>Trocar
+                </a>
+            </div>
+            <br>
+
+        </section>
+
+    </section>
+
+    <br>
+    <br>
+</section>
+
+
+<!--- Modal alterar imagem -->
+<div id="modalAlterarImagem" class="modal modalMudarImagem">
+    <div class="modal-content white">
+        <form action="{{URL}}/conta/edit-image/{{id}}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col s12 m12">
+                    <h5 class="capitalize center ">
+                        <strong style="font-weight: 700;">Alterar Imagem</strong>
+                    </h5>
+                </div>
+
+                <div class="col m9 offset-m1">
+                    <p style="font-size: 13px; font-weight: 900;">Recomendações técnicas e visuais da imagem </p>
+                    <p style="font-size: 12px;">Nome do arquivo sem espaços ou caracteres especiais (ex:
+                        foto_perfil.png);</p>
+                    <p style="font-size: 12px;">Tamanho máximo 5MB e do tipo passe</p>
+                    <p style="font-size: 12px;"> Formato da imagem suportada apenas do tipo PNG </p>
+                </div>
+
+                <div class="center">
+                    <label id="image" class="label-modal-img" for="img">
+                        <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="125" height="125">
+                        <div></div>
+                    </label>
+                    <input type="file" id="img" name="imagem">
+                </div>
+
+                <div class="row center">
+                    <label class=" btn label-modal-img capitalize" for="img">
+                        Carregar imagem
+                        <i class="material-icons left white-text">arrow_upward</i>
+                    </label>
+
+                </div>
+
+                <div class=" col s12 " style="display: none;">
+                    <input type="submit" id="submetFoto">
+                </div>
+            </div>
+        </form>
+
+        <div class="row col s12 offset-m1 m11">
+            <button class="modal-close btn red darken-2 waves-effect font-normal col s6" name="cancelar"
+                value="cancelar" type="submit">
+                <label class="white-text col m12">Cancelar</label>
+            </button>
+
+            <button type="submit" class="btn blue  darken-2 waves-effect font-normal col s6 " name="salvar"
+                value="apagar" required>
+                <label class="white-text col m12" for="submetFoto">Salvar</label>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!--- Modal edita dados -->
+<div id="modalEditaDados" class="modal modalMudarEdit">
+    <div class="modal-content white">
+        <form action="{{URL}}/admin/edit-dados/{{id}}" method="post" enctype="multipart/form-data">
+            <div class="row">
+
+                <div class="col s12 m12">
+                    <h5 class="capitalize center ">
+                        <strong style="font-weight: 700;">Alterar Dados Pessoas</strong>
+                    </h5>
+                </div>
+
+                <div class=" offset-m1 col m11 row">
+                    <div class="input-field col s12 m12">
+                        <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                        <label for="nome" style="text-transform: capitalize;">Nome Completo:</label>
+                    </div>
+
+                    <div class="input-field col s12 m4">
+                        <input id="telefone" type="text" data-length="30" name="telefone" value="{{telefone}}" />
+                        <label for="telefone1" style="text-transform: capitalize;">telefone:</label>
+                    </div>
+                    <div class="input-field col s12 m8">
+                        <input id="email" type="text" data-length="30" name="email" value="{{email}}" />
+                        <label for="email" style="text-transform: capitalize;">E-mail:</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <select name="genero">
+                            <option value="" disabled selected>Escolhe uma opção</option>
+                            <option value="Masculino" {{masculino}}>Masculino</option>
+                            <option value="Feminino" {{feminino}}>Feminino</option>
+                        </select>
+                        <label style="text-transform: capitalize; font-size: 14px;">Genero</label>
+                    </div>
+
+                    <div class="input-field col s12 m12">
+                        <input id="morada" type="text" data-length="30" name="morada" value="{{morada}}" />
+                        <label for="morada" style="text-transform: capitalize;">Morada:</label>
+                    </div>
+                </div>
+
+                <div class=" col s12 " style="display: none;">
+                    <input type="submit" id="submetEdit">
+                </div>
+
+            </div>
+        </form>
+
+        <div class="row col s12 offset-m1 m11">
+            <button class="modal-close btn red darken-2 waves-effect font-normal col s6" name="cancelar"
+                value="cancelar" type="submit">
+                <label class="white-text col m12">Cancelar</label>
+            </button>
+
+            <button type="submit" class="btn blue  darken-2 waves-effect font-normal col s6 " name="salvar"
+                value="apagar" required>
+                <label class="white-text col m12" for="submetEdit">Salvar</label>
+            </button>
+        </div>
+
+    </div>
+</div>

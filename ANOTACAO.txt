@@ -1,0 +1,42 @@
+
+_____________________________________fALTA IMPLEMENTAR ________________________
+    validação de campos para não salvar em campos nulos
+    sugestão de pesquisa quanda for fazer uma pesquisa 
+    recuperção de senha
+    verifica de email exixtente
+    envio de email de recuperação de senha
+    
+_________________________________________________________________________________
+
+
+
+
+_________________________   CORREÇÃO OU MELHORIA _________________________
+    melhoria na tabelas do sistema e sub menu
+    melhoria na mensagem ou sinal de seinalizaçao de cadastramento ou operarçao CRUD
+
+
+
+_________________________   FUNCIONALIDADE _________________________
+
+    imprimir lista e cartao de vendedor
+    imprimir factura da cota
+
+------------------------------------------------------------------------------------------------------
+Você pode criar formulários médicos para seus pacientes e compartilhar o link do formulário com 
+eles ou incorporar o formulário como iFrame em seu site. Desta forma, os seus pacientes podem enviar
+online as suas reclamações, pagamentos ou qualquer transação relacionada com a sua instituição de 
+saúde através de um formulário online. Existem muitos tipos de modelos de formulário de saúde que
+você pode encontrar aqui, como:
+
+Formulário de consentimento médico
+Formulário de triagem
+Formulário de admissão de pacientes
+Formulário de alta hospitalar
+Formulário de histórico médico
+Formulário de avaliação de saúde,
+
+Existem muitos tipos de formulários médicos para preencher em hospitais. Com os custos de papel 
+gastos em tudo isso, outras despesas do hospital podem ser parcialmente cobertas. É por isso que os
+formulários online são a solução chave para economizar essas despesas. Escolha um modelo de 
+formulário médico agora e comece sua experiência de formulário online!

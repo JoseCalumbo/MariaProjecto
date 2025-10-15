@@ -1,0 +1,76 @@
+<section class="row section-field">
+
+  <h4 class="center"> Painel de Triagem </h4>
+
+  <nav class="row col m12  blue-grey darken-1 ">
+    <div class="col m4 nav-wrapper ">
+    </div>
+
+    <div class="col m4 nav-wrapper">
+      <form>
+        <div class="input-field custom-search">
+          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons center">close</i>
+        </div>
+      </form>
+    </div>
+
+    <div class="col m4 nav-wrapper  ">
+      <ul class="right hide-on-med-and-down row" style="height: 50px; ">
+        <li>
+          <a href="{{URL}}/triagem" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">refresh</i>Actulizar
+          </a>
+        </li>
+
+        <li class="white-text " style="text-transform: capitalize;">
+          <a href="{{URL}}/marcar" class="white-text" style="display: flex; align-items: center;">
+            <i class=" material-icons left white-text ">calendar_month</i>Marcar consulta
+          </a>
+        </li>
+        
+        <li class="" style="text-transform: capitalize;">
+          <a href=" {{URL}}/triagem/cadastrar" class="white-text" style="display: flex; align-items: center;">
+            <i class="material-icons left white-text">add</i>Novo
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+  </div>
+
+  <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
+  <section class="white col m12">
+
+    <table class="row col m12">
+      <thead class="thead">
+        <tr class="center">
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Nº</th>
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">image</i>Imagem</th>
+          <th class="center"><i class="material-icons black-white " style="vertical-align: -6px;">person</i>Nome
+            Completo</th>
+          <th><i class="material-icons black-white " style="vertical-align: -6px;">streetview</i>Género</th>
+          <th><i class="material-icons black-white " style="vertical-align: -6px;">timelapse</i>Idade</th>
+          <th><i class="material-icons black-white " style="vertical-align: -6px;">av_timer</i> Data & Hora</th>
+          <th><i class="material-icons black-white " style="vertical-align: -6px;">directions_walk</i>Prioridade</th>
+          <th class="center"> <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>Opção
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="tbody">
+        {{item}}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="col m12 white">
+    {{paginacao}}
+  </section>
+
+</section>

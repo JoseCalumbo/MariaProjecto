@@ -1,0 +1,102 @@
+<section class="row section-field">
+
+    <div class="col s12 m12">
+        <h5>
+            <a href="{{URL}}/admin/conta">Minha Conta</a>
+            <hr>
+        </h5>
+    </div>
+
+    <section class=" col s12 m3 white card-menu ">
+        <ul class="collection with-header card">
+
+            <div class="item-conta-img center ">
+                <img class="img-conta red-text"
+                    src="{{URL}}/Files/Imagem/user/{{imagem}}" width="100" height="100" >
+            </div>
+
+            <li class="collection-header center ">
+                <h6>{{nome}}</h6>
+            </li>
+
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize {{active}}">Informações Pessoais</a>
+            <a href="{{URL}}/admin/seguranca" class="collection-item capitalize ">Segurança da Conta</a>
+            <a href="{{URL}}/conta/perfil" class="collection-item capitalize ">Personalização de Perfil</a>
+            <a href="{{URL}}/admin/controle" class="collection-item capitalize ">Controles de Conta</a>
+            <a href="{{URL}}/admin/conta" class="collection-item capitalize ">Preferências e Notificações</a>
+            <a href="{{URL}}/admin/registros" class="collection-item capitalize disabled ">Registros de Dados</a>
+            <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Terminar Sessão</a>
+
+        </ul>
+    </section>
+
+    <section class="col s12 m8 offset-m1 white ">
+        {{dadosconta}}
+    </section>
+
+    <section class="col s12 m8 offset-m1 white ">
+        <div class="font-small">
+            <br>
+            <table>
+                <caption>
+                     <h6 class="negrito"> Informação de Loguin</h6>
+                <br>
+                </caption>
+
+                <tr class="centered">
+                    <th><i class="material-icons black-white ">format_list_numbered</i> ID </th>
+                    <th><i class="material-icons black-white ">image</i>Entrada</th>
+                    <th><i class="material-icons black-white ">person</i> Saida</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>22/03/2022/</td>
+                    <td>22/03/2022/</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>01/01/2222</td>
+                    <td>01/01/2222</td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+
+</section>
+
+<!--Modal de alterar a foto-->
+<div id="modal" class="modal {{blocks}}">
+    <div class="modal-item modal-foto">
+        <label id="closeModal" class="closeModal">&times;</label>
+        <form method="post" enctype="multipart/form-data">
+            <h6>Imagem de Perfil</h6>
+            <p class="div-conta-inf">
+                A tua imagem serve para ser facilmente indentificado, colocar uma foto tipo passe, pode remover a
+                tua imagem do sistema e volta para a imagem padrão
+            </p>
+            <hr>
+            {{msgVazio}}
+
+            <div class="center">
+                <label id="image" class="label-modal-img" for="img">
+                    <img class="img-conta foto" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="172" height="172">
+                    <div>Carregar imagem</div>
+                </label>
+                <input type="file" id="img" name="imagem">
+            </div>
+
+            <div class="row flex">
+                <button class="btn col m12 indigo" name="salvar" type="submit">
+                    <i class="material-icons ">photo</i>Salvar
+                </button>
+            </div>
+
+            <div class="row flex">
+                <button class="btn red col m12" href="">
+                    <i class="material-icons ">delete</i>Remover
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

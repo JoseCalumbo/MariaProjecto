@@ -1,0 +1,776 @@
+nav {
+  height: 49px;
+  line-height: 49px; /* Centraliza os itens verticalmente */
+}
+
+nav .brand-logo,
+nav ul li a {
+  height: 49px;
+  line-height: 49b px;
+}
+
+/*css config da tabela*/
+
+table th,
+table td {
+  padding:  0px !important; /* reduz espaço interno */
+  line-height: 1.1 !important; /* reduz altura da linha */
+  font-size: 13px; /* fonte um pouco menor para caber mais dados */
+}
+
+.thead tr>th {
+    background-color: #546e7a8c;
+    border: 1px solid rgb(201, 197, 197);
+}
+
+
+tr:hover {
+    background-color: rgba(233, 229, 229, 0.438);
+}
+
+/*Largura do campo da pagina*/
+.section-field {
+    margin-top: 10px;
+    width: 100%;
+    background-color: rgba(245, 245, 245, 0.199);
+}
+
+.section-field p,
+div,
+span {
+    text-transform: capitalize;
+    font-weight: normal;
+
+}
+
+.section-field>section {
+    width: 100%;
+}
+
+.row .col.offset-m1 {
+    margin-left: 4.155555%;
+}
+
+
+/* css header*/
+.ul-pesquisa {
+    position: fixed;
+    left: 232px;
+    top: 22px;
+}
+
+.fixar {
+    position: fixed;
+    left: 232px;
+    top: 22px;
+}
+
+    /* Deixa o carousel em modo hero (tela cheia) */
+    .hero-carousel {
+      height: 100vh; /* altura total da tela */
+    }
+    .hero-carousel .carousel-item img {
+      object-fit: cover;   /* cobre a área toda */
+      height: 100vh;       /* força a imagem ocupar toda a altura */
+      width: 100%;         /* largura total */
+    }
+    /* Texto centralizado sobre a imagem */
+    .hero-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+    .hero-caption h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+/* css aside*/
+.collapsible {
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+#aside {
+    color: white;
+    width: 180px;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    top: 64px;
+    border-left: none;
+    left: 0;
+}
+
+#aside a,
+li,
+ul,
+div {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#aside .collapsible-body {
+    margin: 0px;
+    padding: 0px;
+    border-left: none;
+}
+
+.collapsible-header {
+    background-color: rgb(0, 0, 0);
+}
+
+.collapsible-header:hover {
+    background-color: rgb(46, 45, 45);
+}
+
+div>.collapsible-header:hover {
+    background-color: rgb(153, 22, 22);
+}
+
+.collapsible-body>li {
+    border-bottom: rgb(255, 255, 255) 1px solid;
+    padding: 7px 0px;
+}
+
+.collapsible-body>.div-input {
+    margin-top: 1px;
+    margin-bottom: 10px;
+}
+
+
+/* #form-collapsible{
+    background-color: #0f25a1;
+} */
+
+.sub-menu>ul>li {
+    width: 100%;
+    background-color: #17bf8f;
+}
+
+.sub-menu>ul>li:hover {
+    background-color: #17bf8f;
+}
+
+.sub-menu>ul>li>a {
+    width: 100%;
+    margin-left: 25px;
+}
+
+/* principal*/
+
+#conteudo {
+    background-color: rgb(255, 255, 255);
+}
+
+#conteudoHome {
+    background-color: transparent;
+}
+
+#conteudo a,
+li,
+p,
+div,
+td {
+    color: rgb(26, 23, 23);
+}
+
+/* drop menu conta activa*/
+.img-conta {
+    border-radius: 50%;
+    margin-right: 5px;
+    position: relative;
+    top: 11px;
+    color: white;
+    cursor: pointer;
+    border: 1px solid rgb(255, 248, 248);
+}
+
+/* css start flexbox*/
+.flex {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* form area de pesquisa*/
+.form-area-search {
+    display: flex;
+}
+
+.form-area-search input[type="search"] {
+    height: 33px;
+    width: 260px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #52646d3f;
+}
+
+.input-search {
+    transition: background-color 0.9s !important;
+    border: 0.50px solid #26a69a !important;
+}
+
+.input-search:focus {
+    background-color: #f2f2f2 !important;
+    /* branco ao clicar */
+    outline: none !important;
+    /* remove a borda azul padrão */
+    border: none !important;
+}
+
+
+/* form input*/
+.input-radio {
+
+    flex-direction: column;
+    border-bottom: 1px solid rgba(36, 35, 35, 0.849);
+    height: 59px;
+}
+
+.input-radio>label {
+    position: relative;
+    top: 22px;
+    right: 60px;
+    vertical-align: -6px;
+}
+
+.input-radio>label>span {
+    font-weight: bold;
+}
+
+/* form area de pesquisa home pagina*/
+.iconPesquisar {
+    position: relative;
+    top: -13px;
+}
+
+.form-area-search-home {
+    display: flex;
+}
+
+.form-area-search-home input[type="search"] {
+    height: 33px;
+    width: 40px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.form-area-search-home>div {
+    margin-top: 17px;
+}
+
+#pesquisaHome {
+    position: relative;
+    background-color: rgb(12, 12, 12);
+    width: 300px;
+    top: -10px;
+    color: #404241;
+    font-size: 16;
+    border: none;
+}
+
+#pesquisaHome::placeholder {
+    font-size: 9pt;
+    color: rgba(0, 0, 0, 0.842);
+}
+
+/*form aera de crud normal*/
+.form-area {
+    margin-top: 10px;
+}
+
+.form-area>div {
+
+    margin: 15px 0px;
+}
+
+.button-search {
+    position: relative;
+    top: 10px;
+}
+
+.button-search-home {
+    position: relative;
+    top: 1px;
+    border: none;
+}
+
+#button-search-home:focus {
+    border: none;
+}
+
+.button-normal {
+    width: 100%;
+}
+
+.painel-card-li>li {
+    position: relative;
+    top: 10px;
+    left: 25px;
+
+}
+
+.baixo {
+    position: relative;
+    bottom: -10px;
+}
+
+.acima {
+    position: relative;
+    top: -10px;
+}
+
+/* css button*/
+
+.button {
+    cursor: pointer;
+    width: 100%;
+    padding: 15px;
+    border: 1.5px solid #17BF8F;
+    background-color: #17BF8F;
+    color: rgba(255, 255, 255, 0.952);
+    font-size: large;
+    transition: 1s;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.button:hover {
+    background-color: #1de9b6;
+    color: white;
+}
+
+.button-print {
+    direction: unset;
+    cursor: pointer;
+    height: 32px;
+    background-color: rgba(14, 6, 83, 0.267);
+}
+
+.button-print:hover {
+    background-color: rgba(50, 50, 51, 0.63);
+}
+
+/* card-meno*/
+
+.painel-card {
+    background-color: rgba(0, 0, 0, 0.557);
+    color: white;
+    height: 60px;
+}
+
+.painel-card div,
+a,
+h1 {
+    color: white;
+}
+
+/*minhas font de texto*/
+.font-normal {
+    font-size: 11pt;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.maiscula {
+    /* texto maisculo*/
+    font-size: 12pt;
+    text-transform: uppercase;
+    font-weight: normal;
+
+}
+
+.minuscula {
+    text-transform: none !important;
+}
+
+.font-media {
+    font-size: 18pt;
+    text-transform: none !important;
+    font-weight: normal !important;
+}
+
+.font-pequeno {
+    font-size: 6pt;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.font-small {
+    font-size: 11pt;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.font-large {
+    font-size: 37pt;
+    text-transform: none;
+    font-weight: bolder;
+}
+
+/*pagianacao */
+.paginacao {
+    display: flex;
+    margin-top: 15px;
+    background-color: rgb(204, 202, 202);
+}
+
+.paginacao>li {
+    margin-right: 2.5px;
+}
+
+.page-item {
+    cursor: pointer;
+    height: 25px;
+    width: 40px;
+    padding: 5px;
+    background-color: rgb(175, 175, 175);
+    text-align: center;
+    border-radius: 3px;
+    justify-content: center;
+    text-align: center;
+}
+
+.page-item:hover {
+    background-color: hsla(0, 0%, 0%, 0.557)
+}
+
+.page-item>a {
+    color: rgb(255, 255, 255);
+    padding: 5px;
+}
+
+
+/* mensagem de sucesso */
+.sucesso {
+    background-color: rgb(51, 196, 7);
+    font-size: small;
+    margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    padding: 12px 0px;
+}
+
+/* Animação pulse  Sucessso */
+.sucessoPulse {
+    border-radius: 1px;
+    animation: pulseSucesso 3s infinite;
+}
+
+/* Animação pulse  Sucesso */
+@keyframes pulseSucesso {
+    0% {
+        box-shadow: 0 0 0 0 rgba(51, 196, 7, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(38, 166, 38, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(44, 148, 30, 0);
+    }
+}
+
+/* mensagem de erro */
+.erro {
+    background-color: red;
+    font-size: small;
+    margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    padding: 12px 0px;
+}
+
+/* Animação pulse erro */
+.erroPulse {
+    border-radius: 1px;
+    animation: pulseErro 4s infinite;
+}
+
+/* Animação pulse erro */
+@keyframes pulseErro {
+    0% {
+        box-shadow: 0 0 0 0 rgba(172, 41, 36, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(166, 38, 38, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(170, 45, 36, 0);
+    }
+}
+
+/* mensagem de alerta */
+.alert {
+    background-color: orange;
+    font-size: small;
+    margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    padding: 12px 0px;
+}
+
+
+/* Animação pulse alert */
+.erroAlert {
+    border-radius: 1px;
+    animation: pulseAlert 5s infinite;
+}
+
+/* Animação pulse alert */
+@keyframes pulseAlert {
+    0% {
+        box-shadow: 0 0 0 0 rgba(214, 178, 16, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(187, 150, 28, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(166, 125, 38, 0);
+    }
+}
+
+.collapsible-body {
+    border: none !important;
+    box-shadow: none !important;
+
+}
+
+/* css estilo dos modal */
+#modalApagarUser {
+    height: 50%;
+    text-transform: none;
+}
+
+
+#modal p {
+    font-size: 8.5pt;
+    font-weight: normal;
+    text-transform: none;
+}
+
+/** Modal CSS*/
+
+.modalimg {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 6;
+    overflow: auto;
+    background-color: rgba(29, 29, 29, 0.575);
+    max-height: 100%;
+    margin: auto;
+    overflow-y: auto;
+    will-change: top, opacity;
+}
+
+.modal-item {
+    background-color: #fefefe;
+    margin: 14% auto;
+    padding: 20px;
+    border: 1px solid rgb(116, 113, 113);
+    border-radius: 10px;
+    height: 529px;
+}
+
+.modal-foto {
+    width: 25%;
+    height: 470px;
+}
+
+#image>div {
+    margin-top: 9px;
+}
+
+#img {
+    display: none;
+}
+
+.modal-list {
+    width: 30%;
+    height: 300px;
+}
+
+.closeModal {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    padding: 0px 9px;
+}
+
+.closeModal:hover {
+    color: rgb(235, 235, 235);
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgba(15, 15, 13, 0.226);
+    border-radius: 5px;
+}
+
+.label-modal-img {
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+}
+
+.block {
+    display: block;
+}
+
+.openModal {
+    cursor: pointer;
+}
+
+/* Meus card*/
+
+.card-lista>div {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #00000023;
+}
+
+.card-lista>div:hover {
+    background-color: #e7e7e7;
+}
+
+.card-menu {
+    height: 580px;
+}
+
+.card-imprimir {
+    width: 100%;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+#card-relatorio-dados>div {
+    width: 30%;
+    height: 170px;
+    margin-right: 1%;
+    margin-top: 1%;
+}
+
+#colbo {
+    width: 1024px;
+    background-color: #000000 !important;
+}
+
+/* Css REsultado da pesquisa */
+.div-resultado {
+    cursor: pointer;
+    border-bottom: 0.5px solid rgba(63, 63, 63, 0.295);
+    color: rgb(3, 3, 3);
+    padding: 2px 0px;
+}
+
+#dropdownNotifica>div>a {
+    width: 600px !important;
+}
+
+.minusculo {
+    text-transform: lowercase;
+}
+
+.maisculo {
+    text-transform: uppercase;
+}
+
+.negrito1 {
+    font-weight: 900;
+}
+
+/* Configuração de modal  */
+.modalMudarSenha {
+    width: 450px !important;
+    max-height: 90% !important;
+
+}
+
+.modalMudarImagem {
+    width: 450px !important;
+    max-height: 90% !important;
+
+}
+
+.modalMudarEdit {
+    width: 450px !important;
+    max-height: 90% !important;
+
+}
+
+/*/////////////////////////////////////////////////////////////////////////////////////////*/
+
+.material-tooltip {
+    color: yellow !important;
+    /* Cor do texto */
+    background-color: rgb(100, 110, 158) !important;
+    /* (Opcional) cor de fundo */
+    font-weight: bold !important;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip-container .custom-tooltip {
+    position: absolute;
+    bottom: 100%;
+    /* posição acima do botão */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    /* começa mais embaixo */
+    background-color: #08405a ;
+    color: white ;
+    padding: 12px 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+    text-transform: capitalize;
+}
+
+.tooltip-container:hover .custom-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-3px);
+    /* sobe suavemente */
+}
+
+  /* Cor da linha indicadora da aba ativa */
+  .tabs .indicator {
+    background-color: #26a69a !important; /* cor teal por exemplo */
+  }
+
+  /* Cor do texto das abas */
+  .tabs .tab a {
+    color: #555 !important; /* cinza escuro padrão */
+  }
+
+  /* Cor do texto ao passar o mouse */
+  .tabs .tab a:hover {
+    color: #26a69a !important; /* mesma cor da barra, ou outra */
+  }
+
+  /* Cor da aba ativa */
+  .tabs .tab a.active {
+    color: #26a69a !important;
+    font-weight: bold !important;
+  }
+

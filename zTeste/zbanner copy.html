@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Flexível</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      background: #f4f6f9;
+    }
+
+    /* Reduz espaço entre linhas */
+    .row {
+      margin-bottom: 10px;
+      /* antes era 20px no Materialize */
+    }
+
+    /* Reduz espaço inferior dos cartões */
+    .dashboard-card {
+      position: relative;
+      margin-bottom: 8px;
+      /* antes era 20px */
+    }
+
+    .dashboard-card .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dashboard-header h6 {
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Remove o gutter padrão do Materialize */
+    .row {
+      margin-left: -2px;
+      /* metade de 4px */
+      margin-right: -2px;
+    }
+
+    .row .col {
+      padding-left: 2px;
+      /* metade de 4px */
+      padding-right: 2px;
+    }
+
+    /* Deixa o carousel em modo hero (tela cheia) */
+    .hero-carousel {
+      height: 100vh;
+      /* altura total da tela */
+    }
+
+    .hero-carousel .carousel-item img {
+      object-fit: cover;
+      /* cobre a área toda */
+      height: 100vh;
+      /* força a imagem ocupar toda a altura */
+      width: 100%;
+      /* largura total */
+    }
+
+    /* Texto centralizado sobre a imagem */
+    .hero-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+
+    .hero-caption h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body class="container">
+
+  <!-- Linha 1: 3 painéis -->
+  <div class="row painel-linha">
+    <div class="col painel">
+      <div class="card green white-text dashboard-card">
+        <i class="material-icons close-btn">close</i>
+        <div class="card-content">
+          <div class="dashboard-header">
+            <i class="material-icons">shopping_cart</i>
+            <h6>Total Vendas</h6>
+          </div>
+          <h4>0,00</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col painel">
+      <div class="card amber darken-2 white-text dashboard-card">
+        <i class="material-icons close-btn">close</i>
+        <div class="card-content">
+          <div class="dashboard-header">
+            <i class="material-icons">inventory</i>
+            <h6>Produtos Vendidos</h6>
+          </div>
+          <h4>0</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col painel">
+      <div class="card blue white-text dashboard-card">
+        <i class="material-icons close-btn">close</i>
+        <div class="card-content">
+          <div class="dashboard-header">
+            <i class="material-icons">person</i>
+            <h6>Clientes Atendidos</h6>
+          </div>
+          <h4>0</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Linha 2: 1 painel -->
+<!-- Linha 2: 1 painel -->
+<div class="row painel-linha">
+  <div class="col painel">
+    <div class="card red white-text dashboard-card">
+      <i class="material-icons close-btn">close</i>
+      <div class="card-content" style="padding: 0;">
+        <h6 style="padding: 10px;">Quianni Banner</h6>
+        
+        <!-- Carousel slider ocupando 100% -->
+        <div class="carousel carousel-slider center">
+          <div class="carousel-item red white-text" href="#one!">
+            <img src="https://via.placeholder.com/800x200?text=Banner+1" class="responsive-img">
+          </div>
+          <div class="carousel-item amber white-text" href="#two!">
+            <img src="https://via.placeholder.com/800x200?text=Banner+2" class="responsive-img">
+          </div>
+          <div class="carousel-item green white-text" href="#three!">
+            <img src="hero3.png" class="responsive-img">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- Linha 3: 2 painéis -->
+  <div class="row painel-linha">
+    <div class="col painel">
+      <div class="card teal white-text dashboard-card">
+        <i class="material-icons close-btn">close</i>
+        <div class="card-content">
+          <h6>Gráficos de Vendas</h6>
+          <p>[Aqui vai o gráfico]</p>
+        </div>
+      </div>
+    </div>
+    <div class="col painel">
+      <div class="card indigo white-text dashboard-card">
+        <i class="material-icons close-btn">close</i>
+        <div class="card-content">
+          <h6>Clientes Devedores</h6>
+          <p>[Aqui vai outro gráfico]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linha 4: 1 painel -->
+  <div class="row painel-linha">
+    <div class="col painel">
+      <div class="card grey darken-2 white-text dashboard-card">
+        <i class="material-icons close-btn">close</i>
+        <div class="card-content">
+          <h6>Top 10 Produtos com Mais Lucros</h6>
+          <p>[Tabela ou gráfico aqui]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    function ajustarLinha(linha) {
+      const paineis = linha.querySelectorAll(".painel");
+      const qtd = paineis.length;
+
+      paineis.forEach(p => p.className = "col painel");
+
+      if (qtd === 1) {
+        paineis[0].classList.add("s12");
+      } else if (qtd === 2) {
+        paineis.forEach(p => p.classList.add("s6"));
+      } else if (qtd === 3) {
+        paineis.forEach(p => p.classList.add("s4"));
+      } else if (qtd === 4) {
+        paineis.forEach(p => p.classList.add("s3"));
+      }
+    }
+
+    function ajustarTodas() {
+      document.querySelectorAll(".painel-linha").forEach(linha => ajustarLinha(linha));
+    }
+
+document.addEventListener("DOMContentLoaded", () => {
+  ajustarTodas();
+
+  // Fechar painéis
+  document.querySelectorAll(".close-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const col = btn.closest(".painel");
+      const linha = btn.closest(".painel-linha");
+      col.remove();
+      ajustarLinha(linha);
+    });
+  });
+
+  // Inicializar carousel-slider
+  const elems = document.querySelectorAll('.carousel.carousel-slider');
+  const instances = M.Carousel.init(elems, {
+    fullWidth: true,
+    indicators: true
+  });
+
+  // Autoplay - muda slide a cada 5 segundos
+  setInterval(() => {
+    instances.forEach(instance => instance.next());
+  }, 5000);
+});
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      ajustarTodas();
+
+      document.querySelectorAll(".close-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const col = btn.closest(".painel");
+          const linha = btn.closest(".painel-linha");
+          col.remove();
+          ajustarLinha(linha);
+        });
+      });
+    });
+  </script>
+
+
+
+</body>
+
+</html>

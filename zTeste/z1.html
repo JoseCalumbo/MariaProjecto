@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulário de Agendamento — Fluxo Passo a Passo</title>
+  <style>
+    :root{ --bg:#f6f8fb; --card:#fff; --accent:#0b68d7; --muted:#6b7280; --accent-2:#0b8bd7; --time-w:92px; --cell-h:48px }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, Arial; background:var(--bg); margin:20px;color:#222}
+    .container{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    h1{font-size:20px;margin:0}
+
+    /* stepper */
+    .stepper{display:flex;gap:8px;margin:14px 0 22px}
+    .step{background:var(--card);border:1px solid #e6e9ee;padding:8px 12px;border-radius:10px;min-width:120px;display:flex;flex-direction:column;align-items:flex-start}
+    .step .num{background:#eef6ff;color:var(--accent);font-weight:700;padding:6px 8px;border-radius:999px;margin-bottom:6px}
+    .step.active{border-color:var(--accent);box-shadow:0 6px 18px rgba(11,104,215,0.08)}
+
+    /* card */
+    .card{background:var(--card);padding:14px;border-radius:12px;border:1px solid #eef3f8;box-shadow:0 6px 20px rgba(13,25,39,0.03)}
+    .row{display:flex;gap:12px}
+    .col{flex:1}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="email"], input[type="tel"], select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ee}
+    .actions{display:flex;justify-content:space-between;margin-top:12px}
+    .actions .left{display:flex;gap:8px}
+    button{background:var(--accent);color:#fff;padding:10px 12px;border-radius:8px;border:none;cursor:pointer}
+    button.ghost{background:#fff;color:var(--accent);border:1px solid #e6e9ee}
+    button.secondary{background:#f3f5f9;color:#333}
+
+    /* calendar grid */
+    .week-header{display:grid;grid-template-columns:var(--time-w) repeat(7,1fr);align-items:center;margin-top:14px}
+    .day{padding:8px 10px;border-bottom:1px solid #f3f6f9;text-align:center}
+    .day .label{font-weight:700}
+    .grid{display:grid;grid-template-columns:var(--time-w) repeat(7,1fr);border-top:1px solid #f3f6f9}
+    .time-col{border-right:1px solid #f3f6f9}
+    .time-cell{height:var(--cell-h);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:var(--muted);font-size:13px}
+    .slot-cell{min-height:var(--cell-h);padding:8px;border-right:1px solid #f3f6f9;border-bottom:1px dashed #f7f9fb}
+    .slots{display:flex;flex-direction:column;gap:6px}
+    .slot{display:inline-block;padding:6px 8px;border-radius:8px;border:1px solid #e6eef8;background:#fff;cursor:pointer;font-size:13px}
+    .slot.disabled{opacity:0.3;cursor:not-allowed}
+    .slot.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .today-badge{background:var(--accent);color:#fff;padding:6px 8px;border-radius:999px;font-size:12px}
+
+    .summary{display:flex;flex-direction:column;gap:8px}
+    .field{display:flex;justify-content:space-between;padding:8px 10px;border-radius:8px;border:1px solid #f1f4f8;background:#fbfdff}
+
+    @media (max-width:900px){
+      .row{flex-direction:column}
+      .stepper{overflow:auto}
+      .week-header{grid-template-columns:72px repeat(7,minmax(80px,1fr))}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Agendamento — Fluxo passo a passo</h1>
+      <div style="color:var(--muted);font-size:13px">Demo: salve como <strong>formulario_agendamento.html</strong> e abra no browser</div>
+    </header>
+
+    <div class="stepper" id="stepper"></div>
+
+    <div class="card" id="stepsContainer">
+      <!-- STEP 1: Identificar paciente -->
+      <section data-step="1" class="step-section">
+        <h3>1. Identificar paciente</h3>
+        <p style="color:var(--muted);margin-top:6px">Informe os dados do paciente ou pesquise por documento.</p>
+        <div class="row" style="margin-top:10px">
+          <div class="col">
+            <label for="patient_name">Nome completo</label>
+            <input id="patient_name" type="text" placeholder="Nome do paciente" />
+          </div>
+          <div class="col">
+            <label for="patient_doc">Documento (BI/Cartão)</label>
+            <input id="patient_doc" type="text" placeholder="Número do cartão / BI" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <div class="col">
+            <label for="patient_phone">Telefone</label>
+            <input id="patient_phone" type="tel" placeholder="+244 9xx xxx xxx" />
+          </div>
+          <div class="col">
+            <label for="patient_email">E‑mail</label>
+            <input id="patient_email" type="email" placeholder="email@exemplo.com" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <div class="left">
+            <button class="ghost" id="searchPatientBtn">🔎 Buscar por documento</button>
+            <button class="ghost" id="clearPatientBtn">Limpar</button>
+          </div>
+          <div>
+            <button id="toStep2">Próximo ›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2: Escolher serviço -->
+      <section data-step="2" class="step-section" style="display:none">
+        <h3>2. Escolher serviço</h3>
+        <label for="serviceSelect">Serviço / Especialidade</label>
+        <select id="serviceSelect"></select>
+
+        <div class="actions">
+          <div class="left">
+            <button class="ghost" id="backTo1">‹ Voltar</button>
+          </div>
+          <div>
+            <button id="toStep3">Próximo ›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: Escolher profissional (opcional) -->
+      <section data-step="3" class="step-section" style="display:none">
+        <h3>3. Escolher profissional (opcional)</h3>
+        <label for="practitionerSelect">Profissional</label>
+        <select id="practitionerSelect"></select>
+        <p style="color:var(--muted);margin-top:8px">Deixe em "Qualquer profissional disponível" para que o sistema escolha automaticamente.</p>
+
+        <div class="actions">
+          <div class="left">
+            <button class="ghost" id="backTo2">‹ Voltar</button>
+          </div>
+          <div>
+            <button id="toStep4">Próximo ›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4: Escolher data e horário -->
+      <section data-step="4" class="step-section" style="display:none">
+        <h3>4. Escolher data e horário</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="color:var(--muted)">Selecione o slot disponível. Use as setas para mudar a semana.</div>
+          <div>
+            <button class="secondary" id="prevWeek">‹ Semana anterior</button>
+            <button class="secondary" id="nextWeek">Próxima semana ›</button>
+          </div>
+        </div>
+
+        <div class="week-header" id="weekHeader" style="margin-top:12px"></div>
+        <div class="grid" id="grid"></div>
+
+        <div style="margin-top:12px;color:var(--muted)">Slot selecionado: <strong id="slotLabel">nenhum</strong></div>
+
+        <div class="actions">
+          <div class="left">
+            <button class="ghost" id="backTo3">‹ Voltar</button>
+          </div>
+          <div>
+            <button id="toStep5">Próximo ›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 5: Confirmar -->
+      <section data-step="5" class="step-section" style="display:none">
+        <h3>5. Confirmar</h3>
+        <div class="summary" id="summaryBox">
+          <!-- preenchido por JS -->
+        </div>
+
+        <div class="actions">
+          <div class="left">
+            <button class="ghost" id="backTo4">‹ Voltar</button>
+          </div>
+          <div>
+            <button id="toStep6">Confirmar e avançar</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 6: Pagamento (opcional) -->
+      <section data-step="6" class="step-section" style="display:none">
+        <h3>6. Pagamento (se aplicável)</h3>
+        <div id="paymentBox">
+          <!-- preenchido por JS se o serviço tiver preço -->
+        </div>
+
+        <div class="actions">
+          <div class="left">
+            <button class="ghost" id="backTo5">‹ Voltar</button>
+          </div>
+          <div>
+            <button id="submitBtn">Finalizar agendamento</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 7: Resultado -->
+      <section data-step="7" class="step-section" style="display:none">
+        <h3>Agendamento concluído</h3>
+        <p id="resultMsg">–</p>
+        <div style="margin-top:12px">
+          <button id="newBookingBtn">Marcar outra consulta</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+<script>
+/* ----------------------------- Dados de exemplo ----------------------------- */
+const practitioners = [
+  {id:1, name:'Dr. João Silva', specialty:'Oftalmologista'},
+  {id:2, name:'Dra. Maria Souza', specialty:'Retinologista'},
+  {id:3, name:'Dr. Pedro Oliveira', specialty:'Cirurgião Ocular'}
+];
+
+const services = [
+  {id:1, name:'Consulta Oftalmologia', duration:30, price:0},
+  {id:2, name:'Retinografia', duration:45, price:120},
+  {id:3, name:'Consulta de Retorno', duration:20, price:0}
+];
+
+// disponibilidade por profissional -> weekday (0=domingo..6=sábado) -> array de horários HH:MM
+const availabilityByPractitioner = {
+  1: {
+    1:['09:00','09:30','10:30','11:00','14:00','15:00'],
+    2:['09:00','10:00','10:30','11:30','13:00','14:30'],
+    3:['09:00','09:30','10:00','13:30','14:00','15:00'],
+    4:['09:00','09:30','10:00','11:00','15:00'],
+    5:['09:00','10:00','11:00','13:00','14:00']
+  },
+  2: {
+    1:['09:00','10:00','11:00','14:00','15:30'],
+    2:['09:30','10:00','10:30','12:00','14:30'],
+    3:['09:00','09:30','11:00','13:30','15:00'],
+    4:['09:00','10:00','11:30','14:00'],
+    5:['09:00','09:30','10:00','11:00','14:00']
+  },
+  3: {
+    1:['09:30','10:00','11:00','14:30'],
+    2:['09:00','09:30','10:00','11:30','15:00'],
+    3:['09:30','10:30','11:00','13:00','14:00'],
+    4:['09:00','09:30','10:00','11:00','15:00'],
+    5:['09:00','10:00','11:00','13:30','14:30']
+  }
+};
+
+/* ----------------------------- Estado da UI ----------------------------- */
+let currentStep = 1;
+let selectedSlot = null; // {date:'YYYY-MM-DD', time:'HH:MM'}
+let currentMonday = getMonday(new Date());
+let selectedServiceId = null;
+
+/* ----------------------------- Helpers ----------------------------- */
+function pad(n){return String(n).padStart(2,'0')}
+function getMonday(d){const dt=new Date(d);const day=dt.getDay();const diff=(day+6)%7;dt.setDate(dt.getDate()-diff);dt.setHours(0,0,0,0);return dt}
+function formatDate(d){return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})}
+function formatISODate(d){return d.toISOString().slice(0,10)}
+function isToday(d){const t=new Date();t.setHours(0,0,0,0);const x=new Date(d);x.setHours(0,0,0,0);return t.getTime()===x.getTime()}
+function formatTimeHHMM(t){return t} // t já está em HH:MM
+
+/* ----------------------------- Stepper render ----------------------------- */
+const stepTitles = ['Identificar paciente','Escolher serviço','Escolher profissional','Data & horário','Confirmar','Pagamento','Concluído'];
+function renderStepper(){
+  const el = document.getElementById('stepper'); el.innerHTML='';
+  stepTitles.forEach((title,i)=>{
+    const s = document.createElement('div'); s.className='step'+((i+1)===currentStep?' active':'');
+    s.innerHTML=`<div class="num">${i+1}</div><div style="font-weight:600">${title}</div><div style="font-size:12px;color:var(--muted)">${i+1==1? 'Comece aqui' : ''}</div>`;
+    el.appendChild(s);
+  });
+}
+
+/* ----------------------------- Inicialização dos selects ----------------------------- */
+function populateSelects(){
+  const svc = document.getElementById('serviceSelect'); svc.innerHTML='';
+  services.forEach(s=>{
+    const opt = document.createElement('option'); opt.value = s.id; opt.textContent = `${s.name} — ${s.duration}min` + (s.price?` — $${s.price}`:'');
+    svc.appendChild(opt);
+  });
+
+  const prac = document.getElementById('practitionerSelect'); prac.innerHTML='';
+  const anyOpt = document.createElement('option'); anyOpt.value=''; anyOpt.textContent='Qualquer profissional disponível'; prac.appendChild(anyOpt);
+  practitioners.forEach(p=>{
+    const opt = document.createElement('option'); opt.value=p.id; opt.textContent = `${p.name} — ${p.specialty}`; prac.appendChild(opt);
+  });
+}
+
+/* ----------------------------- Calendário (semana) ----------------------------- */
+function getAvailabilityForDay(weekday, practitionerId){
+  // retorna array de horários disponíveis (strings HH:MM)
+  if(practitionerId){
+    const byp = availabilityByPractitioner[practitionerId] || {};
+    return byp[weekday] || [];
+  }
+  // se "qualquer", faz a união (sem duplicatas) de todos os profissionais
+  const set = new Set();
+  Object.keys(availabilityByPractitioner).forEach(pid=>{
+    const arr = availabilityByPractitioner[pid][weekday] || [];
+    arr.forEach(t=>set.add(t));
+  });
+  return Array.from(set).sort();
+}
+
+function renderWeek(){
+  const weekHeader = document.getElementById('weekHeader');
+  const grid = document.getElementById('grid');
+  weekHeader.innerHTML = '';
+  grid.innerHTML = '';
+
+  // header first empty cell
+  const firstCell = document.createElement('div'); firstCell.className='day'; firstCell.innerHTML=''; weekHeader.appendChild(firstCell);
+
+  const days = [];
+  for(let i=0;i<7;i++){
+    const dayDate = new Date(currentMonday); dayDate.setDate(dayDate.getDate()+i);
+    days.push(dayDate);
+    const dcol = document.createElement('div'); dcol.className='day';
+    dcol.innerHTML = `<div class="label">${dayDate.toLocaleDateString('pt-BR',{weekday:'short'})}</div><div class="date">${formatDate(dayDate)} ${isToday(dayDate)? '<span class="today-badge">Hoje</span>':''}</div>`;
+    weekHeader.appendChild(dcol);
+  }
+
+  // timeslots: de 08:00 a 17:00 (ajuste se quiser)
+  const startHour=8, endHour=17;
+  const svc = services.find(s=>s.id==selectedServiceId);
+  const slotMinutes = svc ? svc.duration : 30;
+
+  for(let hour=startHour; hour<endHour; hour++){
+    for(let minute=0; minute<60; minute+=slotMinutes){
+      // time column
+      const timeCol = document.createElement('div'); timeCol.className='time-col'; timeCol.innerHTML = `<div class="time-cell">${pad(hour)}:${pad(minute)}</div>`; grid.appendChild(timeCol);
+      // cells for each day
+      for(let d=0; d<7; d++){
+        const cell = document.createElement('div'); cell.className='slot-cell';
+        const dayDate = days[d]; const weekday = dayDate.getDay();
+        const candidate = `${pad(hour)}:${pad(minute)}`;
+        const practitionerId = document.getElementById('practitionerSelect').value || null;
+        const available = getAvailabilityForDay(weekday, practitionerId).includes(candidate);
+        if(available){
+          const btn = document.createElement('button'); btn.className='slot'; btn.textContent = candidate; btn.dataset.date = formatISODate(dayDate); btn.dataset.time = candidate; btn.onclick = ()=>selectSlot(btn);
+          // se já selecionado, marca
+          if(selectedSlot && selectedSlot.date===btn.dataset.date && selectedSlot.time===btn.dataset.time) btn.classList.add('selected');
+          cell.appendChild(btn);
+        }
+        grid.appendChild(cell);
+      }
+    }
+  }
+}
+
+function selectSlot(btn){
+  document.querySelectorAll('.slot.selected').forEach(s=>s.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedSlot = {date: btn.dataset.date, time: btn.dataset.time};
+  document.getElementById('slotLabel').textContent = `${selectedSlot.date} ${selectedSlot.time}`;
+}
+
+/* ----------------------------- Navegação entre passos ----------------------------- */
+function showStep(n){
+  currentStep = n; renderStepper();
+  document.querySelectorAll('.step-section').forEach(sec=>sec.style.display='none');
+  const sec = document.querySelector(`.step-section[data-step='${n}']`);
+  if(sec) sec.style.display='block';
+}
+
+/* --- validações simples antes de avançar --- */
+function validateStep(n){
+  if(n===2){ // vindo do passo 1
+    const name = document.getElementById('patient_name').value.trim();
+    if(!name){ alert('Informe o nome do paciente.'); return false; }
+    // salvar dados de paciente em memória (pode salvar ID real se buscar no backend)
+  }
+  if(n===4){ // antes de mostrar calendário, precisa do serviço
+    const svc = document.getElementById('serviceSelect').value;
+    if(!svc){ alert('Escolha um serviço.'); return false; }
+    selectedServiceId = svc;
+    // re-render da semana com duração do serviço
+    renderWeek();
+  }
+  if(n===5){ // precisa ter slot selecionado
+    if(!selectedSlot){ alert('Selecione um horário antes de prosseguir.'); return false; }
+  }
+  return true;
+}
+
+/* ----------------------------- Resumo e envio ----------------------------- */
+function fillSummary(){
+  const box = document.getElementById('summaryBox'); box.innerHTML='';
+  const name = document.getElementById('patient_name').value;
+  const doc = document.getElementById('patient_doc').value;
+  const phone = document.getElementById('patient_phone').value;
+  const email = document.getElementById('patient_email').value;
+  const svc = services.find(s=>s.id==document.getElementById('serviceSelect').value);
+  const pracId = document.getElementById('practitionerSelect').value;
+  const prac = practitioners.find(p=>p.id==pracId);
+
+  const fields = [
+    {k:'Paciente', v:name + (doc?(' — ' + doc):'')},
+    {k:'Contato', v:phone + (email?(' — '+email):'')},
+    {k:'Serviço', v:svc?svc.name:'-'},
+    {k:'Profissional', v: prac ? prac.name + ' — ' + prac.specialty : 'Qualquer profissional disponível'},
+    {k:'Data / Horário', v: selectedSlot ? (selectedSlot.date + ' ' + selectedSlot.time) : '-'},
+    {k:'Duração', v: svc ? svc.duration + ' minutos' : '-'},
+    {k:'Preço', v: svc ? (svc.price? ('$'+svc.price) : 'Gratuito') : '-'}
+  ];
+
+  fields.forEach(f=>{
+    const d = document.createElement('div'); d.className='field'; d.innerHTML = `<div style="font-weight:600">${f.k}</div><div>${f.v}</div>`; box.appendChild(d);
+  });
+}
+
+/* Simula pagamento/mostra opções caso tenha preço */
+function preparePayment(){
+  const box = document.getElementById('paymentBox'); box.innerHTML='';
+  const svc = services.find(s=>s.id==selectedServiceId);
+  if(!svc) return;
+  if(svc.price && svc.price>0){
+    box.innerHTML = `
+      <p style="color:var(--muted)">O serviço tem custo de <strong>$${svc.price}</strong>. Escolha método de pagamento:</p>
+      <label><input type="radio" name="pay" value="card" checked> Cartão</label>&nbsp;&nbsp;
+      <label><input type="radio" name="pay" value="cash"> Dinheiro (na clínica)</label>
+      <div style="margin-top:8px"><label>Nº Cartão (simulado)</label><input id="cardNumber" type="text" placeholder="0000 0000 0000 0000" /></div>
+    `;
+  } else {
+    box.innerHTML = `<p style="color:var(--muted)">Serviço sem custo. Clique em finalizar para concluir o agendamento.</p>`;
+  }
+}
+
+/* ----------------------------- Eventos dos botões ----------------------------- */
+document.getElementById('toStep2').addEventListener('click', ()=>{ if(validateStep(2)){ showStep(2); } });
+document.getElementById('backTo1').addEventListener('click', ()=>showStep(1));
+document.getElementById('toStep3').addEventListener('click', ()=>{ showStep(3); });
+document.getElementById('backTo2').addEventListener('click', ()=>showStep(2));
+document.getElementById('toStep4').addEventListener('click', ()=>{ if(validateStep(4)){ showStep(4); } });
+document.getElementById('backTo3').addEventListener('click', ()=>showStep(3));
+document.getElementById('toStep5').addEventListener('click', ()=>{ if(validateStep(5)){ fillSummary(); showStep(5); } });
+document.getElementById('backTo4').addEventListener('click', ()=>showStep(4));
+document.getElementById('toStep6').addEventListener('click', ()=>{ preparePayment(); showStep(6); });
+document.getElementById('backTo5').addEventListener('click', ()=>showStep(5));
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  // montar payload
+  const payload = buildPayload();
+  // aqui você faria fetch() para o seu endpoint PHP /api/appointments
+  // Exemplo (descomente e ajuste a URL quando tiver backend):
+  /*
+  fetch('/api/appointments', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+    .then(r=>r.json()).then(data=>{ showResult(true, data); }).catch(e=>{ showResult(false, e); });
+  */
+  // Simulação de sucesso:
+  console.log('Payload enviado ao backend (simulação):', payload);
+  setTimeout(()=>{ showResult(true, {appointment_id: Math.floor(Math.random()*90000)+1000}); }, 700);
+});
+
+document.getElementById('newBookingBtn').addEventListener('click', ()=>{ location.reload(); });
+
+// semana anterior/proxima
+document.getElementById('prevWeek').addEventListener('click', ()=>{ currentMonday.setDate(currentMonday.getDate()-7); renderWeek(); });
+document.getElementById('nextWeek').addEventListener('click', ()=>{ currentMonday.setDate(currentMonday.getDate()+7); renderWeek(); });
+
+// busca paciente simulado
+document.getElementById('searchPatientBtn').addEventListener('click', ()=>{
+  const doc = document.getElementById('patient_doc').value.trim();
+  if(!doc){ alert('Informe o documento para buscar.'); return; }
+  // Simulação: se doc contiver '123' preenche com dados
+  if(doc.includes('123')){
+    document.getElementById('patient_name').value = 'Maria do Carmo';
+    document.getElementById('patient_phone').value = '+244 923 000 111';
+    document.getElementById('patient_email').value = 'maria@example.com';
+    alert('Paciente encontrado (simulado).');
+  } else {
+    alert('Paciente não encontrado (simulação). Preencha os dados manualmente.');
+  }
+});
+
+document.getElementById('clearPatientBtn').addEventListener('click', ()=>{
+  document.getElementById('patient_name').value=''; document.getElementById('patient_doc').value=''; document.getElementById('patient_phone').value=''; document.getElementById('patient_email').value='';
+});
+
+/* ----------------------------- Build payload and result ----------------------------- */
+function buildPayload(){
+  const patient = { name: document.getElementById('patient_name').value, document: document.getElementById('patient_doc').value, phone: document.getElementById('patient_phone').value, email: document.getElementById('patient_email').value };
+  const service_id = Number(document.getElementById('serviceSelect').value);
+  const practitioner = document.getElementById('practitionerSelect').value || null;
+  const start = selectedSlot.date + ' ' + selectedSlot.time + ':00';
+  const svc = services.find(s=>s.id==service_id);
+  return { patient, service_id, practitioner_id: practitioner?Number(practitioner):null, start_time: start, duration_minutes: svc.duration, channel: 'online' };
+}
+
+function showResult(ok, data){
+  if(ok){
+    document.getElementById('resultMsg').innerHTML = `Consulta agendada com sucesso! ID: <strong>${data.appointment_id || '—'}</strong><br/>Data: <strong>${selectedSlot.date} ${selectedSlot.time}</strong>`;
+    showStep(7);
+  } else {
+    document.getElementById('resultMsg').innerHTML = `Erro ao agendar: ${String(data)}`; showStep(7);
+  }
+}
+
+/* ----------------------------- Inicializar UI ----------------------------- */
+function init(){ renderStepper(); populateSelects(); showStep(1); renderWeek(); }
+
+// ao mudar profissional, re-render
+document.getElementById('practitionerSelect').addEventListener('change', ()=>{ renderWeek(); });
+// ao mudar serviço, atualizar duration/slots
+document.getElementById('serviceSelect').addEventListener('change', (e)=>{ selectedServiceId = Number(e.target.value); renderWeek(); });
+
+init();
+</script>
+</body>
+</html>

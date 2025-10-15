@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{URL}}/Assets/css/material">
+
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+
+    <title>Ficha do vendedor nº {{nome}}</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .div-imagem {
+            border: 1px solid rgba(0, 0, 0, 0.329);
+            width: 110px;
+            height: 130px;
+        }
+
+        .foto {
+            position: relative;
+            top: 11px;
+        }
+
+        .font-normal {
+            font-size: 12pt;
+            text-transform: none;
+        }
+
+        .font-small {
+            font-size: 9pt;
+            text-transform: none;
+        }
+
+        .font-titulo {
+            font-weight: bold;
+            font-size: 14pt;
+            text-transform: none;
+        }
+
+        hr {
+            margin: 0px;
+            padding: 0px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="col m12 grey lighten-2">
+            <img src="{{logo}}" height="48">
+            <p>Gestão De vendedor Ambulantes</p>
+        </header>
+
+        <div class="col m12">
+            <h4 class="center-align">Ficha de Vendedor</h4>
+            <hr>
+            <br>
+        </div>
+
+        <h6 class="col m12 grey lighten-2 center-align font-titulo"> Dados Pessoal </h6>
+        <div class="row col m12">
+
+            <div class="col m8 font-normal">
+                <p><strong> Nome Completo:</strong> {{nome}}</p>
+                <p><strong> Genero:</strong> {{genero}}</p>
+                <p><strong> Data de Nascimento:</strong> {{nascimento}}</p>
+                <p><strong>Filiação:</strong> {{pai}} <strong> e </strong>{{mae}}</p>
+                <p><strong> Bilhete Nº</strong> {{bilhete}}</p>
+                <p><strong> Telefones:</strong> {{telefone1}} - {{telefone2}}</p>
+                <p><strong> E-mail:</strong> {{email}}</p>
+                <p><strong> Morada:</strong> {{morada}}</p>
+            </div>
+
+            <div class="col m2 offset-m1 div-imagem">
+                <img class="foto" src="{{URL}}/Files/imagem/vendedor/{{imagem}}" width="85" height="100">
+            </div>
+
+        </div>
+
+        <!--Dados do vendedor -->
+        <div class="row font-normal">
+            <h6 class="col m12 grey lighten-2 center-align font-titulo"> Dados de Vendedor </h6>
+            <p><strong>Numero:</strong> {{id}}</p>
+            <p><strong>Local de Venda :</strong> {{zonas}}</p>
+            <div class="row"><strong>Negócios:</strong> {{negocio}}</div>
+            <p><strong> Data de Cadastramento:</strong> {{criado}}</p>
+        </div>
+
+        <!--Dados dos relatorio -->
+        <div class="info-relatorio row">
+            <p class="col m6"> Processado pelo computador</p>
+            <p>Data de impressão {{data-Actual}}</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

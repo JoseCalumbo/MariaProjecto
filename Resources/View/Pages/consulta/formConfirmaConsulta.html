@@ -1,0 +1,292 @@
+<section class="row section-field">
+
+    <nav class='flex row  grey darken-3'>
+
+        <div class="nav-wrapper ">
+            <div class="col s12">
+                <a href="#!" class="breadcrumb white-text font-media font-normal">{{titulo}} </a>
+            </div>
+        </div>
+
+        <div class="nav-wrapper col m3 ">
+            <div class="col s12">
+                <a href="{{URL}}" class="breadcrumb white-text font-normal">Home</a>
+                <a href="{{URL}}/consulta-diaria" class="breadcrumb white-text flow-text font-normal">Consulta</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row input-field">
+
+        <!-- formulario para cadastramento de usuario start -->
+        <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
+
+            <ul class="collapsible white">
+                <!--collapsible dados pessoal-->
+                <li class="active">
+                    <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
+                            class="material-icons">person</i>Dados Paciente</div>
+
+                    <div class="collapsible-body row">
+
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <select name="acesso" id="academico">
+                                    <option class="black-text" value="" disabled selected>Paciente:</option>
+                                    {{paciente}}
+                                </select>
+                                <label>Seleciona Area</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <label for="nome" style="text-transform: capitalize;">Nome:</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="Sobrenome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <label for="Sobrenome" style="text-transform: capitalize;">Sobrenome:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <label>Genero:</label>
+                                <div class="input-radio">
+                                    <label>
+                                        <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap"
+                                            checked>
+                                        <span for="masc">Masculino </span>
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap"
+                                            {{genero}}>
+                                        <span for="fem">Feminino</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="input-date col s12 m6 row">
+                                <label for="">Data de nascimento:</label>
+                                <input type="date" name="data" value="{{data}}">
+                            </div>
+                            <!-- linha fim genero e data-->
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6 m6">
+                                <input id="pai" type="text" data-length="30" name="pai" value="{{pai}}">
+                                <label for="pai" style="text-transform: capitalize;">Pai:</label>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <input id="mae" type="text" data-length="30" name="mae" value="{{mae}}">
+                                <label for="mae" style="text-transform: capitalize;">Mãe:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <input id="bilhete" type="text" data-length="30" name="bilhete" value="{{bilhete}}" />
+                                <label for="bilhte" style="text-transform: capitalize;">Bilhete</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--collapsible dados endereço-->
+                <li class="active">
+                    <div class="collapsible-header white white-text font-normal grey darken-3"> <i
+                            class="material-icons">place</i> Endereço</div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <input id="morada" type="text" data-length="30" name="morada" value="{{morada}}" />
+                                <label for="morada" style="text-transform: capitalize;">Provincia</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input id="municipio" type="text" data-length="30" name="morada" value="{{morada}}" />
+                                <label for="municipio" style="text-transform: capitalize;">Município</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input id="bairro" type="text" data-length="30" name="morada" value="{{morada}}" />
+                                <label for="Bairro" style="text-transform: capitalize;">Bairro</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--collapsible dados consulta-->
+                <li class="active1">
+                    <div class="collapsible-header white-text font-normal grey darken-3"><i
+                            class="material-icons">assignment</i>Dados da Consulta</div>
+                    <div class="collapsible-body row">
+                        <div class="input-field col s12 m6">
+                            <p><label for="telefone1" style="text-transform: capitalize;">Dores</label></p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" checked />
+                                    <span>Dor de Cabeça</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" />
+                                    <span>Dor de Bariga</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" />
+                                    <span>quarta-feira</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" />
+                                    <span>quinta-feira</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" />
+                                    <span>sexta-feira</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" />
+                                    <span>sabado</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" />
+                                    <span>domingo</span>
+                                </label>
+                            </p>
+                            <div class="input-field col s12 m6">
+                                <p><label for="telefone1" style="text-transform: capitalize;">Agendamentos Dia
+                                        Reservados:</label></p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" checked />
+                                        <span>Segunda-feira</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span>terça-feira</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span>quarta-feira</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span>quinta-feira</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span>sexta-feira</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span>sabado</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="group1" type="radio" />
+                                        <span>domingo</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                </li>
+
+                <!--collapsible dados exame-->
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal grey darken-3"><i
+                            class="material-icons">tune</i>Exames</div>
+
+                    <div class="collapsible-body row">
+                        
+                        <table class="highlight responsive-table">
+                            <thead>
+                                <tr>
+                                    <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Nome</th>
+                                    <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Tipo</th>
+                                    <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Verificaçao</th>
+                                    <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-body">
+                                <tr>
+                                    <td><input  type="text" name="nome[]" class="validate" rred></td>
+                                    <td><input type="text" name="email[]" class="validate" quired></td>
+                                    <td><input type="text" name="email[]" class="validate" equired></td>
+                                    <td>
+                                        <a class="btn  waves-effect waves-light red white-text" onclick="removerLinha(this)">
+                                            <i class="material-icons centered">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row left-align ">
+                            <a class="waves-effect waves-light  btn blue white-text font-normal" onclick="adicionarLinha()">
+                              <i class="material-icons centered">add</i>
+                            </a>
+                        </div>
+                    </div>
+
+                </li>
+
+
+
+            </ul>
+
+            <div class="div-input push-m10 col s12 m2">
+                <button class="btn-small white-text " type="submit">{{button-salvar}}</button>
+            </div>
+
+            <div class="div-input  col s12 m3">
+                <button class=" btn-small orange white-text" type="submit">{{button-receitar}}</button>
+            </div>
+        </form>
+        <!-- formulario para cadastramento de usuario end -->
+
+    </div>
+    </div>
+
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>
+
+<script>
+    function adicionarLinha() {
+      const tabela = document.getElementById('tabela-body');
+      const novaLinha = tabela.rows[0].cloneNode(true);
+  
+      const inputs = novaLinha.querySelectorAll('input');
+      inputs.forEach(input => input.value = '');
+  
+      tabela.appendChild(novaLinha);
+    }
+  
+    function removerLinha(botao) {
+      const linha = botao.closest('tr');
+      const tabela = document.getElementById('tabela-body');
+      if (tabela.rows.length > 1) {
+        linha.remove();
+      } else {
+        M.toast({html: 'A tabela deve conter pelo menos uma linha.', classes: 'red'});
+      }
+    }
+  </script>

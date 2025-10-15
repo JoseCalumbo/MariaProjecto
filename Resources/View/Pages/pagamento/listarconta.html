@@ -1,0 +1,58 @@
+            <tr class="white">
+                <td>{{id_conta}}</td>
+                <td>{{id_mensal}}</td>
+                <td>{{mes}}</td>
+                <td>{{vencimento}}</td>
+                <td>{{valor}}</td>
+                <td class="{{cor}}">{{statu}}</td>
+                <td class="{{cor-conta}}">{{statu-conta}}</td>
+
+                <td>
+
+                    <a class="{{ablitar-pago}} btn modal-trigger white-text  green accent-4"  href="#modal{{id_conta}}" >
+                            <i class="material-icons left">attach_money</i>Pagar
+                    </a>
+
+                    <a class="{{ablitar-imprimir}} btn modal-trigger blue accent-4 white-text" href="{{URL}}/factura/{{id_conta}}/{{id}}" target="_blank">
+                            <i class="material-icons left">printer</i>Imprimir
+                    </a>
+                </td>
+            </tr>
+
+            <div id="modal{{id_conta}}" class="modal">
+
+                <div class="modal-content">
+
+                    <form action="{{URL}}/{{id_conta}}/conta/{{id}}" class="row  form-area col s12 m12 " method="post" enctype="multipart/form-data">
+
+                        <div class=" col s12 m12">
+                            <h6 class="font-normal">Mesalidade referente: {{mes}}</h6>
+                            <p>Valor cobrado: <strong> {{valor}}</strong></p>
+                            <p>Valor cobrado: <strong> {{id_conta}}</strong></p>
+                            <p></p>
+                            <p></p>
+
+                        </div>
+            
+                        <div class="label-float col s12 m4">
+                            <input type="text" placeholder=" " name="valor" value="" />
+                            <label>Valor:</label>
+                        </div>
+            
+                        <div class="label-float col s12 m4">
+                            <input type="text" placeholder=" " name="troco" value="" disabled />
+                            <label>Troco:</label>
+                        </div>
+            
+                        <div class="label-float col s12 m4">
+                            <button type="submit" class="green btn">Confirmar Pagamento</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <br>
+                    <br>
+
+                </div>
+              </div>

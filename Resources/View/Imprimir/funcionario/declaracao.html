@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{URL}}/Assets/css/material">
+
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+
+    <title>Delaração do vendedor nº {{id}}</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #titulo{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .div-imagem {
+            border: 1px solid rgba(0, 0, 0, 0.329);
+            width: 110px;
+            height: 130px;
+        }
+
+        .foto {
+            position: relative;
+            top: 11px;
+        }
+
+        .font-normal {
+            font-size: 12pt;
+            text-transform: none;
+        }
+
+        .font-small {
+            font-size: 9pt;
+            text-transform: none;
+        }
+
+        .font-titulo {
+            font-weight: bold;
+            font-size: 14pt;
+            text-transform: none;
+        }
+
+        hr {
+            margin: 0px;
+            padding: 0px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="col m12 center-align">
+            <img src="{{logo}}" height="62">
+            <p class="font-normal">Gestão De vendedor Ambulantes</p>
+        </header>
+
+        <div class="col m12">
+            <h4 class="center-align"id="titulo">Declaração</h4>
+            <hr>
+            <br>
+        </div>
+
+        <div class="row col m12">
+
+            <div class="col m12 font-normal">
+                <p>Para efeito de Venda Ambulante, declara-se que o Senhor/a
+                 <strong>{{nome}}</strong>, filho de {{pai}} e de {{mae}}, 
+                 nascido aos {{nascimento}}, portador do BI nº {{bilhete}},
+                 morador no {{morada}}, tornou-se <strong>vendedor
+                 ambulante</strong> aos {{criado}}, numero {{id}} </p>
+
+                <p>
+                    P
+                </p>
+
+            </div><br>
+
+        </div>  
+
+        <!--Dados dos relatorio -->
+        <div class="info-relatorio row">
+            <p class="col m6"> Processado pelo computador</p>
+            <p>Data de impressão {{data-Actual}}</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

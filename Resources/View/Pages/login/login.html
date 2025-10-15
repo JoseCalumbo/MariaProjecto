@@ -1,0 +1,59 @@
+<div class="center-page">
+  <div class="card card-login ">
+    <div  id="card" class="card-content ">
+      <!-- Logo -->
+      <section class="login-img center-align">
+        <img src="Assets/img/logo01.png" height="90" width="140">
+      </section>
+
+      <!-- Título -->
+      <span class="card-title center-align">Login</span>
+      {{msg}}
+      <!-- Formulário -->
+      <form class="row" method="post">
+        <div class="input-field col m11">
+          <i class="material-icons prefix teal-text darken-3 ">mail_outline</i>
+          <input id="email" type="email" class="validate" name="email" required>
+          <label for="email">Email</label>
+        </div>
+
+        <div class="input-field col m11 ">
+          <i class="material-icons prefix teal-text darken-3 ">lock_outline</i>
+          <input id="senha" type="password" class="validate" name="senha">
+          <label for="senha">Senha</label>
+        </div>
+
+        <div class="row col m10 center-align ">
+          <button class=" push-m2 col m12 btn white-text darken-3  waves-light" style="text-transform: capitalize;"
+            type="submit" value="logar">Entrar</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+  <footer>
+    <a href="{{URL}}/site" data-tooltip="Pagina inical">
+      <i class="material-icons">home</i>
+    </a>
+    <a href="{{URL}}/sigin" data-tooltip="Criar conta">
+      <i class="material-icons">person_add</i>
+    </a>
+    <a href="{{URL}}/recuperar/senha" data-tooltip="Recuperar senha">
+      <i class="material-icons">lock_reset</i>
+    </a>
+    <a href="{{URL}}/contactos" data-tooltip="Suporte técnico">
+      <i class="material-icons">support_agent</i>
+    </a>
+  </footer>
+
+    <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.tooltipped');
+      M.Tooltip.init(elems);
+    });
+  </script>

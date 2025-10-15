@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Import Google Icon Font-->
+
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <link href="{{URL}}/Assets/css/material-icons.css" rel="stylesheet">
+
+    <link rel="icon" href="{{URL}}/icon.png" type="image/x-icon">
+
+    <!-- fontawesome-->
+    <link rel="stylesheet" href="{{URL}}/Assets/icon/fontawesome-free-6.7.2-web/css/all.css">
+
+    <!--Import css-->
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/app.css" />
+
+    <title>{{title}}</title>
+
+    <style>
+        /* Deixa o carousel em modo hero (tela cheia) */
+        .hero-carousel {
+            height: 100vh;
+            /* altura total da tela */
+        }
+
+        .hero-carousel .carousel-item img {
+            object-fit: cover;
+            /* cobre a área toda */
+            height: 100vh;
+            /* força a imagem ocupar toda a altura */
+            width: 100%;
+            /* largura total */
+        }
+
+        /* Texto centralizado sobre a imagem */
+        .hero-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero-caption h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .nav {
+            height: 46px;
+            line-height: 46px;
+            /* Centraliza os itens verticalmente */
+        }
+
+        .nav .brand-logo,
+        .nav ul li a i {
+            height: 46px;
+            line-height: 46px;
+        }
+
+        .dropdown-content {
+            min-width: 220px;
+        }
+
+        .icon-tight {
+            margin-right: 2px !important;
+            vertical-align: middle !important;
+        }
+
+        .icon-tight-left {
+            margin-left: 2px !important;
+            vertical-align: middle !important;
+        }
+
+        .disabled-link {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+            color: #555657fa !important;
+        }
+
+        .minusculo {
+            text-transform: lowercase !important;
+        }
+
+        .maisculo {
+            text-transform: uppercase !important;
+        }
+
+        .capitalize::first-letter {
+            text-transform: uppercase !important;
+        }
+
+        .negrito {
+            font-weight: bold !important;
+        }
+
+        .material-tooltip {
+            color: yellow !important;
+            /* Cor do texto */
+            background-color: rgba(12, 50, 218, 0.671) !important;
+            /* (Opcional) cor de fundo */
+            font-weight: bold !important;
+        }
+
+        .custom-search input[type="search"] {
+            color: white !important;
+            /* Cor branca padrão */
+            font-size: 13pt;
+            background-color: #607d8b !important;
+        }
+
+        .tab-content {
+            min-height: 300px !important;
+            padding: 20px !important;
+            border: 1px solid #dddddd2f !important;
+            border-top: none !important;
+        }
+
+        .custom-search input[type="search"]:focus {
+            background-color: white !important;
+            /* muda o fundo ao focar */
+            color: black !important;
+            /* muda a cor do texto ao focar */
+        }
+
+        /* Muda a cor do placeholder também (opcional) */
+        .custom-search input[type="search"]::placeholder {
+            color: #0c0c0c !important;
+        }
+
+        /* Cor da linha indicadora da aba ativa */
+        .tabs .indicator {
+            background-color: #004d40 !important;
+            /* Laranja forte */
+        }
+
+        /* Cor do texto das abas padrão */
+        .tabs .tab a {
+            color: #fdfcfc !important;
+            /* Cinza escuro */
+        }
+
+        /* Cor ao passar o mouse */
+        .tabs .tab a:hover {
+            color: #ffffff !important;
+        }
+
+        /* Cor da aba ativa */
+        .tabs .tab a.active {
+            color: #ffffff !important;
+            font-weight: bold !important;
+        }
+
+
+        .dropdown-content li>a {
+            display: flex;
+            align-items: center;
+            /* centraliza verticalmente */
+        }
+
+
+        /* Aproxima o ícone do texto */
+        .dropdown-content li>a i {
+            margin-right: 4px;
+            /* diminui o espaço do ícone */
+            font-size: 18px;
+            /* mantém fixo o tamanho */
+        }
+
+        .brand-logo {
+            font-size: 2.5rem;
+            /* aumenta o tamanho do texto */
+            padding: 0 40px;
+            /* aumenta espaço lateral */
+            width: 100px !important;
+            /* define uma largura fixa */
+            text-align: center !important;
+            /* centraliza dentro do espaço */
+        }
+
+        table th,
+        table td {
+            padding: 5px 6px !important;
+            /* reduz espaço interno */
+            line-height: 1.2 !important;
+            /* reduz altura da linha */
+            font-size: 13px;
+            /* fonte um pouco menor para caber mais dados */
+        }
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1565c0;
+            /* Azul Materialize */
+            color: white;
+            z-index: 1000;
+            padding: 4px 0;
+            /* <--- menor altura */
+            height: 30px;
+            /* <--- define uma altura fixa menor */
+            display: flex;
+            align-items: center;
+            box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        footer .btn-flat {
+            color: white;
+            height: 36px;
+            line-height: 23px;
+            padding: 0 8px;
+            min-width: 40px;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 8px;
+            /* Espaçamento entre os botões */
+        }
+
+        /* Remove margens dos ícones */
+        .footer-buttons i {
+            margin: 0;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body class="white lighten-4">
+
+    {{header}}
+    <!----------------------------------------------add CONTEUDO--------------------------------- -->
+
+
+
+
+
+
+    {{content}}
+
+
+
+
+
+
+
+
+    <!---------------------------------------ADD CONTEUDO------------------------------------------>
+    {{footer}}
+
+    <!--Import script js materialize do app -->
+    <script src="{{URL}}/Assets/js/materialize.js"></script>
+
+    <!--Import script js principal do app -->
+    <script src="{{URL}}/Assets/js/app.js"></script>
+
+    <!--Import script js principal do app -->
+    <script src="{{URL}}/Assets/js/scripts.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<section class="row section-field white">
+  <h5 class="center"> Painel de Utilizadores</h5>
+
+  <nav class="row col m12  blue-grey darken-1 ">
+    <div class="col m4 nav-wrapper ">
+    </div>
+
+    <div class="col m4 nav-wrapper">
+      <form>
+        <div class="input-field custom-search">
+          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons center">close</i>
+        </div>
+      </form>
+    </div>
+
+    <div class="col m4 nav-wrapper  ">
+      <ul class="right hide-on-med-and-down row" style="height: 50px; ">
+        <li>
+          <a href="{{URL}}/utilizadores" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">refresh</i>Actulizar
+          </a>
+        </li>
+
+        <li class="white-text " style="text-transform: capitalize;">
+          <a href="{{URL}}/perfil" class="white-text" style="display: flex; align-items: center;">
+            <i class=" material-icons left white-text ">manage_accounts</i>Novo Perfil
+          </a>
+        </li>
+        <li class="" style="text-transform: capitalize;">
+          <a href=" {{URL}}/funcionario/cadastrar" class="white-text" style="display: flex; align-items: center;">
+            <i class="material-icons left white-text">add</i>Novo
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+  </div>
+
+  <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
+  <section class="  white col m12">
+
+    <table class="row col m12 ">
+      <thead class="">
+        <tr class="center">
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Nº</th>
+          <th><i id="coluna" class="material-icons black-white" style="vertical-align: -6px;">image</i>Imagem</th>
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">person</i> Nome</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">phone</i>Telefone </th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">email</i>Telefone </th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">work</i>Cargo</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">calendar_today</i>Data Registro</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>Opção</th>
+
+        </tr>
+      </thead>
+
+      <tbody tbody class="tbody">
+        {{item}}
+      </tbody>
+    </table>
+
+  </section>
+
+  <section class="col m12 white">
+    {{paginacao}}
+  </section>
+
+</section>
+
+<!-- <button data-target="modalApagarUser" class="btn modal-trigger">Modal26</button> -->

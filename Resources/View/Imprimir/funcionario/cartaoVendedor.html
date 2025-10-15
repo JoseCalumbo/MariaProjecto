@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{URL}}/Assets/css/material">
+
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+
+    <title>Delaração do vendedor nº {{id}}</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+        }
+
+        @page{
+            margin: 0px;
+        }
+
+        .foto{
+            border: 2px solid rgba(8, 144, 235, 0.5);
+            border-radius: 50%;
+        }
+
+        #titulo{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        
+        .div-imagem {
+            border: 2px solid rgba(8, 144, 235, 0.5);
+            width: 110px;
+            height: 130px;
+        }
+
+        .foto {
+            position: relative;
+            top: 11px;
+        }
+
+        .font-normal {
+            font-size: 12pt;
+            text-transform: none;
+        }
+
+        .font-small {
+            font-size: 9pt;
+            text-transform: none;
+        }
+
+        .font-titulo {
+            font-weight: bold;
+            font-size: 15pt;
+            text-transform: none;
+        }
+
+        .container{
+            background-color: rgba(8, 144, 235, 0.5);
+            position:absolute;
+            width:100%;
+            top:40%;
+            bottom:0px;
+            margin:0px;
+            z-index:-1;
+        }
+        .containerA{
+            background-color: rgba(10, 144, 235, 0.40);
+            position:absolute;
+            width:100%;
+            height:5px;
+            top:38%;
+            bottom:0px;
+            margin:0px;
+            z-index:-1;
+        }
+        .containerB{
+            background-color: rgba(10, 144, 235, 0.30);
+            position:absolute;
+            width:100%;
+            height:5px;
+            top:36%;
+            bottom:0px;
+            margin:0px;
+            z-index:-1;
+        }
+        .containerC{
+            background-color: rgba(10, 144, 235, 0.20);
+            position:absolute;
+            width:100%;
+            height:5px;
+            top:34%;
+            bottom:0px;
+            margin:0px;
+            z-index:-1;
+        }
+
+        .pusha{
+            left: 50%;
+            width: 50%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container1">
+        
+        <div class="containerA"></div>
+        <div class="containerB"></div>
+        <div class="containerC"></div>
+
+        <div class="container"></div>
+            <br>
+                <header class="col m12 center-align">
+                    <img src="{{logo}}" height="26">
+                    <p class="blue-text">Cartão De Vendedor Ambulante</p>
+                </header>
+
+                <div class="col m12 center-align">
+                    <img class="foto" src="{{URL}}/Files/imagem/vendedor/{{imagem}}" width="95" height="100">
+                    <p class="font-titulo"><strong class="font-titulo"> {{nome}}</strong></p>
+                </div>
+
+                <div class="col m5 text-center pusha">
+                    <p><strong>Nº</strong>  {{id}}</p>
+                    <p><strong>Zona:</strong> {{zona}}</p>
+                    <p><strong>Validade: </strong>{{data}}</p>
+                </div>
+
+        
+    </div>
+
+</body>
+
+</html>
