@@ -79,11 +79,18 @@ include __DIR__.'/RotaZona.php';
 include __DIR__.'/RotaConsulta.php';
 
 
-//________________________ Rota Consulta Diaria___________________________
+//________________________ Rota Consulta Diaria_______________________
 /**
  * inclui as rotas da zona  
 */
 include __DIR__.'/RotaConsultaDiaria.php';
+
+
+//________________________ Rota de Atendimento da Consulta _______________________
+/**
+ * inclui as rotas da consulta atendimento 
+*/
+include __DIR__.'/RotaAtenderConsulta.php';
 
 
 
@@ -147,21 +154,13 @@ include __DIR__.'/RotaConta.php';
 include __DIR__.'/RotaTriagem.php';
  
 
-//__________________________________ serviços de tarefas_______________________Aqui
+//__________________________________ serviços de tarefas_______________________
 $obRouter->get('/vendedor/{id}',[
     'middlewares'=>[
         'requer-login'
     ],
     function($request,$id){ return new Response(200,Pages\Operacao::getOperacao($request,$id)); }
 ]);
-
-
-/**
- * __________________________________Pagamento_______________________________
- * inclui as rotas de Pagamento de taxa dos vendedores 
-*/
-include __DIR__.'/RotaPagamento.php';
-
 
 
 //__________________________________ Notificacao_______________________

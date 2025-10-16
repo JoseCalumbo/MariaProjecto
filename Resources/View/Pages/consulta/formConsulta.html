@@ -1,16 +1,19 @@
 <section class="row section-field">
 
-    <nav class='flex row  grey darken-3'>
+    <h5 class="center"> {{titulo}} </h5>
+
+    <nav class='flex row grey darken-3'>
 
         <div class="nav-wrapper ">
-            <div class="col s12">
-                <a href="#!" class="breadcrumb white-text font-media font-normal">{{titulo}} </a>
+            <div class="col m3">
+                <a href="{{URL}}" class=" btn breadcrumb white-text font-normal">Home</a>
+                <a href="{{URL}}/consulta-diaria" class="breadcrumb white-text flow-text font-normal">Consulta</a>
             </div>
         </div>
 
-        <div class="nav-wrapper col m3 ">
+        <div class="nav-wrapper col m8 ">
             <div class="col s12">
-                <a href="{{URL}}" class="breadcrumb white-text font-normal">Home</a>
+                <a href="{{URL}}" class=" btn breadcrumb white-text font-normal">Home</a>
                 <a href="{{URL}}/consulta-diaria" class="breadcrumb white-text flow-text font-normal">Consulta</a>
             </div>
         </div>
@@ -25,7 +28,7 @@
         <!-- formulario para cadastramento de usuario start -->
         <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
 
-            <ul class="collapsible white">
+            <ul class="collapsible expandable white">
                 <!--collapsible dados pessoal-->
                 <li class="active2">
                     <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3"><i
@@ -90,27 +93,7 @@
 
                     </div>
                 </li>
-                <!--collapsible dados endereço-->
-                <li class="active">
-                    <div class="collapsible-header white white-text font-normal grey darken-3"> <i
-                            class="material-icons">place</i> Endereço</div>
-                    <div class="collapsible-body">
-                        <div class="row">
-                            <div class="input-field col s12 m4">
-                                <input id="morada" type="text" data-length="30" name="morada" value="{{morada}}" />
-                                <label for="morada" style="text-transform: capitalize;">Provincia</label>
-                            </div>
-                            <div class="input-field col s12 m4">
-                                <input id="municipio" type="text" data-length="30" name="morada" value="{{morada}}" />
-                                <label for="municipio" style="text-transform: capitalize;">Município</label>
-                            </div>
-                            <div class="input-field col s12 m4">
-                                <input id="bairro" type="text" data-length="30" name="morada" value="{{morada}}" />
-                                <label for="Bairro" style="text-transform: capitalize;">Bairro</label>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+
                 <!--collapsible dados consulta-->
                 <li class="active1">
                     <div class="collapsible-header white-text font-normal grey darken-3"><i
@@ -248,11 +231,11 @@
                         </div>
                     </div>
                 </li>
-                         
+
             </ul>
 
             <div class=" push-m10 col s12">
-                <button class=" col m3 btn white-text green font-normal" type="submit">{{button-salvar}}</button>
+                <button class=" col m3 btn white-text green font-normal" type="submit">{{button}}</button>
             </div>
 
         </form>

@@ -26,7 +26,7 @@
                   </th>
 
                   <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">calendar_month</i>Data final </th>
+                      style="vertical-align: -6px;">calendar_month</i>Data </th>
 
                   <th class="center negrito"> <i class="material-icons black-white "
                       style="vertical-align: -6px;">settings</i>Opção</th>
@@ -42,52 +42,40 @@
 
         <!--Aba content do pagamento-->
         <div id="pagamento2" class="col s12">
+        
+          <table class="row col m12 responsive-table ">
+            <thead class="">
+              <tr class=" blue-grey lighten-5">
+                <th class="font-normal negrito"><i class="material-icons black-white"
+                    style="vertical-align: -6px;">format_list_numbered</i>Nº
+                </th>
 
-          <br>
+                <th class="font-normal negrito"><i class="material-icons black-white"
+                    style="vertical-align: -6px;">person</i>Nome
+                </th>
 
-          <!-- <table class="row col m12">
-                    <thead tbody class="thead">
-                      <tr class="centered">
-                        <th><i class="material-icons black-white ">format_list_numbered</i> Número</th>
-                        <th> <i class="material-icons black-white ">more</i>Designação</th>
-                        <th><i class="material-icons black-white ">attach_money</i>Valor Pago </th>
-                        <th> <i class="material-icons black-white ">date_range</i>Data</th>
-                        <th> <i class="material-icons black-white ">phone</i>Status</th>
-                        <th>Opção</th>
-                      </tr>
-                    </thead>
-              
-                    <tbody tbody class="tbody">
-                      {{item}}
-                    </tbody>
-                  </table> -->
+                <th class="font-normal negrito"> <i class="material-icons black-white "
+                    style="vertical-align: -6px;">calendar_month</i>Data </th>
+
+                <th class="center negrito"> <i class="material-icons black-white "
+                    style="vertical-align: -6px;">settings</i>Opção</th>
+              </tr>
+            </thead>
+
+            <tbody tbody class="tbody">
+              {{listarConsultaFinalizada}}
+            </tbody>
+          </table>
 
           <div>
             <a href="{{URL}}/pagamento/{{id}}" class="font-normal row black-text ">
               <button type="button " class="waves-effect waves-light btn teal darken-3">
-                <i class="material-icons left">attach_money</i>Fazer Pagamento
+                <i class="material-icons left">attach_money</i>Solicitar Exames
               </button>
             </a>
           </div>
 
         </div>
-
-        <!-- Aba content dos registros
-            <div id="registro3" class="col s12">
-                <br>
-                <div>
-                    <h6>Ultimo Pagamento</h6>
-                    <p>21 de Maio de 2022</p>
-                    <p class="blue-text">ver mais</p>
-                </div>
-                <br>
-                <div>
-                    <h6>Ultima Impressão da ficha</h6>
-                    <p>21 de Maio de 2022</p>
-                    <p class="blue-text">ver mais</p>
-                </div>
-
-            </div> -->
 
         <!--Aba content da opcoes-->
         <div id="opcoes4" class="col s12">
@@ -137,7 +125,7 @@
     <nav class="blue-grey darken-1 ">
       <div class="nav-wrapper">
         <form>
-          <div class="input-field custom-search">
+          <div class="input-field custom-search" style="border: 1px solid #e6e4e4;">
             <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             <i class="material-icons center">close</i>
