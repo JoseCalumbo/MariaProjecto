@@ -68,8 +68,19 @@ $obRouter->get('/editar/perfil/{id_Nivel}', [
         return new Response(200, Pages\Perfil::editarPermissao($request,$id_Nivel));
     }
 ]);
+
 // Rota para apagar perfil de acesso
-$obRouter->get('/apagar/perfil/{id_Nivel}', [
+$obRouter->get('/apagar/perfil/{id_nivel}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request, $id_Nivel) {
+        return new Response(200, Pages\Perfil::apagarPerfil($request,$id_Nivel));
+    }
+]);
+
+// Rota para apagar perfil de acesso
+$obRouter->get('/apagar/permissaoa/{id_nivel}', [
     'middlewares' => [
         'requer-login'
     ],
