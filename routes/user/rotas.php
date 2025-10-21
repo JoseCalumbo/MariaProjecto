@@ -29,6 +29,12 @@ include __DIR__.'/RotaUtilizador.php';
 include __DIR__.'/RotaPerfil.php';
 
 
+/** __________________________________ Exame _______________________________
+ * inclui as rotas de exame
+*/
+include __DIR__.'/RotaExame.php';
+
+
 //________________________________relatorio__________________________
 
 $obRouter->get('/relatorio',[

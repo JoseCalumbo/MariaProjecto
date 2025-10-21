@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller\Pages;
 
@@ -11,28 +11,11 @@ use \App\Utils\Pagination;
 use \App\Controller\Mensagem\Mensagem;
 
 
-Class Configuracao extends Page {
+class Configuracao extends Page
+{
 
-    // exibe a messagem de operacao
-    public static function exibeMensagem($request){
-        $queryParam = $request->getQueryParams();
-        
-        if(!isset($queryParam['msg'])) return '';
 
-        switch ($queryParam['msg']) {
-            case 'cadastrado':
-                return Mensagem::msgSucesso('Vendedor Cadastrado com sucesso');
-                break;
-            case 'alterado':
-                return Mensagem::msgSucesso('Vendedor Alterado com sucesso');
-                break;
-            case 'apagado':
-                return Mensagem::msgSucesso('Vendedor Apagdo com sucesso');
-                break;
-        }// fim do switch
-    }
-
-        // Método para apresenatar os registos dos Funcionario
+    // Método para apresenatar os registos dos Funcionario
     private static function getFuncionario($request, &$obPagination)
     {
 
@@ -84,23 +67,38 @@ Class Configuracao extends Page {
                 'item' => $item,
                 'numResultado' => $quantidadetotal,
             ]);
-
         }
 
         return $item;
     }
 
+
+
     // Método que apresenta a tela do Funcionario
-    public static function Permissao($request)
+    public static function telaConfiguracao($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('configuracao/permisao', [
+        $content = View::render('configuracao/configuracao', [
             'pesquisar' => $buscar,
-            'msg' => self::exibeMensagem($request),
+            'item' => self::getFuncionario($request, $obPagination),
+            'paginacao' => parent::getPaginacao($request, $obPagination),
+            'active' => 'blue-grey darken-3 white-text',
+
+        ]);
+        return parent::getPage('Configuração', $content);
+    }
+
+
+    // Método que apresenta a tela do Funcionario
+    public static function cadastrosBasico($request)
+    {
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+        $content = View::render('configuracao/item/cadastros_basico', [
+            'pesquisar' => $buscar,
+            'active' => 'blue-grey darken-3 white-text',
             'item' => self::getFuncionario($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
-        return parent::getPage('Editar Configuração', $content);
+        return parent::getPage('Configuração-Cadastro básico', $content);
     }
-
 }

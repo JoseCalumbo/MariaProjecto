@@ -62,7 +62,7 @@ class Perfil extends Page
 
 
         while ($obFuncionario = $resultado->fetchObject(NivelDao::class)) {
-            $item .= View::render('configuracao/user/listarPerfil', [
+            $item .= View::render('configuracao/perfil/listarPerfil', [
                 'id_nivel' => $obFuncionario->id_nivel,
                 'nome' => $obFuncionario->nome_nivel,
                 'descrisao' => $obFuncionario->descricao_nivel,
@@ -90,7 +90,7 @@ class Perfil extends Page
     public static function getPerfilAcesso($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('configuracao/user/perfilUtilizador', [
+        $content = View::render('configuracao/perfil/perfilUtilizador', [
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
             'nome' => "",
@@ -138,7 +138,7 @@ class Perfil extends Page
             $nomes[] = $obPermisao->nome_permissao;
         }
 
-        $content = View::render('configuracao/user/formPerfil', [
+        $content = View::render('configuracao/perfil/formPerfil', [
             'titulo' => 'Atribuir Acesso e Permissões',
             'button' => 'Salvar',
                         'msg1' => $alert,
@@ -246,7 +246,7 @@ class Perfil extends Page
                      </script>";
         }
 
-        $content = View::render('configuracao/user/formPerfil', [
+        $content = View::render('configuracao/perfil/formPerfil', [
             'titulo' => 'Cadastrar Perfil de Acesso e Permissão',
             'button' => 'Salvar',
             'msg1' => $alert,
@@ -269,7 +269,6 @@ class Perfil extends Page
 
         // $nivelPermissao = NivelPermissaoDao::getNivelPermissaoID($id_Nivel);
 
-
         $nivels = NivelDao::getNivelId($id_Nivel);
 
         $resultado = PermissaoDao::listarPermissao();
@@ -284,7 +283,7 @@ class Perfil extends Page
             $IdPermissaoSelecionado[] = $obnivelPermisao->id_permissoes;
         }
 
-        $content = View::render('configuracao/user/formPerfilEditar', [
+        $content = View::render('configuracao/perfil/formPerfilEditar', [
 
             'titulo' => 'Atualizar Acesso e Permissões',
             'button' => 'Salvar',

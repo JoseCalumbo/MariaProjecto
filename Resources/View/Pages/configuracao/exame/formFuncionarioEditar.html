@@ -1,0 +1,212 @@
+<section class="row section-field ">
+    <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
+    <br>
+    <h5 class="center"> {{titulo}} </h5>
+
+    <nav class="col m12 blue-grey darken-1">
+        <div class="nav-wrapper ">
+            <ul class="right hide-on-med-and-down row" style="height: 50px;">
+
+
+                <li class="" style="text-transform: capitalize;">
+                    <a href="#modalNivel" class="white-text modal-trigger" style="display: flex; align-items: center;">
+                        <i class="material-icons left white-text">add</i>Nivel de Acesso
+                    </a>
+                </li>
+
+                <li class="white-text " style="text-transform: capitalize;">
+                    <a href="{{URL}}/utilizadores" class="white-text"
+                        style="display: flex; align-items: center; text-transform: capitalize;">
+                        <i class=" material-icons left white-text ">arrow_back</i>voltar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section class="col m12 s12 center">
+
+        <br>
+    </section>
+
+    <section class="row col m8 offset-m2 " style="text-align: center;">
+        <!-- formulario para cadastramento de usuario start -->
+        <form class="" method="post" enctype="multipart/form-data">
+            <ul class=" collapsibleF white expandable">
+                <li class="active">
+                    <div id="form-collapsible" class="collapsible-header white-text font-normal  blue-grey darken-1">
+                        <i class="material-icons">person</i> Dados pessoais
+                    </div>
+                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                                <label for="nome" style="text-transform: capitalize;">Nome Completo:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class=" input-radio col s12 m6 rigth">
+                                <label>
+                                    <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap"
+                                        checked>
+                                    <span for="masc">Masculino </span>
+                                </label>
+
+                                <label>
+                                    <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap"
+                                        {{genero}}>
+                                    <span for="fem">Feminino</span>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12 m6 ">
+                                <input id="nascimento" type="text" name="data" class="datepicker" value="{{data}}">
+                                <label for="nascimento" style="text-transform: capitalize;">Data de nascimento:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="bilhete" type="text" name="bilhete" value="{{bilhete}}" />
+                                <label for="bilhte" style="text-transform: capitalize;">Número do Bilhete:</label>
+                            </div>
+                            <div class="input-field col s6 m6">
+                                <input id="pai" type="text" name="ordem" value="{{ordem}}">
+                                <label for="pai" style="text-transform: capitalize;">Número da Ordem:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6 m6">
+                                <div class="input-field col s12">
+                                    <select name="cargo">
+                                        <option value="" disabled selected>Escolhe uma opção</option>
+                                        <option value="Médico" {{cargo-medico}}>Médico</option>
+                                        <option value="Enfermeiro" {{cargo-enfermero}}>Enfermeiro</option>
+                                        <option value="Analista Clínico" {{cargo-analista}}>Analista Clínico</option>
+                                        <option value="Farmacêuticos" {{cargo-farmaceutico}}>Farmacêuticos</option>
+                                        <option value="Técnicos de Enfermagem" {{cargo-tecnico}}>Técnicos de Enfermagem
+                                        </option>
+                                        <option value="Administrador" {{cargo-admin}}>Administrador</option>
+                                    </select>
+                                    <label class="font-normal">Seleciona Cargo</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal blue-grey darken-1"><i
+                            class="material-icons">phone</i>Contactos e Endereços</div>
+                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
+                        <div class="input-field col s12 m6">
+                            <input id="telefone1" type="text" name="telefone1" value="{{telefone1}}" />
+                            <label for="telefone1" style="text-transform: capitalize;">telefone1:</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="telefone2" type="text" name="telefone2" value="{{telefone2}}" />
+                            <label for="telefone2" style="text-transform: capitalize;">telefone2:</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="email" type="text" name="email" value="{{email}}" />
+                            <label for="email" style="text-transform: capitalize;">E-mail:</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="morada" type="text" name="morada" value="{{morada}}" />
+                            <label for="morada" style="text-transform: capitalize;">Morada:</label>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal blue-grey darken-1 ">
+                        <i class="material-icons">arrow_upward</i>Carregar ficheiros
+                    </div>
+                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
+
+                        <div class="input-file flex col s12 m12 row ">
+                            <label id="image" class="img-label btn grey accent-1 " style="text-transform: capitalize;"
+                                for="img">
+                                <i class="material-icons right col m4">arrow_upward</i> Carregar imagem
+                            </label>
+                            <input type="file" id="img" name="imagem">
+                            <img class="foto col m2 offset-m7" src="{{URL}}/Files/Imagem/user/{{imagem}}" width="65"
+                                height="70">
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+
+            <div class="row col s12 m12">
+                <br>
+                <br>
+                <button class="col offset-m10 m2 btn font-normal" type="submit">{{button}}</button>
+            </div>
+        </form>
+        <!-- formulario para cadastramento de usuario end -->
+
+    </section>
+</section>
+
+
+<!-- MODAL para cadastrar nivel -->
+<div id="modalNivel" class="modal  modalImprimirTriagem" style="width: 600px; height: 390px;">
+    <div class="row modal-content white">
+        <h5 class=" offset-m1 col s12 m10 capitalize" style="text-transform: lowercase;">
+            <i class="material-icons left teal-text medium"
+                style="position: relative; top: -12px;">admin_panel_settings</i>
+            <strong style="font-weight: bold;">Cadastrar Nivel e Permissão </strong>
+        </h5>
+
+
+
+        <form action="{{URL}}/cadastrar/perfil" method="post" class="center white push-m2">
+            <div class="row" style="position: relative; top: -20px;">
+                <div class="input-field col s12 m8">
+                    <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                    <label for="nome" class="capitalize" style="text-transform:lowercase;">Nome do perfil de
+                        acesso:</label>
+                </div>
+
+                <div class="input-field col s12 m4">
+                    <input id="serie" type="text" name="serie" value="{{nome}}" class="validate">
+                    <label for="serie" style="text-transform: capitalize;">Serie Perfil:</label>
+                </div>
+
+                <div class="input-field col s12 m12">
+                    <input id="perfil" type="text" name="descrisao" value="{{nome}}" class="validate">
+                    <label for="perfil" style="text-transform: capitalize;">Descrisão do Perfil:</label>
+                </div>
+            </div>
+
+            <div class="offset-m10 col s12 " style="display: none;">
+                <input type="submit" id="submite">
+            </div>
+        </form>
+
+        <div class="row" style="position: relative; top: -20px; margin-bottom: 0px;">
+            <div class="offset-m7 col s12 m5 row">
+
+                <a class="btn blue-grey darken-5  white-text modal-close" style="text-transform: capitalize;">
+                    Cancelar
+                </a>
+
+                <a class="btn teal darken-5 white-text" style="text-transform: capitalize;">
+                    <label class="white-text col m12" for="submite">salvar</label>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

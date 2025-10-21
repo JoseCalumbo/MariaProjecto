@@ -76,7 +76,7 @@ class ZonaDao{
 
     //Metodo para  selecionar um registro da tabela Zona por ID
     public static function getZona($id_zona){
-        return (new Database('zona'))->select('id_zona = '.$id_zona)->fetchObject(self::class);
+        return (new Database('zona'))->select('id_zona = '.$id_zona)->fetchObject(PDO::FETCH_CLASS.self::class);
      }
     
 }
