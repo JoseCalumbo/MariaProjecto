@@ -18,32 +18,34 @@ $obRouter->get('/exame', [
     }
 ]);
 
-//Apresenta a tela de utilizadores e sua listagem POST
-$obRouter->post('/utilizadores', [
+// Apresenta a tela de exames e sua listagem POST
+$obRouter->post('/exame', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200,Pages\Funcionario::telaFuncionario($request));
+        return new Response(200,Pages\Exame::telaExame($request));
     }
 ]);
 
-// Rota para cadastrar funcionario get
-$obRouter->get('/utilizadores/cadastrar', [
+
+// Rota para cadastrar exames
+$obRouter->get('/exame/cadastrar', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Pages\Funcionario::cadastrarFuncionario($request));
+        return new Response(200, Pages\Exame::cadastrarExame($request));
     }
 ]);
-// Rota para cadastrar funcionario get
-$obRouter->post('/utilizadores/cadastrar', [
+
+// Rota para cadastrar exames
+$obRouter->post('/exame/cadastrar', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200, Pages\Funcionario::cadastrarFuncionario($request));
+        return new Response(200, Pages\Exame::cadastrarExame($request));
     }
 ]);
 

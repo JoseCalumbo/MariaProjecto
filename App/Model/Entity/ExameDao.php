@@ -23,9 +23,11 @@ class ExameDao{
     // valor do exame
     public $valor_exame;
 
+    // estado exame
+    public $estado_exame;
+
     // Data de cadastramento do exame
     public $criado_exame;
-
 
 
     // faz um insert na tabela exame
@@ -42,6 +44,7 @@ class ExameDao{
             'nome_exame' => $this->nome_exame,
             'tipo_exame' => $this->tipo_exame,
             'parametro_exame' => $this->parametro_exame,
+            'estado_exame' => $this->estado_exame,
             'valor_exame' => $this->valor_exame,
             'criado_exame' => $this->criado_exame,
 

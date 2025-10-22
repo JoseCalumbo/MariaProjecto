@@ -67,7 +67,7 @@ class Exame extends Page
             ]);
         }
         return $resultadoExame = strlen($resultadoExame) ? $resultadoExame : '<tr>
-                                                                                <td>
+                                                                                <td colspan="5">
                                                                                     Nenhum Exame encontado
                                                                                 </td>
                                                                             </tr>';
@@ -76,7 +76,6 @@ class Exame extends Page
     // Método para apresenatar os registos do exames cadastrados
     private static function getExames($request, &$obPagination)
     {
-
         $item = '';
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
@@ -122,21 +121,12 @@ class Exame extends Page
                 'numResultado' => $quantidadetotal,
             ]);
         }
-
-        return $item = strlen($item) ? $item : '<tr style=" align-items: center; height: 80px;">
-                                                     <td></td>
-                                                     <td></td>
-                                                     <td></td>
-                                                    <td></td>
-                                                    
-                                                    <td class="offset-m8">
-                                                     Nenhum Exame encontado
+        //Nenhum Exame encontado
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Base de dados sem registos de exame.
                                                     </td>
-                                                                                                         <td></td>
-                                                     <td></td>
-                                                     <td></td>
-                                                    <td></td>
-                                                </tr>';;
+                                                </tr>';
     }
 
     // Método que apresenta a tela do Funcionario
@@ -147,131 +137,102 @@ class Exame extends Page
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
             'item' => self::getExames($request, $obPagination),
-            'paginacao' => parent::getPaginacao($request, $obPagination)
+            'paginacao' => parent::getPaginacao($request, $obPagination),
+
+            'nome' => "",
+            'valor' => "",
+            'descrisao' => "",
+            'parametros' => "",
+
         ]);
         return parent::getPage('Painel Exames', $content);
     }
 
-    // Metodo que cadastra novo Funcionario
-    public static function cadastrarFuncionario($request)
+
+    // Metodo que cadastrar novo Exame
+    public static function cadastrarExame($request)
     {
-        // Instancia o Model Funcionario
-        $obFuncionario = new FuncionarioDao;
+        // Instancia o Model Exame
+        $obExame = new ExameDao;
 
-        // Instancia o Model Funcionario
-        $obFuncionarioNivel = new FuncionarioNivelDao;
+        
 
-        $postVars = $request->getPostVars();
+            $obExame->nome_exame = $_POST['nome'];
+            $obExame->tipo_exame = $_POST['categoria'];
+            $obExame->parametro_exame = $_POST['parametros'];
+            $obExame->valor_exame = $_POST['valor'];
+            $obExame->estado_exame = $_POST['estado'];
 
-        if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['ordem'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_FILES['imagem'])) {
+            // faz o cadastramento e obtem o id registrado do exame
+            $idExame = $obExame->cadastrarExame();
 
-            $obUpload = new Upload($_FILES['imagem']) ?? '';
+            $request->getRouter()->redirect('/exame?msg=cadastrado');
+            exit;
+        
 
-            if ($_FILES['imagem']['error'] == 4) {
+        return true;
+    }
 
-                $obFuncionario->nome_funcionario = $_POST['nome'];
-                $obFuncionario->genero_funcionario = $_POST['genero'];
-                $obFuncionario->nascimento_funcionario = $_POST['data'];
-                $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
-                $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
-                $obFuncionario->email_funcionario = $_POST['email'];
-                $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
-                $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
-                $obFuncionario->cargo_funcionario = $_POST['cargo'];
-                $obFuncionario->morada_funcionario = $_POST['morada'];
-                $obFuncionario->senha_funcionario = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-                $obFuncionario->imagem_funcionario = 'anonimo.png';
-                // faz o cadastramento e obtem o id registrado do funcionario
-                $idFuncionario = $obFuncionario->cadastrarFuncionario();
+    // Metodo que cadastrar novo Exame
+    public static function cadastrarExame1($request)
+    {
+        // Instancia o Model Exame
+        $obExame = new ExameDao;
 
-                $obFuncionarioNivel->id_funcionario = $idFuncionario;
-                $obFuncionarioNivel->id_nivel = $_POST['perfilAcesso'];
-                $obFuncionarioNivel->addNivelAcesso();
+        if (isset($_POST['nome'], $_POST['tipo'],)) {
 
-                $request->getRouter()->redirect('/utilizadores?msg=cadastrado');
-                exit;
-            }
+            $obExame->nome_exame = $_POST['nome'];
+            $obExame->tipo_exame = $_POST['tipo'];
+            $obExame->parametro_exame = $_POST['parametro'];
+            $obExame->valor_exame = $_POST['valor'];
+            $obExame->estado_exame = $_POST['estado'];
 
-            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
+            // faz o cadastramento e obtem o id registrado do exame
+            $idExame = $obExame->cadastrarExame();
 
-            $obFuncionario->nome_funcionario = $_POST['nome'];
-            $obFuncionario->genero_funcionario = $_POST['genero'];
-            $obFuncionario->nascimento_funcionario = $_POST['data'];
-            $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
-            $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
-            $obFuncionario->email_funcionario = $_POST['email'];
-            $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
-            $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
-            $obFuncionario->morada_funcionario = $_POST['morada'];
-            $obFuncionario->cargo_funcionario = $_POST['cargo'];
-            $obFuncionario->senha_funcionario = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-            $obFuncionario->imagem_funcionario = $obUpload->getBaseName();
-
-            $idFuncionario =  $obFuncionario->cadastrarFuncionario();
-
-            $obFuncionarioNivel->id_funcionario = $idFuncionario;
-            $obFuncionarioNivel->id_nivel = $_POST['perfilAcesso'];
-            $obFuncionarioNivel->addNivelAcesso();
-
-            if ($sucess) {
-                $request->getRouter()->redirect('/utilizadores?msg=cadastrado');
-                exit;
-            } else {
-                echo 'Ficheiro não Enviado';
-            }
+            $request->getRouter()->redirect('/exame?msg=cadastrado');
+            exit;
         }
 
         // Renderiza a tela de formulario do funcionario add
-        $content = View::render('funcionario/formFuncionario', [
-            'perfilCadastrado' => self::getExame(),
-            'titulo' => 'Cadastrar Novo Utilizadores',
+        $content = View::render('configuracao/exame/formExame', [
+            'titulo' => 'Cadastrar Novo Exame',
             'button' => 'salvar',
             'msg' => '',
             'nome' => '',
             'ordem' => '',
-            'morada' => '',
-            'femenino' => '',
-            'data' => '',
-            'bilhete' => '',
-            'email' => '',
-            'telefone2' => '',
-            'telefone1' => '',
             'nivel' => '',
-
-            'senha' => '',
-            'senhaConfirma' => '',
-            'imagem' => 'anonimo.png',
         ]);
 
-        return parent::getPage('Novo Utilizador', $content);
+        return parent::getPage('Novo Exame', $content);
     }
 
     // Método que edita dados do Funcionario
-    public static function getAtualizarFuncionario($request, $id_funcionario)
+    public static function getAtualizarFuncionario($request, $id_exame)
     {
         // Busca um Funcionario por id
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+        $obExame = FuncionarioDao::getFuncionarioId($id_exame);
 
         $content = View::render('funcionario/formFuncionarioEditar', [
             'perfilCadastrado' => self::getExame(),
             'titulo' => 'Edita Dados Utilizadores',
             'button' => 'salvar',
-            'nome' => $obFuncionario->nome_funcionario,
-            'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
-            'data' => $obFuncionario->nascimento_funcionario,
-            'bilhete' => $obFuncionario->bilhete_funcionario,
-            'ordem' => $obFuncionario->numeroordem_funcionario,
-            'email' => $obFuncionario->email_funcionario,
-            'telefone1' => $obFuncionario->telefone1_funcionario,
-            'telefone2' => $obFuncionario->telefone2_funcionario,
-            'morada' => $obFuncionario->morada_funcionario,
-            'cargo-admin' => $obFuncionario->cargo_funcionario == 'Administrador' ? 'selected' : '',
-            'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
-            'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
-            'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
-            'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
-            'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
-            'imagem' => $obFuncionario->imagem_funcionario,
+            'nome' => $obExame->nome_exame,
+            'genero' => $obExame->genero_exame == 'Feminino' ? 'checked' : '',
+            'data' => $obExame->nascimento_exame,
+            'bilhete' => $obExame->bilhete_exame,
+            'ordem' => $obExame->numeroordem_exame,
+            'email' => $obExame->email_exame,
+            'telefone1' => $obExame->telefone1_exame,
+            'telefone2' => $obExame->telefone2_exame,
+            'morada' => $obExame->morada_exame,
+            'cargo-admin' => $obExame->cargo_exame == 'Administrador' ? 'selected' : '',
+            'cargo-medico' => $obExame->cargo_exame == 'Médico' ? 'selected' : '',
+            'cargo-enfermero' => $obExame->cargo_exame == 'Enfermeiro' ? 'selected' : '',
+            'cargo-farmaceutico' => $obExame->cargo_exame == 'Farmacêuticos' ? 'selected' : '',
+            'cargo-analista' => $obExame->cargo_exame == 'Analista Clínico' ? 'selected' : '',
+            'cargo-tecnico' => $obExame->cargo_exame == 'Técnicos de Enfermagem' ? 'selected' : '',
+            'imagem' => $obExame->imagem_exame,
 
             'senha' => '',
             'senhaConfirma' => '',
@@ -281,10 +242,10 @@ class Exame extends Page
     }
 
     // Metodo para editar Funcionario
-    public static function setAtualizarFuncionario($request, $id_funcionario)
+    public static function setAtualizarFuncionario($request, $id_exame)
     {
         // Busca um Funcionario por id
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+        $obExame = FuncionarioDao::getFuncionarioId($id_exame);
 
         $postVars = $request->getPostVars();
 
@@ -294,37 +255,37 @@ class Exame extends Page
 
             if ($_FILES['imagem']['error'] == 4) {
 
-                $obFuncionario->nome_funcionario = $_POST['nome'];
-                $obFuncionario->genero_funcionario = $_POST['genero'];
-                $obFuncionario->nascimento_funcionario = $_POST['data'];
-                $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
-                $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
-                $obFuncionario->email_funcionario = $_POST['email'];
-                $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
-                $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
-                $obFuncionario->cargo_funcionario = $_POST['cargo'];
-                $obFuncionario->morada_funcionario = $_POST['morada'];
-                $obFuncionario->imagem_funcionario = 'anonimo.png' != null ? $obFuncionario->imagem_funcionario : 'anonimo.png';;
-                $obFuncionario->atualizarFuncionario();
+                $obExame->nome_exame = $_POST['nome'];
+                $obExame->genero_exame = $_POST['genero'];
+                $obExame->nascimento_exame = $_POST['data'];
+                $obExame->bilhete_exame = $_POST['bilhete'];
+                $obExame->numeroordem_exame = $_POST['ordem'];
+                $obExame->email_exame = $_POST['email'];
+                $obExame->telefone1_exame = $_POST['telefone1'];
+                $obExame->telefone2_exame = $_POST['telefone2'];
+                $obExame->cargo_exame = $_POST['cargo'];
+                $obExame->morada_exame = $_POST['morada'];
+                $obExame->imagem_exame = 'anonimo.png' != null ? $obExame->imagem_exame : 'anonimo.png';;
+                $obExame->atualizarFuncionario();
 
                 $request->getRouter()->redirect('/utilizadores?msg=alterado');
             }
 
             $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
 
-            $obFuncionario->nome_funcionario = $_POST['nome'] ?? $obFuncionario->nome_funcionario;
-            $obFuncionario->genero_funcionario = $_POST['genero'] ?? $obFuncionario->genero_funcionario;
-            $obFuncionario->nascimento_funcionario = $_POST['data'];
-            $obFuncionario->bilhete_funcionario = $_POST['bilhete'];
-            $obFuncionario->numeroordem_funcionario = $_POST['ordem'];
-            $obFuncionario->email_funcionario = $_POST['email'];
-            $obFuncionario->telefone1_funcionario = $_POST['telefone1'];
-            $obFuncionario->telefone2_funcionario = $_POST['telefone2'];
-            $obFuncionario->cargo_funcionario = $_POST['cargo'];
-            $obFuncionario->morada_funcionario = $_POST['morada'];
-            $obFuncionario->imagem_funcionario = $obUpload->getBaseName()  ?? $obFuncionario->imagem_funcionario;
+            $obExame->nome_exame = $_POST['nome'] ?? $obExame->nome_exame;
+            $obExame->genero_exame = $_POST['genero'] ?? $obExame->genero_exame;
+            $obExame->nascimento_exame = $_POST['data'];
+            $obExame->bilhete_exame = $_POST['bilhete'];
+            $obExame->numeroordem_exame = $_POST['ordem'];
+            $obExame->email_exame = $_POST['email'];
+            $obExame->telefone1_exame = $_POST['telefone1'];
+            $obExame->telefone2_exame = $_POST['telefone2'];
+            $obExame->cargo_exame = $_POST['cargo'];
+            $obExame->morada_exame = $_POST['morada'];
+            $obExame->imagem_exame = $obUpload->getBaseName()  ?? $obExame->imagem_exame;
 
-            $obFuncionario->atualizarFuncionario();
+            $obExame->atualizarFuncionario();
 
             if ($sucess) {
                 $request->getRouter()->redirect('/utilizadores?msg=alterado');
@@ -338,7 +299,7 @@ class Exame extends Page
     }
 
     // Metodo para apagar Funcionario
-    public static function setApagarFuncionario($request, $id_funcionario)
+    public static function setApagarFuncionario($request, $id_exame)
     {
         $cancelar = $_POST['cancelar'] ?? "";
 
@@ -351,104 +312,11 @@ class Exame extends Page
         if (isset($_POST['confirmo'])) {
 
             // Busca o funcionario por ID
-            $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
-            $obFuncionario->apagarFuncionario();
+            $obExame = FuncionarioDao::getFuncionarioId($id_exame);
+            $obExame->apagarFuncionario();
             $request->getRouter()->redirect('/utilizadores?msg=apagado');
         }
 
         $request->getRouter()->redirect('/utilizadores?msg=confirma');
-    }
-
-    // Método conta Funcionario
-    public static function getFuncionarioConta($request, $id_funcionario)
-    {
-        // Busca um Funcionario por id
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
-
-        $content = View::render('funcionario/funcionarioConta', [
-            'perfilCadastrado' => self::getExame(),
-            'titulo' => 'Edita Dados Utilizadores',
-            'button' => 'salvar',
-            'nome' => $obFuncionario->nome_funcionario,
-            'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
-            'data' => $obFuncionario->nascimento_funcionario,
-            'bilhete' => $obFuncionario->bilhete_funcionario,
-            'ordem' => $obFuncionario->numeroordem_funcionario,
-            'email' => $obFuncionario->email_funcionario,
-            'telefone1' => $obFuncionario->telefone1_funcionario,
-            'telefone2' => $obFuncionario->telefone2_funcionario,
-            'morada' => $obFuncionario->morada_funcionario,
-            'cargo-admin' => $obFuncionario->cargo_funcionario == 'Administrador' ? 'selected' : '',
-            'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
-            'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
-            'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
-            'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
-            'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
-            'imagem' => $obFuncionario->imagem_funcionario,
-
-            'senha' => '',
-            'senhaConfirma' => '',
-        ]);
-
-        return parent::getPage('Conta Funcionario', $content);
-    }
-
-    // Método editar perfil Funcionario
-    public static function editarPerfilU($request, $id_funcionario)
-    {
-        // Busca um Funcionario por id
-        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
-
-        // Busca um Funcionario por id
-        $obFuncionarioNivel = FuncionarioNivelDao::getFuncionarioNivelId($id_funcionario);
-
-        $content = View::render('funcionario/funcionarioPerfilAcesso', [
-            'perfilCadastrado' => self::getExame(),
-            'msg' => self::exibeMensagem($request),
-
-            'titulo' => 'Editar Nivel de Acesso',
-            'button' => 'salvar',
-            'nome' => $obFuncionario->nome_funcionario,
-            'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
-            'data' => $obFuncionario->nascimento_funcionario,
-            'bilhete' => $obFuncionario->bilhete_funcionario,
-            'ordem' => $obFuncionario->numeroordem_funcionario,
-            'email' => $obFuncionario->email_funcionario,
-            'telefone1' => $obFuncionario->telefone1_funcionario,
-            'telefone2' => $obFuncionario->telefone2_funcionario,
-            'morada' => $obFuncionario->morada_funcionario,
-            'cargo-admin' => $obFuncionario->cargo_funcionario == 'Administrador' ? 'selected' : '',
-            'cargo-medico' => $obFuncionario->cargo_funcionario == 'Médico' ? 'selected' : '',
-            'cargo-enfermero' => $obFuncionario->cargo_funcionario == 'Enfermeiro' ? 'selected' : '',
-            'cargo-farmaceutico' => $obFuncionario->cargo_funcionario == 'Farmacêuticos' ? 'selected' : '',
-            'cargo-analista' => $obFuncionario->cargo_funcionario == 'Analista Clínico' ? 'selected' : '',
-            'cargo-tecnico' => $obFuncionario->cargo_funcionario == 'Técnicos de Enfermagem' ? 'selected' : '',
-            'imagem' => $obFuncionario->imagem_funcionario,
-
-        ]);
-
-        return parent::getPage('Alter Perfil Funcionario', $content);
-    }
-
-    // Metodo editar perfil Funcionario
-    public static function setEditarPerfilU($request, $id_funcionario)
-    {
-
-        $idFuncionarioSelecionado = $id_funcionario;
-
-        if (isset($_POST['perfilAcesso'])) {
-
-            // Busca um Funcionario por id
-            $obFuncionarioNivel2 = FuncionarioNivelDao::getFuncionarioNivelId($id_funcionario)->fetchObject(FuncionarioNivelDao::class);
-
-            $obFuncionarioNivel2->id_funcionario = $idFuncionarioSelecionado;
-            $obFuncionarioNivel2->id_nivel = $_POST['perfilAcesso'];
-
-            $obFuncionarioNivel2->atualizarNivelAcesso();
-
-            $request->getRouter()->redirect('/utilizadores?msg=alteradonivel');
-        }
-
-        $request->getRouter()->redirect('/utilizadores-perfil/' . $id_funcionario . '?msg=seleciona');
     }
 }
