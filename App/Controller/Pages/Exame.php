@@ -30,19 +30,19 @@ class Exame extends Page
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
-                return MensagemAdmin::msgSucesso('Funcionario Cadastrado com sucesso');
+                return MensagemAdmin::msgSucesso('Exame Cadastrado com sucesso');
                 break;
             case 'alterado':
-                return MensagemAdmin::msgSucesso('Funcionario Alterado com sucesso');
+                return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'alteradonivel':
-                return MensagemAdmin::msgSucesso('Nivel de acesso Alterado com sucesso');
+                return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'seleciona':
                 return MensagemAdmin::msgAlerta('Clica em selecionar antes de salvar');
                 break;
             case 'apagado':
-                return MensagemAdmin::msgSucesso('Funcionario Apagado com sucesso');
+                return MensagemAdmin::msgSucesso('Exame Apagado com sucesso');
                 break;
             case 'confirma':
                 return MensagemAdmin::msgAlerta('Clica em Confirmar antes de apagar');
@@ -154,8 +154,6 @@ class Exame extends Page
     {
         // Instancia o Model Exame
         $obExame = new ExameDao;
-
-        
 
             $obExame->nome_exame = $_POST['nome'];
             $obExame->tipo_exame = $_POST['categoria'];

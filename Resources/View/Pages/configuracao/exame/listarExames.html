@@ -8,14 +8,14 @@
 
     <td>
 
-        <a class="tooltip-container " href="{{URL}}/funcionario/editar/{{id_funcionario}}">
+        <a class="tooltip-container modal-trigger" href="#modalExame{{id_exame}}">
             <button type="button " class="font-normal waves-effect btn blue darken-2 tooltip-btn">
                 <i class="material-icons center">edit</i>
             </button>
             <div class="custom-tooltip">Editar Exame</div>
         </a>
 
-        <a class="tooltip-container modal-trigger" href="#modal{{id_funcionario}}">
+        <a class="tooltip-container modal-trigger" href="#modal{{id_exame}}">
             <button type="button " class="font-normal waves-effect btn red darken-1 tooltip-btn">
                 <i class="material-icons center">delete</i>
             </button>
@@ -26,8 +26,11 @@
 
 
 
+
+
+
 <!--- Modal apagar funcionario -->
-<div id="modal{{id_funcionario}}" class="modal apagarFuncionario ">
+<div id="modal{{id_exame}}" class="modal apagarFuncionario ">
     <div class="modal-content">
         <form action="{{URL}}/apagar/{{id_funcionario}}" method="post" class="row center white push-m2">
             <div class="col s12 m12">
@@ -75,4 +78,89 @@
             </button>
         </div>
     </div>
+</div>
+
+
+<!--- Modal editar Exame -->
+<div id="modalExame{{id_exame}}" class="modal  modalImprimirTriagem1 white">
+  <div class="modal-content">
+    <form action="{{URL}}/exame/editar/{{id_exame}}" method="post" class="row white push-m2">
+      <div class="col s12 m12">
+        <h5 class=" " style="text-transform: capitalize;">
+          <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">science</i>
+          <strong style="font-weight: bold;">Editar novo exame</strong>
+        </h5>
+      </div>
+      <div class="row col s12 m12">
+
+        <div class="row col m12">
+          <div class="input-field col s12 m8">
+            <input id="id" type="text" name="nome" value="{{nome}}" class="validate">
+            <label for="id" style="text-transform: capitalize;">Nome Completo:</label>
+          </div>
+
+          <div class="input-field col s12 m4">
+            <input id="nome" type="text" name="valor" value="{{valor}}" class="validate">
+            <label for="nome" style="text-transform: capitalize">Valor de Exame:</label>
+          </div>
+
+          <div class="input-field col s12 m8">
+            <input id="descrisao" type="text" name="descrisao" value="{{descrisao}}" />
+            <label for="descrisao" style="text-transform: capitalize;">Descrisão:</label>
+          </div>
+
+          <div class="input-field col s6 m4">
+            <input id="parametros" type="text" name="parametros" value="{{parametros}}">
+            <label for="parametros" style="text-transform: capitalize;">Parametros:</label>
+          </div>
+        </div>
+
+        <div class="row" style="padding: 7px 3px !important; margin: 0px !important;">
+          <div class="input-field col s6 m6" style="padding: 0px 3px !important; margin: 0px !important;">
+            <div class="input-field col s12">
+              <select name="categoria">
+                <option value="" disabled selected>Escolhe uma opção</option>
+                <option value="Imagem" {{cargo-medico}}>Imagem</option>
+                <option value="Sorológicos" {{cargo-enfermero}}>Sorológicos</option>
+                <option value="Bioquímicos" {{cargo-analista}}>Bioquímicos</option>
+                <option value="Urina" {{cargo-farmaceutico}}>Urina</option>
+                <option value="Microbiológicos" {{cargo-farmaceutico}}>Microbiológicos</option>
+              </select>
+              <label class="font-normal">Seleciona categoria</label>
+            </div>
+          </div>
+
+          <div class="input-field col s6 m6" style="padding: 0px 3px !important; margin: 0px !important;">
+            <div class="input-field col s12">
+              <select name="estado">
+                <option value="" disabled selected>Escolhe uma opção</option>
+                <option value="Activo" {{activo}}>Activo</option>
+                <option value="Desativado" {{Desativado}}>Desativado</option>
+              </select>
+              <label class="font-normal negrito">Seleciona o estado do nível</label>
+            </div>
+          </div>
+
+        </div>
+        
+      </div>
+
+      <div class=" col s12 " style="display: none;">
+        <input type="submit" id="submitess">
+      </div>
+    </form>
+
+    <div class="row offset-m8 col s12 m4" style="position: relative; top: -12px;">
+      <button class=" btn modal-close waves-effect blue darken-2 font-normal" name="cancelar" value="cancelar">
+        Cancelar
+      </button>
+
+      <button type="submit" class="btn teal font-normal" name="apagar" required>
+        <label class="white-text col m12" for="submitess">Salvar</label>
+      </button>
+    </div>
+
+    <div><br> <br></b></div>
+
+  </div>
 </div>

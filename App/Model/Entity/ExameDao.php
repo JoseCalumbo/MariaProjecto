@@ -33,8 +33,8 @@ class ExameDao{
     // faz um insert na tabela exame
     public function cadastrarExame(){
 
-        // salva a data de cadastramento da zona
-        $this->criado_exame = date('d-m-Y H:i:s');
+        // salva a data de cadastramento do exame 
+       // $this->criado_exame = date('d-m-Y H:i:s');
 
         // Instancia da Database
         $obDatabase = new Database('tb_exame');
