@@ -287,6 +287,7 @@ class Paciente extends Page
             'data' => $obPaciente->nascimento_paciente,
 
             'bilhete' => $obPaciente->bilhete_paciente,
+            
             'angolana' => $obPaciente->nacionalidade_paciente == 'Angolana' ? 'selected' : '',
             'estrageiro' => $obPaciente->nacionalidade_paciente == 'Estrangeiro' ? 'selected' : '',
 

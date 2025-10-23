@@ -49,75 +49,29 @@ $obRouter->post('/exame/cadastrar', [
     }
 ]);
 
-
-// rota para alterar um registro GET
-$obRouter->get('/funcionario/editar/{id_funcionario}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::getAtualizarFuncionario($request, $id_funcionario));
-    }
-]);
 // rota para alterar um registro POST 
-$obRouter->post('/funcionario/editar/{id_funcionario}', [
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setAtualizarFuncionario($request, $id_funcionario));
+$obRouter->get('/exame/editar/{id_exame}', [
+    function ($request, $id_exame) {
+        return new Response(200, Pages\Exame::getAtualizarExame($request, $id_exame));
     }
 ]);
 
-
-// Rota para cadastrar funcionario get
-$obRouter->get('/utilizadores/{id_funcionario}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::getFuncionarioConta($request, $id_funcionario));
-    }
-]);
-
-// Rota para alterar perfil de acesso get
-$obRouter->get('/utilizadores-perfil/{id_funcionario}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::editarPerfilU($request, $id_funcionario));
-    }
-]);
-
-// Rota para alterar perfil de acesso post
-$obRouter->post('/utilizadores-perfil/{id_funcionario}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setEditarPerfilU($request, $id_funcionario));
-    }
-]);
-
-
-
-// Rota para apagar utilizadores
-$obRouter->get('/apagar/{id_funcionario}', [
-    'middlewares'=>[
-        'requer-login',
-        'nivel-acesso'
-    ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setApagarFuncionario($request, $id_funcionario));
+// rota para alterar um registro POST 
+$obRouter->post('/exame/editar/{id_exame}', [
+    function ($request, $id_exame) {
+        return new Response(200, Pages\Exame::setAtualizarExame($request, $id_exame));
     }
 ]);
 
 // Rota para apagar utilizadores
-$obRouter->post('/apagar/{id_funcionario}', [
+$obRouter->post('/exame/apagar/{id_exame}', [
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
     ],
-    function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setApagarFuncionario($request, $id_funcionario));
+    function ($request, $id_exame) {
+        return new Response(200, Pages\Exame::setApagarExame($request, $id_exame));
     }
 ]);
+
 

@@ -39,7 +39,7 @@ class Exame extends Page
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'seleciona':
-                return MensagemAdmin::msgAlerta('Clica em selecionar antes de salvar');
+                return MensagemAdmin::msgAlerta('Ação não realizada');
                 break;
             case 'apagado':
                 return MensagemAdmin::msgSucesso('Exame Apagado com sucesso');
@@ -100,13 +100,25 @@ class Exame extends Page
         $resultado = ExameDao::listarExame($where, 'nome_exame ', $obPagination->getLimit());
 
         while ($obExames = $resultado->fetchObject(ExameDao::class)) {
+
             $item .= View::render('configuracao/exame/listarExames', [
                 'id_exame' => $obExames->id_exame,
                 'nome' => $obExames->nome_exame,
                 'tipo' => $obExames->tipo_exame,
-                'parametro' => $obExames->parametro_exame,
+                'parametros' => $obExames->parametro_exame,
                 'valor' => $obExames->valor_exame,
-                'dataRegistro' => $obExames->criado_exame
+                'descrisao' => $obExames->descrisao_exame,
+                'dataRegistro' => date('d-m-Y', strtotime($obExames->criado_exame)),
+                'estadoExame' => $obExames->estado_exame,
+
+                'activo' => $obExames->estado_exame == 'Activo' ? 'selected' : '',
+                'desativado' => $obExames->estado_exame == 'Desativado' ? 'selected' : '',
+
+                'Imagem' => $obExames->tipo_exame == 'Imagem' ? 'selected' : '',
+                'Sorológicos' => $obExames->tipo_exame == 'Sorológicos' ? 'selected' : '',
+                'Bioquímicos' => $obExames->tipo_exame == 'Bioquímicos' ? 'selected' : '',
+                'Urina' => $obExames->tipo_exame == 'Urina' ? 'selected' : '',
+                'Microbiológicos' => $obExames->tipo_exame == 'Microbiológicos' ? 'selected' : '',
             ]);
         }
 
@@ -155,166 +167,92 @@ class Exame extends Page
         // Instancia o Model Exame
         $obExame = new ExameDao;
 
-            $obExame->nome_exame = $_POST['nome'];
-            $obExame->tipo_exame = $_POST['categoria'];
-            $obExame->parametro_exame = $_POST['parametros'];
-            $obExame->valor_exame = $_POST['valor'];
-            $obExame->estado_exame = $_POST['estado'];
+        $obExame->nome_exame = $_POST['nome'];
+        $obExame->tipo_exame = $_POST['categoria'];
+        $obExame->descrisao_exame = $_POST['descrisao'];
+        $obExame->parametro_exame = $_POST['parametros'];
+        $obExame->valor_exame = $_POST['valor'];
+        $obExame->estado_exame = $_POST['estado'];
 
-            // faz o cadastramento e obtem o id registrado do exame
-            $idExame = $obExame->cadastrarExame();
+        // faz o cadastramento e obtem o id registrado do exame
+        $idExame = $obExame->cadastrarExame();
 
-            $request->getRouter()->redirect('/exame?msg=cadastrado');
-            exit;
-        
+        $request->getRouter()->redirect('/exame?msg=alterado');
+        exit;
+
 
         return true;
     }
 
-    // Metodo que cadastrar novo Exame
-    public static function cadastrarExame1($request)
-    {
-        // Instancia o Model Exame
-        $obExame = new ExameDao;
-
-        if (isset($_POST['nome'], $_POST['tipo'],)) {
-
-            $obExame->nome_exame = $_POST['nome'];
-            $obExame->tipo_exame = $_POST['tipo'];
-            $obExame->parametro_exame = $_POST['parametro'];
-            $obExame->valor_exame = $_POST['valor'];
-            $obExame->estado_exame = $_POST['estado'];
-
-            // faz o cadastramento e obtem o id registrado do exame
-            $idExame = $obExame->cadastrarExame();
-
-            $request->getRouter()->redirect('/exame?msg=cadastrado');
-            exit;
-        }
-
-        // Renderiza a tela de formulario do funcionario add
-        $content = View::render('configuracao/exame/formExame', [
-            'titulo' => 'Cadastrar Novo Exame',
-            'button' => 'salvar',
-            'msg' => '',
-            'nome' => '',
-            'ordem' => '',
-            'nivel' => '',
-        ]);
-
-        return parent::getPage('Novo Exame', $content);
-    }
-
     // Método que edita dados do Funcionario
-    public static function getAtualizarFuncionario($request, $id_exame)
+    public static function getAtualizarExame($request, $id_exame)
     {
-        // Busca um Funcionario por id
-        $obExame = FuncionarioDao::getFuncionarioId($id_exame);
+        // Busca o exame por id
+        $obExames = ExameDao::getExameId($id_exame);
 
-        $content = View::render('funcionario/formFuncionarioEditar', [
-            'perfilCadastrado' => self::getExame(),
-            'titulo' => 'Edita Dados Utilizadores',
+        $content = View::render('configuracao/exame/formEditarExame', [
+            'titulo' => 'Edita Dados Exame',
             'button' => 'salvar',
-            'nome' => $obExame->nome_exame,
-            'genero' => $obExame->genero_exame == 'Feminino' ? 'checked' : '',
-            'data' => $obExame->nascimento_exame,
-            'bilhete' => $obExame->bilhete_exame,
-            'ordem' => $obExame->numeroordem_exame,
-            'email' => $obExame->email_exame,
-            'telefone1' => $obExame->telefone1_exame,
-            'telefone2' => $obExame->telefone2_exame,
-            'morada' => $obExame->morada_exame,
-            'cargo-admin' => $obExame->cargo_exame == 'Administrador' ? 'selected' : '',
-            'cargo-medico' => $obExame->cargo_exame == 'Médico' ? 'selected' : '',
-            'cargo-enfermero' => $obExame->cargo_exame == 'Enfermeiro' ? 'selected' : '',
-            'cargo-farmaceutico' => $obExame->cargo_exame == 'Farmacêuticos' ? 'selected' : '',
-            'cargo-analista' => $obExame->cargo_exame == 'Analista Clínico' ? 'selected' : '',
-            'cargo-tecnico' => $obExame->cargo_exame == 'Técnicos de Enfermagem' ? 'selected' : '',
-            'imagem' => $obExame->imagem_exame,
 
-            'senha' => '',
-            'senhaConfirma' => '',
+            'nome' => $obExames->nome_exame,
+            'tipo' => $obExames->tipo_exame,
+            'parametros' => $obExames->parametro_exame,
+            'valor' => $obExames->valor_exame,
+            'descrisao' => $obExames->descrisao_exame,
+            'dataRegistro' => date('d-m-Y', strtotime($obExames->criado_exame)),
+            'estadoExame' => $obExames->estado_exame,
+
+            'activo' => $obExames->estado_exame == 'Activo' ? 'selected' : '',
+            'desativado' => $obExames->estado_exame == 'Desativado' ? 'selected' : '',
+
+            'Imagem' => $obExames->tipo_exame == 'Imagem' ? 'selected' : '',
+            'Sorológicos' => $obExames->tipo_exame == 'Sorológicos' ? 'selected' : '',
+            'Bioquímicos' => $obExames->tipo_exame == 'Bioquímicos' ? 'selected' : '',
+            'Urina' => $obExames->tipo_exame == 'Urina' ? 'selected' : '',
+            'Microbiológicos' => $obExames->tipo_exame == 'Microbiológicos' ? 'selected' : '',
+
+
         ]);
 
-        return parent::getPage('Eidtar dados Funcionario', $content);
+        return parent::getPage('Eidtar dados Exame', $content);
     }
 
     // Metodo para editar Funcionario
-    public static function setAtualizarFuncionario($request, $id_exame)
+    public static function setAtualizarExame($request, $id_exame)
     {
-        // Busca um Funcionario por id
-        $obExame = FuncionarioDao::getFuncionarioId($id_exame);
+        if (isset($_POST['Salvar'])) {
 
-        $postVars = $request->getPostVars();
-
-        if (isset($_POST['nome'], $_POST['data'], $_POST['bilhete'], $_POST['email'], $_POST['telefone1'], $_POST['cargo'], $_FILES['imagem'])) {
-
-            $obUpload = new Upload($_FILES['imagem']) ?? '';
-
-            if ($_FILES['imagem']['error'] == 4) {
-
-                $obExame->nome_exame = $_POST['nome'];
-                $obExame->genero_exame = $_POST['genero'];
-                $obExame->nascimento_exame = $_POST['data'];
-                $obExame->bilhete_exame = $_POST['bilhete'];
-                $obExame->numeroordem_exame = $_POST['ordem'];
-                $obExame->email_exame = $_POST['email'];
-                $obExame->telefone1_exame = $_POST['telefone1'];
-                $obExame->telefone2_exame = $_POST['telefone2'];
-                $obExame->cargo_exame = $_POST['cargo'];
-                $obExame->morada_exame = $_POST['morada'];
-                $obExame->imagem_exame = 'anonimo.png' != null ? $obExame->imagem_exame : 'anonimo.png';;
-                $obExame->atualizarFuncionario();
-
-                $request->getRouter()->redirect('/utilizadores?msg=alterado');
-            }
-
-            $sucess = $obUpload->upload(LOCAL_URL . '/Files/Imagem/user', false);
+            // Busca o exame por id
+            $obExame = ExameDao::getExameId($id_exame);
 
             $obExame->nome_exame = $_POST['nome'] ?? $obExame->nome_exame;
-            $obExame->genero_exame = $_POST['genero'] ?? $obExame->genero_exame;
-            $obExame->nascimento_exame = $_POST['data'];
-            $obExame->bilhete_exame = $_POST['bilhete'];
-            $obExame->numeroordem_exame = $_POST['ordem'];
-            $obExame->email_exame = $_POST['email'];
-            $obExame->telefone1_exame = $_POST['telefone1'];
-            $obExame->telefone2_exame = $_POST['telefone2'];
-            $obExame->cargo_exame = $_POST['cargo'];
-            $obExame->morada_exame = $_POST['morada'];
-            $obExame->imagem_exame = $obUpload->getBaseName()  ?? $obExame->imagem_exame;
+            $obExame->valor_exame = $_POST['valor'] ?? $obExame->valor_exame;
+            $obExame->parametro_exame = $_POST['parametros'] ?? $obExame->parametro_exame;
+            $obExame->descrisao_exame = $_POST['descrisao'] ?? $obExame->descrisao_exame;
+            $obExame->tipo_exame = $_POST['categoria'] ?? $obExame->tipo_exame;
+            $obExame->estado_exame = $_POST['estado'] ?? $obExame->estado_exame;
 
-            $obExame->atualizarFuncionario();
+            // faz o cadastramento e obtem o id registrado do exame
+            $obExame->AtualizarExame();
 
-            if ($sucess) {
-                $request->getRouter()->redirect('/utilizadores?msg=alterado');
-            } else {
-                echo 'Ficheiro nao Enviado';
-            }
-        }
-        $content = View::render('funcionario/formFuncionarioEditar', []);
-
-        return parent::getPage('Actualizar utilizador', $content);
-    }
-
-    // Metodo para apagar Funcionario
-    public static function setApagarFuncionario($request, $id_exame)
-    {
-        $cancelar = $_POST['cancelar'] ?? "";
-
-        // Verifica se o usuario clicou em cancelar
-        if ($cancelar == "cancelar") {
-            $request->getRouter()->redirect('/utilizadores');
+            $request->getRouter()->redirect('/exame');
             exit;
         }
 
-        if (isset($_POST['confirmo'])) {
+        $request->getRouter()->redirect('/exame?msg=seleciona');
+    }
 
-            // Busca o funcionario por ID
-            $obExame = FuncionarioDao::getFuncionarioId($id_exame);
-            $obExame->apagarFuncionario();
-            $request->getRouter()->redirect('/utilizadores?msg=apagado');
+
+    // Metodo para apagar Funcionario
+    public static function setApagarExame($request, $id_exame)
+    {
+        if (isset($_POST['Salvar'], $_POST['confirmo'])) {
+            // Busca o exame por id
+            $obExame = ExameDao::getExameId($id_exame);
+            $obExame->apagarExame();
+            $request->getRouter()->redirect('/exame?msg=apagado');
+        } else {
+            $request->getRouter()->redirect('/exame?msg=confirma');
         }
-
-        $request->getRouter()->redirect('/utilizadores?msg=confirma');
     }
 }
