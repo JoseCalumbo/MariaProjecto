@@ -232,7 +232,6 @@ class Perfil extends Page
         if (!empty($_POST['codigo_permisao'])) {
 
             foreach ($_POST['codigo_permisao'] as $valor) {
-
                 $obPermisaoNivel->id_nivel = $id_Nivel;
                 $obPermisaoNivel->id_permissoes = $valor;
                 $obPermisaoNivel->addPermissao();

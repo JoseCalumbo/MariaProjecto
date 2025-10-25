@@ -10,7 +10,7 @@
       <ul class="collection with-header ">
         <a href="{{URL}}/admin/conta" class="collection-item capitalize {{active}}">Editar conta</a>
         <a href="{{URL}}/admin/seguranca" class="collection-item capitalize ">Imprimir Ficha</a>
-        <a href="{{URL}}/admin/logout" class="collection-item capitalize ">Apagar conta</a>
+        <a href="#modalPaciente{{id_paciente}}" class="modal-trigger collection-item capitalize {{USER_PERFIL_VIEW}}">Apagar conta</a>
 
       </ul>
     </div>
@@ -75,6 +75,71 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!--- Modal Responsavel para apresentar o modal deletar triagem -->
+<div id="modalPaciente{{id_paciente}}" class="modal modalApagarTriagem ">
+    <div class="modal-content">
+        <form action="{{URL}}/paciente-apagar/{{id_paciente}}" method="post" class="row white push-m2">
+            <div class="col s12 m12">
+                <h5 class=" " style="text-transform: capitalize;">
+                    <i class="material-icons left red-text medium"
+                        style="position: relative; top: -12px;">error_outline</i>
+                    <strong style="font-weight: bold;">Apagar Paciente</strong>
+                </h5>
+            </div>
+
+            <div class="col s12 m2">
+                <img src="{{URL}}/Files/Imagem/user/{{imagem}}" style="position: relative; top: 43px;"
+                    class="materialboxed" width="80" height="95">
+            </div>
+
+            <div class="col s12 m9">
+                <p style="text-transform: lowercase;">
+                    Apagar o paciente <strong>{{nome}}</strong> permanentemente. Se tiver certeza e decidir prosseguir, todos os dados vinculados a esta conta serão excluídos de
+                    forma definitiva <strong>Esta ação é permanente e não poderá ser desfeita.</strong>
+                </p>
+                <p> <strong style="text-transform: lowercase;">Tem certeza? esta ação não poderá ser revertida</strong> </p>
+            </div>
+
+            <div class="offset-m2 col s12 m8">
+                <label>
+                    <input name="confirmo" type="checkbox" />
+                    <span> <strong style="font-weight: bold; color: black; text-transform: lowercase;">
+                            Sim, confirmo que excluí a conta</strong>
+                    </span>
+                </label>
+            </div>
+
+            <div class=" col s12 " style="display: none;">
+                <input type="submit" id="submitess">
+            </div>
+        </form>
+
+        <div class="row offset-m8 col s12 m4">
+            <button class=" btn modal-close waves-effect blue darken-2 font-normal" name="cancelar" value="cancelar">
+                Cancelar </button>
+            <button type="submit" class="btn red font-normal" name="apagar" required>
+                <label class="white-text col m12" for="submitess">Apagar</label>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 <script>

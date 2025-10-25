@@ -151,7 +151,7 @@ class Consulta extends Page
     }
 
     // Metodo que cadastra consultas
-    public static function cadastrarConsulta1($request)
+    public static function cadastrarConsulta($request)
     {
 
         $obZona = new ZonaDao;
@@ -181,7 +181,7 @@ class Consulta extends Page
     }
 
 
-       //metodo responsavel para pegar os paciente
+    //metodo responsavel para pegar os paciente
     public static function getPaciente()
     {
         $paciente = '';

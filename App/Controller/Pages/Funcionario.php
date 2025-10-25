@@ -146,8 +146,6 @@ class Funcionario extends Page
         // Instancia o Model Funcionario
         $obFuncionarioNivel = new FuncionarioNivelDao;
 
-        $postVars = $request->getPostVars();
-
         if (isset($_POST['nome'], $_POST['genero'], $_POST['data'], $_POST['bilhete'], $_POST['ordem'], $_POST['telefone1'], $_POST['telefone2'], $_POST['email'], $_POST['morada'], $_FILES['imagem'])) {
 
             $obUpload = new Upload($_FILES['imagem']) ?? '';
@@ -209,7 +207,7 @@ class Funcionario extends Page
         // Renderiza a tela de formulario do funcionario add
         $content = View::render('funcionario/formFuncionario', [
             'perfilCadastrado' => self::getPerfil(),
-            'titulo' => 'Cadastrar Novo Utilizadores',
+            'titulo' => 'Cadastrar novo utilizador',
             'button' => 'salvar',
             'msg' => '',
             'nome' => '',

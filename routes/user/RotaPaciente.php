@@ -67,35 +67,19 @@ $obRouter->get('/triagem/paciente/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
-    
     function($request,$id_paciente){ return new Response(200,Pages\Paciente::addTriagem($request,$id_paciente));}
 ]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-$obRouter->get('/vendedor/apagar/{id}',[
+$obRouter->get('/paciente-apagar/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request,$id){ return new Response(200,Pages\Paciente::apagarVendedor($request,$id));}
+    function($request,$id_paciente){ return new Response(200,Pages\PacienteAdmin::apagarPaciente($request,$id_paciente));}
 ]);
-
-// rota para apagar um vendedor
-$obRouter->post('/vendedor/apagar/{id}',[
+$obRouter->post('/paciente/apagar/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request,$id){ return new Response(200,Pages\Paciente::apagarVendedor($request,$id));}
+    function($request,$id_paciente){ return new Response(200,Pages\PacienteAdmin::apagarPaciente($request,$id_paciente));}
 ]);

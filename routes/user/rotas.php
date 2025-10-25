@@ -28,15 +28,12 @@ include __DIR__.'/RotaUtilizador.php';
 */
 include __DIR__.'/RotaPerfil.php';
 
-
 /** __________________________________ Exame _______________________________
  * inclui as rotas de exame
 */
 include __DIR__.'/RotaExame.php';
 
-
 //________________________________relatorio__________________________
-
 $obRouter->get('/relatorio',[
     'middlewares'=>[
         'requer-login',
@@ -97,13 +94,6 @@ include __DIR__.'/RotaConsultaDiaria.php';
  * inclui as rotas da consulta atendimento 
 */
 include __DIR__.'/RotaAtenderConsulta.php';
-
-
-
-
-
-
-
 
 
 //________________________ rota para ir na pagina conta___________________________

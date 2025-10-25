@@ -16,9 +16,9 @@
 
             <a href="{{URL}}/configuracao" class="collection-item font-normal ">Informação geral</a>
             <a href="{{URL}}/utilizadores" class="collection-item font-normal disabled-link">Notificação e Mensagem</a>
-            <a href="{{URL}}/configuracao-pacientes" class="collection-item font-normal ">Administração de Pacientes</a>
+            <a href="{{URL}}/configuracao-pacientes" class="collection-item font-normal {{active}}"> Administração de Pacientes</a>
             <a href="{{URL}}/utilizadores" class="collection-item font-normal ">Gestão de Usuários e Permissões</a>
-            <a href="{{URL}}/configuracao-cadastros" class="collection-item font-normal {{active}}">Cadastramento Básicos</a>
+            <a href="{{URL}}/configuracao-cadastros" class="collection-item font-normal ">Cadastramento Básicos</a>
             <a href="{{URL}}/admin/controle" class="collection-item font-normal disabled-link">Personalizar</a>
             <a href="{{URL}}/configuracao/seguranca" class="collection-item font-normal disabled-link">Segurança</a>
 
@@ -30,7 +30,7 @@
         <section class="row col m12">
 
             <div class="col m12 pull-m1 center">
-                <h6 class="negrito teal-text"> Cadastramentos Registrados</h6>
+                <h6 class="negrito teal-text"> Administração de Pacientes</h6>
                 <br>
             </div>
 
@@ -39,10 +39,10 @@
                     <br>
                     <div class=" ">
                         <div class="card-content red-text center">
-                            <a href="{{URL}}/exame" class="btn-floating  btn-large   waves-light teal">
-                                <i class="material-icons large">science</i>
+                            <a href="{{URL}}/config-paciente" class="btn-floating  btn-large   waves-light teal">
+                                <i class="material-icons large">groups</i>
                             </a>
-                            <p class="teal-text">Exames ({{numeroExame}})</p>
+                            <p class="teal-text">Registros ({{numeroPaciente}})</p>
                         </div>
                     </div>
                 </div>
@@ -52,45 +52,9 @@
                     <div class=" ">
                         <div class="card-content red-text center">
                             <a class="btn-floating btn-large waves-effect waves-light teal">
-                                <i class="material-icons large">password</i>
+                                <i class="material-icons large">medical_services</i>
                             </a>
-                            <p class="teal-text">Farmacos (82)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m3 ">
-                    <br>
-                    <div class=" ">
-                        <div class="card-content red-text center">
-                            <a class="btn-floating btn-large waves-effect waves-light teal">
-                                <i class="material-icons large">settings</i>
-                            </a>
-                            <p class="teal-text">Itens hospitalar (10)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m3 ">
-                    <br>
-                    <div class=" ">
-                        <div class="card-content red-text center">
-                            <a class="btn-floating btn-large waves-effect waves-light teal">
-                                <i class="material-icons large">add</i>
-                            </a>
-                            <p class="teal-text">Tipo de Consulta (2)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m3 ">
-                    <br>
-                    <div class=" ">
-                        <div class="card-content red-text center">
-                            <a href="{{URL}}/permissao" class="btn-floating btn-large waves-effect waves-light teal">
-                                <i class="material-icons large">lock_clock</i>
-                            </a>
-                            <p class="teal-text">Escala e Horario (3)</p>
+                            <p class="teal-text"> Consultas (82)</p>
                         </div>
                     </div>
                 </div>
@@ -102,23 +66,10 @@
                             <a class="btn-floating btn-large waves-effect waves-light teal">
                                 <i class="material-icons large">person</i>
                             </a>
-                            <p class="teal-text">Area de Especialidade (3)</p>
+                            <p class="teal-text">Triagem (10)</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col s12 m3 ">
-                    <br>
-                    <div class=" ">
-                        <div class="card-content red-text center">
-                            <a class="btn-floating btn-large waves-effect waves-light teal">
-                                <i class="material-icons large">settings</i>
-                            </a>
-                            <p class="teal-text">Serviços(0)</p>
-                        </div>
-                    </div>
-                </div>
-
             </section>
 
         </section>

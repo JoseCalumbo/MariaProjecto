@@ -171,11 +171,36 @@ class PacienteDao
         ]);
     }
 
-    // metodo para deletar um vendedor na tabela
-    public function apagar()
+    // Método para deletar um paciente na tabela
+    public function apagarPaciente()
     {
-        return (new Database('vendedor'))->delete('id =' . $this->id_paciente, []);
+        return (new Database('tb_paciente'))->delete('id_paciente =' . $this->id_paciente, []);
     }
+
+    // Método para pegar o id do paciente
+    public static function getPacienteId($id_paciente)
+    {
+        return (new Database('tb_paciente'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Lista todos os dados dos Paciente
@@ -186,29 +211,14 @@ class PacienteDao
         return (new Database('tb_paciente'))->select($where, $order, $limit, $fields);
     }
 
-    /**
-     * lista todos os dados do vendedor
+   /** Apresenta as listagem dados da triagem
      * @param string $where
      */
-    public static function listarVendedorZona($where = null, $order = null, $limit = null, $fields = '*')
+    public static function listarPacienteTriagem($id_paciente, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('vendedor JOIN zona ON 
-        vendedor.id_zona = zona.id_zona
-        '))->select($where, $order, $limit, $fields);
+        return (new Database('tb_triagem JOIN tb_paciente ON 
+                              tb_triagem.id_paciente = tb_paciente.id_paciente'))->select('id_paciente = ' . $id_paciente, $order, $limit, $fields);
     }
 
-    // Método para pegar o id do paciente
-    public static function getPacienteId($id_paciente)
-    {
-        return (new Database('tb_paciente'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);
-    }
 
-    /**
-     * Listar a quantidade total de negocio
-     * @param string $where
-     */
-    public static function quantidadeNeogio($where = null, $order = null, $limit = null, $fields = 'COUNT(*) as quantidade')
-    {
-        return (new Database('negocio'))->select($where, $order, $limit, $fields)->fetchObject()->quantidade;;
-    }
 }

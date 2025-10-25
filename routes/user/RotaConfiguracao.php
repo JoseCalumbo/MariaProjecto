@@ -28,6 +28,10 @@ $obRouter->post('/funcionario', [
     }
 ]);
 
+
+
+
+
 //Apresenta a tela de cadastrametros de servicos
 $obRouter->get('/configuracao-cadastros', [
     'middlewares' => [
@@ -35,6 +39,36 @@ $obRouter->get('/configuracao-cadastros', [
     ],
     function ($request) {
         return new Response(200,Pages\Configuracao::cadastrosBasico($request));
+    }
+]);
+
+//Apresenta a tela de gestao pacientes
+$obRouter->get('/configuracao-pacientes', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request) {
+        return new Response(200,Pages\Configuracao::configuracaoPaciente($request));
+    }
+]);
+
+
+
+
+
+
+
+
+
+
+
+//Apresenta a tela de gestao pacientes
+$obRouter->get('/config-paciente', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request) {
+        return new Response(200,Pages\PacienteAdmin::getAdminPaciente($request));
     }
 ]);
 

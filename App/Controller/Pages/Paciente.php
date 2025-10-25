@@ -8,7 +8,9 @@ use \App\Utils\Upload;
 use \App\Model\Entity\PacienteDao;
 use \App\Controller\Mensagem\Mensagem;
 use App\Model\Entity\TriagemDao;
-use App\Model\Entity\ContaDao;
+
+use \App\Utils\Session;
+use \App\Model\Entity\NivelDao;
 
 
 class Paciente extends Page
@@ -41,7 +43,6 @@ class Paciente extends Page
     //lista os usuario e paginacao
     private static function getPacientes($request, &$obPagination)
     {
-
         $item = '';
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $condicoes = [
@@ -79,7 +80,6 @@ class Paciente extends Page
                 'estados' => $obPaciente->estado_paciente,
             ]);
         }
-
         $queryParam = $request->getQueryParams();
 
         if ($queryParam['pesquisar'] ?? '') {
@@ -287,7 +287,7 @@ class Paciente extends Page
             'data' => $obPaciente->nascimento_paciente,
 
             'bilhete' => $obPaciente->bilhete_paciente,
-            
+
             'angolana' => $obPaciente->nacionalidade_paciente == 'Angolana' ? 'selected' : '',
             'estrageiro' => $obPaciente->nacionalidade_paciente == 'Estrangeiro' ? 'selected' : '',
 
@@ -319,7 +319,13 @@ class Paciente extends Page
         // Seleciona o paciente pelo ID
         $obPaciente = PacienteDao::getPacienteId($id_paciente);
 
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+        $resultado = NivelDao::VerificarNivel1($id);
+        $permissoes = array_column($resultado, "codigo_permisao");
+
         $content = View::render('paciente/pacientePerfil', [
+            'id_paciente' => $obPaciente->id_paciente,
             'nome' => $obPaciente->nome_paciente,
             'pai' => $obPaciente->pai_paciente,
             'mae' => $obPaciente->mae_paciente,
@@ -346,6 +352,8 @@ class Paciente extends Page
             'responsavelNome' => $obPaciente->responsavel_paciente,
             'responsavelTelefone' => $obPaciente->telefoneResponsavel_paciente,
             'imagem' => $obPaciente->imagem_paciente,
+
+            'USER_PERFIL_VIEW'     => in_array("USER_PERFIL_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
 
         ]);
 
@@ -400,52 +408,4 @@ class Paciente extends Page
         return parent::getPage('Registrar nova triagem ', $content);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // metodo para apagar um vendedor
-    public static function apagarVendedor($request, $id)
-    {
-
-        $obAddNegocio = new TriagemDao();
-
-        $conta = new ContaDao();
-
-        $obPaciente = PacienteDao::getPacienteId($id);
-
-        // validacao do click do botao apagar
-        if (isset($_POST['apagar'])) {
-
-           // $obAddNegocio->deleteAddNegocio($id);
-
-            $conta->apagarConta($id);
-
-            $obPaciente->apagar();
-
-            $request->getRouter()->redirect('/vendedor?msg=apagado');
-            exit;
-        }
-
-        $content = View::render('vendedor/apagarVendedor', [
-            'titulo' => ' Apagar o Vendedor',
-            'id' => $obPaciente->id,
-            'nome' => $obPaciente->nome_paciente,
-            'Criado' => $obPaciente->create_vs,
-            'imagem' => $obPaciente->imagem,
-        ]);
-
-        return parent::getPage('Apagar Vendedor', $content);
-    }
 }

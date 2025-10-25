@@ -130,6 +130,12 @@ class TriagemDao extends PacienteDao
         return (new Database('tb_triagem'))->delete('id_triagem = ' . $this->id_triagem, []);
     }
 
+    // faz um delete de um registro na tabela triagem
+    public function apagarTriagem1( $Triagema)
+    {
+        return (new Database('tb_triagem'))->delete('id_triagem = ' . $this->$Triagema);
+    }
+
 
     /** Apresenta as listagem dados da triagem
      * @param string $where
@@ -138,6 +144,14 @@ class TriagemDao extends PacienteDao
     {
         return (new Database('tb_triagem JOIN tb_paciente ON 
                               tb_triagem.id_paciente = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
+    }
+
+    /** Apresenta as listagem dados da triagem
+     * @param string $where
+     */
+    public static function getListarTriagem($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_triagem'))->select($where, $order, $limit, $fields);
     }
 
 
