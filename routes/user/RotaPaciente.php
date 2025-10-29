@@ -17,9 +17,6 @@ $obRouter->get('/paciente',[
     function($request){ return new Response(200,Pages\Paciente::getTelaPaciente($request));}
 ]);
 
-$obRouter->post('/paciente',[
-    function($request){ return new Response(200,Pages\Paciente::getTelaPaciente($request));}
-]);
 
 // rota para cadastrar um paciente
 $obRouter->get('/paciente/cadastrar',[
@@ -77,9 +74,27 @@ $obRouter->get('/paciente-apagar/{id_paciente}',[
     ],
     function($request,$id_paciente){ return new Response(200,Pages\PacienteAdmin::apagarPaciente($request,$id_paciente));}
 ]);
-$obRouter->post('/paciente/apagar/{id_paciente}',[
+
+$obRouter->post('/paciente-apagar/{id_paciente}',[
     'middlewares'=>[
         'requer-login'
     ],
     function($request,$id_paciente){ return new Response(200,Pages\PacienteAdmin::apagarPaciente($request,$id_paciente));}
+]);
+
+// rota para apagar Triagem GET
+$obRouter->get('/pacient/apagar/{id_triagem}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_triagem){ return new Response(200,Pages\PacienteAdmin::apagarPaciente($request,$id_triagem)); }
+]);
+
+// rota para apagar Triagem POST
+$obRouter->post('/pacient/apagar/{id_triagem}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request,$id_triagem){ return new Response(200,Pages\PacienteAdmin::apagarPaciente($request,$id_triagem)); }
 ]);

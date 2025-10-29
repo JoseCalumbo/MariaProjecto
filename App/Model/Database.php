@@ -98,7 +98,7 @@ class Database{
 
         $this->execute($query,array_values($values));
         
-       // echo '<pre>'; print_r($query);  echo '</pre>'; exit;
+       //echo '<pre>'; print_r($query);  echo '</pre>'; exit;
         return true;
     }
 
@@ -107,7 +107,7 @@ class Database{
         $query = 'DELETE FROM '.$this->table.' WHERE '.$where;
         $this->execute($query);
 
-        //echo '<pre>', $query, '</pre>';
+       //echo '<pre>'; print_r($query);  echo '</pre>'; exit;
 
         return true;
     }

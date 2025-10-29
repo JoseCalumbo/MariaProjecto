@@ -145,6 +145,7 @@ class Perfil extends Page
 
 
             'DATABASE_VIEW' => $IdPermissao[8],
+            'REGISTROS_DELETE' => $IdPermissao[1],
             'IMPORT_DATABASE_VIEW' => $IdPermissao[9],
 
             'LABORATORIO_ACESS' => $IdPermissao[9],
@@ -182,6 +183,7 @@ class Perfil extends Page
             //_________________________________________________________________________________
 
             'database_view1' => '',
+            'registros_delete1' => '',
             'import_database_view1' => '',
 
             'laboratorio_acess1' => '',
@@ -292,6 +294,7 @@ class Perfil extends Page
             'descrisao' => $nivels->descricao_nivel,
 
             'DATABASE_VIEW' => $IdPermissao[8],
+            'REGISTROS_DELETE' => $IdPermissao[1],
             'IMPORT_DATABASE_VIEW' => $IdPermissao[9],
 
             'LABORATORIO_ACESS' => $IdPermissao[9],
@@ -330,6 +333,7 @@ class Perfil extends Page
 
 
             'database_view1' => in_array($IdPermissao[8], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
+            'registros_delete1' => in_array($IdPermissao[1], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
             'import_database_view1' => in_array($IdPermissao[9], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
 
             'laboratorio_acess1' => in_array($IdPermissao[9], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',

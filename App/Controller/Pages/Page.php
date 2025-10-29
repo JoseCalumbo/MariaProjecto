@@ -125,7 +125,9 @@ class Page
             'acessoFarmacia' => in_array("FARMACIA_VIEW", $permissoes) ? "Com permissão" : "disabled-link",
 
             'DATABASE_VIEW'        => in_array("DATABASE_VIEW", $permissoes) ? "Com permissão " : "disabled-link",
+            'REGISTROS_DELETE'        => in_array("REGISTROS_DELETE", $permissoes) ? "Com permissão " : "disabled-link",
             'IMPORT_DATABASE_VIEW' => in_array("IMPORT_DATABASE_VIEW", $permissoes) ? "Com permissão " : "disabled-link",
+
             'LABORATORIO_ACESS'    => in_array("LABORATORIO_ACESS", $permissoes) ? "com permissao" : "disabled-link",
             'EXAME_ACESS'          => in_array("EXAME_ACESS", $permissoes) ? "Com permissão" : "disabled-link",
             'EXAME_CREATE'         => in_array("EXAME_CREATE", $permissoes) ? "Com permissão " : "disabled-link",

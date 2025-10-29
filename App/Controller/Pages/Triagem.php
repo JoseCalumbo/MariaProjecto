@@ -4,10 +4,12 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Utils\Pagination;
-use \App\Model\Entity\NegocioDao;
 use \App\Controller\Mensagem\Mensagem;
 use App\Model\Entity\TriagemDao;
 use App\Model\Entity\PacienteDao;
+
+use \App\Utils\Session;
+use \App\Model\Entity\NivelDao;
 
 class Triagem extends Page
 {
@@ -33,7 +35,7 @@ class Triagem extends Page
                 return Mensagem::msgSucesso('Triagem Apagado com sucesso');
                 break;
             case 'confirma':
-                return Mensagem::msgAlerta('Clica em Confirmar antes de apagar');
+                return Mensagem::msgAlerta('Alerta é necessria a tua confirmação para pagar os dados ');
                 break;
         } // fim do switch
     }
@@ -125,17 +127,32 @@ class Triagem extends Page
                 'numResultado' => $quantidadetotal,
             ]);
         }
-        return $item;
+      //Nenhum Exame encontado
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Base de dados sem registos de triagem.
+                                                    </td>
+                                                </tr>';
+       
     }
 
     // Apresenta a listagem da Triagem 
     public static function pagTriagem($request)
     {
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+        $resultado = NivelDao::VerificarNivel1($id);
+        $permissoes = array_column($resultado, "codigo_permisao");
+
         $content = View::render('triagem/triagem', [
             'msg' => self::exibeMensagem($request),
             'pesquisar' => '',
             'item' => self::getTriagem($request, $obPagination),
-            'paginacao' => parent::getPaginacao($request, $obPagination)
+            'paginacao' => parent::getPaginacao($request, $obPagination),
+
+            'REGISTROS_DELETE'  => in_array("REGISTROS_DELETE", $permissoes) ? "Com permissão " : "disabled-link",
+            'enable_btn'        => in_array("REGISTROS_DELETE", $permissoes) ? "Com permissão " : "grey lighten-4",
+
         ]);
         return parent::getPage('Painel Triagem', $content);
     }

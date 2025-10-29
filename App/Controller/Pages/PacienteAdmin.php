@@ -31,11 +31,11 @@ class PacienteAdmin extends Page
             case 'cadastrados':
                 return Mensagem::msgSucesso('Triagem Registrada com sucesso');
                 break;
-            case 'alterado':
-                return Mensagem::msgSucesso('Paciente Alterado com sucesso');
+            case 'confirma':
+                return Mensagem::msgAlerta('Alerta é necessria a tua confirmação para pagar os dados ');
                 break;
             case 'apagado':
-                return Mensagem::msgSucesso('Paciente Apagdo com sucesso');
+                return Mensagem::msgSucesso('Paciente Apagado com sucesso');
                 break;
         } // fim do switch
     }
@@ -70,7 +70,7 @@ class PacienteAdmin extends Page
             $formataIdade = date("Y", strtotime($obPaciente->nascimento_paciente));
             $idade = date("Y") - $formataIdade;
 
-            $item .= View::render('paciente/listarPacienteAdmin', [
+            $item .= View::render('configuracao/paciente/listarPacienteAdmin', [
                 'id_paciente' => $obPaciente->id_paciente,
                 'imagem' => $obPaciente->imagem_paciente,
                 'nome' => $obPaciente->nome_paciente,
@@ -174,53 +174,18 @@ class PacienteAdmin extends Page
     public static function apagarPaciente($request, $id_paciente)
     {
 
-                  $idTriagem = []; // array para armazenar resultados
-
-                  $Triagema = new TriagemDao;
-
-        // Seleciona o paciente pelo id/
+        // Seleciona o paciente pelo id
         $obPaciente = PacienteDao::getPacienteId($id_paciente);
-        $idP = $obPaciente->id_paciente;
 
-        $resultado = TriagemDao::getListarTriagem($id_paciente);
+        $idPaciente = $obPaciente->id_paciente;
 
-        while ($triagem = $resultado->fetch()) {
+        // $TriagemPaciente = TriagemDao::getListarTriagemPaciente($id_paciente);
+        // Instancia da class Triagem
+        $TriagemPaciente = new TriagemDao;
 
-            // $triagem[""];
+        if (isset($_POST['Salvar'],$_POST['confirmo'],)) {
 
-
-            if ($idP == $triagem["id_paciente"]) {
-                $idTriagem = $triagem["id_triagem"];
-                $Triagema->apagarTriagem1($idTriagem);
-            }
-        }
-
-
-
-
-        exit;
-
-
-
-        echo '<pre>';
-        print_r($triagem);
-        echo '</pre>';
-
-
-        echo '<pre>';
-        print_r($triagem->id_triagem);
-        echo '</pre>';
-
-        /*
-        $resultado = TriagemDao::listarTriagem($id_paciente);
-        $id_trigaem = array_column($resultado, "codigo_permisao");
-
-        echo '<pre>';
-        print_r($permissoes);
-        echo '</pre>';
-        exit;  */
-
-        if (isset($_POST['Salvar'])) {
+            $TriagemPaciente->apagarTriagemPaciente($id_paciente);
 
             $obPaciente->apagarPaciente();
 

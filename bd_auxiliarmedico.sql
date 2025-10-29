@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Set-2025 às 19:21
--- Versão do servidor: 10.4.19-MariaDB
--- versão do PHP: 8.0.6
+-- Tempo de geração: 26-Out-2025 às 14:42
+-- Versão do servidor: 10.4.32-MariaDB
+-- versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,23 +24,40 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_exame`
+--
+
+CREATE TABLE `tb_exame` (
+  `id_exame` int(20) NOT NULL,
+  `nome_exame` varchar(50) NOT NULL,
+  `parametro_exame` varchar(50) DEFAULT NULL,
+  `tipo_exame` varchar(50) NOT NULL,
+  `estado_exame` enum('Activo','Desativado') NOT NULL,
+  `valor_exame` int(60) NOT NULL,
+  `criado_exame` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `descrisao_exame` varchar(60) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_funcionario`
 --
 
 CREATE TABLE `tb_funcionario` (
   `id_funcionario` int(11) NOT NULL,
-  `nome_funcionario` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cargo_funcionario` enum('Médico','Enfermeiro','Analista Clínico','Farmacêuticos','Técnicos de Enfermagem','Administrador') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nome_funcionario` varchar(50) NOT NULL,
+  `cargo_funcionario` enum('Médico','Enfermeiro','Analista Clínico','Farmacêuticos','Técnicos de Enfermagem','Administrador') NOT NULL,
   `nascimento_funcionario` date DEFAULT NULL,
-  `genero_funcionario` enum('Masculino','Feminino') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `morada_funcionario` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bilhete_funcionario` varchar(70) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `numeroordem_funcionario` varchar(70) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email_funcionario` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `genero_funcionario` enum('Masculino','Feminino') DEFAULT NULL,
+  `morada_funcionario` varchar(200) DEFAULT NULL,
+  `bilhete_funcionario` varchar(70) DEFAULT NULL,
+  `numeroordem_funcionario` varchar(70) DEFAULT NULL,
+  `email_funcionario` varchar(100) NOT NULL,
   `telefone1_funcionario` int(11) DEFAULT NULL,
   `telefone2_funcionario` int(11) DEFAULT NULL,
-  `imagem_funcionario` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `senha_funcionario` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagem_funcionario` varchar(100) DEFAULT NULL,
+  `senha_funcionario` varchar(70) NOT NULL,
   `registrado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -49,13 +66,32 @@ CREATE TABLE `tb_funcionario` (
 --
 
 INSERT INTO `tb_funcionario` (`id_funcionario`, `nome_funcionario`, `cargo_funcionario`, `nascimento_funcionario`, `genero_funcionario`, `morada_funcionario`, `bilhete_funcionario`, `numeroordem_funcionario`, `email_funcionario`, `telefone1_funcionario`, `telefone2_funcionario`, `imagem_funcionario`, `senha_funcionario`, `registrado`) VALUES
-(7, 'Higino Daniel Carlino', 'Enfermeiro', '1936-03-12', 'Masculino', NULL, '123', '', 'higino@gmail.com', 0, 0, 'anonimo.png', '$2y$10$d..054MDxl3hpDFpWGVOae25UpM1cKsKTJGFVnCtWv146JV05zkvq', '2025-08-06 00:42:47'),
-(9, 'Isabel Bartolomeu', 'Analista Clínico', '2025-06-11', 'Feminino', 'a', '123', '005472882', 'isabel@gmail.com', 954332111, 956636773, 'perfil22-1.png', '$2y$10$y7ipZVWRCFQcSK6aFoGelOEok36rvmpx3q/vt8GrEqG8CzeuH2oVO', '2025-06-26 01:39:48'),
-(11, 'Maria  Zelma Gabi', 'Médico', '0000-00-00', 'Feminino', 'as Luanda', '12345', '00044511', 'maria@gmail.com', 94383390, 905432231, 'perfil11.png', '$2y$10$nW3J2cTRVyOnNLS.IBUD1u41u7zTePI/lTO4SVMtwYHbY/MgG.rGy', '2025-06-26 01:14:08'),
-(12, 'Ana  Zelma Erva', 'Administrador', '2015-06-15', 'Feminino', 'as', '12345', '00044511', 'ana@gmail.com', 903800990, 985432231, 'perfil01.png', '$2y$10$KkWkI8wWGgWBPWB58gPwOOkEfZ2TpqSBIiY.mRjR3TnFsHd4De722', '2025-06-26 01:39:53'),
-(13, 'Santos Silva Daniel ', 'Médico', '2025-06-05', 'Masculino', '', '12345', '123', 'santos@gmail.com', 901761291, 0, 'perfil5-1.png', '$2y$10$HKZp911jX6VsxYOMR8H0fufTb2t2AQ/9dDeEC8OYd0ljngmaUYUUy', '2025-06-26 02:42:20'),
-(14, 'Telmos Silva Daniel', 'Técnicos de Enfermagem', '2025-06-25', 'Masculino', 'Rua n2 , Bairro luanda', '12345', '00044511', 'telmos@gmail.com', 901761291, 905432231, 'anonimo.png', '$2y$10$Qy1lBsF4YfrUIJyoF43QMuDhyiQIsgSIClCZzCvs/oaTtclD4CyfG', '2025-06-26 02:45:12'),
-(15, 'Xavier Silva Daniel', 'Enfermeiro', '2025-06-04', 'Masculino', 'Rua n2 , Bairro Kilamba Kiaxe', '12345', '00044511', 'xavier@gmail.com', 943800990, 985432231, 'anonimo.png', '$2y$10$Mgs.xlpG9YhSK9yaHWs1b.Wd9pKI6ewNhMyi4DsLvP6TNWkXFb0ZO', '2025-08-05 22:39:58');
+(1, 'José Carlos', 'Administrador', '1995-10-11', 'Masculino', '', '', '', 'josecarlos@gmail.com', 923786590, 0, 'anonimo.png', '$2y$10$CzNDyQA93FVAiqZQLAXnee4ajoLRf6ySUUOAUWWAPQC.FSagpd5ba', '2025-10-07 20:24:00'),
+(2, 'Zelia Sandra Nadio', 'Enfermeiro', '1995-02-21', 'Feminino', 'Camama , 4 de Abril de Rua 20', '003901LA012', '09221', 'zelia@gmail.com', 923786590, 902111987, 'Capturar-removebg-preview.png', '$2y$10$JBSMUbXrbGr2JnR365.gOOuM2Odj8262ohAGEQ.YKkEa6Y5uNYIJG', '2025-10-08 18:44:41'),
+(9, 'Sandra Verónica ', 'Administrador', NULL, NULL, NULL, NULL, NULL, 'sandra@gmail.com', NULL, NULL, 'anonimo.png', '$2y$10$GH..q4Pdog5zqubY5XP82er70AfpsWhXl9RXJRTMVgmnx0igtgsBO', '2025-10-11 22:46:54'),
+(10, 'Camelia Sandra', 'Farmacêuticos', '2000-02-16', 'Feminino', '', '0067889', '00998877LA1009', 'camelia@gmail.com', 987098765, 9763212, 'perfil22-2.png', '$2y$10$Dqw4krf4FKJ6ibyLLHU3K.6B3BCgLOtScbe4yIiha1b6lJkjWyO5S', '2025-10-25 02:53:42');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_funcionario_nivel`
+--
+
+CREATE TABLE `tb_funcionario_nivel` (
+  `id_funcionario_nivel` int(15) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_nivel` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tb_funcionario_nivel`
+--
+
+INSERT INTO `tb_funcionario_nivel` (`id_funcionario_nivel`, `id_usuario`, `id_nivel`) VALUES
+(2, 1, 17),
+(4, 2, 21),
+(6, 9, 17),
+(7, 10, 21);
 
 -- --------------------------------------------------------
 
@@ -66,8 +102,22 @@ INSERT INTO `tb_funcionario` (`id_funcionario`, `nome_funcionario`, `cargo_funci
 CREATE TABLE `tb_nivel` (
   `id_nivel` int(15) NOT NULL,
   `nome_nivel` varchar(20) NOT NULL,
-  `descricao_nivel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `descricao_nivel` varchar(200) NOT NULL,
+  `criado_nivel` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tb_nivel`
+--
+
+INSERT INTO `tb_nivel` (`id_nivel`, `nome_nivel`, `descricao_nivel`, `criado_nivel`) VALUES
+(17, 'Administrador', 'Tem o acesso e permissões total do sistema e garantindo o bom funcionamento do sistema', '2025-10-07 19:50:00'),
+(18, 'Contabilista', 'Fazer contabilidade da caixa de entrada', '2025-10-07 20:52:22'),
+(19, 'Analista', 'Fazer contabilidade da caixa de entrada e analize', '2025-10-08 03:08:36'),
+(20, 'Farmácia', 'Tem acesso apenas aos recursos da farmácia', '2025-10-09 02:44:20'),
+(21, 'Enfermagem', 'Tem permissão para gerenciar os pacientes e serviços de enfermagem', '2025-10-09 19:36:41'),
+(22, 'Médico', 'Acesso ao consultorio, pedido de exames e prescrever em consulta', '2025-10-19 08:58:50'),
+(24, 'Teste', 'fazer o teste ', '2025-10-19 09:56:27');
 
 -- --------------------------------------------------------
 
@@ -77,8 +127,103 @@ CREATE TABLE `tb_nivel` (
 
 CREATE TABLE `tb_nivel_permissoes` (
   `id_nivel` int(20) NOT NULL,
-  `id_permissoes` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_permissoes` int(20) NOT NULL,
+  `id` int(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tb_nivel_permissoes`
+--
+
+INSERT INTO `tb_nivel_permissoes` (`id_nivel`, `id_permissoes`, `id`) VALUES
+(17, 13, 1),
+(17, 14, 2),
+(17, 14, 3),
+(17, 15, 4),
+(17, 17, 5),
+(17, 16, 6),
+(17, 18, 7),
+(17, 20, 8),
+(17, 21, 9),
+(17, 22, 10),
+(17, 23, 11),
+(17, 24, 12),
+(17, 26, 13),
+(17, 27, 14),
+(17, 28, 15),
+(17, 29, 16),
+(17, 31, 17),
+(17, 32, 18),
+(17, 33, 19),
+(17, 34, 20),
+(17, 35, 21),
+(17, 36, 22),
+(17, 37, 23),
+(17, 38, 24),
+(17, 39, 25),
+(17, 40, 26),
+(18, 13, 27),
+(18, 14, 28),
+(18, 14, 29),
+(18, 15, 30),
+(18, 17, 31),
+(18, 16, 32),
+(18, 18, 33),
+(18, 20, 34),
+(18, 21, 35),
+(18, 22, 36),
+(18, 23, 37),
+(18, 24, 38),
+(18, 26, 39),
+(18, 27, 40),
+(18, 28, 41),
+(18, 29, 42),
+(18, 31, 43),
+(18, 32, 44),
+(18, 33, 45),
+(18, 34, 46),
+(18, 35, 47),
+(18, 36, 48),
+(18, 37, 49),
+(18, 38, 50),
+(18, 39, 51),
+(18, 40, 52),
+(19, 23, 53),
+(19, 24, 54),
+(19, 31, 55),
+(19, 32, 56),
+(20, 26, 58),
+(20, 27, 59),
+(20, 28, 60),
+(20, 29, 61),
+(21, 23, 62),
+(21, 24, 63),
+(21, 34, 64),
+(21, 35, 65),
+(21, 36, 66),
+(21, 37, 67),
+(21, 38, 68),
+(21, 39, 69),
+(21, 40, 70),
+(22, 18, 71),
+(22, 23, 72),
+(22, 24, 73),
+(22, 35, 74),
+(22, 36, 75),
+(22, 37, 76),
+(22, 38, 77),
+(22, 39, 78),
+(22, 40, 79),
+(24, 18, 80),
+(24, 24, 81),
+(24, 26, 82),
+(24, 27, 83),
+(24, 31, 84),
+(24, 32, 85),
+(24, 33, 86),
+(24, 38, 87),
+(24, 39, 88),
+(24, 40, 89);
 
 -- --------------------------------------------------------
 
@@ -107,7 +252,7 @@ CREATE TABLE `tb_paciente` (
   `estado_paciente` enum('Aberto','Alta','Em observação','Em atendimento','Em tratamento','Em Triagem','Atendimento agendado','Consulta Marcada') DEFAULT NULL,
   `id_funcionario` int(50) NOT NULL,
   `create_paciente` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_paciente`
@@ -129,15 +274,15 @@ INSERT INTO `tb_paciente` (`id_paciente`, `nome_paciente`, `bilhete_paciente`, `
 (13, 'Fernando Santos Vasco', NULL, 'Feminino', '', '2005-07-13', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:00:52'),
 (14, 'Sani Silva Pacavira', NULL, 'Feminino', '', '2002-11-03', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:00:55'),
 (15, 'Zacarias Zau Miguel', NULL, 'Masculino', '', '2002-07-04', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:00:37'),
-(16, 'José Moculo Calumbo', NULL, 'Feminino', '', '1992-09-20', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:02:01'),
+(16, 'José Moculo Calumbo', NULL, 'Feminino', '', '1992-09-20', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, 'Em Triagem', 12, '2025-10-25 02:51:55'),
 (17, 'Carlos Belmiro zas ', NULL, 'Feminino', '', '2000-01-02', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:01:59'),
-(18, 'Xana Santos Quinane', NULL, 'Feminino', '', '1996-07-15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:01:55'),
+(18, 'Xana Santos Quinane', NULL, 'Feminino', '', '1996-07-15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, 'Alta', 12, '2025-10-25 02:51:49'),
 (19, 'Wilson Santos Quinane', NULL, 'Masculino', '', '2014-07-08', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:01:34'),
 (20, 'Suzana Calumbo', NULL, 'Feminino', '', '2003-07-14', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:01:18'),
 (21, 'Janice Oliveira Zasti', NULL, 'Feminino', '', '2011-07-17', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:01:13'),
 (22, 'Catarina Francisco', '99', 'Feminino', '', '2009-07-15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 14:01:09'),
 (23, 'Francisca Oliveira Zasti', '0009676767LA090', 'Feminino', '', '1995-07-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 15:22:59'),
-(24, 'Maria Oliveira Zasti', '0009676767LA090', 'Feminino', '', '1995-07-06', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 13:58:44'),
+(24, 'Maria Oliveira Zasti', '0009676767LA090', 'Feminino', '', '1995-07-06', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, 'Em tratamento', 12, '2025-10-25 02:51:41'),
 (25, 'Bebora Oliveira ', '0009676767LA090', 'Feminino', '', '2025-07-13', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 13:58:42'),
 (26, 'Fernanda Oliveira Zasti', '09889676767LA090', 'Feminino', '', '2015-07-31', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 13:58:39'),
 (27, 'Pedro Daniel ', '', 'Masculino', '', '2005-07-07', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, NULL, 12, '2025-08-02 13:58:36'),
@@ -146,8 +291,7 @@ INSERT INTO `tb_paciente` (`id_paciente`, `nome_paciente`, `bilhete_paciente`, `
 (30, 'ZZelita Zelina Xavier', '0009676767LA090', 'Feminino', 'Masculino', '2005-08-07', 'Paulo Xavier', 'Solange Zelina', 'José Moculo', 945328161, 'Camama , Província de Luanda', 'zzelita@gmail.com', 33333, 333333333, 'Camama , Província de Luanda', 'perfil7.png', 'documentos', NULL, 12, '2025-08-02 02:20:54'),
 (31, 'José Moculo Calumbo', '09889676767LA090', 'Feminino', 'Angolana', '2025-08-08', 'Paulo', 'Solange', 'José Moculo Calumbo', 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'josecalumbo@gmail.com', 945328161, 0, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'Capturar-removebg-preview (8).png', 'documentos', NULL, 12, '2025-08-02 02:20:54'),
 (32, 'Saul Moculo Calumbo', '009', 'Masculino', 'Estrangeiro', '2025-08-15', 'Paulo', 'Solange', ' Moculo Calumbo', 2147483647, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'josecalumbo@gmail.com', 945328161, 945328160, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'Capturar-removebg-preview (7)-1.png', 'documentos', NULL, 12, '2025-08-02 02:20:54'),
-(33, 'José Moculo Calumbo', '0009676767LA090', 'Masculino', 'Estrangeiro', '2025-08-07', 'Paulo', 'Solange', 'José Moculo Calumbo', 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'josecalumbo@gmail.com', 945328161, 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'Capturar-removebg-preview (8)-1.png', 'documentos', 'Alta', 12, '2025-08-02 10:26:35'),
-(34, 'Aael José  Calumbo Carmelo', '0009676767LA09099', 'Masculino', 'Estrangeiro', '2001-08-02', 'Paulo Carmelo', 'Solange Calumbo', 'Sandrinha Calumbo', 996321212, 'Dor no pescoso 2 dias', 'josecalumbo@gmail.com', 14, 45, 'camama 2, rua A ', 'josemc-1.png', 'documentos', 'Em Triagem', 12, '2025-08-02 15:23:43');
+(33, 'José Moculo Calumbo', '0009676767LA090', 'Masculino', 'Estrangeiro', '2025-08-07', 'Paulo', 'Solange', 'José Moculo Calumbo', 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'josecalumbo@gmail.com', 945328161, 945328161, 'Casa nº 22222 , Bairro 4 de Abril, Município da Camama , Província de Luanda', 'Capturar-removebg-preview (8)-1.png', 'documentos', 'Alta', 12, '2025-08-02 10:26:35');
 
 -- --------------------------------------------------------
 
@@ -157,9 +301,51 @@ INSERT INTO `tb_paciente` (`id_paciente`, `nome_paciente`, `bilhete_paciente`, `
 
 CREATE TABLE `tb_permissoes` (
   `id_permissao` int(15) NOT NULL,
-  `nome_permissao` int(11) NOT NULL,
-  `codigo_permisao` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nome_permissao` varchar(30) NOT NULL,
+  `codigo_permisao` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tb_permissoes`
+--
+
+INSERT INTO `tb_permissoes` (`id_permissao`, `nome_permissao`, `codigo_permisao`) VALUES
+(1, 'Registrar triagem', 'TRIAGEM_CREATE'),
+(2, 'Visualizar triagem', 'TRIAGEM_VIEW'),
+(3, 'Editar triagem', 'TRIAGEM_UPDATE'),
+(4, 'Apagar triagem', 'TRIAGEM_DELETE'),
+(7, 'Editar Consulta', 'CONSULTA_UPDATE'),
+(8, 'Apagar Consulta', 'CONSULTA_DELETE'),
+(9, 'Visualizar farmácia', 'FARMACIA_VIEW'),
+(12, 'Atualizar Base De Dados', 'DATABASE_VIEW'),
+(13, 'Importar E Exportar Dados', 'IMPORT_DATABASE_VIEW'),
+(14, 'Laboratório', 'LABORATORIO_ACESS'),
+(15, 'Exames', 'EXAME_ACESS'),
+(16, 'Cadastrar Novos Exame', 'EXAME_CREATE'),
+(17, 'Lançar Resultado De Exames', 'EXAME_RESULT'),
+(18, 'Solicitação De Exame', 'EXAME_SOLICITACAO'),
+(19, 'Agendar Exame', 'EXAME_AGENDAR'),
+(20, 'Cadastrar Utilizadores', 'USER_VIEW'),
+(21, 'Cadastrar Perfil', 'USER_PERFIL_VIEW'),
+(22, 'Cadastramento De Serviços', 'CREATE_SERVICE'),
+(23, 'Personalizar Sistema', 'PERSONALIZAR'),
+(24, 'Agenda', 'AGENDAR'),
+(25, 'Farmácia', 'FARMACIA_ACESS'),
+(26, 'Cadastrar Medicamentos', 'MEDICAMENTO_CREATE'),
+(27, 'Cadastrar Fornecedores', 'FORNECEDOR_VIEW'),
+(28, 'Gerir Estoque', 'GERIR_ESTOQUE_VIEW'),
+(29, 'Recepção', 'RECEPÇAO'),
+(30, 'Tesouraria e Contabilidade', 'TESORARIA_ACESS'),
+(31, 'Caixa', 'CAIXA_VIEW'),
+(32, 'Finalidade De Pagamentos', 'PAGAMENTO_VIEW'),
+(33, 'Gerar Salft', 'SALFT'),
+(34, 'Cadastrar Pacientes', 'PACIENTE_CREATE'),
+(35, 'Gerir Internamentos', 'INTERNAMENTO_VIEW'),
+(36, 'Gerir Transferência', 'TRANSFERIR_VIEW'),
+(37, 'Gerir Consulta', 'CONSULTA_VIEW'),
+(38, 'Marcar Consulta', 'MARCAR_CONSULTA_VIEW'),
+(39, 'Exames', 'EXAME_VIEW'),
+(40, 'Atendimento', 'ATENDIMENTO_VIEW');
 
 -- --------------------------------------------------------
 
@@ -180,7 +366,7 @@ CREATE TABLE `tb_triagem` (
   `observacao_triagem` varchar(200) DEFAULT NULL,
   `data_triagem` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `risco_triagem` enum('a','b','c','d','e') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_triagem`
@@ -190,12 +376,10 @@ INSERT INTO `tb_triagem` (`id_triagem`, `id_paciente`, `id_funcionario`, `peso_t
 (1, 1, 12, '53', '36', '21', NULL, '0', '', 'dor de dente ', '2025-07-30 19:54:27', 'd'),
 (2, 2, 12, '51', '36', '67', '44', '0', '0', '', '2025-07-29 19:11:54', 'c'),
 (3, 3, 12, '29', '20', NULL, '27', '0', '0', 'ok', '2025-07-29 19:12:01', 'c'),
-(4, 4, 12, '20', '34', '23', '33', '0', '0', 'Dor de barriga', '2025-07-29 19:12:07', 'd'),
 (5, 5, 12, '87', '46', '73', '50', '0', '0', 'Dor de barriga', '2025-07-29 19:12:15', 'c'),
 (9, 14, 12, '79', '36', '54', '104', '0', '0', 'dor de estomago  ', '2025-07-29 19:12:31', 'c'),
 (10, 15, 12, '50', '36', '66', '46', '0', '0', ' dor de barrigas\r\n                                    \r\n                                ', '2025-07-29 19:12:39', 'a'),
 (11, 16, 12, '23', '36', '20', '46', '0', '0', 'ok', '2025-07-29 19:13:10', 'a'),
-(12, 17, 12, '89', '37', '231', '29', '0', '0', 'ok', '2025-07-29 19:13:06', 'b'),
 (13, 18, 12, '67', '36', '120', '32', '0', '0', 'ok', '2025-07-29 19:13:01', 'b'),
 (14, 19, 12, '66', '36', '66', '32', '0', '0', 'ok', '2025-07-29 19:12:54', 'd'),
 (15, 20, 12, '28', '36', '29', '37', '0', '0', 'pl', '2025-07-29 19:12:51', 'd'),
@@ -217,43 +401,34 @@ INSERT INTO `tb_triagem` (`id_triagem`, `id_paciente`, `id_funcionario`, `peso_t
 --
 
 CREATE TABLE `tb_usuario` (
-  `id` int(10) NOT NULL,
-  `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `genero` enum('Masculino','Feminino') DEFAULT NULL,
+  `id` int(20) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `genero` enum('Masculino','Femenino') DEFAULT NULL,
   `telefone` int(30) DEFAULT NULL,
-  `email` varchar(50) NOT NULL DEFAULT 'UNIQUE',
-  `nivel` enum('Administrador','Normal','Visitante') DEFAULT NULL,
-  `imagem` varchar(80) DEFAULT NULL,
-  `morada` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `senha` varchar(100) NOT NULL,
+  `senha` varchar(50) NOT NULL,
+  `nivel` varchar(30) NOT NULL,
+  `morada` varchar(60) DEFAULT NULL,
+  `imagem` varchar(50) DEFAULT NULL,
   `criado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_usuario`
 --
 
-INSERT INTO `tb_usuario` (`id`, `nome`, `genero`, `telefone`, `email`, `nivel`, `imagem`, `morada`, `senha`, `criado`) VALUES
-(16, 'José Calumbo', 'Masculino', 945328161, 'josecalumbo@gmail.com', 'Administrador', 'Capturar-removebg-preview (6).png', 'Anola 4 de Maio', '$2y$10$.1FOIc7toX5zfmLY/0ef6urN5K7JRoUSkvohT0mydTU/e4.zwHBnq', '2025-07-04 00:19:14'),
-(17, 'Francisca Victoria', 'Feminino', 989, 'francisca@gmail.com', 'Administrador', 'anonimo.png', '', '$2y$10$AgCQ2zLhcctIvBRmrsSLiu/ZPBEqZel2mBKJStmNx5NBQwp4gRMnC', '2025-06-17 20:41:07'),
-(18, 'Alfredo Carlos Victor', 'Masculino', 912, 'alfredo@gmail.com', 'Administrador', 'Capturar-removebg-preview (7).png', 'Luanda Benfica ', '$2y$10$LZ9PkQmLCJ17oOB8RuT5geoiHnN.44jkl3CwNlwauCxZkrCwcoL7m', '2025-06-18 17:16:53'),
-(22, 'Mendonça Zalmire', 'Feminino', 982212198, 'mendonca@gmail.com', 'Administrador', 'perfil22.png', '', '$2y$10$f6B993DoNOsjz5lRFATvaubB/eN6eSpTKvwjUSKAEiqx7O9TFxpfq', '2025-06-19 19:58:07'),
-(25, 'Maria  Zelma Erva', 'Feminino', 977543216, 'maria@gmail.com', 'Administrador', 'perfil5.png', 'Rua n2 , Bairro luanda', '$2y$10$GZlloWye2/DjzbYxnPiPAeGTN2YEPKhwLC9mrGaSyryXSnxO3/v16', '2025-06-26 01:34:53');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_usuario_nivel`
---
-
-CREATE TABLE `tb_usuario_nivel` (
-  `id_usuario` int(11) NOT NULL,
-  `id_nivel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `tb_usuario` (`id`, `nome`, `email`, `genero`, `telefone`, `senha`, `nivel`, `morada`, `imagem`, `criado`) VALUES
+(0, 'Ana', 'emailana@gmail.com', 'Masculino', 992211212, '', '', 'Camama', NULL, '2025-10-12 19:43:20');
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `tb_exame`
+--
+ALTER TABLE `tb_exame`
+  ADD PRIMARY KEY (`id_exame`);
 
 --
 -- Índices para tabela `tb_funcionario`
@@ -262,16 +437,40 @@ ALTER TABLE `tb_funcionario`
   ADD PRIMARY KEY (`id_funcionario`);
 
 --
+-- Índices para tabela `tb_funcionario_nivel`
+--
+ALTER TABLE `tb_funcionario_nivel`
+  ADD PRIMARY KEY (`id_funcionario_nivel`),
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`),
+  ADD UNIQUE KEY `id_usuario_2` (`id_usuario`),
+  ADD UNIQUE KEY `unico_id_funcionario` (`id_usuario`),
+  ADD KEY `id_nivel` (`id_nivel`);
+
+--
 -- Índices para tabela `tb_nivel`
 --
 ALTER TABLE `tb_nivel`
   ADD PRIMARY KEY (`id_nivel`);
 
 --
+-- Índices para tabela `tb_nivel_permissoes`
+--
+ALTER TABLE `tb_nivel_permissoes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_nivel` (`id_nivel`),
+  ADD KEY `id_permissoes` (`id_permissoes`);
+
+--
 -- Índices para tabela `tb_paciente`
 --
 ALTER TABLE `tb_paciente`
   ADD PRIMARY KEY (`id_paciente`);
+
+--
+-- Índices para tabela `tb_permissoes`
+--
+ALTER TABLE `tb_permissoes`
+  ADD PRIMARY KEY (`id_permissao`);
 
 --
 -- Índices para tabela `tb_triagem`
@@ -281,26 +480,38 @@ ALTER TABLE `tb_triagem`
   ADD KEY `id_paciente` (`id_paciente`);
 
 --
--- Índices para tabela `tb_usuario`
---
-ALTER TABLE `tb_usuario`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `tb_exame`
+--
+ALTER TABLE `tb_exame`
+  MODIFY `id_exame` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `tb_funcionario`
 --
 ALTER TABLE `tb_funcionario`
-  MODIFY `id_funcionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_funcionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `tb_funcionario_nivel`
+--
+ALTER TABLE `tb_funcionario_nivel`
+  MODIFY `id_funcionario_nivel` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `tb_nivel`
 --
 ALTER TABLE `tb_nivel`
-  MODIFY `id_nivel` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nivel` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de tabela `tb_nivel_permissoes`
+--
+ALTER TABLE `tb_nivel_permissoes`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de tabela `tb_paciente`
@@ -309,20 +520,34 @@ ALTER TABLE `tb_paciente`
   MODIFY `id_paciente` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
+-- AUTO_INCREMENT de tabela `tb_permissoes`
+--
+ALTER TABLE `tb_permissoes`
+  MODIFY `id_permissao` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
 -- AUTO_INCREMENT de tabela `tb_triagem`
 --
 ALTER TABLE `tb_triagem`
   MODIFY `id_triagem` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de tabela `tb_usuario`
---
-ALTER TABLE `tb_usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `tb_funcionario_nivel`
+--
+ALTER TABLE `tb_funcionario_nivel`
+  ADD CONSTRAINT `tb_funcionario_nivel_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `tb_nivel` (`id_nivel`),
+  ADD CONSTRAINT `tb_funcionario_nivel_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_funcionario` (`id_funcionario`);
+
+--
+-- Limitadores para a tabela `tb_nivel_permissoes`
+--
+ALTER TABLE `tb_nivel_permissoes`
+  ADD CONSTRAINT `tb_nivel_permissoes_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `tb_nivel` (`id_nivel`),
+  ADD CONSTRAINT `tb_nivel_permissoes_ibfk_2` FOREIGN KEY (`id_permissoes`) REFERENCES `tb_permissoes` (`id_permissao`);
 
 --
 -- Limitadores para a tabela `tb_triagem`

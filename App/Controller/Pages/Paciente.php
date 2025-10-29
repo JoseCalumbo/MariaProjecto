@@ -96,6 +96,10 @@ class Paciente extends Page
     //tela de vendedor
     public static function getTelaPaciente($request)
     {
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+        $resultado = NivelDao::VerificarNivel1($id);
+        $permissoes = array_column($resultado, "codigo_permisao");
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
@@ -103,7 +107,11 @@ class Paciente extends Page
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
             'item' => self::getPacientes($request, $obPagination),
-            'paginacao' => parent::getPaginacao($request, $obPagination)
+            'paginacao' => parent::getPaginacao($request, $obPagination),
+
+            'REGISTROS_DELETE'        => in_array("REGISTROS_DELETE", $permissoes) ? "Com permissão " : "disabled-link",
+            'enable_btn'        => in_array("REGISTROS_DELETE", $permissoes) ? "Com permissão " : "grey lighten-4",
+
         ]);
         return parent::getPage('Panel Paciente', $content);
     }
@@ -408,4 +416,44 @@ class Paciente extends Page
         return parent::getPage('Registrar nova triagem ', $content);
     }
 
+    // metodo para apagar um paciente
+    public static function apagaPaciente($request, $id_paciente)
+    {
+
+        // Seleciona o paciente pelo id
+        $obPaciente = PacienteDao::getPacienteId($id_paciente);
+        
+        $idPaciente = $obPaciente->id_paciente;
+
+        echo '<pre>';
+        print_r($idPaciente);
+        echo '</pre>';
+
+        $TriagemPaciente = TriagemDao::getListarTriagemPaciente($id_paciente);
+
+        $TriagemPaciente->apagarTriagemPaciente($id_paciente);
+
+
+        exit;
+
+        $idP == $triagem["id_paciente"];
+        $idTriagem = $triagem["id_triagem"];
+        $Triagema->apagarTriagem1($idTriagem);
+        exit;
+
+
+        if (isset($_POST['Salvar'])) {
+
+            $obPaciente->apagarPaciente();
+
+            $request->getRouter()->redirect('/config-paciente?msg=apagado');
+        } else {
+
+            $request->getRouter()->redirect('/config-paciente?msg=confirma');
+        }
+    }
 }
+
+
+
+

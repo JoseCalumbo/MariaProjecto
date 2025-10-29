@@ -50,29 +50,6 @@ class Exame extends Page
         } // fim do switch
     }
 
-    //Método para buscar todos exames cadastrado
-    public static function getExame()
-    {
-
-        $resultadoExame = '';
-
-        $listarExame = ExameDao::listarExame(null, 'nome_nivel');
-
-        while ($obExame = $listarExame->fetchObject(NivelDao::class)) {
-
-            $resultadoExame .= View::render('funcionario/itemFuncionario/perfil', [
-                'value' => $obExame->id_nivel,
-                'perfil' => $obExame->nome_nivel,
-                //'checado'=>$obNegocio->nome,
-            ]);
-        }
-        return $resultadoExame = strlen($resultadoExame) ? $resultadoExame : '<tr>
-                                                                                <td colspan="5">
-                                                                                    Nenhum Exame encontado
-                                                                                </td>
-                                                                            </tr>';
-    }
-
     // Método para apresenatar os registos do exames cadastrados
     private static function getExames($request, &$obPagination)
     {

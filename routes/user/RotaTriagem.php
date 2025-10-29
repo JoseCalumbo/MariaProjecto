@@ -4,7 +4,7 @@ use \App\Http\Response;
 use \App\Controller\Pages;
 
 /**
- *  Arquivo php de Rotas da Negocio do sistema
+ *  Arquivo php de Rotas de triagem
  *  foi incluido em routas.php
  */
 

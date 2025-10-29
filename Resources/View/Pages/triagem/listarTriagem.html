@@ -9,7 +9,8 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger tooltip-container " href="{{URL}}/triagem/add-registro/{{id_triagem}}" data-target="modaluser">
+        <a class="modal-trigger tooltip-container " href="{{URL}}/triagem/add-registro/{{id_triagem}}"
+            data-target="modaluser">
             <button type="button" class="font-normal waves-effect green accent-4 btn">
                 <i class="material-icons center">add</i>
             </button>
@@ -23,8 +24,8 @@
             <div class="custom-tooltip">Editar triagem</div>
         </a>
 
-        <a class="modal-trigger tooltip-container " href="#modal{{id_triagem}}">
-            <button type="button" class="font-normal waves-light red lighten-1 btn tooltip-btn">
+        <a class="modal-trigger tooltip-container {{REGISTROS_DELETE}}" href="#modal{{id_triagem}}">
+            <button type="button" class="font-normal waves-light red lighten-1 {{enable_btn}} btn tooltip-btn">
                 <i class="material-icons center">delete</i>
             </button>
             <div class="custom-tooltip">Apagar triagem</div>
@@ -57,7 +58,8 @@
             <li class="capitalize ">Idade: <strong>{{idade}} anos</strong></li>
             <li class="capitalize ">Pioridade: <strong>Atendimento {{Atendimento}}</strong></li>
             <li class="font-normal ">Para obter ficha em formato PDF
-                <a href="{{URL}}/triagem/gerar-ficha/{{id_triagem}}" class="blue-text"> cliqua aqui</a> para baixar o arquivo
+                <a href="{{URL}}/triagem/gerar-ficha/{{id_triagem}}" class="blue-text"> cliqua aqui</a> para baixar o
+                arquivo
             </li>
         </ul>
 
@@ -92,10 +94,11 @@
             </div>
 
             <div class="col s12 m8">
-                <p>Apagar a triagem de <strong style="font-weight: bold;">{{Nome}}</strong> permanentemente.
-                    Se tiver certeza disso e decidir prosseguir, todos os dados vinculados a esta conta serão excluídos
-                    permanentemente. Você não poderá recuperá-los no futuro.</p>
-                <p>
+                 <p style="text-transform: lowercase;">
+                Apagar a triagem de <strong style="font-weight: bold;">{{Nome}}</strong> permanentemente e
+                todos os dados vinculados a esta conta serão excluídos
+                permanentemente. Você não poderá recuperá-los no futuro.</p>
+
                 <p> <strong>Tem certeza? Esta ação é permanente e não pode ser desfeita.</strong> </p>
             </div>
 

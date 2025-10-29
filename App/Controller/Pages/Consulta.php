@@ -92,7 +92,11 @@ class Consulta extends Page
             ]);
         }
 
-        return $item;
+             return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Sem registos de pacientes em espera.
+                                                    </td>
+                                                </tr>';
     }
 
     // Metodo para apresentar a tela do consultorio

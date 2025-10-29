@@ -17,16 +17,23 @@
         </a>
         -->
         <a class="modal-trigger tooltip-container " href="#modalOpcao{{id_paciente}}">
-            <button type="button" class="font-normal waves-effect green accent-4 btn">
+            <button type="button" class="font-normal green accent-4 btn">
                 <i class="material-icons center">add</i>
             </button>
             <div class="custom-tooltip">Consulta & Triagem</div>
         </a>
         <a class="tooltip-container " href="{{URL}}/paciente/editar/{{id_paciente}}">
-            <button type="button " class="font-normal waves-effect btn blue darken-2 tooltip-btn">
+            <button type="button " class="font-normal  btn blue darken-2 tooltip-btn">
                 <i class="material-icons center">edit</i>
             </button>
             <div class="custom-tooltip">Editar Conta</div>
+        </a>
+
+        <a class="tooltip-container {{REGISTROS_DELETE}} " href="{{URL}}/paciente-apagar/{{id_paciente}}">
+            <button type="button " class=" font-normal  btn red  darken-2 {{enable_btn}}  tooltip-btn">
+                <i class="material-icons center">delete</i>
+            </button>
+            <div class="custom-tooltip">Apagar conta</div>
         </a>
 
         <a class="tooltip-container " href="{{URL}}/paciente/{{id_paciente}}">
