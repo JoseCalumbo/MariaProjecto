@@ -25,10 +25,13 @@ class Perfil extends Page
                 return Mensagem::msgSucesso('Nivel salvo com sucesso');
                 break;
             case 'alterado':
-                return Mensagem::msgSucesso('Nivel Alterado com sucesso');
+                return Mensagem::msgSucesso('Nivel e Permissão  Alterado com sucesso');
                 break;
             case 'apagado':
-                return Mensagem::msgSucesso('Vendedor Apagdo com sucesso');
+                return Mensagem::msgSucesso('Nivel Apagdo com sucesso');
+                break;
+            case 'confirma':
+                return Mensagem::msgAlerta('Clica em confirmar antes de apagar o perfil');
                 break;
         } // fim do switch
     }
@@ -108,7 +111,6 @@ class Perfil extends Page
         $postVars = $request->getPostVars();
 
         $obNivel = new NivelDao;
-        $obPermisaoNivel = new NivelPermissaoDao;
 
         $obNivel->nome_nivel = $postVars['nome'];
         $obNivel->serie_nivel = $postVars['serie'];
@@ -141,7 +143,7 @@ class Perfil extends Page
         $content = View::render('configuracao/perfil/formPerfil', [
             'titulo' => 'Atribuir Acesso e Permissões',
             'button' => 'Salvar',
-                        'msg1' => $alert,
+            'msg1' => $alert,
 
 
             'DATABASE_VIEW' => $IdPermissao[8],
@@ -226,8 +228,6 @@ class Perfil extends Page
     // Método que cadastrar o perfil de acesso
     public static function setCadastrarPermissao($request, $id_Nivel)
     {
-        $postVars = $request->getPostVars();
-
         $obPermisaoNivel = new NivelPermissaoDao;
 
         //Verifica se existem checkboxes marcados
@@ -262,16 +262,18 @@ class Perfil extends Page
     // Método que apresenta edita o perfil de acesso
     public static function editarPermissao($request, $id_Nivel)
     {
-        $codigos = [];
-        $nomes = [];
+        $postVars = $request->getPostVars();
+        $codigos = []; // Guarda os codigo da permissao 
+        $nomes = []; // Guarda os nomes da permissao S
         $IdPermissao = [];
-
         $IdPermissaoSelecionado = [];
 
-        // $nivelPermissao = NivelPermissaoDao::getNivelPermissaoID($id_Nivel);
+        // Busca o nivel por  id 
+        $obNivelSelecionado = NivelDao::getNivelId($id_Nivel);
+        // Instancia os nivel e permissao feita
+        $obPermisaoNivel = new NivelPermissaoDao;
 
-        $nivels = NivelDao::getNivelId($id_Nivel);
-
+        // faz a listagem do tabela permissão para o formulario
         $resultado = PermissaoDao::listarPermissao();
         while ($obPermisao = $resultado->fetchObject(PermissaoDao::class)) {
             $IdPermissao[] = $obPermisao->id_permissao;
@@ -279,9 +281,37 @@ class Perfil extends Page
             $nomes[] = $obPermisao->nome_permissao;
         }
 
+        // Marca as permissoes correspondente ao nivel   
         $resultado1 = NivelPermissaoDao::getNivelPermissaoID($id_Nivel);
         while ($obnivelPermisao = $resultado1->fetchObject(NivelPermissaoDao::class)) {
             $IdPermissaoSelecionado[] = $obnivelPermisao->id_permissoes;
+        }
+
+        // Verifica se os inputs foi Repreenchido e atualiza o nivel 
+        if (isset($_POST['nome'], $_POST['descrisao'])) {
+            $obNivelSelecionado->nome_nivel = $postVars['nome'] ?? $obNivelSelecionado->nome_nivel;
+            $obNivelSelecionado->serie_nivel = $postVars['serie'];
+            $obNivelSelecionado->descricao_nivel = $postVars['descrisao'] ?? $obNivelSelecionado->descricao_nivel;
+            $obNivelSelecionado->atualizarNivel();
+        }
+
+        // Verifica se foi salvo as alteraçoes e apaga as permissoes antiga
+        if (isset($_POST['cadastrar'])) {
+            $obPermisaoNivelId =  NivelPermissaoDao::getNivelPermissaoID($id_Nivel)->fetchObject(NivelPermissaoDao::class);
+            $obPermisaoNivelId->apagarNivelPermissao($id_Nivel);
+            echo '<pre>';
+            print_r("aqui");
+            echo '</pre>';
+        }
+
+        //Verifica se existem checkboxes marcados
+        if (!empty($_POST['codigo_permisao'])) {
+            foreach ($_POST['codigo_permisao'] as $valor) {
+                $obPermisaoNivel->id_nivel = $id_Nivel;
+                $obPermisaoNivel->id_permissoes = $valor;
+                $obPermisaoNivel->addPermissao();
+            }
+            $request->getRouter()->redirect('/perfil?msg=alterado  ');
         }
 
         $content = View::render('configuracao/perfil/formPerfilEditar', [
@@ -289,9 +319,9 @@ class Perfil extends Page
             'titulo' => 'Atualizar Acesso e Permissões',
             'button' => 'Salvar',
 
-            'nome' => $nivels->nome_nivel,
-            'serie' => '',
-            'descrisao' => $nivels->descricao_nivel,
+            'nome' => $obNivelSelecionado->nome_nivel,
+            'serie' => '*****',
+            'descrisao' => $obNivelSelecionado->descricao_nivel,
 
             'DATABASE_VIEW' => $IdPermissao[8],
             'REGISTROS_DELETE' => $IdPermissao[1],
@@ -330,7 +360,6 @@ class Perfil extends Page
             'ATENDIMENTO_VIEW' => $IdPermissao[35],
 
             //_________________________________________________________________________________
-
 
             'database_view1' => in_array($IdPermissao[8], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
             'registros_delete1' => in_array($IdPermissao[1], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
@@ -374,82 +403,26 @@ class Perfil extends Page
     }
 
 
-    // Método para apagar perfil de acesso
-    public static function apagarPerfil($request, $id_Nivel)
-    {
-        $postVars = $request->getPostVars();
 
-        echo '<pre>';
-        print_r($postVars);
-        echo '</pre>';
-         exit;
 
-        $obPermisaoNivel = new NivelPermissaoDao;
 
-        //Verifica se existem checkboxes marcados
-        if (!empty($_POST['codigo_permisao'])) {
 
-            foreach ($_POST['codigo_permisao'] as $valor) {
 
-                $obPermisaoNivel->id_nivel = $id_Nivel;
-                $obPermisaoNivel->id_permissoes = $valor;
-                $obPermisaoNivel->addPermissao();
-            }
-
-            $request->getRouter()->redirect('/perfil?msg=cadastrado');
-
-        } else {
-
-            $alert = "<script>
-                         alert('Nenhuma opção foi selecionada! Tenta novamente');
-                     </script>";
-        }
-
-        $content = View::render('configuracao/user/formPerfil', [
-            'titulo' => 'Cadastrar Perfil de Acesso e Permissão',
-            'button' => 'Salvar',
-            'msg1' => $alert,
-            'msg' => self::exibeMensagem($request),
-            'item' => self::getPerfil($request, $obPagination),
-
-        ]);
-        return parent::getPage('Atribuir Acesso e Permissões', $content);
-    }
 
     // Método para apagar perfil de acesso
-    public static function apagarPermissao($request, $id_Nivel)
+    public static function apagarPerfil($request, $id_nivel)
     {
         $postVars = $request->getPostVars();
+        // Busca o nivel por  id 
+        $obNivelSelecionado = NivelDao::getNivelId($id_nivel);
 
-        $obPermisaoNivel = new NivelPermissaoDao;
-
-        //Verifica se existem checkboxes marcados
-        if (!empty($_POST['codigo_permisao'])) {
-
-            foreach ($_POST['codigo_permisao'] as $valor) {
-
-                $obPermisaoNivel->id_nivel = $id_Nivel;
-                $obPermisaoNivel->id_permissoes = $valor;
-                $obPermisaoNivel->addPermissao();
-            }
-
-            $request->getRouter()->redirect('/perfil?msg=cadastrado');
+        if (isset($_POST['Salvar'], $_POST['confirmo'])) {
+            // Apaga o nivel
+            $obNivelSelecionado->apagarNivel();
+            $request->getRouter()->redirect('/perfil?msg=apagado');
         } else {
-
-            $alert = "<script>
-                         alert('Nenhuma opção foi selecionada! Tenta novamente');
-                     </script>";
+            $request->getRouter()->redirect('/perfil?msg=confirma');
         }
-
-        $content = View::render('configuracao/user/formPerfil', [
-            'titulo' => 'Cadastrar Perfil de Acesso e Permissão',
-            'button' => 'Salvar',
-            'msg1' => $alert,
-            'msg' => self::exibeMensagem($request),
-            'item' => self::getPerfil($request, $obPagination),
-
-        ]);
-        return parent::getPage('Atribuir Acesso e Permissões', $content);
     }
 
 }

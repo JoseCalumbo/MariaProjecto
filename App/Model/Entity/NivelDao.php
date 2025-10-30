@@ -35,17 +35,17 @@ class NivelDao
 
  
     //atulizar campo de vendedor
-    public function atualizar()
+    public function atualizarNivel()
     {
         return (new Database('tb_nivel'))->update('id_nivel = ' . $this->id_nivel, [
             'id_nivel' => $this->id_nivel,
             'nome_nivel' => $this->nome_nivel,
-            'descricao_nivel' => $this->nome_nivel,
+            'descricao_nivel' => $this->descricao_nivel,
         ]);
     }
 
-    // metodo para deletar um vendedor na tabela
-    public function apagar()
+    // metodo para deletar um nivel
+    public function apagarNivel()
     {
         return (new Database('tb_nivel'))->delete('id_nivel =' . $this->id_nivel, []);
     }

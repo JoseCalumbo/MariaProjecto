@@ -62,6 +62,15 @@ class FuncionarioDao
     {
         return (new Database('tb_funcionario'))->select($where, $order, $limit, $fields);
     }
+    /**
+     * lista todos os dados os funcionario
+     * @param string $where
+     */
+    public static function listarFuncionario22($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_funcionario f 
+                              JOIN tb_funcionario_nivel fn ON f.id_funcionario = fn.id_usuario'))->select($where, $order, $limit, $fields);
+    }
 
     //atulizar os dados do Funcionario
     public function atualizarFuncionario()
@@ -93,7 +102,7 @@ class FuncionarioDao
     // metodo para buscar(selecionar) o Funcionario por ID
     public static function getFuncionarioId($id_funcionario)
     {
-        return (new Database('tb_funcionario'))->select('id_funcionario = ' . $id_funcionario)->fetchObject(self::class);
+        return (new Database('tb_funcionario '))->select('id_funcionario = ' . $id_funcionario)->fetchObject(self::class);
     }
 
     // método para buscar(selecionar) o Funcionario por Id para obter nivel de acesso

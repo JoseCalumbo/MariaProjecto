@@ -9,7 +9,7 @@ use \PDO;
 class FuncionarioNivelDao
 {
     // id  e funcionario nivel
-    public $id_funcionario_nivel; 
+    public $id_funcionario_nivel;
 
     // dados de permissao
     public $id_nivel;
@@ -28,7 +28,7 @@ class FuncionarioNivelDao
         return true;
     }
 
-        //atulizar os dados do Funcionario quanto seu nivel de acesso
+    //atulizar os dados do Funcionario quanto seu nivel de acesso
     public function atualizarNivelAcesso()
     {
         return (new Database('tb_funcionario_nivel'))->update('id_funcionario_nivel = ' . $this->id_funcionario_nivel, [
@@ -49,7 +49,7 @@ class FuncionarioNivelDao
     // Método para pegar o id dos nivel
     public static function getFuncionarioNivelId($id_funcionario)
     {
-        return (new Database('tb_funcionario_nivel'))->select('id_usuario = ' . $id_funcionario);
+        return (new Database('tb_funcionario_nivel '))->select('id_usuario = ' . $id_funcionario);
     }
 
     // Método para pegar o id dos nivel

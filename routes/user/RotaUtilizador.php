@@ -91,7 +91,7 @@ $obRouter->post('/utilizadores-perfil/{id_funcionario}', [
         'requer-login'
     ],
     function ($request, $id_funcionario) {
-        return new Response(200, Pages\Funcionario::setEditarPerfilU($request, $id_funcionario));
+        return new Response(200, Pages\Funcionario::setEditarPerfilUser($request, $id_funcionario));
     }
 ]);
 

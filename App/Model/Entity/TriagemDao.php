@@ -124,13 +124,13 @@ class TriagemDao extends PacienteDao
         ]);
     }
 
-    // faz um delete de um registro na tabela triagem
+    // faz um delete de um registro 
     public function apagarTriagem()
     {
         return (new Database('tb_triagem'))->delete('id_triagem = ' . $this->id_triagem, []);
     }
 
-    // faz um delete de um registro na tabela triagem
+    // faz um delete de um registro apartir do paciente
     public function apagarTriagemPaciente( $id_paciente)
     {
         return (new Database('tb_triagem'))->delete('id_paciente = ' .$id_paciente,[]);

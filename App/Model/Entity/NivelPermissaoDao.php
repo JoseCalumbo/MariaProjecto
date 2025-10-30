@@ -28,6 +28,23 @@ class NivelPermissaoDao
         return true;
     }
 
+    //atualizar as permissao
+    public function atualizarPermissao()
+    {
+        return (new Database('tb_nivel_permissoes'))->update('id_nivel = ' . $this->id_nivel, [
+            'id_nivel' => $this->id_nivel,
+            'id_permissoes' => $this->id_permissoes,
+        ]);
+    }
+
+
+    // faz um delete apartir do nivel 
+    public function apagarNivelPermissao($id_nivel)
+    {
+        return (new Database('tb_nivel_permissoes'))->delete('id_nivel = ' .$id_nivel,[]);
+    }
+
+
     /** Listar todas as permissoes nivel possivel
      * @param string $where
      */

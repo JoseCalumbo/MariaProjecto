@@ -48,7 +48,7 @@ class Funcionario extends Page
         } // fim do switch
     }
 
-    // busca todos os Zona cadastrado
+    // busca todos os Nivel  cadastrado
     public static function getPerfil()
     {
 
@@ -96,6 +96,7 @@ class Funcionario extends Page
 
 
         while ($obFuncionario = $resultado->fetchObject(FuncionarioDao::class)) {
+
             $item .= View::render('funcionario/listarFuncionario', [
                 'id_funcionario' => $obFuncionario->id_funcionario,
                 'imagem' => $obFuncionario->imagem_funcionario,
@@ -237,7 +238,7 @@ class Funcionario extends Page
 
         $content = View::render('funcionario/formFuncionarioEditar', [
             'perfilCadastrado' => self::getPerfil(),
-            'titulo' => 'Edita Dados Utilizadores',
+            'titulo' => 'Edita dados utilizadores',
             'button' => 'salvar',
             'nome' => $obFuncionario->nome_funcionario,
             'genero' => $obFuncionario->genero_funcionario == 'Feminino' ? 'checked' : '',
@@ -414,8 +415,15 @@ class Funcionario extends Page
     }
 
     // Metodo editar perfil Funcionario
-    public static function setEditarPerfilU($request, $id_funcionario)
+    public static function setEditarPerfilUser($request, $id_funcionario)
     {
+
+        // Busca um Funcionario por id
+        $obFuncionario = FuncionarioDao::getFuncionarioId($id_funcionario);
+        $idFuncionario = $id_funcionario;
+
+        // Instancia o Model Funcionario
+        $obFuncionarioNivel = new FuncionarioNivelDao;
 
         $idFuncionarioSelecionado = $id_funcionario;
 
@@ -424,10 +432,20 @@ class Funcionario extends Page
             // Busca um Funcionario por id
             $obFuncionarioNivel2 = FuncionarioNivelDao::getFuncionarioNivelId($id_funcionario)->fetchObject(FuncionarioNivelDao::class);
 
-            $obFuncionarioNivel2->id_funcionario = $idFuncionarioSelecionado;
-            $obFuncionarioNivel2->id_nivel = $_POST['perfilAcesso'];
+            if (empty($obFuncionarioNivel2)) {
+                $obFuncionarioNivel->id_funcionario = $idFuncionario;
+                $obFuncionarioNivel->id_nivel = $_POST['perfilAcesso'];
+                $obFuncionarioNivel->addNivelAcesso();
+            } else {
+                printf("cheio");
+                $obFuncionarioNivel2->id_funcionario = $idFuncionarioSelecionado;
+                $obFuncionarioNivel2->id_nivel = $_POST['perfilAcesso'];
+                $obFuncionarioNivel2->atualizarNivelAcesso();
+            }
 
-            $obFuncionarioNivel2->atualizarNivelAcesso();
+            // Atualiza o cargo ou a profissao do médico
+            $obFuncionario->cargo_funcionario = $_POST['cargo'];
+            $obFuncionario->atualizarFuncionario();
 
             $request->getRouter()->redirect('/utilizadores?msg=alteradonivel');
         }

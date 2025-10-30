@@ -49,7 +49,7 @@
     <div class="modal-content">
         <form action="{{URL}}/apagar/{{id_funcionario}}" method="post" class="row center white push-m2">
             <div class="col s12 m12">
-                <h5 class=" " style="text-transform: capitalize;">
+                <h5 class=" font-large" >
                     <i class="material-icons left red-text medium"
                         style="position: relative; top: -12px;">error_outline</i>
                     <strong style="font-weight: bold;">Confirmar a exclusão da conta?</strong>
@@ -62,8 +62,8 @@
             </div>
 
             <div class="col s12 m8">
-                <p style="text-transform: lowercase;">
-                    Apagar a conta de <strong style="font-weight: bold;">{{nome}}</strong> permanentemente e
+                <p class="font-normal">
+                    Deseja apagar a conta de <strong style="font-weight: bold;">{{nome}}</strong> permanentemente e
                     todos os dados vinculados a esta conta serão excluídos
                     permanentemente. Você não poderá recuperá-los no futuro.</p>
                 <p>
@@ -79,7 +79,7 @@
             </div>
 
             <div class=" col s12 " style="display: none;">
-                <input type="submit" id="subemeter">
+                <input type="submit" id="subemeter{{id_funcionario}}">
             </div>
         </form>
 
@@ -89,7 +89,7 @@
             </button>
 
             <button type="submit" class="btn red font-normal" name="apagar" required>
-                <label class="white-text col m12" for="subemeter">Apagar</label>
+                <label class="white-text col m12" for="subemeter{{id_funcionario}}">Apagar</label>
             </button>
         </div>
     </div>

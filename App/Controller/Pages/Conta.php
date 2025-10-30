@@ -110,7 +110,7 @@ class Conta extends Page
             'menuconta' => self::getUsuarioMenu(),
             'imagem' => $obFuncionario->imagem_funcionario,
             'nome' => $obFuncionario->nome_funcionario,
-            'acesso' => $obFuncionarioNivelAcesso->nome_nivel,
+           // 'acesso' => $obFuncionarioNivelAcesso->nome_nivel,
             'msg' => self::exibeMensagem($request),
             'msgVazio' => ''
         ]);

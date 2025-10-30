@@ -14,7 +14,7 @@ $obRouter->get('/perfil', [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200,Pages\Perfil::getPerfilAcesso($request));
+        return new Response(200, Pages\Perfil::getPerfilAcesso($request));
     }
 ]);
 
@@ -24,7 +24,7 @@ $obRouter->post('/perfil', [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200,Pages\Perfil::getPerfilAcesso($request));
+        return new Response(200, Pages\Perfil::getPerfilAcesso($request));
     }
 ]);
 
@@ -44,7 +44,7 @@ $obRouter->get('/cadastrar/permissao/{id_Nivel}', [
         'requer-login'
     ],
     function ($request, $id_Nivel) {
-        return new Response(200, Pages\Perfil::cadastrarPermissao($request,$id_Nivel));
+        return new Response(200, Pages\Perfil::cadastrarPermissao($request, $id_Nivel));
     }
 ]);
 
@@ -54,7 +54,7 @@ $obRouter->post('/cadastrar/permissao/{id_Nivel}', [
         'requer-login'
     ],
     function ($request, $id_Nivel) {
-        return new Response(200, Pages\Perfil::setCadastrarPermissao($request,$id_Nivel));
+        return new Response(200, Pages\Perfil::setCadastrarPermissao($request, $id_Nivel));
     }
 ]);
 
@@ -65,39 +65,28 @@ $obRouter->get('/editar/perfil/{id_Nivel}', [
         'requer-login'
     ],
     function ($request, $id_Nivel) {
-        return new Response(200, Pages\Perfil::editarPermissao($request,$id_Nivel));
+        return new Response(200, Pages\Perfil::editarPermissao($request, $id_Nivel));
     }
 ]);
 
-// Rota para apagar perfil de acesso
-$obRouter->get('/apagar/perfil/{id_nivel}', [
+// Rota para editar perfil de acesso
+$obRouter->post('/editar/perfil/{id_Nivel}', [
     'middlewares' => [
         'requer-login'
     ],
     function ($request, $id_Nivel) {
-        return new Response(200, Pages\Perfil::apagarPerfil($request,$id_Nivel));
+        return new Response(200, Pages\Perfil::editarPermissao($request, $id_Nivel));
     }
 ]);
 
 // Rota para apagar perfil de acesso
-$obRouter->get('/apagar/permissaoa/{id_nivel}', [
+$obRouter->post('/perfil/apagar/{id_nivel}', [
     'middlewares' => [
-        'requer-login'
+        'requer-login',
+        'nivel-acesso'
     ],
-    function ($request, $id_Nivel) {
-        return new Response(200, Pages\Perfil::apagarPermissao($request,$id_Nivel));
+    function ($request, $id_nivel) {
+        return new Response(200, Pages\Perfil::apagarPerfil($request, $id_nivel));
     }
 ]);
-
-
-
-
-
-
-
-
-
-
-
-
 
