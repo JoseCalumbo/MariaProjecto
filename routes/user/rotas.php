@@ -33,6 +33,16 @@ include __DIR__.'/RotaPerfil.php';
 */
 include __DIR__.'/RotaExame.php';
 
+/** __________________________________ Farmácia _______________________________
+ * inclui as rotas de farmacia
+*/
+include __DIR__.'/RotaFarmacia.php';
+
+/** __________________________________ Medicamentos _______________________________
+ * inclui as rotas de medicamento
+*/
+include __DIR__.'/RotaMedicamento.php';
+
 //________________________________relatorio__________________________
 $obRouter->get('/relatorio',[
     'middlewares'=>[

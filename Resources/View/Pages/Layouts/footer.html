@@ -1,26 +1,68 @@
-
 <!--fim-->
 </main>
 
- <!-- Footer fixo e fino -->
+<!-- Footer fixo e fino 
   <footer class="page-footer grey lighten-3">
     <div class="footer-buttons">
       <a class="btn-flat waves-effect teal-text " ><i class="material-icons">home</i></a>
-      <a class="btn-flat waves-effect teal-text" ><i class="material-icons">assignment</i></a>
-      <a class="btn-flat waves-effect teal-text" ><i class="material-icons">healing</i></a>
+      <a class="btn-flat waves-effect teal-text" ><i class="material-icons">auto_awesome</i></a>
+      <a class="btn-flat waves-effect teal-text" ><i class="material-icons">chat</i></a>
       <a class="btn-flat waves-effect teal-text" href="{{URL}}/logout" ><i class="material-icons">logout</i></a>
     </div>
   </footer>
+-->
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.tooltipped');
-      M.Tooltip.init(elems);
-    });
-  </script>
+<footer class="grey lighten-1" style="display: flex; justify-content: center; gap: 30px; padding: 10px 0;">
+  <a href="{{URL}}/" data-tooltip="Pagina inical">
+    <i class="material-icons">home</i>
+  </a>
+
+  <a href="{{URL}}/contactos" data-tooltip="Suporte técnico">
+    <i class="material-icons">support_agent</i>
+  </a>
+
+  <a href="#modalOpcao1" class="modal-trigger" data-tooltip="Assistente IA">
+    <i class="material-icons">chat</i>
+  </a>
+</footer>
+
+<!-- Modal Structure -->
+<div id="modalOpcao1" class="bottom-sheet modal  modalImprimirTriagem">
+  <div class="modal-content ia-container">
+    <h5 class="ia-title font-normal">Olá, {{nome}}</h5>
+    <div class="ia-box z-depth-1">
+      <input type="text" placeholder="Como posso ajudar você hoje..." class="ia-input">
+
+      <div class="ia-tools">
+        <div class="ia-left">
+          <i class="material-icons">add</i>
+          <span>Ferramentas</span>
+        </div>
+
+        <div class="ia-right">
+          <span>2.5 Flash</span>
+          <i class="material-icons">arrow_drop_down</i>
+          <i class="material-icons">mic</i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(elems);
+  });
+</script>
 
 
 

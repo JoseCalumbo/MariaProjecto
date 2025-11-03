@@ -1,0 +1,71 @@
+<tr>
+  <td>{{id_medicamento}}</td>
+  <td>{{nome}}</td>
+  <td>{{quantidade}}</td>
+  <td>{{valor}}</td>
+  <td>{{dataValidade}}</td>
+  <td>{{dataRegistro}}</td>
+
+  <td>
+
+    <a class="tooltip-container " href="{{URL}}/exame/editar/{{id_medicamento}}">
+      <button type="button " class="font-normal btn blue darken-2 tooltip-btn">
+        <i class="material-icons center">edit</i>
+      </button>
+      <div class="custom-tooltip">Editar Medicamento</div>
+    </a>
+
+    <a class="tooltip-container modal-trigger" href="#modal{{id_medicamento}}">
+      <button type="button " class="font-normal btn red darken-1 tooltip-btn">
+        <i class="material-icons center">delete</i>
+      </button>
+      <div class="custom-tooltip">Apagar Medicamento</div>
+    </a>
+  </td>
+</tr>
+
+
+<!--- Modal apagar funcionario -->
+<div id="modal{{id_medicamento}}" class="modal apagarFuncionario ">
+  <div class="modal-content">
+    <form action="{{URL}}/medicamento/apagar/{{id_medicamento}}" method="post" class="row center white push-m2">
+      <div class="col s12 m12">
+        <h5 class=" font-large">
+          <i class="material-icons left red-text medium" style="position: relative; top: -12px;">error_outline</i>
+          <strong style="font-weight: bold;">Confirmar a exclusão do medicamento?</strong>
+        </h5>
+      </div>
+
+      <div class="offset-m1 col s12 m11">
+        <p style="text-transform: lowercase;">
+          Apagar o medicamento de <strong style="font-weight: bold;">{{nome}}</strong> permanentemente e
+          todos os dados vinculados a este medicamento serão excluídos
+          permanentemente. Você não poderá recuperá-los no futuro.</p>
+        <p>
+      </div>
+
+      <div class="offset-m1 col s12 m11">
+        <label>
+          <input name="confirmo" type="checkbox" />
+          <span> <strong style="font-weight: bold; color: black; text-transform: lowercase;">
+              Sim, confirmo a exclusão do medicamento</strong>
+          </span>
+        </label>
+      </div>
+
+      <div class=" col s12 " style="display: none;">
+        <input type="submit" id="subemeter{{id_medicamento}}" name="Salvar">
+      </div>
+    </form>
+
+    <div class="row offset-m8 col s12 m4">
+      <button class=" btn modal-close waves-effect blue darken-2 font-normal" name="cancelar" value="cancelar">
+        Cancelar
+      </button>
+
+      <button type="submit" class="btn red font-normal" name="apagar" required>
+        <label class="white-text col m12" for="subemeter{{id_medicamento}}">Apagar</label>
+      </button>
+    </div>
+  </div>
+</div>

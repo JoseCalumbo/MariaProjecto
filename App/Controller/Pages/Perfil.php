@@ -146,9 +146,9 @@ class Perfil extends Page
             'msg1' => $alert,
 
 
-            'DATABASE_VIEW' => $IdPermissao[8],
+            'DATABASE_VIEW' => $IdPermissao[7],
             'REGISTROS_DELETE' => $IdPermissao[1],
-            'IMPORT_DATABASE_VIEW' => $IdPermissao[9],
+            'IMPORT_DATABASE_VIEW' => $IdPermissao[8],
 
             'LABORATORIO_ACESS' => $IdPermissao[9],
             'EXAME_ACESS' => $IdPermissao[10],
@@ -323,9 +323,9 @@ class Perfil extends Page
             'serie' => '*****',
             'descrisao' => $obNivelSelecionado->descricao_nivel,
 
-            'DATABASE_VIEW' => $IdPermissao[8],
+            'DATABASE_VIEW' => $IdPermissao[7],
             'REGISTROS_DELETE' => $IdPermissao[1],
-            'IMPORT_DATABASE_VIEW' => $IdPermissao[9],
+            'IMPORT_DATABASE_VIEW' => $IdPermissao[8],
 
             'LABORATORIO_ACESS' => $IdPermissao[9],
             'EXAME_ACESS' => $IdPermissao[10],
@@ -361,9 +361,9 @@ class Perfil extends Page
 
             //_________________________________________________________________________________
 
-            'database_view1' => in_array($IdPermissao[8], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
+            'database_view1' => in_array($IdPermissao[7], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
             'registros_delete1' => in_array($IdPermissao[1], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
-            'import_database_view1' => in_array($IdPermissao[9], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
+            'import_database_view1' => in_array($IdPermissao[8], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
 
             'laboratorio_acess1' => in_array($IdPermissao[9], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
             'exame_acess1' => in_array($IdPermissao[10], $IdPermissaoSelecionado, true)  ? ' checked="" ' : '',
@@ -401,13 +401,6 @@ class Perfil extends Page
 
         return parent::getPage('Editar Acesso e Permissao', $content);
     }
-
-
-
-
-
-
-
 
     // Método para apagar perfil de acesso
     public static function apagarPerfil($request, $id_nivel)

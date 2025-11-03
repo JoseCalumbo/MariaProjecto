@@ -251,6 +251,119 @@
             /* Espaçamento interno */
             max-height: 486px !important;
         }
+
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #757575;
+            padding: 5px 0;
+            text-align: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        footer a {
+            color: white;
+            margin: 0 15px;
+            display: inline-block;
+            position: relative;
+            transition: transform 0.2s ease, color 0.2s ease;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            transform: scale(1.2);
+            color: #ffffff;
+        }
+
+        footer i {
+            font-size: 26px;
+            vertical-align: middle;
+        }
+
+        /* Tooltip customizado (sem seta) */
+        footer a::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 130%;
+            /* posição acima do ícone */
+            left: 50%;
+            transform: translateX(-50%);
+            background: #009688;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        footer a:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-3px);
+        }
+
+        /* Conteúdo interno */
+        .ia-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .ia-title {
+            font-size: 28px;
+            font-weight: 500;
+            color: #4285f4;
+            /* azul Google */
+            margin-bottom: 40px;
+        }
+
+        .ia-box {
+            background: white;
+            border-radius: 40px;
+            width: 90%;
+            padding: 10px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .ia-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            color: #333;
+            padding: 15px 0;
+        }
+
+        .ia-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .ia-left,
+        .ia-right {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .ia-right i {
+            cursor: pointer;
+        }
     </style>
 </head>
 

@@ -109,9 +109,6 @@ class Page
         $obUsuario = FuncionarioDao::getFuncionarioId($id);
 
         return View::render('Layouts/header', [
-
-
-
             'info' => self::getFuncionarioLogado($obFuncionario),
             'nome1' => $obUsuario->nome_funcionario,
 
@@ -166,7 +163,14 @@ class Page
     //metodo busca footer
     public static function getFooter()
     {
-        return View::render('Layouts/footer');
+        $funcionarioLogado = Session::getUsuarioLogado();
+        $id = $funcionarioLogado['id'];
+        // busca o usuario po id
+        $obUsuario = FuncionarioDao::getFuncionarioId($id);
+
+        return View::render('Layouts/footer', [
+            'nome' => $obUsuario->nome_funcionario,
+        ]);
     }
 
     /** 
