@@ -1,0 +1,134 @@
+<section class="row section-field white">
+  <h5 class="center"> Painel Fornecedor</h5>
+
+  <nav class="row col m12  blue-grey darken-1 ">
+    <div class="col m4 nav-wrapper ">
+    </div>
+
+    <div class="col m4 nav-wrapper">
+      <form>
+        <div class="input-field custom-search">
+          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons center">close</i>
+        </div>
+      </form>
+    </div>
+
+    <div class="col m4 nav-wrapper  ">
+      <ul class="right hide-on-med-and-down row" style="height: 50px; ">
+
+        <li>
+          <a href="{{URL}}/fornecedor" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">refresh</i>Actulizar
+          </a>
+        </li>
+
+        <li>
+          <a href="{{URL}}/configuracao-cadastros"
+            style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">post_add</i>Cadastramento Básicos
+          </a>
+        </li>
+
+        <li class="" style="text-transform: capitalize;">
+          <a href="#modalFornecedor" class="white-text modal-trigger" style="display: flex; align-items: center;">
+            <i class="material-icons left white-text">add</i>Novo
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+  </div>
+
+  <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
+  <section class="offset-m2 white col m10">
+    <table class="row col m11 responsive-table">
+      <thead class="">
+        <tr class="center">
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Nº</th>
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">medication_liquid</i> Nome Fornecedor</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">list</i>NIF</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">call</i>Contacto</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">email</i>Email</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">place</i>Endereço</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">calendar_today</i>Data Registro</th>
+          <th> <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>Opção</th>
+        </tr>
+      </thead>
+
+      <tbody tbody class="tbody">
+        {{item}}
+      </tbody>
+    </table>
+
+  </section>
+
+  <section class="col m12 white">
+    {{paginacao}}
+  </section>
+
+</section>
+
+
+<!--- Modal criar Exame -->
+<div id="modalFornecedor" class="modal  modalImprimirTriagem1 white">
+    <div class="modal-content">
+        <h5 class=" offset-m1 col s12 m10 capitalize" style="text-transform: lowercase;">
+            <i class="material-icons left teal-text medium"
+                style="position: relative; top: -12px;">medication_liquid</i>
+            <strong style="font-weight: bold;">Cadastrar novo fornecedor</strong>
+        </h5>
+        <form action="{{URL}}/fornecedor/cadastrar" method="post" class="center white push-m2">
+            <div class="row" style="position: relative; top: -20px;">
+                <div class="input-field col s12 m7">
+                    <input id="nomef" type="text" name="nomeFornecedor" value="{{nomeFornecedor}}" class="validate">
+                    <label for="nomef" class="capitalize" style="text-transform:lowercase;">Nome do fornecedor:</label>
+                </div>
+
+                <div class="input-field col s12 m5">
+                    <input id="nif" type="text" name="nif" value="{{nif}}" class="validate">
+                    <label for="nif" style="text-transform: capitalize;">NIF:</label>
+                </div>
+
+                <div class="input-field col s12 m7">
+                    <input id="email" type="text" name="email" value="{{email}}" class="validate">
+                    <label for="email" class="capitalize" style="text-transform:lowercase;">Email:</label>
+                </div>
+
+                <div class="input-field col s12 m5">
+                    <input id="contacto" type="text" name="contacto" value="{{contacto}}" class="validate">
+                    <label for="contacto" style="text-transform: capitalize;">Contacto:</label>
+                </div>
+
+                <div class="input-field col s12 m12">
+                    <input id="descrisaoF" type="text" name="descrisaoF" value="{{descrisaoF}}" class="validate">
+                    <label for="descrisaoF" style="text-transform: capitalize;">Endereço do Fornecedor:</label>
+                </div>
+            </div>
+
+            <div class="offset-m10 col s12 " style="display: none;">
+                <input type="submit" id="submite">
+            </div>
+        </form>
+
+        <div class="row offset-m8 col s12 m4" style="position: relative; top: -12px;">
+            <button class=" btn modal-close waves-effect blue darken-2 font-normal" name="cancelar" value="cancelar">
+                Cancelar
+            </button>
+
+            <button type="submit" class="btn teal font-normal" name="apagar" required>
+                <label class="white-text col m12" for="submite">Salvar</label>
+            </button>
+        </div>
+
+        <div><br> <br></b></div>
+
+    </div>
+</div>
+
+

@@ -50,16 +50,16 @@ $obRouter->post('/medicamento/cadastrar', [
 ]);
 
 // rota para alterar um registro POST 
-$obRouter->get('/exame/editar/{id_exame}', [
-    function ($request, $id_exame) {
-        return new Response(200, Pages\Exame::getAtualizarExame($request, $id_exame));
+$obRouter->get('/medicamento/editar/{id_medicamento}', [
+    function ($request, $id_medicamento) {
+        return new Response(200, Pages\Medicamento::getAtualizarMedicamento($request, $id_medicamento));
     }
 ]);
 
 // rota para alterar um registro POST 
-$obRouter->post('/exame/editar/{id_exame}', [
-    function ($request, $id_exame) {
-        return new Response(200, Pages\Exame::setAtualizarExame($request, $id_exame));
+$obRouter->post('/medicamento/editar/{id_medicamento}', [
+    function ($request, $id_medicamento) {
+        return new Response(200, Pages\Medicamento::setAtualizarMedicamento($request, $id_medicamento));
     }
 ]);
 

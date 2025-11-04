@@ -30,7 +30,7 @@ class Medicamento extends Page
                 return MensagemAdmin::msgSucesso('Farmacia Cadastrado com sucesso');
                 break;
             case 'alterado':
-                return MensagemAdmin::msgSucesso('Farmacia Alterado com sucesso');
+                return MensagemAdmin::msgSucesso('Medicamento Alterado com sucesso');
                 break;
             case 'alteradonivel':
                 return MensagemAdmin::msgSucesso('Farmacia Alterado com sucesso');
@@ -50,17 +50,15 @@ class Medicamento extends Page
     // busca todos os Nivel  cadastrado
     public static function getFornecedor()
     {
-
         $resultadoFornecedor = '';
 
         $listarFornecedor = FornecedorDao::listarFornecedor(null, 'nome_fornecedor');
 
         while ($obFornecedor = $listarFornecedor->fetchObject(FornecedorDao::class)) {
 
-            $resultadoFornecedor .= View::render('configuracao/medicamento/itemFornecedor/medicamento', [
+            $resultadoFornecedor .= View::render('configuracao/medicamento/itemFornecedor/fornecedor', [
                 'value' => $obFornecedor->id_fornecedor,
                 'fornecedor' => $obFornecedor->nome_fornecedor,
-                //'checado'=>$obNegocio->nome,
             ]);
         }
         return $resultadoFornecedor;
@@ -140,12 +138,10 @@ class Medicamento extends Page
     // Metodo que apresenta a pagina do novo medicamento
     public static function getCadastrarMedicamento($request)
     {
-        // Instancia a classe Medicamento
-        $obMedicamento = new MedicamentoDao();
-
         $content = View::render('configuracao/medicamento/formMedicamento', [
             'titulo' => 'Cadastrar novo medicamento',
             'button' => 'Salvar',
+            'fornecedores' => self::getFornecedor(),
 
             'nome' => '',
             'valor' => '',
@@ -153,6 +149,13 @@ class Medicamento extends Page
             'estoque' => '',
             'tipo' => '',
             'validade' => '',
+            'descrisao' => '',
+
+            'descrisaoF' => '',
+            'nomeFornecedor' => "",
+            'nif' => "",
+            'contacto' => "",
+            'email' => "",
         ]);
 
         return parent::getPage('Cadaastrar novo medicamento', $content);
@@ -167,74 +170,79 @@ class Medicamento extends Page
 
         if (isset($_POST['nome'], $_POST['valor'])) {
 
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
-             exit;
+            $obMedicamento->nome_medicamento = $_POST['nome'];
+            $obMedicamento->preco_medicamento = $_POST['valor'];
+            $obMedicamento->descricao_medicamento = $_POST['descrisao'];
+            $obMedicamento->dosagem_medicamento = $_POST['dosagem'];
+            $obMedicamento->forma_medicamento = $_POST['forma'];
+            $obMedicamento->estoque_medicamento = $_POST['estoque'];
+            $obMedicamento->fornecedor_medicamento = $_POST['fornecedor'];
+            $obMedicamento->tipo_medicamento = $_POST['tipo'];
+            $obMedicamento->validade_medicamento = $_POST['validade'];
+            $obMedicamento->cadastrarMedicamento();
 
             $request->getRouter()->redirect('/medicamento?msg=cadastrados');
             exit;
-        }else{
-            
+        } else {
         }
     }
 
-    // Método que edita dados do Funcionario
-    public static function getAtualizarExame($request, $id_medicamento)
+    // Método que edita dados do Medicamento
+    public static function getAtualizarMedicamento($request, $id_medicamento)
     {
         // Busca o exame por id
-        $obMedicamento = ExameDao::getExameId($id_medicamento);
+        $obMedicamento = MedicamentoDao::getMedicamentoId($id_medicamento);
 
-        $content = View::render('configuracao/exame/formEditarExame', [
+        $content = View::render('configuracao/medicamento/formMedicamento', [
             'titulo' => 'Edita Dados Exame',
             'button' => 'salvar',
+            'fornecedores' => self::getFornecedor(),
+
+            'nomeFornecedor' => "",
+            'nif' => "",
+            'contacto' => "",
+            'email' => "",
 
             'nome' => $obMedicamento->nome_medicamento,
             'tipo' => $obMedicamento->tipo_medicamento,
-            'parametros' => $obMedicamento->parametro_medicamento,
-            'valor' => $obMedicamento->valor_medicamento,
-            'descrisao' => $obMedicamento->descrisao_medicamento,
-            'dataRegistro' => date('d-m-Y', strtotime($obMedicamento->criado_medicamento)),
-            'estadoExame' => $obMedicamento->estado_medicamento,
+            'valor' => $obMedicamento->preco_medicamento,
+            'descrisao' => $obMedicamento->descricao_medicamento,
+            'dosagem' => $obMedicamento->dosagem_medicamento,
+            'estoque' => $obMedicamento->estoque_medicamento,
+            'validade' => date('Y-m-d', strtotime($obMedicamento->validade_medicamento)),
 
-            'activo' => $obMedicamento->estado_medicamento == 'Activo' ? 'selected' : '',
-            'desativado' => $obMedicamento->estado_medicamento == 'Desativado' ? 'selected' : '',
-
-            'Imagem' => $obMedicamento->tipo_medicamento == 'Imagem' ? 'selected' : '',
-            'Sorológicos' => $obMedicamento->tipo_medicamento == 'Sorológicos' ? 'selected' : '',
-            'Bioquímicos' => $obMedicamento->tipo_medicamento == 'Bioquímicos' ? 'selected' : '',
-            'Urina' => $obMedicamento->tipo_medicamento == 'Urina' ? 'selected' : '',
-            'Microbiológicos' => $obMedicamento->tipo_medicamento == 'Microbiológicos' ? 'selected' : '',
-
+            'Ampola' => $obMedicamento->forma_medicamento == 'Ampola' ? 'selected' : '',
+            'Xarope' => $obMedicamento->forma_medicamento == 'Xarope' ? 'selected' : '',
+            'Creme' => $obMedicamento->forma_medicamento == 'Creme' ? 'selected' : '',
+            'Comprimido' => $obMedicamento->forma_medicamento == 'Comprimido' ? 'selected' : '',
 
         ]);
 
         return parent::getPage('Eidtar dados Exame', $content);
     }
 
-    // Metodo para editar Funcionario
-    public static function setAtualizarExame($request, $id_medicamento)
+    // Metodo para editar Medicamento
+    public static function setAtualizarMedicamento($request, $id_medicamento)
     {
-        if (isset($_POST['Salvar'])) {
+        // Busca o exame por id
+        $obMedicamento = MedicamentoDao::getMedicamentoId($id_medicamento);
 
-            // Busca o exame por id
-            $obExame = ExameDao::getExameId($id_medicamento);
+        if (isset($_POST['nome'], $_POST['valor'])) {
 
-            $obExame->nome_medicamento = $_POST['nome'] ?? $obExame->nome_medicamento;
-            $obExame->valor_medicamento = $_POST['valor'] ?? $obExame->valor_medicamento;
-            $obExame->parametro_medicamento = $_POST['parametros'] ?? $obExame->parametro_medicamento;
-            $obExame->descrisao_medicamento = $_POST['descrisao'] ?? $obExame->descrisao_medicamento;
-            $obExame->tipo_medicamento = $_POST['categoria'] ?? $obExame->tipo_medicamento;
-            $obExame->estado_medicamento = $_POST['estado'] ?? $obExame->estado_medicamento;
+            $obMedicamento->nome_medicamento = $_POST['nome'] ?? $obMedicamento->nome_medicamento;
+            $obMedicamento->preco_medicamento = $_POST['valor'] ?? $obMedicamento->preco_medicamento;
+            $obMedicamento->descricao_medicamento = $_POST['descrisao'] ?? $obMedicamento->descricao_medicamento;
+            $obMedicamento->dosagem_medicamento = $_POST['dosagem'] ?? $obMedicamento->dosagem_medicamento;
+            $obMedicamento->forma_medicamento = $_POST['forma'];
+            $obMedicamento->estoque_medicamento = $_POST['estoque'];
+            $obMedicamento->fornecedor_medicamento = $_POST['fornecedor'] ?? $obMedicamento->fornecedor_medicamento;
+            $obMedicamento->tipo_medicamento = $_POST['tipo']  ?? $obMedicamento->tipo_medicamento;
+            $obMedicamento->validade_medicamento = $_POST['validade'];
+            $obMedicamento->atualizarMedicamento();
 
-            // faz o cadastramento e obtem o id registrado do exame
-            $obExame->AtualizarExame();
-
-            $request->getRouter()->redirect('/exame');
+            $request->getRouter()->redirect('/medicamento?msg=alterado');
             exit;
         }
-
-        $request->getRouter()->redirect('/exame?msg=seleciona');
     }
 
 

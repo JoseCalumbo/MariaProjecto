@@ -38,6 +38,11 @@ include __DIR__.'/RotaExame.php';
 */
 include __DIR__.'/RotaFarmacia.php';
 
+/** __________________________________ Fornecedor _______________________________
+ * inclui as rotas de Fornecedor
+*/
+include __DIR__.'/RotaFornecedor.php';
+
 /** __________________________________ Medicamentos _______________________________
  * inclui as rotas de medicamento
 */

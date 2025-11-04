@@ -23,6 +23,9 @@ class MedicamentoDao
     // forma do medicamento
     public $forma_medicamento;
 
+    // forma do tipo
+    public $tipo_medicamento;
+
     // validade do medicamento
     public $validade_medicamento;
 
@@ -48,7 +51,7 @@ class MedicamentoDao
         $this->id_medicamento = $obDatabase->insert([
 
             'id_medicamento' => $this->id_medicamento,
-            'nome_me' => $this->nome_medicamento,
+            'nome_medicamento' => $this->nome_medicamento,
             'descricao_medicamento' => $this->descricao_medicamento,
             'dosagem_medicamento' => $this->dosagem_medicamento,
             'forma_medicamento' => $this->forma_medicamento,
@@ -56,6 +59,7 @@ class MedicamentoDao
             'estoque_medicamento' => $this->estoque_medicamento,
             'preco_medicamento' => $this->preco_medicamento,
             'fornecedor_medicamento' => $this->fornecedor_medicamento,
+            'tipo_medicamento' => $this->tipo_medicamento,
             'criado_medicamento' => $this->criado_medicamento,
 
         ]);
@@ -67,7 +71,7 @@ class MedicamentoDao
     {
         return (new Database('tb_medicamento'))->update('id_medicamento = ' . $this->id_medicamento, [
             'id_medicamento' => $this->id_medicamento,
-            'nome_me' => $this->nome_medicamento,
+            'nome_medicamento' => $this->nome_medicamento,
             'descricao_medicamento' => $this->descricao_medicamento,
             'dosagem_medicamento' => $this->dosagem_medicamento,
             'forma_medicamento' => $this->forma_medicamento,
@@ -75,6 +79,7 @@ class MedicamentoDao
             'estoque_medicamento' => $this->estoque_medicamento,
             'preco_medicamento' => $this->preco_medicamento,
             'fornecedor_medicamento' => $this->fornecedor_medicamento,
+            'tipo_medicamento' => $this->tipo_medicamento,
             'criado_medicamento' => $this->criado_medicamento,
         ]);
     }
@@ -94,15 +99,10 @@ class MedicamentoDao
         return (new Database('tb_medicamento'))->select($where, $order, $limit, $fields);
     }
 
-    // Metodo para  selecionar um registro da tabela medicamento
+    // Método para selecionar um registro da tabela medicamento
     public static function getMedicamentoId($id_medicamento)
     {
         return (new Database('tb_medicamento'))->select('id_medicamento = ' . $id_medicamento)->fetchObject(self::class);
     }
 
-    //Metodo para  selecionar um registro da tabela medicamento
-    public static function getExameId1($id_medicamento)
-    {
-        return (new Database('tb_medicamento'))->select('id_medicamento = ' . $id_medicamento)->fetchObject(PDO::FETCH_CLASS . self::class);
-    }
 }
