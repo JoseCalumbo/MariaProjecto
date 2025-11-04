@@ -6,6 +6,7 @@ use \App\Utils\View;
 
 use \App\Model\Entity\FuncionarioDao;
 use \App\Model\Entity\ExameDao;
+use App\Model\Entity\FornecedorDao;
 use App\Model\Entity\PacienteDao;
 
 class Configuracao extends Page
@@ -27,6 +28,14 @@ class Configuracao extends Page
         return $quantidadetotal;
     }
 
+    // Busca o total dos Exames
+    public static function getNumeroFornecedor()
+    {
+        //quantidade total de registros da tabela user
+        $quantidadetotal = FornecedorDao::listarFornecedor(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+         return $quantidadetotal;
+    }
+
 
 
     // Método que apresenta a tela do Funcionario
@@ -44,6 +53,7 @@ class Configuracao extends Page
         $content = View::render('configuracao/item/cadastros_basico', [
             'active' => 'blue-grey darken-3 white-text',
             'numeroExame' => self::getNumeroExame(),
+            'numeroFornecedor' => self::getNumeroFornecedor(),
         ]);
         return parent::getPage('Configuração-Cadastro básico', $content);
     }
@@ -54,6 +64,7 @@ class Configuracao extends Page
         $content = View::render('configuracao/item/cadastros_paciente', [
             'active' => 'blue-grey darken-3 white-text',
             'numeroPaciente' => self::getNumeroPaciente(),
+            'numeroFornecedor' => self::getNumeroFornecedor(),
         ]);
         return parent::getPage('Configuração-Cadastro básico', $content);
     }

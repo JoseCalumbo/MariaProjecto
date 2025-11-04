@@ -4,9 +4,8 @@
     <nav class="col m12 blue-grey darken-1">
         <div class="nav-wrapper ">
             <ul class="right hide-on-med-and-down row" style="height: 50px;">
-
                 <li class="white-text " style="text-transform: capitalize;">
-                    <a href="{{URL}}/exame" class="white-text"
+                    <a href="{{URL}}/fornecedor" class="white-text"
                         style="display: flex; align-items: center; text-transform: capitalize;">
                         <i class=" material-icons left white-text ">arrow_back</i>voltar
                     </a>
@@ -22,74 +21,37 @@
     <section class="row col m8 offset-m2 " style="text-align: center;">
         <!-- formulario para cadastramento de usuario start -->
         <form class="" method="post" enctype="multipart/form-data">
-            <ul class=" collapsibleF white expandable">
-                <li class="active">
-                    <div id="form-collapsible" class="collapsible-header white-text font-normal  blue-grey darken-1">
-                        <i class="material-icons">science</i> Dados Exame
+
+            <div class="row col s12 m12">
+                <div class="row col m12">
+                    <div class="input-field col s12 m8">
+                        <input id="id" type="text" name="nome" value="{{nomeFornecedor}}" class="validate">
+                        <label for="id" style="text-transform: capitalize;">Nome Fornecedor:</label>
                     </div>
-                    <div class="collapsible-body row" style="padding: 7px 3px !important; margin: 0px !important;">
 
-                        <div class="row col s12 m12">
-                            <div class="row col m12">
-                                <div class="input-field col s12 m8">
-                                    <input id="id" type="text" name="nome" value="{{nome}}" class="validate">
-                                    <label for="id" style="text-transform: capitalize;">Nome Completo:</label>
-                                </div>
-
-                                <div class="input-field col s12 m4">
-                                    <input id="nome" type="text" name="valor" value="{{valor}}" class="validate">
-                                    <label for="nome" style="text-transform: capitalize">Valor de Exame:</label>
-                                </div>
-
-                                <div class="input-field col s12 m8">
-                                    <input id="descrisao" type="text" name="descrisao" value="{{descrisao}}" />
-                                    <label for="descrisao" style="text-transform: capitalize;">Descrisão:</label>
-                                </div>
-
-                                <div class="input-field col s6 m4">
-                                    <input id="parametros" type="text" name="parametros" value="{{parametros}}">
-                                    <label for="parametros" style="text-transform: capitalize;">Parametros:</label>
-                                </div>
-                            </div>
-
-                            <div class="row" style="padding: 7px 3px !important; margin: 0px !important;">
-                                <div class="input-field col s6 m6"
-                                    style="padding: 0px 3px !important; margin: 0px !important;">
-                                    <div class="input-field col s12">
-                                        <select name="categoria">
-                                            <option value="" disabled selected>Escolhe uma opção</option>
-                                            <option value="Imagem" {{Imagem}}>Imagem</option>
-                                            <option value="Imunologia" {{Imunologia}}>Imunologia</option>
-                                            <option value="Sorológicos" {{Sorológicos}}>Sorológicos</option>
-                                            <option value="Bioquímicos" {{Bioquímicos}}>Bioquímicos</option>
-                                            <option value="Urina" {{Urina}}>Urina Súmaria</option>
-                                            <option value="Microbiológicos" {{Microbiológicos}}>Microbiológicos</option>
-                                        </select>
-                                        <label class="font-normal">Seleciona categoria</label>
-                                    </div>
-                                </div>
-
-                                <div class="input-field col s6 m6"
-                                    style="padding: 0px 3px !important; margin: 0px !important;">
-                                    <div class="input-field col s12">
-                                        <select name="estado">
-                                            <option value="" disabled selected>Escolhe uma opção</option>
-                                            <option value="Activo" {{activo}}>Activo</option>
-                                            <option value="Desativado" {{desativado}}>Desativado</option>
-                                        </select>
-                                        <label class="font-normal negrito">Seleciona o estado do nível</label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                    <div class="input-field col s12 m4">
+                        <input id="nif" type="text" name="nif" value="{{nif}}" class="validate">
+                        <label for="nif" style="text-transform: capitalize">NIF:</label>
                     </div>
-                </li>
-            </ul>
 
-            <div class="row col s12 m12">       
+                    <div class="input-field col s12 m8">
+                        <input id="email" type="text" name="email" value="{{email}}" />
+                        <label for="email" style="text-transform: capitalize;">Email:</label>
+                    </div>
+
+                    <div class="input-field col s6 m4">
+                        <input id="contacto" type="text" name="contacto" value="{{contacto}}">
+                        <label for="contacto" style="text-transform: capitalize;">Contacto:</label>
+                    </div>
+                    <div class="input-field col s6 m12">
+                        <input id="endereco" type="text" name="endereco" value="{{endereco}}">
+                        <label for="endereco" style="text-transform: capitalize;">Endereço:</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row col s12 m12">
                 <button class="col offset-m10 m2 btn font-normal" name="Salvar" type="submit">{{button}}</button>
             </div>
         </form>

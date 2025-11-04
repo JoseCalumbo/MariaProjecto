@@ -50,7 +50,7 @@ class FornecedorDao
 
 
     // faz um update na tabela da fornecedor
-    public function AtualizarFornecedor()
+    public function atualizarFornecedor()
     {
         return (new Database('tb_fornecedor'))->update('id_fornecedor = ' . $this->id_fornecedor, [
             'id_fornecedor' => $this->id_fornecedor,

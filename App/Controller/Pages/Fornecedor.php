@@ -4,20 +4,16 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Utils\Pagination;
-use \App\Utils\Upload;
-
-use \App\Model\Entity\ExameDao;
 use \App\Controller\Mensagem\MensagemAdmin;
 use App\Model\Entity\FornecedorDao;
-use FontLib\Font;
 
 class Fornecedor extends Page
 {
 
     /* Metodo para exibir  as mensagens
-     *@param Request 
-     *@ return string
-     */
+     * @param Request 
+     * @ return string
+    */
     public static function exibeMensagem($request)
     {
         $queryParam = $request->getQueryParams();
@@ -32,11 +28,11 @@ class Fornecedor extends Page
             case 'cadastrado':
                 return MensagemAdmin::msgSucesso('Fornecedor Cadastrado com sucesso');
                 break;
-            case 'alterado':
-                return MensagemAdmin::msgSucesso('Fornecedor Alterado com sucesso');
+            case 'push-s2':
+                return MensagemAdmin::msgSucesso('Dados do fornecedor alterado com sucesso');
                 break;
-            case 'alteradonivel':
-                return MensagemAdmin::msgSucesso('Fornecedor Alterado com sucesso');
+            case 'alterado':
+                return MensagemAdmin::msgSucesso('Dados do fornecedor alterado com sucesso');
                 break;
             case 'apagado':
                 return MensagemAdmin::msgSucesso('Fornecedor Apagado com sucesso');
@@ -77,7 +73,7 @@ class Fornecedor extends Page
 
             $item .= View::render('configuracao/fornecedor/listarFornecedor', [
                 'id_fornecedor' => $obFornecedors->id_fornecedor,
-                'nome' => $obFornecedors->nome_fornecedor,
+                'nomeFornecedor' => $obFornecedors->nome_fornecedor,
                 'nif' => $obFornecedors->nif_fornecedor,
                 'contacto' => $obFornecedors->contacto_fornecedor,
                 'email' => $obFornecedors->email_fornecedor,
@@ -120,12 +116,9 @@ class Fornecedor extends Page
             'email' => "",
             'contacto' => "",
             'descrisaoF' => "",
-
-
         ]);
-        return parent::getPage('Painel Exames', $content);
+        return parent::getPage('Painel Fornecedor', $content);
     }
-
 
     // Metodo que cadastrar novo Fornecedor
     public static function cadastrarMedicamentoPainel($request)
@@ -143,6 +136,7 @@ class Fornecedor extends Page
         $request->getRouter()->redirect('/fornecedor?msg=sucesso');
         exit;
     }
+
     // Metodo que cadastrar novo Fornecedor
     public static function setCadastrarFornecedor($request)
     {
@@ -160,64 +154,28 @@ class Fornecedor extends Page
         exit;
     }
 
-    // Método que edita dados do Funcionario
-    public static function getAtualizarFornecedor($request, $id_exame)
+    // Metodo para editar os daos do fornecedor
+    public static function setAtualizarFornecedor($request, $id_fornecedor)
     {
-        // Busca o exame por id
-        $obFornecedors = ExameDao::getExameId($id_exame);
-
-        $content = View::render('configuracao/fornecedor/formEditarFornecedor', [
-            'titulo' => 'Edita Dados Fornecedor',
-            'button' => 'salvar',
-
-            'nome' => $obFornecedors->nome_exame,
-            'tipo' => $obFornecedors->tipo_exame,
-            'parametros' => $obFornecedors->parametro_exame,
-            'valor' => $obFornecedors->valor_exame,
-            'descrisao' => $obFornecedors->descrisao_exame,
-            'dataRegistro' => date('d-m-Y', strtotime($obFornecedors->criado_exame)),
-            'estadoExame' => $obFornecedors->estado_exame,
-
-            'activo' => $obFornecedors->estado_exame == 'Activo' ? 'selected' : '',
-            'desativado' => $obFornecedors->estado_exame == 'Desativado' ? 'selected' : '',
-
-            'Imagem' => $obFornecedors->tipo_exame == 'Imagem' ? 'selected' : '',
-            'Sorológicos' => $obFornecedors->tipo_exame == 'Sorológicos' ? 'selected' : '',
-            'Bioquímicos' => $obFornecedors->tipo_exame == 'Bioquímicos' ? 'selected' : '',
-            'Urina' => $obFornecedors->tipo_exame == 'Urina' ? 'selected' : '',
-            'Microbiológicos' => $obFornecedors->tipo_exame == 'Microbiológicos' ? 'selected' : '',
-
-
-        ]);
-
-        return parent::getPage('Editar dados Fornecedor', $content);
-    }
-
-    // Metodo para editar Funcionario
-    public static function setAtualizarFornecedor($request, $id_exame)
-    {
-        if (isset($_POST['Salvar'])) {
+        if (isset($_POST['salvar'])) {
 
             // Busca o exame por id
-            $obFornecedor = ExameDao::getExameId($id_exame);
+            $obFornecedor = FornecedorDao::getFornecedorId($id_fornecedor);
 
-            $obFornecedor->nome_exame = $_POST['nome'] ?? $obFornecedor->nome_exame;
-            $obFornecedor->valor_exame = $_POST['valor'] ?? $obFornecedor->valor_exame;
-            $obFornecedor->parametro_exame = $_POST['parametros'] ?? $obFornecedor->parametro_exame;
-            $obFornecedor->descrisao_exame = $_POST['descrisao'] ?? $obFornecedor->descrisao_exame;
-            $obFornecedor->tipo_exame = $_POST['categoria'] ?? $obFornecedor->tipo_exame;
-            $obFornecedor->estado_exame = $_POST['estado'] ?? $obFornecedor->estado_exame;
+            $obFornecedor->nome_fornecedor = $_POST['nomeFornecedor'] ?? $obFornecedor->nome_fornecedor;
+            $obFornecedor->nif_fornecedor = $_POST['nif'] ?? $obFornecedor->nif_fornecedor;
+            $obFornecedor->contacto_fornecedor = $_POST['contacto'] ?? $obFornecedor->contacto_fornecedor;
+            $obFornecedor->email_fornecedor = $_POST['email'] ?? $obFornecedor->email_fornecedor;
+            $obFornecedor->endereco_fornecedor = $_POST['endereco'] ?? $obFornecedor->endereco_fornecedor;
 
-            // faz o cadastramento e obtem o id registrado do exame
-            $obFornecedor->AtualizarExame();
+            $obFornecedor->atualizarFornecedor();
 
-            $request->getRouter()->redirect('/exame');
+            $request->getRouter()->redirect('/fornecedor?msg=alterado');
             exit;
         }
 
-        $request->getRouter()->redirect('/exame?msg=seleciona');
+        $request->getRouter()->redirect('/fornecedor?msg=selec');
     }
-
 
     // Metodo para apagar Funcionario
     public static function setApagarFornecedor($request, $id_fornecedor)

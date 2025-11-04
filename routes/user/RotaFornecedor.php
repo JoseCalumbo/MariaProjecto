@@ -28,7 +28,6 @@ $obRouter->post('/fornecedor', [
     }
 ]);
 
-
 // Rota para cadastrar fornecedor
 $obRouter->post('/fornecedor/cadastrar', [
     'middlewares' => [
@@ -46,13 +45,6 @@ $obRouter->post('/fornecedor-cadastrar', [
     ],
     function ($request) {
         return new Response(200, Pages\Fornecedor::setCadastrarFornecedor($request));
-    }
-]);
-
-// rota para alterar um registro POST 
-$obRouter->get('/fornecedor/editar/{id_fornecedor}', [
-    function ($request, $id_fornecedor) {
-        return new Response(200, Pages\Fornecedor::getAtualizarFornecedor($request, $id_fornecedor));
     }
 ]);
 
