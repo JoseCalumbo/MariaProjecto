@@ -83,14 +83,12 @@ $obRouter->get('/relatorio/dados',[
 include __DIR__.'/RotaConfiguracao.php';
 
 //________________________ rota Zona___________________________
-
 /**
  * inclui as rotas da zona  
 */
 include __DIR__.'/RotaZona.php';
 
 //________________________ rota Consulta___________________________
-
 /**
  * inclui as rotas da zona  
 */
@@ -184,8 +182,27 @@ $obRouter->get('/acesso/negado',[
 
 /**
  * __________________________________Paciente _______________________________
- * inclui as rotas de RotaTesouraria
+ * inclui as rotas de RotaPaciente
 */
 include __DIR__.'/RotaPaciente.php';
+
+
+/**
+ * __________________________________ Tesoraria _______________________________
+ * inclui as rotas de RotaTesouraria
+*/
+include __DIR__.'/RotaTesoraria.php';
+
+/**
+ * __________________________________ utilitario _______________________________
+ * inclui as rotas de RotaUtilitario
+*/
+include __DIR__.'/RotaUtilitario.php';
+
+/**
+ * __________________________________ Contabilidade _______________________________
+ * inclui as rotas de RotaContabilidade
+*/
+include __DIR__.'/RotaContabilidade.php';
 
 

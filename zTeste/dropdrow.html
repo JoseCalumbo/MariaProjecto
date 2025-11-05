@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dropdown dentro de outro Dropdown - Materialize</title>
+  <!-- Import Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+  <style>
+    /* Ajusta o submenu */
+    .dropdown-content .submenu {
+      position: relative;
+    }
+
+    .dropdown-content .submenu ul {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      margin-left: 5px;
+      min-width: 180px;
+      background-color: white;
+      z-index: 999;
+    }
+
+    .dropdown-content .submenu:hover ul {
+      display: block;
+    }
+
+    .submenu > a::after {
+      content: '▶';
+      float: right;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botão principal -->
+  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Menu Principal</a>
+
+  <!-- Primeiro nível -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!">Opção 1</a></li>
+    <li><a href="#!">Opção 2</a></li>
+
+    <!-- Submenu -->
+    <li class="submenu">
+      <a href="#!">Mais Opções</a>
+      <ul>
+        <li><a href="#!">Sub Opção 1</a></li>
+        <li><a href="#!">Sub Opção 2</a></li>
+        <li><a href="#!">Sub Opção 3</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#!">Opção 3</a></li>
+  </ul>
+
+  <!-- Import Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      M.Dropdown.init(elems, {
+        coverTrigger: false, // Faz o menu aparecer abaixo do botão
+        constrainWidth: false // Deixa o menu ajustar sua largura
+      });
+    });
+  </script>
+</body>
+</html>

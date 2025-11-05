@@ -80,7 +80,7 @@
                 <li class="capitalize">
                     <a href="#!" class="dropdown-trigger " data-target="dropdown-mais"
                         style="font-size: 13px; text-transform: capitalize;">
-                        <i class="material-icons left icon-tight" style="font-size: 18px;">view_list</i> Mais
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">list</i> Mais
                         <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
                     </a>
                 </li>
@@ -126,17 +126,18 @@
         <!-- Dropdown mais -->
         <ul id="dropdown-mais" class="dropdown-content">
             <li>
-                <a href="{{URL}}/relatorio" class="capitalize font-normal {{SALFT}} ">
-                    <i class="material-icons left">donut_small</i>Relatorios
+                <a href="{{URL}}/contabilidade" class="capitalize font-normal {{SALFT}} ">
+                    <i class="material-icons left">bar_chart</i>Contabilidade 
                 </a>
             </li>
+
             <li>
-                <a href="{{URL}}/paciente" class="capitalize font-normal {{CAIXA_VIEW}}">
+                <a href="{{URL}}/tesouraria" class="capitalize font-normal {{CAIXA_VIEW}}">
                     <i class="material-icons left">local_hospital</i>Tesouraria
                 </a>
             </li>
             <li>
-                <a href="#!" class="dropdown-trigger {{{{PERSONALIZAR}}}} font-normal" data-target="dropdown-far">
+                <a href="{{URL}}/utilitario" class="dropdown-trigger {{{{PERSONALIZAR}}}} font-normal" data-target="dropdown-far">
                     <i class="material-icons left">build</i>Utilitarios
                     <i class="material-icons right">chevron_right</i>
                 </a>
@@ -273,8 +274,8 @@
         <ul id="dropdown-farmacia" class="dropdown-content">
             <li><a href="{{URL}}/farmacia" class="font-normal"><i class="material-icons left">medical_services</i>Atendimento farmacêutico</a></li>
             <li><a href="{{URL}}/medicamento" class="font-normal"><i class="material-icons left">local_pharmacy</i>Cadastrar medicamentos</a></li>
-            <li><a href="#!" class="font-normal"><i class="material-icons left">medication_liquid</i>Fornecedores</a></li>
-            <li><a href="#!" class="font-normal"><i class="material-icons left">inventory_2</i>Gestão de estoque</a></li>
+            <li><a href="{{URL}}/fornecedor" class="font-normal"><i class="material-icons left">medication_liquid</i>Fornecedores</a></li>
+            <li><a href="{{URL}}/fornecedor" class="font-normal"><i class="material-icons left">inventory_2</i>Gestão de estoque</a></li>
         </ul>
 
         <!-- Dropdown configuração -->
