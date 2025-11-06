@@ -2,37 +2,21 @@
 
   <h5 class="center"> {{titulo}} </h5>
 
-  <nav class='flex row grey darken-3'>
-
-    <div class="nav-wrapper col m6">
-      <div class="col m12">
-        <a href="{{URL}}/consulta-diaria" class="btn white-text flow-text font-normal">Historico Médico</a>
-        <a href="{{URL}}/consulta-diaria" class="btn white-text flow-text font-normal">Dados da triagem</a>
-      </div>
-    </div>
-
-    <div class="nav-wrapper col m6 ">
-      <div class="col s12">
-        <a href="{{URL}}" class=" btn breadcrumb white-text font-normal">Home</a>
-        <a href="{{URL}}/consulta-diaria" class="breadcrumb white-text flow-text font-normal">Voltar</a>
-      </div>
-    </div>
-  </nav>
-
+  <br>
   <div class="row">
     <div class="col s12 blue-grey darken-1 ">
       <!--header das abas-->
       <ul class="tabs tabsvendedor blue-grey darken-1  row">
-        <li class="tab col s3 "><a class="active font-normal" href="#dados1">Dados da triagem</a></li>
-        <li class="tab col s3 "><a class="active font-normal" href="#dados2">Sinais Vitais</a></li>
+        <li class="tab col s3 "><a class="active font-normal" href="#dados1">Dados do pacientes</a></li>
+        <li class="tab col s3 "><a class="active font-normal" href="#dados2">Dados da consulta</a></li>
         <li class="tab col s3 "><a class="active font-normal" href="#exame">Exames</a></li>
-        <li class="tab col s3 "><a class="active font-normal" href="#documento">Observação</a></li>
+        <li class="tab col s3 "><a class="active font-normal" href="#documento">Prescrição</a></li>
       </ul>
     </div>
     <!--pagina das abas-->
-    <section id="dados1" class="col s12 m8 row center">
-      <div class=" offset-m2 m8 row center">
-
+    <section id="dados1" class="col s12 m12 row">
+      <div class="row col push-m2 m8">
+        <br>
         <div class="row">
           <div class="input-field col s12 m6">
             <input id="nome" type="text" name="a" value="{{nome}}" class="validate">
@@ -70,135 +54,60 @@
     </section>
 
     <!--pagina das abas-->
-    <section id="dados2" class="col s12">
-      <div class="row">
-        <div class="input-field col s12 m6">
-          <p><label for="telefone1" style="text-transform: capitalize;">Dores</label></p>
-          <p>
-            <label>
-              <input name="group1" type="radio" checked />
-              <span>Dor de Cabeça</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>Dor de Bariga</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>quarta-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>quinta-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>sexta-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>sabado</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>domingo</span>
-            </label>
-          </p>
-
+    <section id="dados2" class="col m12 s12">
+      <div class="row col push-m2 m8">
+        <br>
+        <div class="input-field col s12 m12">
+          <input id="motivo" type="text" name="nome" value="{{motivo}}" class="validate">
+          <label for="motivo" style="text-transform: capitalize;">Motivo da consulta:</label>
         </div>
 
-        <div class="input-field col s12 m6">
-          <p><label for="telefone1" style="text-transform: capitalize;">Agendamentos Dia
-              Reservados:</label></p>
-          <p>
-            <label>
-              <input name="group1" type="radio" checked />
-              <span>Segunda-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>terça-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>quarta-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>quinta-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>sexta-feira</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>sabado</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="group1" type="radio" />
-              <span>domingo</span>
-            </label>
-          </p>
+        <div class="input-field col s12 m12">
+          <input id="Observação" type="text" name="nome" value="{{obs}}" class="validate">
+          <label for="Observação" style="text-transform: capitalize;">Observação:</label>
+        </div>
+
+        <div class="input-field col s12 m12">
+          <input id="Diagnóstico" type="text" name="nome" value="{{diagnostico}}" class="validate">
+          <label for="Diagnóstico" style="text-transform: capitalize;">Diagnóstico:</label>
         </div>
       </div>
+
     </section>
 
     <!--Aba content do pagamento-->
-    <section id="exame" class="col s12">
-      <br>
-      <table class=" responsive-table">
-        <thead>
-          <tr>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Nome do exame</th>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Tipo de exame</th>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Verificaçao</th>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
-            <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Ação</th>
-          </tr>
-        </thead>
-        <tbody id="tabela-body">
-          <tr>
-            <td><input type="text" name="nome[]" class="validate" rred></td>
-            <td><input type="text" name="email[]" class="validate" quired></td>
-            <td><input type="text" name="email[]" class="validate" equired></td>
-            <td><input type="text" name="email[]" class="validate" equired></td>
-            <td class="center">
-              <a class="btn  waves-effect waves-light red white-text" onclick="removerLinha(this)">
-                <i class="material-icons centered">delete</i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row left-align ">
-        <a class="waves-effect waves-light  btn blue white-text font-normal" onclick="adicionarLinha()">
-          <i class="material-icons centered">add</i> Adicionar mais Exame
-        </a>
+    <section id="exame" class="col m12 s12">
+      <div class="row col push-m2 m8">
+        <br>
+        <table class=" responsive-table">
+          <thead>
+            <tr>
+              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Tipo</th>
+              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nome</th>
+              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Paramentro</th>
+              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
+              <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-body">
+            <tr>
+              <td><input type="text" name="nome[]" class="validate" rred></td>
+              <td><input type="text" name="email[]" class="validate" quired></td>
+              <td><input type="text" name="email[]" class="validate" equired></td>
+              <td><input type="text" name="email[]" class="validate" equired></td>
+              <td class="center">
+                <a class="btn  waves-effect waves-light red white-text" onclick="removerLinha(this)">
+                  <i class="material-icons centered">delete</i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row center">
+          <a class="waves-effect waves-light  btn blue white-text font-normal" onclick="adicionarLinha()">
+            <i class="material-icons centered">add</i>Mais Exame
+          </a>
+        </div>
       </div>
 
     </section>

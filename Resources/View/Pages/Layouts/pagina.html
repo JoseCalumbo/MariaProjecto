@@ -383,10 +383,91 @@
         .modal-overlay {
             pointer-events: none;
         }
+
+
+
+
+
+
+        body {
+            background: #f4f6f9;
+        }
+
+
+
+        /* Reduz espaço inferior dos cartões */
+        .dashboard-card {
+            position: relative;
+            margin-bottom: 8px;
+            /* antes era 20px */
+        }
+
+        .dashboard-card .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header h6 {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* Remove o gutter padrão do Materialize */
+        .row {
+            margin-left: -2px;
+            /* metade de 4px */
+            margin-right: -2px;
+        }
+
+        .row .col {
+            padding-left: 2px;
+            /* metade de 4px */
+            padding-right: 2px;
+        }
+
+            /* Deixa o carousel em modo hero (tela cheia) */
+            .hero-carousel {
+                height: 100vh;
+                /* altura total da tela */
+            }
+
+            .hero-carousel .carousel-item img {
+                object-fit: cover;
+                /* cobre a área toda */
+                height: 100vh;
+                /* força a imagem ocupar toda a altura */
+                width: 100%;
+                /* largura total */
+            }
+
+            /* Texto centralizado sobre a imagem */
+            .hero-caption {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                text-align: center;
+            }
+
+            .hero-caption h1 {
+                font-size: 3rem;
+                font-weight: bold;
+            }
     </style>
 </head>
 
-<body class="white lighten-4">
+<body class=" white lighten-5">
 
     {{header}}
     <!----------------------------------------------add CONTEUDO--------------------------------- -->

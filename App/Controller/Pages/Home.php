@@ -86,7 +86,7 @@ class Home extends Page
     {
 
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('home/home', [
+        $content = View::render('home/homeDasbord', [
             'pesquisar' => $buscar,
             'BuscaVendedor' => self::getBuscaVedendor($request),
             //'totalUsuario' => self::getDadosUsuario(),
