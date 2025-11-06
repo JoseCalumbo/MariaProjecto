@@ -13,139 +13,166 @@
         <li class="tab col s3 "><a class="active font-normal" href="#documento">Prescrição</a></li>
       </ul>
     </div>
-    <!--pagina das abas-->
-    <section id="dados1" class="col s12 m12 row">
-      <div class="row col push-m2 m8">
-        <br>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="nome" type="text" name="a" value="{{nome}}" class="validate">
-            <label for="nome" style="text-transform: capitalize;">Nome:</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="Sobrenome" type="text" name="nome" value="{{nome}}" class="validate">
-            <label for="Sobrenome" style="text-transform: capitalize;">Sobrenome:</label>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col s12 m6">
-            <label>Genero:</label>
-            <div class="input-radio">
-              <label>
-                <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap" checked>
-                <span for="masc">Masculino </span>
-              </label>
+    <!-- formulario para resgistar consulta -->
+    <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
 
-              <label>
-                <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap" {{genero}}>
-                <span for="fem">Feminino</span>
-              </label>
+      <!--pagina das abas dados do paciente-->
+      <section id="dados1" class="col s12 m12 row">
+        <div class="row col push-m2 m8">
+          <br>
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input id="nome" type="text" name="a" value="{{nome}}" class="validate">
+              <label for="nome" style="text-transform: capitalize;">Nome:</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input id="Sobrenome" type="text" name="nome" value="{{nome}}" class="validate">
+              <label for="Sobrenome" style="text-transform: capitalize;">Sobrenome:</label>
             </div>
           </div>
 
-          <div class="input-date col s12 m6 row">
-            <label for="">Data de nascimento:</label>
-            <input type="date" name="data" value="{{data}}">
+          <div class="row">
+            <div class="col s12 m6">
+              <label>Genero:</label>
+              <div class="input-radio">
+                <label>
+                  <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap" checked>
+                  <span for="masc">Masculino </span>
+                </label>
+
+                <label>
+                  <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap" {{genero}}>
+                  <span for="fem">Feminino</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="input-date col s12 m6 row">
+              <label for="">Data de nascimento:</label>
+              <input type="date" name="data" value="{{data}}">
+            </div>
+            <!-- linha fim genero e data-->
           </div>
-          <!-- linha fim genero e data-->
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!--pagina das abas-->
-    <section id="dados2" class="col m12 s12">
-      <div class="row col push-m2 m8">
+      <!--pagina das abas dados consulta-->
+      <section id="dados2" class="col m12 s12">
+        <div class="row col push-m2 m8">
+          <br>
+          <div class="input-field col s12 m12">
+            <input id="motivo" type="text" name="motivo" value="{{motivo}}" class="validate">
+            <label for="motivo" style="text-transform: capitalize;">Motivo da consulta:</label>
+          </div>
+
+          <div class="input-field col s12 m12">
+            <input id="Observação" type="text" name="obs" value="{{obs}}" class="validate">
+            <label for="Observação" style="text-transform: capitalize;">Observação:</label>
+          </div>
+
+          <div class="input-field col s12 m12">
+            <input id="Diagnóstico" type="text" name="diagnostico" value="{{diagnostico}}" class="validate">
+            <label for="Diagnóstico" style="text-transform: capitalize;">Diagnóstico:</label>
+          </div>
+        </div>
+
+      </section>
+
+      <!--Aba exame-->
+      <section id="exame" class="col m12 s12">
+        <div class="row col push-m2 m8">
+          <br>
+          <table class=" responsive-table">
+            <thead>
+              <tr>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Tipo</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nome</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Paramentro</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
+                <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body">
+              <tr>
+                <td><input type="text" name="exame[]" class="validate" rred></td>
+                <td><input type="text" name="exame[]" class="validate" quired></td>
+                <td><input type="text" name="exame[]" class="validate" equired></td>
+                <td><input type="text" name="exame[]" class="validate" equired></td>
+                <td class="center">
+                  <a class="tooltip-container white-text" onclick="removerLinha(this)">
+                    <button type="button " class="font-normal  btn red darken-1 tooltip-btn">
+                      <i class="material-icons center">delete</i>
+                    </button>
+                    <div class="custom-tooltip font-normal ">Remover linha de exame</div>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row center ">
+            <br>
+            <br>
+            <a class="tooltip-container " onclick="adicionarLinha()">
+              <button type="button " class="font-normal  btn blue darken-1 tooltip-btn">
+                <i class="material-icons center">add</i>
+              </button>
+              <div class="custom-tooltip font-normal ">Adicionar linha de exame</div>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!--Aba prescriçºao-->
+      <div id="documento" class="col m12 s12">
         <br>
-        <div class="input-field col s12 m12">
-          <input id="motivo" type="text" name="nome" value="{{motivo}}" class="validate">
-          <label for="motivo" style="text-transform: capitalize;">Motivo da consulta:</label>
-        </div>
+        <div class="col push-m2 m8">
+          <table class=" responsive-table">
+            <thead>
+              <tr>
+                <th class="grey lighten-1 font-normal " style="border-right: 2px solid #fcfcfc;">Medicamento</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Via de Administraçao</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Posologia</th>
 
-        <div class="input-field col s12 m12">
-          <input id="Observação" type="text" name="nome" value="{{obs}}" class="validate">
-          <label for="Observação" style="text-transform: capitalize;">Observação:</label>
-        </div>
+                <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body1">
+              <tr>
+                <td><input type="text" name="receita[]" class="validate" quired></td>
+                <td><input type="text" name="receita[]" class="validate" equired></td>
+                <td><input type="text" name="receita[]" class="validate" equired></td>
+                <td class="center">
 
-        <div class="input-field col s12 m12">
-          <input id="Diagnóstico" type="text" name="nome" value="{{diagnostico}}" class="validate">
-          <label for="Diagnóstico" style="text-transform: capitalize;">Diagnóstico:</label>
-        </div>
-      </div>
+                  <a class="tooltip-container  btn red white-text" onclick="removerLinha1(this)">
+                      <i class="material-icons center">delete</i>
+                 <div class="custom-tooltip font-normal ">Remover linha de prescrição</div>
+                  </a>
 
-    </section>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-    <!--Aba content do pagamento-->
-    <section id="exame" class="col m12 s12">
-      <div class="row col push-m2 m8">
-        <br>
-        <table class=" responsive-table">
-          <thead>
-            <tr>
-              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Tipo</th>
-              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nome</th>
-              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Paramentro</th>
-              <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
-              <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Ação</th>
-            </tr>
-          </thead>
-          <tbody id="tabela-body">
-            <tr>
-              <td><input type="text" name="nome[]" class="validate" rred></td>
-              <td><input type="text" name="email[]" class="validate" quired></td>
-              <td><input type="text" name="email[]" class="validate" equired></td>
-              <td><input type="text" name="email[]" class="validate" equired></td>
-              <td class="center">
-                <a class="btn  waves-effect waves-light red white-text" onclick="removerLinha(this)">
-                  <i class="material-icons centered">delete</i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="row center">
-          <a class="waves-effect waves-light  btn blue white-text font-normal" onclick="adicionarLinha()">
-            <i class="material-icons centered">add</i>Mais Exame
-          </a>
+          <div class="row center ">
+            <br>
+            <br>
+            <a class="tooltip-container btn blue" onclick="adicionarLinha1()">
+                <i class="material-icons center">add</i>
+              <div class="custom-tooltip font-normal ">Adicionar mais prescrição</div>
+            </a>
+          </div>
+
         </div>
       </div>
 
-    </section>
-
-    <!--Aba content da opcoes-->
-    <div id="documento" class="col s12">
-      <br>
-      <table class=" responsive-table">
-        <thead>
-          <tr>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Nome do exame</th>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Tipo de exame</th>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Verificaçao</th>
-            <th class="grey lighten-1" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
-            <th class=" grey lighten-1" style="border-right: 2px solid #fcfcfc;">Ação</th>
-          </tr>
-        </thead>
-        <tbody id="tabela-body">
-          <tr>
-            <td><input type="text" name="nome[]" class="validate" rred></td>
-            <td><input type="text" name="email[]" class="validate" quired></td>
-            <td><input type="text" name="email[]" class="validate" equired></td>
-            <td><input type="text" name="email[]" class="validate" equired></td>
-            <td class="center">
-              <a class="btn  waves-effect waves-light red white-text" onclick="removerLinha(this)">
-                <i class="material-icons centered">delete</i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row left-align ">
-        <a class="waves-effect waves-light  btn blue white-text font-normal" onclick="adicionarLinha()">
-          <i class="material-icons centered">add</i> Adicionar mais Exame
-        </a>
+      <div class="div-input push-m9 col s12 m2 row ">
+        <button class=" col m12 btn  white-text  font-normal" name="salvar" type="submit">{{button}}</button>
       </div>
 
-    </div>
+    </form>
 
   </div>
 </section>
@@ -157,16 +184,31 @@
   function adicionarLinha() {
     const tabela = document.getElementById('tabela-body');
     const novaLinha = tabela.rows[0].cloneNode(true);
-
     const inputs = novaLinha.querySelectorAll('input');
     inputs.forEach(input => input.value = '');
+    tabela.appendChild(novaLinha);
+  }
 
+  function adicionarLinha1() {
+    const tabela = document.getElementById('tabela-body1');
+    const novaLinha = tabela.rows[0].cloneNode(true);
+    const inputs = novaLinha.querySelectorAll('input');
+    inputs.forEach(input => input.value = '');
     tabela.appendChild(novaLinha);
   }
 
   function removerLinha(botao) {
     const linha = botao.closest('tr');
     const tabela = document.getElementById('tabela-body');
+    if (tabela.rows.length > 1) {
+      linha.remove();
+    } else {
+      M.toast({ html: 'A tabela deve conter pelo menos uma linha.', classes: 'red' });
+    }
+  }
+  function removerLinha1(botao) {
+    const linha = botao.closest('tr');
+    const tabela = document.getElementById('tabela-body1');
     if (tabela.rows.length > 1) {
       linha.remove();
     } else {

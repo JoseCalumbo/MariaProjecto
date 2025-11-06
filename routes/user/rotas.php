@@ -102,12 +102,6 @@ include __DIR__.'/RotaConsulta.php';
 include __DIR__.'/RotaConsultaDiaria.php';
 
 
-//________________________ Rota de Atendimento da Consulta _______________________
-/**
- * inclui as rotas da consulta atendimento 
-*/
-include __DIR__.'/RotaAtenderConsulta.php';
-
 
 //________________________ rota para ir na pagina conta___________________________
 

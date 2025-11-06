@@ -24,37 +24,5 @@ $obRouter->post('/consulta-diaria',[
     function($request){ return new Response(200,Pages\ConsultaDiaria::telaConsultaDiaria($request));}
 ]);
 
- // Rota Painel Consulta Diaria GET
- $obRouter->get('/consulta/atender/{id_zona}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request, $id_zona){ return new Response(200,Pages\ConsultaDiaria::atenderConsulta($request,$id_zona));}
-]);
-
-// rota formulario consulta diaria POST
-$obRouter->post('/consulta/cadastrar/{id_zona}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\ConsultaDiaria::cadastrarNovaConsulta($request));}
-]);
-
-// rota para alterar um registro GET
-$obRouter->get('/consulta-diaria/editar/{id_zona}',[
-    'middlewares'=>[
-        'requer-login',
-        'nivel-acesso'
-    ],
-    function($request,$id_zona){ return new Response(200,Pages\Zona::editarZona($request,$id_zona)); }
-]);
-
-// rota para alterar um registro POST
-$obRouter->post('/consulta/editar/{id_zona}',[
-    function($request,$id_zona){ return new Response(200,Pages\Zona::editarZona($request,$id_zona)); }
-]);
-
-
-
 
 

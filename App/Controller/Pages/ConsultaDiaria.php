@@ -96,7 +96,7 @@ class ConsultaDiaria extends Page
     }
 
     // Metodo que Atende o Paciente
-    public static function atenderConsulta($request,$id_zona)
+    public static function atenderConsulta1($request,$id_zona)
     {
         $i = 5;
 
@@ -160,27 +160,5 @@ class ConsultaDiaria extends Page
         return parent::getPage('Cadastrar nova Consulta', $content);
     }
 
-    // Metodo que apagar Zona
-    public static function apagarZona($request, $id_zona)
-    {
 
-        $obZona = ZonaDao::getZona($id_zona);
-
-        if (isset($_POST['apagar'])) {
-
-            $obZona->apagarZona();
-
-            // Redireciona para Painel Zona 
-            $request->getRouter()->redirect('/zona?msg=apagado');
-        }
-
-        $content = View::render('zonas/deletaZona', [
-            'titulo' => 'Apagar Zona',
-            'button' => 'Sim',
-            'zona' => $obZona->zona,
-            'id_zona' => $obZona->id_zona,
-            'mercado' => $obZona->mercado
-        ]);
-        return parent::getPage('Apagar Zona', $content);
-    }
 }

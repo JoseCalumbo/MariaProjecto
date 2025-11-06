@@ -112,33 +112,28 @@ class Consulta extends Page
     }
 
     // Metodo que inicia as consultas
-    public static function iniciarConsulta($request, $id_paciente)
+    public static function getcadastrarConsulta($request, $id_paciente)
     {
-        $obZona = new ZonaDao;
+        //$obConsultorio = new ConsultorioDao;
 
-        if (isset($_POST['a'], $_POST['a'], $_POST['a'], $_POST['a'])) {
+        if (isset($_POST['salvar'])) {
 
-            $obZona->zona = $_POST['zona'];
-            $obZona->inicio_venda = $_POST['inicio'];
-            $obZona->fim_venda = $_POST['fim'];
-            $obZona->mercado = $_POST['mercado'];
+           // $obZona->zona = $_POST['zona'];
 
-            // Redireciona para Painel Zona 
-            $request->getRouter()->redirect('/zona?msg=cadastrado');
+            // Redireciona validaçao e gerar consulta
+            $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
         }
 
         $content = View::render('consulta/formConsulta2', [
             'titulo' => 'Ficha de Consulta',
-            'nome' => 'Ana luis',
+            'nome' => '',
             'button' => 'Salvar',
-            'zona' => '',
-            'fim' => '',
-            'inicio' => '',
-            //'paciente'=>self::getPaciente(),
-            'mercado' => ''
+            'diagnostico' => '',
+            'obs' => '',
+            'motivo' => '',
 
         ]);
-        return parent::getPage('Cadastrar nova Zona', $content);
+        return parent::getPage('Ficha - consulta', $content);
     }
 
     // Metodo para apresentar a tela Consulta 
@@ -157,6 +152,11 @@ class Consulta extends Page
     // Metodo que cadastra consultas
     public static function cadastrarConsulta($request)
     {
+
+        echo '<pre>';
+        print_r("aquigeZona");
+        echo '</pre>';
+        exit;
 
         $obZona = new ZonaDao;
 
