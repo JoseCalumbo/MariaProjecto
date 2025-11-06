@@ -364,6 +364,25 @@
         .ia-right i {
             cursor: pointer;
         }
+
+        /* Modal lateral esquerda */
+        .modal.modal-fixed-left {
+            top: 7 !important;
+            left: 0 !important;
+            bottom: 0 !important;
+            height: 100vh !important;
+            width: 400px !important;
+            /* ajusta a largura do painel */
+            max-height: 100vh !important;
+            margin: 0;
+            border-radius: 0;
+            position: fixed;
+        }
+
+        /* Evita fechar ao clicar fora */
+        .modal-overlay {
+            pointer-events: none;
+        }
     </style>
 </head>
 

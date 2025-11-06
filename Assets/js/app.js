@@ -174,6 +174,18 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+//modal chat
+document.addEventListener('DOMContentLoaded', function () {
+  var modalImprimirTriagem = document.querySelectorAll('.modalChat');
+  var instancesModal = M.Modal.init(modalImprimirTriagem, {
+    preventScrolling: false,
+    opacity: 0.100,
+    endingTop: '07%',
+    startingTop: 0,
+     dismissible: false,
+  });
+});
+
 //modal view imprimir triagem
 document.addEventListener('DOMContentLoaded', function () {
   var modalImprimirTriagem1 = document.querySelectorAll('.modalImprimirTriagem1');

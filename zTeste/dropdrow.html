@@ -1,71 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Dropdown dentro de outro Dropdown - Materialize</title>
-  <!-- Import Materialize CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-
+  <title>Modal Lateral Esquerda</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
-    /* Ajusta o submenu */
-    .dropdown-content .submenu {
-      position: relative;
+    /* Modal lateral esquerda */
+    .modal.modal-fixed-left {
+      top: 0 !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      height: 100vh !important;
+      width: 400px !important; /* ajusta a largura do painel */
+      max-height: 100vh !important;
+      margin: 0;
+      border-radius: 0;
+      position: fixed;
     }
 
-    .dropdown-content .submenu ul {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 100%;
-      margin-left: 5px;
-      min-width: 180px;
-      background-color: white;
-      z-index: 999;
-    }
-
-    .dropdown-content .submenu:hover ul {
-      display: block;
-    }
-
-    .submenu > a::after {
-      content: '▶';
-      float: right;
+    /* Evita fechar ao clicar fora */
+    .modal-overlay {
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Botão principal -->
-  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Menu Principal</a>
+  <!-- Botão para abrir -->
+  <a class="btn modal-trigger" href="#modalLateral">Abrir Modal Lateral</a>
 
-  <!-- Primeiro nível -->
-  <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!">Opção 1</a></li>
-    <li><a href="#!">Opção 2</a></li>
+  <!-- Modal lateral esquerda -->
+  <div id="modalLateral" class="modal modal-fixed-left">
+    <div class="modal-content">
+      <h5>Assistente IA</h5>
+      <p>Este é um modal lateral que ocupa toda a altura da janela.</p>
+      <p>Agora posicionado no lado esquerdo da tela.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close btn red">Fechar</a>
+    </div>
+  </div>
 
-    <!-- Submenu -->
-    <li class="submenu">
-      <a href="#!">Mais Opções</a>
-      <ul>
-        <li><a href="#!">Sub Opção 1</a></li>
-        <li><a href="#!">Sub Opção 2</a></li>
-        <li><a href="#!">Sub Opção 3</a></li>
-      </ul>
-    </li>
-
-    <li><a href="#!">Opção 3</a></li>
-  </ul>
-
-  <!-- Import Materialize JS -->
+  <!-- Scripts Materialize -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-      M.Dropdown.init(elems, {
-        coverTrigger: false, // Faz o menu aparecer abaixo do botão
-        constrainWidth: false // Deixa o menu ajustar sua largura
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems, {
+        dismissible: false // 🔒 só fecha no botão
       });
     });
   </script>
+
 </body>
 </html>
