@@ -1,0 +1,137 @@
+<section class="row section-field">
+
+    <h5 class="center"> {{titulo}} </h5>
+
+    <nav class="row col m12  blue-grey darken-1 ">
+        <div class="col m8 nav-wrapper ">
+        </div>
+
+        <div class="col m4 nav-wrapper  ">
+            <ul class="right hide-on-med-and-down row" style="height: 50px; ">
+                <li class="white-text " style="text-transform: capitalize;">
+                    <a href="{{URL}}/paciente/cadastrar" class="white-text"
+                        style="display: flex; align-items: center; text-transform: capitalize;">
+                        <i class=" material-icons left white-text ">add</i> Funcionário
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- formulario para cadastramento de usuario start -->
+    <section class="row col m12" style="text-align: center;">
+        <form class="col m7 push-m1" method="post" enctype="multipart/form-data">
+
+
+            <div class="input-field col s12 m12">
+                <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
+                <label for="nome" style="text-transform: capitalize;">Nome:</label>
+            </div>
+
+            <div class="input-field col s6 m11">
+                <label for="icon_prefix" style="text-transform: capitalize;">Name do paciente</label>
+                <input id="icon_prefix" type="text" class="validate">
+                <i data-position="top" data-tooltip="Seleciona paciente"
+                    class="tooltipped teal white-text material-icons prefix">search</i>
+            </div>
+
+            <div class="input-field col s6 m11">
+                <label for="icon_prefix" style="text-transform: capitalize;">Tipo de consulta</label>
+                <input id="icon_prefix" type="text" class="validate">
+                <i data-position="top" data-tooltip="Seleciona o tipo de Consulta"
+                    class="tooltipped teal white-text material-icons prefix">search</i>
+            </div>
+
+            <div class="input-field col s6 m11">
+                <label for="icon_prefix" style="text-transform: capitalize;">Seleciona o Médico</label>
+                <input id="icon_prefix" type="text" class="validate">
+                <i data-position="top" data-tooltip="Seleciona o médico"
+                    class="tooltipped teal white-text material-icons prefix">search</i>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6 m5">
+                    <div class="input-field col s12">
+                        <select name="cargo">
+                            <option value="" disabled selected>Escolhe uma opção</option>
+                            <option value="Médico" {{cargo-medico}}>Normal</option>
+                            <option value="Enfermeiro" {{cargo-enfermero}}>Urgente</option>
+                            <option value="Administrador" {{cargo-admin}}>Administrador</option>
+                        </select>
+                        <label class="font-normal">Seleciona a Pioridade</label>
+                    </div>
+                </div>
+                <div class="input-field col s6 m6">
+                    <div class="input-field col s12">
+                        <select name="servico">
+                            <option value="" disabled selected>Escolhe uma opção</option>
+                            <option value="Médico" {{cargo-medico}}>Normal</option>
+                            <option value="Enfermeiro" {{cargo-enfermero}}>Urgente</option>
+                            <option value="Administrador" {{cargo-admin}}>Administrador</option>
+                        </select>
+                        <label class="font-normal">Tipo de Serviço </label>
+                    </div>
+                </div>
+
+                <div class="input-field col s12 m6 ">
+                    <input id="dia" type="text" name="data" class="datepicker" value="{{data}}">
+                    <label for="dia" style="text-transform: capitalize;">Data:</label>
+                </div>
+
+                <div class="input-field col s12 m6 ">
+                    <input id="nascimento" type="time" name="data" class="datepicker" value="{{data}}">
+                    <label for="nascimento" style="text-transform: capitalize;">Hora:</label>
+                </div>
+
+
+                <div class="input-field col s12 m6">
+                    <input id="telefone2" type="text" name="telefone2" value="{{telefone2}}" />
+                    <label for="telefone2" style="text-transform: capitalize;">Tempo Estimado:</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input id="email" type="text" name="email" value="{{email}}" />
+                    <label for="email" style="text-transform: capitalize;">Valor da consulta:</label>
+                </div>
+
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea" name="obs">{{obs}}</textarea>
+                    <label for="textarea1" style="text-transform: capitalize;">Observação da consulta</label>
+                </div>
+
+            </div>
+
+            <div class="row col s12 m12">
+                <br>
+                <button class="btn col offset-m9 m3" type="submit" name="cadastrar">{{button}}</button>
+            </div>
+        </form>
+        <!-- formulario para cadastramento de usuario end -->
+    </section>
+
+
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>
+
+<script>
+    function adicionarLinha() {
+        const tabela = document.getElementById('tabela-body');
+        const novaLinha = tabela.rows[0].cloneNode(true);
+
+        const inputs = novaLinha.querySelectorAll('input');
+        inputs.forEach(input => input.value = '');
+
+        tabela.appendChild(novaLinha);
+    }
+
+    function removerLinha(botao) {
+        const linha = botao.closest('tr');
+        const tabela = document.getElementById('tabela-body');
+        if (tabela.rows.length > 1) {
+            linha.remove();
+        } else {
+            M.toast({ html: 'A tabela deve conter pelo menos uma linha.', classes: 'red' });
+        }
+    }
+</script>

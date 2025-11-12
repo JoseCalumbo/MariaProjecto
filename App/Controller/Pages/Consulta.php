@@ -208,12 +208,11 @@ class Consulta extends Page
     // Metodo que marca a consulta
     public static function getMarcarConsulta($request, $id_paciente)
     {
-        $content = View::render('consulta/formConsulta2', [
+        $content = View::render('consulta/formMarcarConsulta', [
             'titulo' => 'Marcação de consulta',
             'button' => 'Salvar',
-
         ]);
-        return parent::getPage('Ficha - consulta', $content);
+        return parent::getPage('Marcação de consulta', $content);
     }
 
     // Metodo que marca a consulta
