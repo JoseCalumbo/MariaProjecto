@@ -24,6 +24,11 @@ $obRouter->post('/consulta',[
     function($request){ return new Response(200,Pages\Consulta::telaConsulta($request));}
 ]);
 
+
+
+
+
+
 // rota para alterar um registro GET
 $obRouter->get('/consulta/atender/{id_paciente}',[
     'middlewares'=>[
@@ -40,4 +45,28 @@ $obRouter->post('/consulta/atender/{id_paciente}',[
         'nivel-acesso'
     ],
     function($request,$id_paciente){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_paciente)); }
+]);
+
+
+
+
+
+
+
+// rota para marcar consulta
+$obRouter->get('/consulta/marcar',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_paciente){ return new Response(200,Pages\Consulta::getMarcarConsulta($request,$id_paciente)); }
+]);
+
+// rota para marcar consulta
+$obRouter->post('/consulta/marcar',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_paciente){ return new Response(200,Pages\Consulta::setMarcarConsulta($request,$id_paciente)); }
 ]);
