@@ -1,14 +1,31 @@
 <section class="row section-field white">
+  <div class="row grey lighten-3" style="text-align: center;">
+    <h5 class="left" style="text-transform: capitalize; margin-left:30px;"> Painel consultório</h5>
+    <div class=" right col m3 form-search">
+      <form method="get">
+        <div class="form-area-search">
+          <input class="input-search" type="search" name="pesquisar" placeholder="Pesquisar paciente"
+            value="{{pesquisar}}">
+          <button class="button-search btn" type="submit">
+            <i class="material-icons white-text ">search</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-  <div class="col m4">
+
+
+
+  <div class="col m4 offset-m1 ">
     <section class="col s12 m12 ">
       <div class="row">
-        <div class="col s12 blue-grey darken-1 ">
+        <div class="col s12 cyan darken-4">
           <!--header das abas-->
-          <ul class="tabs tabsvendedor blue-grey darken-1  row">
-            <li class="tab col s3 m4"><a class="active font-normal" href="#dados1">Última consulta</a></li>
-            <li class="tab col s3 m5"><a class="active font-normal" href="#pagamento2">Exames solicitados</a></li>
-            <li class="tab col s3 m3"><a class="active font-normal" href="#opcoes4">Receitas</a></li>
+          <ul class="tabs tabsvendedor cyan darken-4 row">
+            <li class="tab col s3 m6"><a class="active font-normal" href="#dados1">Última consulta</a></li>
+            <li class="tab col s3 m6"><a class="active font-normal" href="#pagamento2">Exames solicitados</a></li>
+           <!--  <li class="tab col s3 m3"><a class="active font-normal" href="#opcoes4">Minhas receitas</a></li> -->
           </ul>
         </div>
         <!--pagina das abas-->
@@ -42,12 +59,12 @@
 
         <!--Aba content do pagamento-->
         <div id="pagamento2" class="col s12">
-        
+
           <table class="row col m12 responsive-table ">
             <thead class="">
               <tr class=" blue-grey lighten-5">
                 <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">format_list_numbered</i>Nº
+                    style="vertical-align: -6px;">format_list_numbered</i>Numeroº
                 </th>
 
                 <th class="font-normal negrito"><i class="material-icons black-white"
@@ -77,7 +94,7 @@
 
         </div>
 
-        <!--Aba content da opcoes-->
+        <!--Aba content da opcoes
         <div id="opcoes4" class="col s12">
           <br>
           <div>
@@ -114,40 +131,35 @@
               </a>
             </button>
           </div>
-        </div>
+        </div>-->
+
       </div>
     </section>
 
   </div>
 
-  <div class="col m8">
+  <div class="row col m6 offset-m1">
 
-    <nav class="blue-grey darken-1 ">
-      <div class="nav-wrapper">
-        <form>
-          <div class="input-field custom-search" style="border: 1px solid #e6e4e4;">
-            <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
-            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-            <i class="material-icons center">close</i>
-          </div>
-        </form>
-      </div>
-    </nav>
+    <div class="col s12 m12 blue-grey darken-1 ">
+      <!--header das abas-->
+      <ul class="tabs tabsvendedor blue-grey darken-1  row">
+        <li class="tab col s3 m4"><a class="active font-normal" href="#dados1">Consulta na hora</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#pagamento2">Minhas consultas</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#Agenda">Minha Agenda</a></li>
+      </ul>
+    </div>
 
     <section class="  white col m12">
       <br>
-
       <table class="row col m12 responsive-table ">
         <thead class="">
           <tr class=" blue-grey lighten-5">
             <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">format_list_numbered</i>Nº</th>
+                style="vertical-align: -6px;">format_list_numbered</i>Numero</th>
             <th class="font-normal negrito"><i class="material-icons black-white"
                 style="vertical-align: -6px;">image</i>Foto</th>
             <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">person</i>Nome</th>
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">transgender</i>Genero</th>
+                style="vertical-align: -6px;">person</i>Nome completo</th>
             <th class="font-normal negrito"> <i class="material-icons black-white "
                 style="vertical-align: -6px;">calendar_month</i>Idade </th>
             <th class="font-normal negrito"> <i class="material-icons black-white "

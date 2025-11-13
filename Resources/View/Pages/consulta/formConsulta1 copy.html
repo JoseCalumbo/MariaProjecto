@@ -4,13 +4,13 @@
 
   <br>
   <div class="row">
-    <div class="col s12 blue-grey darken-1 row">
+    <div class="col s12 blue-grey darken-1 ">
       <!--header das abas-->
-      <ul class="tabs tabsvendedor blue-grey darken-1 ">
-        <li class="tab col s3 m3"><a class="active font-normal" href="#dados1">Dados do pacientes</a></li>
-        <li class="tab col s3 m3"><a class="active font-normal" href="#documento">Triagem</a></li>
-        <li class="tab col s3 m3"><a class="active font-normal" href="#dados2">Consulta</a></li>
-        <li class="tab col s3 m3"><a class="active font-normal" href="#exame">Exames</a></li>
+      <ul class="tabs tabsvendedor blue-grey darken-1  row">
+        <li class="tab col s3 "><a class="active font-normal" href="#dados1">Dados do pacientes</a></li>
+        <li class="tab col s3 "><a class="active font-normal" href="#dados2">Dados da consulta</a></li>
+        <li class="tab col s3 "><a class="active font-normal" href="#exame">Exames</a></li>
+        <li class="tab col s3 "><a class="active font-normal" href="#documento">Prescrição</a></li>
       </ul>
     </div>
 
@@ -60,7 +60,7 @@
               <label for="email" style="text-transform: capitalize;">E-mail:</label>
             </div>
 
-
+            
 
             <div class="input-field col s12 m12">
               <input id="morada" type="text" data-length="100" name="morada" value="{{morada}}" />
@@ -111,20 +111,7 @@
             <tbody id="tabela-body">
               <tr>
                 <td><input type="text" name="exameTipo[]" class="validate" rred></td>
-                <td>
-
-                      <select name="cargo">
-                        <option value="" disabled selected>Escolhe uma opção</option>
-                        <option value="Médico" {{cargo-medico}}>Médico</option>
-                        <option value="Enfermeiro" {{cargo-enfermero}}>Enfermeiro</option>
-                        <option value="Analista Clínico" {{cargo-analista}}>Analista Clínico</option>
-                        <option value="Farmacêuticos" {{cargo-farmaceutico}}>Farmacêuticos</option>
-                        <option value="Técnicos de Enfermagem" {{cargo-tecnico}}>Técnicos de Enfermagem
-                        </option>
-                        <option value="Administrador" {{cargo-admin}}>Administrador</option>
-                      </select>
-
-                </td>
+                <td><input type="text" name="exameNome[]" class="validate" quired></td>
                 <td><input type="text" name="exameParametro[]" class="validate" equired></td>
                 <td><input type="text" name="exameUrgencia[]" class="validate" equired></td>
                 <td class="center">

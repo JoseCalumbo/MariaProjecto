@@ -167,4 +167,16 @@ class TriagemDao extends PacienteDao
         return (new Database('tb_triagem JOIN tb_paciente ON
                               tb_triagem.id_paciente = tb_paciente.id_paciente'))->select('id_triagem = ' . $id_triagem)->fetchObject(self::class);
     }
+
+
+
+
+        /** Apresenta as listagem dados da triagem em andamento
+     * @param string $where
+     */
+    public static function listarTriagemFeita($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_triagem JOIN tb_paciente ON 
+                              tb_triagem.id_paciente = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
+    }
 }

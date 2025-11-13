@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tabs compactas</title>
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --accent: #1976d2;
+    --accent-dark: #0d47a1;
+    --muted: #6b7280;
+  }
+
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, Arial, sans-serif;
+    background: var(--bg);
+  }
+
+  .wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 980px;
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  .tabs input[type="radio"] {
+    display: none;
+  }
+
+  /* Cabeçalho das tabs */
+  .tab-list {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #e6e9ee;
+    gap: 2px; /* espaçamento entre abas */
+    padding: 2px; /* padding total reduzido */
+    justify-content: flex-start;
+  }
+
+  .tab-list label {
+    flex: 0 0 50px; /* cada aba com largura máxima 50px */
+    text-align: center;
+    padding: 5px 0; /* padding vertical pequeno */
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    background: #f9f9f9;
+    border-radius: 4px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .tab-list label:hover {
+    background: rgba(25, 118, 210, 0.08);
+    color: var(--accent);
+  }
+
+  /* Aba ativa */
+  #tab1:checked ~ .tab-list label[for="tab1"],
+  #tab2:checked ~ .tab-list label[for="tab2"],
+  #tab3:checked ~ .tab-list label[for="tab3"] {
+    background: var(--accent-dark);
+    color: #fff;
+  }
+
+  /* Conteúdo */
+  .panels {
+    padding: 8px;
+    background: #fbfdff;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  #tab1:checked ~ .panels #panel1,
+  #tab2:checked ~ .panels #panel2,
+  #tab3:checked ~ .panels #panel3 {
+    display: block;
+  }
+
+  .field {
+    margin: 6px 0;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* Rodapé */
+  .card-footer {
+    border-top: 1px solid #e6e9ee;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .btn:hover {
+    background: var(--accent-dark);
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card tabs">
+      <input type="radio" name="tabs" id="tab1" checked>
+      <input type="radio" name="tabs" id="tab2">
+      <input type="radio" name="tabs" id="tab3">
+
+      <div class="tab-list">
+        <label for="tab1">Dados</label>
+        <label for="tab2">Consulta</label>
+        <label for="tab3">Presc.</label>
+      </div>
+
+      <div class="panels">
+        <section id="panel1" class="panel">
+          <h3>Dados</h3>
+          <div class="field">
+            <label>Nome</label>
+            <input type="text" placeholder="Nome completo">
+          </div>
+          <div class="field">
+            <label>Idade</label>
+            <input type="text" placeholder="Idade">
+          </div>
+        </section>
+
+        <section id="panel2" class="panel">
+          <h3>Consulta</h3>
+          <div class="field">
+            <label>Queixas</label>
+            <textarea rows="2" placeholder="Descrever sintomas"></textarea>
+          </div>
+          <div class="field">
+            <label>Observações</label>
+            <input type="text" placeholder="Observações do médico">
+          </div>
+        </section>
+
+        <section id="panel3" class="panel">
+          <h3>Prescrição</h3>
+          <div class="field">
+            <label>Medicamento</label>
+            <input type="text" placeholder="Fármaco">
+          </div>
+          <div class="field">
+            <label>Posologia</label>
+            <input type="text" placeholder="Ex: 1 comp. 8/8h">
+          </div>
+        </section>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn">Salvar</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

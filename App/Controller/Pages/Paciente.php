@@ -422,7 +422,6 @@ class Paciente extends Page
 
         // Seleciona o paciente pelo id
         $obPaciente = PacienteDao::getPacienteId($id_paciente);
-        
         $idPaciente = $obPaciente->id_paciente;
 
         echo '<pre>';

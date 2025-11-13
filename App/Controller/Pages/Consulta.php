@@ -2,10 +2,9 @@
 
 namespace App\Controller\Pages;
 
-use App\Model\Entity\ConsultorioDao;
+use App\Model\Entity\PacienteDao;
+use App\Model\Entity\TriagemDao;
 use \App\Utils\Pagination;
-use \App\Model\Entity\UsuarioDao;
-use \App\Model\Entity\ZonaDao;
 use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
 
@@ -16,16 +15,12 @@ class Consulta extends Page
     // Metodo que apresenta os pacientes aspera da consulta
     private static function getConsultasEspera($request, &$obPagination)
     {
-
         $queryParam = $request->getQueryParams();
-
         $obPagination = new Pagination(null, null, null);
 
         // Var que retorna o conteudo
         $item = '';
-
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-
         $condicoes = [
             strlen($buscar) ? 'nome_paciente LIKE "%' . $buscar . '%"' : null,
         ];
@@ -34,7 +29,7 @@ class Consulta extends Page
         $where = implode(' AND ', $condicoes);
 
         //quantidade total de registros da tabela user
-        $quantidadetotal = ConsultorioDao::listarTriagemFeita($where, 'risco_triagem', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = TriagemDao::listarTriagemFeita($where, 'risco_triagem', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         //pagina actual 
         $queryParams = $request->getQueryParams();
@@ -43,9 +38,9 @@ class Consulta extends Page
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal, $paginaAtual, 6);
 
-        $resultado = ConsultorioDao::listarTriagemFeita($where, 'risco_triagem', $obPagination->getLimit());
+        $resultado = TriagemDao::listarTriagemFeita($where, 'risco_triagem', $obPagination->getLimit());
 
-        while ($obPacientesEspera = $resultado->fetchObject(ConsultorioDao::class)) {
+        while ($obPacientesEspera = $resultado->fetchObject(TriagemDao::class)) {
 
             $atender =  $obPacientesEspera->risco_triagem;
             $triagemAtender = "";
@@ -72,7 +67,8 @@ class Consulta extends Page
             $idade = date("Y") - $formataIdade;
 
             $item .= View::render('consulta/listarConsulta', [
-                'id_paciente' => $obPacientesEspera->id_triagem,
+                'id_triagem' => $obPacientesEspera->id_triagem,
+                'id_paciente' => $obPacientesEspera->id_paciente,
                 'imagem' => $obPacientesEspera->imagem_paciente,
                 'nome_paciente' => $obPacientesEspera->nome_paciente,
                 'genero' => $obPacientesEspera->genero_paciente,
@@ -92,7 +88,7 @@ class Consulta extends Page
             ]);
         }
 
-             return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
                                                    <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
                                                     Sem registos de pacientes em espera.
                                                     </td>
@@ -116,9 +112,18 @@ class Consulta extends Page
     {
         //$obConsultorio = new ConsultorioDao;
 
+        // Seleciona o paciente pelo id
+        $obPaciente = PacienteDao::getPacienteId($id_paciente);
+        $pacienteID = $obPaciente->id_paciente;
+
         if (isset($_POST['salvar'])) {
 
-           // $obZona->zona = $_POST['zona'];
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+            exit;
+
+            // $obZona->zona = $_POST['zona'];
 
             // Redireciona validaçao e gerar consulta
             $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
@@ -126,8 +131,17 @@ class Consulta extends Page
 
         $content = View::render('consulta/formConsulta2', [
             'titulo' => 'Ficha de Consulta',
-            'nome' => '',
             'button' => 'Salvar',
+
+            'id_paciente' => $pacienteID,
+            'nome' => $obPaciente->nome_paciente,
+            'morada' => $obPaciente->morada_paciente,
+            'telefone1' => $obPaciente->telefone1_paciente,
+            'email' => $obPaciente->email_paciente,
+            'data' => $obPaciente->nascimento_paciente,
+            'genero' => $obPaciente->genero_paciente == 'Feminino' ? 'checked' : '',
+
+
             'diagnostico' => '',
             'obs' => '',
             'motivo' => '',
@@ -147,41 +161,6 @@ class Consulta extends Page
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Consulta', $content);
-    }
-
-    // Metodo que cadastra consultas
-    public static function cadastrarConsulta($request)
-    {
-
-        echo '<pre>';
-        print_r("aquigeZona");
-        echo '</pre>';
-        exit;
-
-        $obZona = new ZonaDao;
-
-        if (isset($_POST['zona'], $_POST['inicio'], $_POST['fim'], $_POST['mercado'])) {
-
-            $obZona->zona = $_POST['zona'];
-            $obZona->inicio_venda = $_POST['inicio'];
-            $obZona->fim_venda = $_POST['fim'];
-            $obZona->mercado = $_POST['mercado'];
-            $obZona->cadastrarZona();
-            // Redireciona para Painel Zona 
-            $request->getRouter()->redirect('/zona?msg=cadastrado');
-        }
-
-        $content = View::render('consulta/formConsulta', [
-            'titulo' => 'Registrar Nova Consultas',
-            'button' => 'Salvar',
-            'zona' => '',
-            'fim' => '',
-            'inicio' => '',
-            //'paciente'=>self::getPaciente(),
-            'mercado' => ''
-
-        ]);
-        return parent::getPage('Cadastrar nova Zona', $content);
     }
 
 
@@ -204,7 +183,7 @@ class Consulta extends Page
 
 
 
-    
+
     // Metodo que marca a consulta
     public static function getMarcarConsulta($request, $id_paciente)
     {
@@ -227,7 +206,7 @@ class Consulta extends Page
 
         if (isset($_POST['salvar'])) {
 
-           // $obZona->zona = $_POST['zona'];
+            // $obZona->zona = $_POST['zona'];
 
             // Redireciona validaçao e gerar consulta
             $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
@@ -244,5 +223,4 @@ class Consulta extends Page
         ]);
         return parent::getPage('Ficha - consulta', $content);
     }
-
 }

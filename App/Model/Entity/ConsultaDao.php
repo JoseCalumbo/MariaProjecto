@@ -8,7 +8,7 @@ use \App\Utils\Session;
 use \App\Model\Entity\PacienteDao;
 use \PDO;
 
-class ConsultorioDao extends PacienteDao
+class ConsultaDao extends PacienteDao
 {
     public $id_triagem;
     public $observacao_triagem;

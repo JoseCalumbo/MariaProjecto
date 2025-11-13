@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabs com Pesquisa - Materialize Compacta</title>
+
+  <!-- Import Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Ícones do Google -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f5f7fb;
+    }
+    
+
+    .card {
+      margin-top: 20px;
+    }
+
+    .tabs {
+      min-height: 36px;
+      line-height: 36px;
+    }
+
+    .tabs .tab a {
+      color: #1565c0;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 0 6px; /* redução do padding lateral */
+    }
+
+    .tabs .tab a:hover {
+      background-color: rgba(21, 101, 192, 0.08);
+    }
+
+    .tabs .tab a.active {
+      background-color: #1565c0;
+      color: #fff;
+    }
+
+    .tabs .indicator {
+      background-color: #0d47a1;
+    }
+
+    /* Reduz o tamanho das abas */
+    .tabs .tab {
+      min-width: 35px; /* antes 50px */
+      margin: 0 1px;
+    }
+
+    /* Barra de pesquisa compacta */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 6px;
+    }
+
+    .input-field input[type="search"] {
+      height: 30px;
+      font-size: 12px;
+    }
+
+    .card-content {
+      padding: 8px 14px;
+    }
+
+    .card-action {
+      display: flex;
+      justify-content: center;
+      padding: 6px 0;
+    }
+
+    .btn {
+      background-color: #1565c0;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 4px;
+    }
+
+    .btn:hover {
+      background-color: #0d47a1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <!-- Cabeçalho com tabs e pesquisa -->
+      <div class="row" style="margin-bottom: 0;">
+        <div class="col s8">
+          <ul class="tabs">
+            <li class="tab col s2"><a href="#dados" class="active">Dados</a></li>
+            <li class="tab col s2"><a href="#consulta">Consulta</a></li>
+            <li class="tab col s2"><a href="#prescricao">Presc.</a></li>
+          </ul>
+        </div>
+        <div class="col s4 search-bar">
+          <form method="get">
+            <div class="input-field">
+              <input id="search" type="search" name="pesquisar" placeholder="Pesquisar paciente" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Conteúdo das abas -->
+      <div class="card-content">
+        <div id="dados">
+          <h6>Dados</h6>
+          <div class="input-field">
+            <input type="text" id="nome" placeholder="Nome completo">
+            <label for="nome">Nome</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="idade" placeholder="Idade">
+            <label for="idade">Idade</label>
+          </div>
+        </div>
+
+        <div id="consulta">
+          <h6>Consulta</h6>
+          <div class="input-field">
+            <textarea id="queixas" class="materialize-textarea" placeholder="Descrever sintomas"></textarea>
+            <label for="queixas">Queixas</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="obs" placeholder="Observações do médico">
+            <label for="obs">Observações</label>
+          </div>
+        </div>
+
+        <div id="prescricao">
+          <h6>Prescrição</h6>
+          <div class="input-field">
+            <input type="text" id="medicamento" placeholder="Fármaco">
+            <label for="medicamento">Medicamento</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="posologia" placeholder="Ex: 1 comp. 8/8h">
+            <label for="posologia">Posologia</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé -->
+      <div class="card-action">
+        <button class="btn waves-effect waves-light">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.tabs');
+      M.Tabs.init(elems);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,21 +1,25 @@
 nav {
-  height: 49px;
-  line-height: 49px; /* Centraliza os itens verticalmente */
+    height: 49px;
+    line-height: 49px;
+    /* Centraliza os itens verticalmente */
 }
 
 nav .brand-logo,
 nav ul li a {
-  height: 49px;
-  line-height: 49b px;
+    height: 49px;
+    line-height: 49b px;
 }
 
 /*css config da tabela*/
 
 table th,
 table td {
-  padding:  0px !important; /* reduz espaço interno */
-  line-height: 1.1 !important; /* reduz altura da linha */
-  font-size: 13px; /* fonte um pouco menor para caber mais dados */
+    padding: 0px !important;
+    /* reduz espaço interno */
+    line-height: 1.1 !important;
+    /* reduz altura da linha */
+    font-size: 13px;
+    /* fonte um pouco menor para caber mais dados */
 }
 
 .thead tr>th {
@@ -65,28 +69,35 @@ span {
     top: 22px;
 }
 
-    /* Deixa o carousel em modo hero (tela cheia) */
-    .hero-carousel {
-      height: 100vh; /* altura total da tela */
-    }
-    .hero-carousel .carousel-item img {
-      object-fit: cover;   /* cobre a área toda */
-      height: 100vh;       /* força a imagem ocupar toda a altura */
-      width: 100%;         /* largura total */
-    }
-    /* Texto centralizado sobre a imagem */
-    .hero-caption {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-    }
-    .hero-caption h1 {
-      font-size: 3rem;
-      font-weight: bold;
-    }
+/* Deixa o carousel em modo hero (tela cheia) */
+.hero-carousel {
+    height: 100vh;
+    /* altura total da tela */
+}
+
+.hero-carousel .carousel-item img {
+    object-fit: cover;
+    /* cobre a área toda */
+    height: 100vh;
+    /* força a imagem ocupar toda a altura */
+    width: 100%;
+    /* largura total */
+}
+
+/* Texto centralizado sobre a imagem */
+.hero-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+.hero-caption h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
 
 /* css aside*/
 .collapsible {
@@ -207,20 +218,27 @@ td {
     width: 260px;
     margin-right: 10px;
     margin-top: 10px;
-    background-color: #52646d3f;
+    background-color: #eceff1 ;
+    color: #000000 !important;
 }
 
 .input-search {
     transition: background-color 0.9s !important;
-    border: 0.50px solid #26a69a !important;
+    border: 0.50px solid #0d0e0d !important;
 }
 
+  /* Cor do placeholder */
+  .input-search::placeholder {
+    color: #009688 ;
+  }
+
+
 .input-search:focus {
-    background-color: #f2f2f2 !important;
+    background-color: #fff !important;
     /* branco ao clicar */
     outline: none !important;
     /* remove a borda azul padrão */
-    border: none !important;
+    border: 0.10px #009688 solid !important;
 }
 
 
@@ -741,8 +759,8 @@ h1 {
     left: 50%;
     transform: translateX(-50%) translateY(10px);
     /* começa mais embaixo */
-    background-color: #08405a ;
-    color: white ;
+    background-color: #08405a;
+    color: white;
     padding: 12px 12px;
     white-space: nowrap;
     opacity: 0;
@@ -759,24 +777,26 @@ h1 {
     /* sobe suavemente */
 }
 
-  /* Cor da linha indicadora da aba ativa */
-  .tabs .indicator {
-    background-color: #26a69a !important; /* cor teal por exemplo */
-  }
+/* Cor da linha indicadora da aba ativa */
+.tabs .indicator {
+    background-color: #26a69a !important;
+    /* cor teal por exemplo */
+}
 
-  /* Cor do texto das abas */
-  .tabs .tab a {
-    color: #555 !important; /* cinza escuro padrão */
-  }
+/* Cor do texto das abas */
+.tabs .tab a {
+    color: #555 !important;
+    /* cinza escuro padrão */
+}
 
-  /* Cor do texto ao passar o mouse */
-  .tabs .tab a:hover {
-    color: #26a69a !important; /* mesma cor da barra, ou outra */
-  }
+/* Cor do texto ao passar o mouse */
+.tabs .tab a:hover {
+    color: #26a69a !important;
+    /* mesma cor da barra, ou outra */
+}
 
-  /* Cor da aba ativa */
-  .tabs .tab a.active {
+/* Cor da aba ativa */
+.tabs .tab a.active {
     color: #26a69a !important;
     font-weight: bold !important;
-  }
-
+}
