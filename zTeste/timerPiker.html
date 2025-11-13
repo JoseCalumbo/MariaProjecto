@@ -1,0 +1,40 @@
+<!-- Campo paciente -->
+<div class="input-field col s8">
+  <input type="text" id="nome_paciente" placeholder="Selecione o paciente" readonly>
+  <label for="nome_paciente">Paciente</label>
+  <input type="hidden" id="id_paciente">
+</div>
+
+<div class="input-field col s4">
+  <button class="btn modal-trigger" data-target="modal_paciente">
+    <i class="material-icons left">search</i>Pesquisar Paciente
+  </button>
+</div>
+
+<!-- Modal de pesquisa de paciente -->
+<div id="modal_paciente" class="modal">
+  <div class="modal-content">
+    <h5>Pesquisar Paciente</h5>
+
+    <div class="input-field">
+      <input type="text" id="pesquisa_nome" placeholder="Digite o nome do paciente...">
+    </div>
+
+    <table class="highlight" id="tabela_pacientes">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Selecionar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Resultados da pesquisa AJAX entram aqui -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <a href="#!" class="modal-close btn red">Fechar</a>
+  </div>
+</div>

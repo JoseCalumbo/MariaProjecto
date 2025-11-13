@@ -233,7 +233,7 @@ class Triagem extends Page
             exit;
         }
         $content = View::render('triagem/formTriagemNova', [
-            'titulo' => ' ' . $triagemCadastrar->nome_paciente . ' - Cadastrar  Nova triagem',
+            'titulo' => ' Cadastrar  Nova triagem - ' . $triagemCadastrar->nome_paciente . '',
             'pesquisar' => '',
             'nome' => $triagemCadastrar->nome_paciente,
             'data' => $triagemCadastrar->nascimento_paciente,

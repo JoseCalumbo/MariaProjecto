@@ -9,13 +9,15 @@
     <td class="center"> {{Atendimento}}</td>
     <td class="center">
 
-        <a class="modal-trigger tooltip-container " href="{{URL}}/triagem/add-registro/{{id_triagem}}"
+        <!--
+                <a class="modal-trigger tooltip-container disabled" href="{{URL}}/triagem/add-registro/{{id_triagem}}"
             data-target="modaluser">
-            <button type="button" class="font-normal waves-effect green accent-4 btn">
+            <button type="button" class="font-normal waves-effect green accent-4 btn disabled">
                 <i class="material-icons center">add</i>
             </button>
             <div class="custom-tooltip">Adicionar nova triagem</div>
         </a>
+        -->
 
         <a class="tooltip-container " href="{{URL}}/triagem/editar/{{id_triagem}}">
             <button type="button " class="font-normal waves-effect btn blue darken-2 tooltip-btn">
@@ -94,10 +96,10 @@
             </div>
 
             <div class="col s12 m8">
-                 <p style="text-transform: lowercase;">
-                Apagar a triagem de <strong style="font-weight: bold;">{{Nome}}</strong> permanentemente e
-                todos os dados vinculados a esta conta serão excluídos
-                permanentemente. Você não poderá recuperá-los no futuro.</p>
+                <p style="text-transform: lowercase;">
+                    Apagar a triagem de <strong style="font-weight: bold;">{{Nome}}</strong> permanentemente e
+                    todos os dados vinculados a esta conta serão excluídos
+                    permanentemente. Você não poderá recuperá-los no futuro.</p>
 
                 <p> <strong>Tem certeza? Esta ação é permanente e não pode ser desfeita.</strong> </p>
             </div>

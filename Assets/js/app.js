@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     opacity: 0.100,
     endingTop: '07%',
     startingTop: 0,
-     dismissible: false,
+    dismissible: false,
   });
 });
 
@@ -264,6 +264,22 @@ document.addEventListener('DOMContentLoaded', function () {
     autoClose: true,
     format: 'yyyy/mm/dd',
     showClearBtn: true,
+  });
+});
+
+// Inicializar o timepicker
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.timepicker');
+  M.Timepicker.init(elems, {
+    twelveHour: false, // formato 24h (se quiser AM/PM, usa true)
+    autoClose: true,   // fecha automaticamente após selecionar
+    vibrate: true,     // vibra no celular
+    defaultTime: 'now', // hora atual como padrão
+    i18n: {            // tradução opcional
+      cancel: 'Cancelar',
+      clear: 'Limpar',
+      done: 'OK'
+    }
   });
 });
 

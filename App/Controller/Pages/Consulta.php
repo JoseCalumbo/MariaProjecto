@@ -211,6 +211,11 @@ class Consulta extends Page
         $content = View::render('consulta/formMarcarConsulta', [
             'titulo' => 'Marcação de consulta',
             'button' => 'Salvar',
+            'dia' => '',
+            'hora' => '',
+            'obs' => '',
+            'valor' => '',
+            'tempo' => '',
         ]);
         return parent::getPage('Marcação de consulta', $content);
     }

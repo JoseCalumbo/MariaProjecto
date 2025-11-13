@@ -54,25 +54,34 @@
         <label class="closeModal modal-close">&times;</label>
 
         <h5 class=" offset-m1 col s12 m10" style="text-transform: capitalize;">
-            <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">event_note</i>
-            <strong style="font-weight: bold;">Selecionar tipo de registro clínica </strong>
+            <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">view_module</i>
+            <strong style="font-weight: bold;">Seleciona tipo de serviços</strong>
         </h5>
 
         <div class="row col m12">
 
-            <p class="offset-m1 col m12" style="font-size: 16pt;">Iniciar uma consulta ou triagem para o paciente:</p>
-
-            <a href="{{URL}}/triagem/paciente/{{id_paciente}}" class=" offset-m1 col s12 m5 btn-large teal">
+            <a href="{{URL}}/triagem/paciente/{{id_paciente}}" class="row offset-m1 col s12 m5 btn-large pink">
                 <i class="fa fa-user-md fa-5x white-text" aria-hidden="true"> </i>
-                <span class="white-text">Consulta</span>
+                <span class="white-text">Marcar consulta</span>
             </a>
-            <a href="{{URL}}/triagem/paciente/{{id_paciente}}" class=" offset-m1 col s12 m5 btn-large  teal">
+            <a href="{{URL}}/triagem/paciente/{{id_paciente}}" class="row offset-m1 col s12 m5 btn-large purple">
                 <i class="fa fa-stethoscope fa-5x white-text" aria-hidden="true"> </i>
-                <span class="white-text">Consulta</span>
+                <span class="white-text">Triagem</span>
+            </a>
+            <br>
+
+            <a href="{{URL}}/triagem/paciente/{{id_paciente}}" class="row offset-m1 col s12 m5 btn-large  red">
+                <i class="fa-solid fa-bed-pulse fa-5x white-text" aria-hidden="true"></i>
+                <span class="white-text">Internamento</span>
+            </a>
+            <br>
+            <a href="{{URL}}/triagem/paciente/{{id_paciente}}" class="row offset-m1 col s12 m5 btn-large blue">
+                <i class="fa-solid fa-flask-vial fa-5x white-text" aria-hidden="true"></i>
+                <span class="white-text">Agendar Exame</span>
             </a>
         </div>
 
-        <div class="offset-m10 col s12 m2 row">
+        <div class="offset-m9 col s12 m2 row">
             <a class="btn teal darken-5  white-text" href="{{URL}}/paciente" style="text-transform: capitalize;">
                 Cancelar
             </a>
