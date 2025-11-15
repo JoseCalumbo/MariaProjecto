@@ -51,9 +51,10 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   var elemselect = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elemselect, {
-
   });
 });
+
+
 
 //imagem 
 document.addEventListener('DOMContentLoaded', function () {

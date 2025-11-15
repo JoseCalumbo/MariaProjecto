@@ -2,10 +2,10 @@
 
 namespace App\Controller\Pages;
 
+use App\Model\Entity\ExameDao;
 use App\Model\Entity\PacienteDao;
 use App\Model\Entity\TriagemDao;
 use \App\Utils\Pagination;
-use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
 
 
@@ -36,7 +36,7 @@ class Consulta extends Page
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 6);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
 
         $resultado = TriagemDao::listarTriagemFeita($where, 'risco_triagem', $obPagination->getLimit());
 
@@ -95,6 +95,22 @@ class Consulta extends Page
                                                 </tr>';
     }
 
+        // busca todos os exames para o select
+    public static function getExamesSelect()
+    {
+        $resultadoExame = '';
+
+        $listarExames = ExameDao::listarExame(null, 'nome_exame');
+
+        while ($obExame = $listarExames->fetchObject(ExameDao::class)) {
+            $resultadoExame .= View::render('consulta/itemConsulta/exames', [
+                'value' => $obExame->id_exame,
+                'exame' => $obExame->nome_exame,
+            ]);
+        }
+        return $resultadoExame;
+    }
+
     // Metodo para apresentar a tela do consultorio
     public static function telaConsulta($request)
     {
@@ -123,8 +139,6 @@ class Consulta extends Page
             echo '</pre>';
             exit;
 
-            // $obZona->zona = $_POST['zona'];
-
             // Redireciona validaçao e gerar consulta
             $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
         }
@@ -132,6 +146,8 @@ class Consulta extends Page
         $content = View::render('consulta/formConsulta2', [
             'titulo' => 'Ficha de Consulta',
             'button' => 'Salvar',
+
+            'exames' => self::getExamesSelect(),
 
             'id_paciente' => $pacienteID,
             'nome' => $obPaciente->nome_paciente,
@@ -163,20 +179,6 @@ class Consulta extends Page
         return parent::getPage('Painel Consulta', $content);
     }
 
-
-    //metodo responsavel para pegar os paciente
-    public static function getPaciente()
-    {
-        $paciente = '';
-        $paciente = VendedorDao::listarVendedor();
-        while ($obpaciente = $paciente->fetchObject(VendedorDao::class)) {
-            $paciente .= View::render('item/paciente', [
-                'nome' => $obpaciente->nome,
-                'value' => $obpaciente->id
-            ]);
-        }
-        return $paciente;
-    }
 
 
 

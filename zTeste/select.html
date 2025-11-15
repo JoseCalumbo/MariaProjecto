@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teste Tabela Materialize</title>
+
+  <!-- MATERIALIZE CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <style>
+    body { padding: 20px; }
+    table td { vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+  <h4 class="blue-text">Teste de Tabela com Select + Materialize</h4>
+
+  <table class="striped highlight">
+    <thead>
+      <tr>
+        <th>Medicamento</th>
+        <th>Quantidade</th>
+        <th>Forma</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+
+    <tbody id="tabela-body">
+      <tr>
+        <td>
+          <select name="medicamento[]">
+            <option value="" disabled selected>Selecione</option>
+            <option value="paracetamol">Paracetamol</option>
+            <option value="ibuprofeno">Ibuprofeno</option>
+            <option value="amoxicilina">Amoxicilina</option>
+          </select>
+        </td>
+
+        <td>
+          <input type="number" name="qtd[]">
+        </td>
+
+        <td>
+          <select name="forma[]">
+            <option value="" disabled selected>Forma</option>
+            <option value="comprimido">Comprimido</option>
+            <option value="xarope">Xarope</option>
+            <option value="ampola">Ampola</option>
+          </select>
+        </td>
+
+        <td>
+          <button type="button" class="btn red btn-remover" onclick="removerLinha(this)">
+            <i class="material-icons">delete</i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <button class="btn blue" onclick="adicionarLinha()">
+    <i class="material-icons left">add</i>
+    Adicionar Linha
+  </button>
+
+  <!-- MATERIALIZE JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    // Inicializar selects ao carregar
+    document.addEventListener('DOMContentLoaded', function () {
+      M.FormSelect.init(document.querySelectorAll('select'));
+    });
+
+    function adicionarLinha() {
+      const tabela = document.getElementById('tabela-body');
+      const linhaModelo = tabela.rows[0];
+      const novaLinha = linhaModelo.cloneNode(true);
+
+      // Substituir select-wrapper por selects novos
+      const wrappersClonados = Array.from(novaLinha.querySelectorAll('.select-wrapper'));
+      const selectsModelo = Array.from(linhaModelo.querySelectorAll('select'));
+
+      wrappersClonados.forEach((wrapper, idx) => {
+        const selectModelo = selectsModelo[idx];
+        if (!selectModelo) {
+          wrapper.remove();
+          return;
+        }
+
+        const novoSelect = document.createElement('select');
+        novoSelect.innerHTML = selectModelo.innerHTML;
+
+        Array.from(selectModelo.attributes).forEach(attr => {
+          if (attr.name.toLowerCase() !== 'id') {
+            novoSelect.setAttribute(attr.name, attr.value);
+          }
+        });
+
+        novoSelect.value = '';
+        novoSelect.removeAttribute('id');
+
+        wrapper.parentNode.replaceChild(novoSelect, wrapper);
+      });
+
+      // Limpar selects simples
+      novaLinha.querySelectorAll('select').forEach(select => {
+        select.value = '';
+        select.classList.remove('initialized');
+        select.removeAttribute('id');
+      });
+
+      // Limpar inputs e remover IDs
+      novaLinha.querySelectorAll('input, textarea').forEach(el => {
+        if (el.type === 'checkbox' || el.type === 'radio') {
+          el.checked = false;
+        } else {
+          el.value = '';
+        }
+        el.removeAttribute('id');
+      });
+
+      tabela.appendChild(novaLinha);
+
+      // Reinicializar Materialize
+      setTimeout(() => {
+        M.FormSelect.init(document.querySelectorAll('select'));
+      }, 0);
+    }
+
+    function removerLinha(botao) {
+      const linha = botao.closest('tr');
+      const tabela = document.getElementById('tabela-body');
+      if (tabela.rows.length > 1) linha.remove();
+    }
+  </script>
+</body>
+</html>

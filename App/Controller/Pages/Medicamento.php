@@ -47,7 +47,7 @@ class Medicamento extends Page
         } // fim do switch
     }
 
-    // busca todos os Nivel  cadastrado
+    // busca todos os fornecedores para o select
     public static function getFornecedor()
     {
         $resultadoFornecedor = '';
