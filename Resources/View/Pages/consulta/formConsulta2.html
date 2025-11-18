@@ -3,7 +3,49 @@
   <h5 class="center"> {{titulo}} </h5>
 
   <br>
-  <div class="row">
+  <div class="row col m4 ">
+    <section>
+      <nav style="height: 30px; display: flex; align-items: center; background-color: #f5f5f5; box-shadow: none;">
+        <ul>
+          <li style="margin-left: 15px; text-transform: lowercase;">Dados do paciente</li>
+        </ul>
+      </nav>
+
+      <div class="white row">
+        <img src="{{URL}}/Files/Imagem/paciente/{{imagem}}" style="margin-left: 5px;" class="materialboxed col m2 "
+          width="50" height="90">
+        <span class="col m9"><strong>Nome:</strong> {{nome}}</span>
+        <span class="col m3"><strong>Idade:</strong> {{11}}</span>
+        <span class="col m5"><strong>Genero:</strong> {{genero}}</span>
+        <span class="col m5"><strong>Telefone:</strong> {{telefone1}}</span>
+        <span class="col m9"><strong>E-mail:</strong> {{email}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Morada:</strong> {{morada}}</span>
+      </div>
+    </section>
+
+    <section>
+      <nav style="height: 30px; display: flex; align-items: center; background-color: #f5f5f5; box-shadow: none;">
+        <ul>
+          <li style="margin-left: 15px; text-transform: lowercase;">Dados da triagem</li>
+        </ul>
+      </nav>
+      <div class="white row">
+
+        <span class="col m9" style="margin-left: 20px;"><strong>Peso:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Temperatura Corporal:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Saturação de Oxigênio:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Pressão Arterial:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Frequência Respiratória:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong><br></span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Observação:</strong> {{morada}}</span>
+
+      </div>
+    </section>
+
+
+  </div>
+
+  <div class=" row offset-m1 col m7 s12">
     <div class="col s12 blue-grey darken-1 row">
       <!--header das abas-->
       <ul class="tabs tabsvendedor blue-grey darken-1 ">
@@ -21,7 +63,7 @@
       <section id="dados1" class="col s12 m12 row ">
         <div class="row col push-m2 m8">
           <br>
-          <div class="row col m12">
+          <div class="row col m12" style="padding: 7px 3px !important; margin: 0px !important;">
             <div class="input-field col s12 m3">
               <input id="id" type="text" name="id" value="{{id_paciente}}" class="validate" disabled>
               <label for="id" style="text-transform: capitalize;">Número:</label>
@@ -60,15 +102,11 @@
               <label for="email" style="text-transform: capitalize;">E-mail:</label>
             </div>
 
-
-
             <div class="input-field col s12 m12">
               <input id="morada" type="text" data-length="100" name="morada" value="{{morada}}" />
               <label for="morada" style="text-transform: capitalize;">Endereço Completo</label>
             </div>
           </div>
-
-
         </div>
       </section>
 
@@ -228,40 +266,40 @@
     tabela.appendChild(novaLinha);
   }
 
-function adicionarLinha15() {
-  const tabela = document.getElementById('tabela-body');
+  function adicionarLinha15() {
+    const tabela = document.getElementById('tabela-body');
 
-  // Clonar a primeira linha
-  const novaLinha = tabela.rows[0].cloneNode(true);
+    // Clonar a primeira linha
+    const novaLinha = tabela.rows[0].cloneNode(true);
 
-  // REMOVER elementos criados pelo MATERIALIZE
-  //novaLinha.querySelectorAll('.select-wrapper').forEach(wrapper => wrapper.remove());
+    // REMOVER elementos criados pelo MATERIALIZE
+    //novaLinha.querySelectorAll('.select-wrapper').forEach(wrapper => wrapper.remove());
 
-  // 🔄 Restaurar os <select> originais (só o elemento select)
-  const selectsOriginais = tabela.rows[0].querySelectorAll('select');
-  const selectsNovos = novaLinha.querySelectorAll('select');
+    // 🔄 Restaurar os <select> originais (só o elemento select)
+    const selectsOriginais = tabela.rows[0].querySelectorAll('select');
+    const selectsNovos = novaLinha.querySelectorAll('select');
 
-  selectsNovos.forEach((select, index) => {
-    select.innerHTML = selectsOriginais[index].innerHTML; // repõe options
-    select.value = ''; // limpa seleção
-    select.removeAttribute('id'); // remove ID duplicado
-    select.classList.remove('initialized'); // muito importante
-  });
+    selectsNovos.forEach((select, index) => {
+      select.innerHTML = selectsOriginais[index].innerHTML; // repõe options
+      select.value = ''; // limpa seleção
+      select.removeAttribute('id'); // remove ID duplicado
+      select.classList.remove('initialized'); // muito importante
+    });
 
-  // Limpar inputs
-  novaLinha.querySelectorAll('input').forEach(input => {
-    input.value = '';
-    input.removeAttribute('id');
-  });
+    // Limpar inputs
+    novaLinha.querySelectorAll('input').forEach(input => {
+      input.value = '';
+      input.removeAttribute('id');
+    });
 
 
-  tabela.appendChild(novaLinha);
+    tabela.appendChild(novaLinha);
 
-  // 🔄 Reinicializar Materialize corretamente
-  setTimeout(() => {
-    M.FormSelect.init(document.querySelectorAll('select'));
-  }, 0);
-}
+    // 🔄 Reinicializar Materialize corretamente
+    setTimeout(() => {
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }, 0);
+  }
 
   function adicionarLinha00() {
     const tabela = document.getElementById('tabela-body');
@@ -292,67 +330,67 @@ function adicionarLinha15() {
     }, 10);
   }
 
-function adicionarLinha() {
-      const tabela = document.getElementById('tabela-body');
-      const linhaModelo = tabela.rows[0];
-      const novaLinha = linhaModelo.cloneNode(true);
+  function adicionarLinha() {
+    const tabela = document.getElementById('tabela-body');
+    const linhaModelo = tabela.rows[0];
+    const novaLinha = linhaModelo.cloneNode(true);
 
-      // Substituir select-wrapper por selects novos
-      const wrappersClonados = Array.from(novaLinha.querySelectorAll('.select-wrapper'));
-      const selectsModelo = Array.from(linhaModelo.querySelectorAll('select'));
+    // Substituir select-wrapper por selects novos
+    const wrappersClonados = Array.from(novaLinha.querySelectorAll('.select-wrapper'));
+    const selectsModelo = Array.from(linhaModelo.querySelectorAll('select'));
 
-      wrappersClonados.forEach((wrapper, idx) => {
-        const selectModelo = selectsModelo[idx];
-        if (!selectModelo) {
-          wrapper.remove();
-          return;
+    wrappersClonados.forEach((wrapper, idx) => {
+      const selectModelo = selectsModelo[idx];
+      if (!selectModelo) {
+        wrapper.remove();
+        return;
+      }
+
+      const novoSelect = document.createElement('select');
+      novoSelect.innerHTML = selectModelo.innerHTML;
+
+      Array.from(selectModelo.attributes).forEach(attr => {
+        if (attr.name.toLowerCase() !== 'id') {
+          novoSelect.setAttribute(attr.name, attr.value);
         }
-
-        const novoSelect = document.createElement('select');
-        novoSelect.innerHTML = selectModelo.innerHTML;
-
-        Array.from(selectModelo.attributes).forEach(attr => {
-          if (attr.name.toLowerCase() !== 'id') {
-            novoSelect.setAttribute(attr.name, attr.value);
-          }
-        });
-
-        novoSelect.value = '';
-        novoSelect.removeAttribute('id');
-
-        wrapper.parentNode.replaceChild(novoSelect, wrapper);
       });
 
-      // Limpar selects simples
-      novaLinha.querySelectorAll('select').forEach(select => {
-        select.value = '';
-        select.classList.remove('initialized');
-        select.removeAttribute('id');
-      });
+      novoSelect.value = '';
+      novoSelect.removeAttribute('id');
 
-      // Limpar inputs e remover IDs
-      novaLinha.querySelectorAll('input, textarea').forEach(el => {
-        if (el.type === 'checkbox' || el.type === 'radio') {
-          el.checked = false;
-        } else {
-          el.value = '';
-        }
-        el.removeAttribute('id');
-      });
+      wrapper.parentNode.replaceChild(novoSelect, wrapper);
+    });
 
-      tabela.appendChild(novaLinha);
+    // Limpar selects simples
+    novaLinha.querySelectorAll('select').forEach(select => {
+      select.value = '';
+      select.classList.remove('initialized');
+      select.removeAttribute('id');
+    });
 
-      // Reinicializar Materialize
-      setTimeout(() => {
-        M.FormSelect.init(document.querySelectorAll('select'));
-      }, 0);
-    }
+    // Limpar inputs e remover IDs
+    novaLinha.querySelectorAll('input, textarea').forEach(el => {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = false;
+      } else {
+        el.value = '';
+      }
+      el.removeAttribute('id');
+    });
 
-    function removerLinhaz(botao) {
-      const linha = botao.closest('tr');
-      const tabela = document.getElementById('tabela-body');
-      if (tabela.rows.length > 1) linha.remove();
-    }
+    tabela.appendChild(novaLinha);
+
+    // Reinicializar Materialize
+    setTimeout(() => {
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }, 0);
+  }
+
+  function removerLinhaz(botao) {
+    const linha = botao.closest('tr');
+    const tabela = document.getElementById('tabela-body');
+    if (tabela.rows.length > 1) linha.remove();
+  }
 
   function adicionarLinha1() {
     const tabela = document.getElementById('tabela-body1');

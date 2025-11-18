@@ -30,21 +30,21 @@ $obRouter->post('/consulta',[
 
 
 // rota para alterar um registro GET
-$obRouter->get('/consulta/atender/{id_paciente}',[
+$obRouter->get('/consulta/atender/{id_triagem}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_paciente){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_paciente)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
 // rota para alterar um registro GET
-$obRouter->post('/consulta/atender/{id_paciente}',[
+$obRouter->post('/consulta/atender/{id_triagem}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_paciente){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_paciente)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
 

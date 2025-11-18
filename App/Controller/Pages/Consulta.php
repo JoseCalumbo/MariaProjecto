@@ -11,7 +11,6 @@ use \App\Utils\View;
 
 class Consulta extends Page
 {
-
     // Metodo que apresenta os pacientes aspera da consulta
     private static function getConsultasEspera($request, &$obPagination)
     {
@@ -95,7 +94,7 @@ class Consulta extends Page
                                                 </tr>';
     }
 
-        // busca todos os exames para o select
+    // busca todos os exames para o select
     public static function getExamesSelect()
     {
         $resultadoExame = '';
@@ -124,12 +123,12 @@ class Consulta extends Page
     }
 
     // Metodo que inicia as consultas
-    public static function getcadastrarConsulta($request, $id_paciente)
+    public static function getcadastrarConsulta($request, $id_triagem)
     {
-        //$obConsultorio = new ConsultorioDao;
+        $obTriagem = TriagemDao::getTriagemId($id_triagem);
 
         // Seleciona o paciente pelo id
-        $obPaciente = PacienteDao::getPacienteId($id_paciente);
+        $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
         $pacienteID = $obPaciente->id_paciente;
 
         if (isset($_POST['salvar'])) {
@@ -143,7 +142,7 @@ class Consulta extends Page
             $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
         }
 
-        $content = View::render('consulta/formConsulta2', [
+        $content = View::render('consulta/formConsulta1', [
             'titulo' => 'Ficha de Consulta',
             'button' => 'Salvar',
 
@@ -151,11 +150,13 @@ class Consulta extends Page
 
             'id_paciente' => $pacienteID,
             'nome' => $obPaciente->nome_paciente,
+            'imagem' => $obPaciente->imagem_paciente,
             'morada' => $obPaciente->morada_paciente,
             'telefone1' => $obPaciente->telefone1_paciente,
             'email' => $obPaciente->email_paciente,
             'data' => $obPaciente->nascimento_paciente,
-            'genero' => $obPaciente->genero_paciente == 'Feminino' ? 'checked' : '',
+            'genero1' => $obPaciente->genero_paciente == 'Feminino' ? 'checked' : '',
+            'genero' => $obPaciente->genero_paciente,
 
 
             'diagnostico' => '',
