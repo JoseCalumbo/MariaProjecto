@@ -54,12 +54,12 @@
 
   <div class="{{msgs}} col s12 m12">{{msg}}</div>
 
-  <section class="offset-m2 white col m10">
+  <section class="offset-m2 white col m9">
 
     <table class="row col m11 responsive-table">
       <thead class="">
         <tr class="center">
-          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Nº</th>
+          <th><i class="material-icons black-white" style="vertical-align: -6px;">format_list_numbered</i> Código</th>
           <th><i class="material-icons black-white" style="vertical-align: -6px;">science</i> Nome Exame</th>
           <th> <i class="material-icons black-white " style="vertical-align: -6px;">list</i>Catégoria de Exame </th>
           <th> <i class="material-icons black-white " style="vertical-align: -6px;">list</i>Estado</th>
@@ -122,12 +122,13 @@
             <div class="input-field col s12">
               <select name="categoria">
                 <option value="" disabled selected>Escolhe uma opção</option>
+                <option value="Bioquímicos" {{Bioquímicos}}>Bioquímicos</option>
+                <option value="Hematologia" {{Hematologia}}>Hematologia</option>
                 <option value="Imagem" {{Imagem}}>Imagem</option>
                 <option value="Imunologia" {{Imunologia}}>Imunologia</option>
-                <option value="Sorológicos" {{Sorológicos}}>Sorológicos</option>
-                <option value="Bioquímicos" {{Bioquímicos}}>Bioquímicos</option>
-                <option value="Urina" {{Urina}}>Urina Súmaria</option>
                 <option value="Microbiológicos" {{Microbiológicos}}>Microbiológicos</option>
+                <option value="Sorológicos" {{Sorológicos}}>Sorológicos</option>
+                <option value="Urina" {{Urina}}>Urina Súmaria</option>
               </select>
               <label class="font-normal">Seleciona categoria</label>
             </div>
@@ -145,7 +146,7 @@
           </div>
 
         </div>
-        
+
       </div>
 
       <div class=" col s12 " style="display: none;">
@@ -167,5 +168,3 @@
 
   </div>
 </div>
-
-

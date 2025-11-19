@@ -85,7 +85,7 @@ Class Vendedor1 extends Page {
     }
 
     //tela de vendedor
-    public static function telaVendedor($request){
+    public static function telaVendedor($request, ){
 
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
 

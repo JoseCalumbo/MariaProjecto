@@ -60,7 +60,7 @@ class Page
      *@param Pagination $obPagination
      *@return string
      */
-    public static function getPaginacao($request, $obPagination)
+    public static function getPaginacao($request, &$obPagination)
     {
         // get actual
         $queryParam = $request->getQueryParams();

@@ -60,7 +60,7 @@ class Paciente extends Page
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 5);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 7);
 
         $resultado = PacienteDao::listarPaciente($where, 'nome_paciente', $obPagination->getLimit());
 

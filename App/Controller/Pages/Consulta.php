@@ -3,6 +3,7 @@
 namespace App\Controller\Pages;
 
 use App\Model\Entity\ExameDao;
+use App\Model\Entity\ExameSolicitadoDao;
 use App\Model\Entity\PacienteDao;
 use App\Model\Entity\TriagemDao;
 use \App\Utils\Pagination;
@@ -125,13 +126,43 @@ class Consulta extends Page
     // Metodo que inicia as consultas
     public static function getcadastrarConsulta($request, $id_triagem)
     {
+        $postVars = $request->getPostVars();
+
+        $tipoExame = [];
+
+        // Instancia Exames solicitados
+        $ExameSolicitados = new ExameSolicitadoDao();
+
+        // busca a triagem da consulta
         $obTriagem = TriagemDao::getTriagemId($id_triagem);
 
         // Seleciona o paciente pelo id
         $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
         $pacienteID = $obPaciente->id_paciente;
 
-        if (isset($_POST['salvar'])) {
+        // formata a idade do paciente
+        $formataIdade = date("Y", strtotime($obTriagem->nascimento_paciente));
+        $idade = date("Y") - $formataIdade;
+
+        if (isset($_POST['salvar'])){
+
+            $tipoExame = $_POST['examesTipo'];
+            $nomeExame = $postVars['examesNome'];
+            $parametros = $postVars['exameParametro'];
+            $urgencias = $postVars['examesEmergrncia'];
+
+            // Loop para inserir exame por exame
+            for ($i = 0; $i < count($tipoExame); $i++) {
+
+                 $ExameSolicitados->id_exame = $nomeExame[$i];
+                 $ExameSolicitados->tipo_exame = $tipoExame[$i];
+                 $ExameSolicitados->parametro_exame = $parametros[$i];
+                 $ExameSolicitados->emergencia_exame = $urgencias[$i];
+                $ExameSolicitados->cadastrarExameSolicitado();
+            }
+
+
+
 
             echo '<pre>';
             print_r($_POST);
@@ -154,14 +185,22 @@ class Consulta extends Page
             'morada' => $obPaciente->morada_paciente,
             'telefone1' => $obPaciente->telefone1_paciente,
             'email' => $obPaciente->email_paciente,
-            'data' => $obPaciente->nascimento_paciente,
-            'genero1' => $obPaciente->genero_paciente == 'Feminino' ? 'checked' : '',
+            // 'data' => $obPaciente->nascimento_paciente,
+            'data' => $idade,
             'genero' => $obPaciente->genero_paciente,
 
+            'peso' => $obTriagem->peso_triagem,
+            'temperatura' => $obTriagem->temperatura_triagem,
+            'cardiaca' => $obTriagem->frequencia_cardiaca_triagem,
+            'frequencia' => $obTriagem->frequencia_respiratorio_triagem,
+            'saturacao' => $obTriagem->Saturacao_oxigenio_triagem,
+            'pressao' => $obTriagem->pressao_arterial_triagem,
+            'observacao' => $obTriagem->observacao_triagem,
 
             'diagnostico' => '',
             'obs' => '',
             'motivo' => '',
+            'conduta' => '',
 
         ]);
         return parent::getPage('Ficha - consulta', $content);

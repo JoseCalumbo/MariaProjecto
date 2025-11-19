@@ -1,21 +1,23 @@
 <section class="row section-field">
-
-  <h5 class="center"> {{titulo}} </h5>
-
-  <br>
   <div class="row col m4 ">
+      <h5 class="center" style="text-transform: capitalize;"> Dados do  paciente</h5>
+
     <section>
-      <nav style="height: 35px; display: flex; align-items: center; background-color: #f5f5f5; box-shadow: none;">
+      <nav style="height: 35px; display: flex; align-items: center;
+       background-color: #f5f5f5; box-shadow: none; justify-content: space-between;">
         <ul>
-          <li style="margin-left: 15px; text-transform: lowercase;">Dados do paciente</li>
+          <li style="margin-left: 15px; text-transform: lowercase;">Dados pessoal</li>
         </ul>
+        <a class="btn grey font-normal center" href="{{URL}}/paciente/editar/{{id_paciente}}" target="_blank">
+          Editar dados
+        </a>
       </nav>
 
       <div class="white row">
         <img src="{{URL}}/Files/Imagem/paciente/{{imagem}}" style="margin-left: 5px;" class="materialboxed col m2 "
           width="50" height="90">
         <span class="col m9"><strong>Nome:</strong> {{nome}}</span>
-        <span class="col m3"><strong>Idade:</strong> {{11}}</span>
+        <span class="col m3"><strong>Idade:</strong> {{data}} anos</span>
         <span class="col m5"><strong>Genero:</strong> {{genero}}</span>
         <span class="col m5"><strong>Telefone:</strong> {{telefone1}}</span>
         <span class="col m9"><strong>E-mail:</strong> {{email}}</span>
@@ -30,25 +32,25 @@
         </ul>
       </nav>
       <div class="white row">
-
-        <span class="col m9" style="margin-left: 20px;"><strong>Peso:</strong> {{morada}}</span>
-        <span class="col m9" style="margin-left: 20px;"><strong>Temperatura Corporal:</strong> {{morada}}</span>
-        <span class="col m9" style="margin-left: 20px;"><strong>Saturação de Oxigênio:</strong> {{morada}}</span>
-        <span class="col m9" style="margin-left: 20px;"><strong>Pressão Arterial:</strong> {{morada}}</span>
-        <span class="col m9" style="margin-left: 20px;"><strong>Frequência Respiratória:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Peso:</strong> {{peso}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Temperatura Corporal:</strong> {{temperatura}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Saturação de Oxigênio:</strong> {{saturacao}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Pressão Arterial:</strong> {{pressao}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Frequência Respiratória:</strong> {{frequencia}}</span>
         <span class="col m9" style="margin-left: 20px;"><strong><br></span>
-        <span class="col m9" style="margin-left: 20px;"><strong>Observação:</strong> {{morada}}</span>
+        <span class="col m9" style="margin-left: 20px;"><strong>Observação:</strong> {{observacao}}</span>
 
       </div>
     </section>
-
-
   </div>
 
   <div class=" row offset-m1 col m7 s12">
+      <h5 class="center" style="text-transform: capitalize;"> {{titulo}} </h5>
+
     <div class="col s12 blue-grey darken-1 row">
       <!--header das abas-->
-      <ul class="tabs tabsvendedor blue-grey darken-1 " style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
+      <ul class="tabs tabsvendedor blue-grey darken-1 "
+        style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
         <li class="tab"><a class="active font-normal" href="#consultaDados">Consulta</a></li>
         <li class="tab"><a class="font-normal" href="#exameDados">Exames</a></li>
       </ul>
@@ -61,12 +63,12 @@
       <section id="consultaDados" class="col m12 s12">
         <div class="row col m12">
           <br>
-          <div class="input-field col s12 m12">
+          <div class="input-field col s12 m6">
             <input id="motivo" type="text" name="motivo" value="{{motivo}}" class="validate">
             <label for="motivo" style="text-transform: capitalize;">Motivo da consulta:</label>
           </div>
 
-          <div class="input-field col s12 m12">
+          <div class="input-field col s12 m6">
             <input id="Observação" type="text" name="obs" value="{{obs}}" class="validate">
             <label for="Observação" style="text-transform: capitalize;">Observação:</label>
           </div>
@@ -75,6 +77,12 @@
             <input id="Diagnóstico" type="text" name="diagnostico" value="{{diagnostico}}" class="validate">
             <label for="Diagnóstico" style="text-transform: capitalize;">Diagnóstico:</label>
           </div>
+
+          <div class="input-field col m12 s12">
+            <textarea id="textarea1" class="materialize-textarea" name="conduta" > {{conduta}}</textarea>
+            <label for="textarea1" style="text-transform: capitalize;">Conduta</label>
+          </div>
+
         </div>
 
       </section>
@@ -85,17 +93,17 @@
           <br>
           <table class="responsive-table">
             <thead>
-              <tr >
-                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Tipo</th>
-                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nome</th>
+              <tr class="rows">
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 20%;">Tipo</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 30%;">Nome</th>
                 <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Paramentro</th>
                 <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
                 <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Ação</th>
               </tr>
             </thead>
             <tbody id="tabela-body">
-              <tr >
-                <td class="">
+              <tr class="row">
+                <td>
                   <select name="examesTipo[]" id="">
                     <option value="" disabled selected>seleciona</option>
                     <option value="Imagem">Imagem</option>
@@ -110,7 +118,16 @@
                   </select>
                 </td>
                 <td><input type="text" name="exameParametro[]" class="validate" equired></td>
-                <td><input type="text" name="exameUrgencia[]" class="validate" equired></td>
+                <td>
+                  <select name="examesEmergrncia[]" id="">
+                    <option value="" disabled selected>seleciona</option>
+                    <option value="Não-Urgente">Não Urgente</option>
+                    <option value="Pouco-Urgente">Pouco Urgente</option>
+                    <option value="Urgente">Urgente</option>
+                    <option value="Muito Urgente">Muito Urgente</option>
+                    <option value="Emergente">Emergente</option>
+                  </select>
+                </td>
                 <td class="center">
                   <a class="tooltip-container btn red white-text" onclick="removerLinha(this)">
                     <i class="material-icons center">delete</i>
