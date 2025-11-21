@@ -69,6 +69,12 @@ include __DIR__.'/RotaConta.php';
 include __DIR__.'/RotaContabilidade.php';
 
 /**
+ * __________________________________laboratório_______________________________
+ * inclui as rotas do laboratorio
+*/
+include __DIR__.'/RotaLaboratorio.php';
+
+/**
  * __________________________________login_______________________________
  * inclui as rotas de login 
 */
