@@ -31,9 +31,38 @@ class ExameSolicitadoDao
     // energencia exame
     public $emergencia_exame;
 
-    // Data de cadastramento do exame
-    public $criado_exame;
+    // guarda o resultado do exame
+    public $resultado_exame;
 
+    // Data de cadastramento do exame
+    public $descrisaoResultado_exame;
+
+    //  guarda a descrisão do resultado do exame
+    public $criado_exameSolicitado;
+
+
+    /*	
+            'id_exame_solicitado'=>      
+        	'descrisaoResultado_exame' =>
+            'resultado_exame'=>
+            'id_consulta'=>
+            'id_funcionario'=>	
+            'id_exame'=>
+            'tipo_exame'=>
+            'emergencia_exame'=>
+            'parametro_exame'=>
+            'criado_exameSolicitado'=>	
+
+            'id_consulta' => $this->id_consulta=1,
+            'id_funcionario' => $this->id_funcionario =1,
+            'id_exame' => $this->id_exame,
+            'tipo_exame' => $this->tipo_exame,
+            'parametros' => $this->parametro_exame,
+            'emergencia' => $this->emergencia_exame,
+            'criado_exameSolicitado' => $this->criado_exame,
+
+
+        */
 
     // faz um insert na tabela exame
     public function cadastrarExameSolicitado()
@@ -42,30 +71,26 @@ class ExameSolicitadoDao
         $this->id_funcionario = $usuarioLogado['id'];
 
         // Instancia da Database
-        $obDatabase = new Database('tb_consulta_examepedido');
+        $obDatabase = new Database('tb_consulta_exames');
 
         $this->id_exameSolicitada = $obDatabase->insert([
-            'id_consulta' => $this->id_consulta=1,
-            'id_funcionario' => $this->id_funcionario =1,
-            'id_exame' => $this->id_exame,
-            'tipo_exame' => $this->tipo_exame,
-            'parametros' => $this->parametro_exame,
-            'emergencia' => $this->emergencia_exame,
-
-            'criado_exameSolicitado' => $this->criado_exame,
+            'id_consulta'             => $this->id_consulta = 1,
+            'id_funcionario'          => $this->id_funcionario,
+            'id_exame'                => $this->id_exame,
+            'tipo_exame'              => $this->tipo_exame,
+            'emergencia_exame'        => $this->emergencia_exame,
+            'parametro_exame'         => $this->parametro_exame,
+            'criado_exameSolicitado'  => $this->criado_exameSolicitado,
         ]);
         return true;
     }
 
-    // faz um update na tabela da exame
-    public function AtualizarExame()
+    // Metodo responsavel por lançar o resultado do exame
+    public function LançarResultado()
     {
-        return (new Database('tb_exame'))->update('id_exame = ' . $this->id_exame, [
-            'id_exame' => $this->id_exame,
-            'id_exame' => $this->id_exame,
-            'tipo_exame' => $this->tipo_exame,
-            'parametro_exame' => $this->parametro_exame,
-            'criado_exame' => $this->criado_exame,
+        return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exameSolicitada, [
+            'descrisaoResultado_exame' => $this->resultado_exame,
+            'resultado_exame'         => $this->descrisaoResultado_exame,
         ]);
     }
 
@@ -75,10 +100,8 @@ class ExameSolicitadoDao
         return (new Database('tb_exame'))->delete('id_exame = ' . $this->id_exame);
     }
 
-    /**
-     * Apresenta os resultado da tabela exame
-     * @param string $where
-     */
+
+    # Apresenta os resultado da tabela exames Solicitados
     public static function listarExame($where = null, $order = null, $limit = null, $fields = '*')
     {
         return (new Database('tb_exame'))->select($where, $order, $limit, $fields);
@@ -88,11 +111,5 @@ class ExameSolicitadoDao
     public static function getExameId($id_exame)
     {
         return (new Database('tb_exame'))->select('id_exame = ' . $id_exame)->fetchObject(self::class);
-    }
-
-    //Metodo para  selecionar um registro da tabela exame
-    public static function getExameId1($id_exame)
-    {
-        return (new Database('tb_exame'))->select('id_exame = ' . $id_exame)->fetchObject(PDO::FETCH_CLASS . self::class);
     }
 }

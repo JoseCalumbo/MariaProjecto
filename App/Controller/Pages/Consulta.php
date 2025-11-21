@@ -161,9 +161,6 @@ class Consulta extends Page
                 $ExameSolicitados->cadastrarExameSolicitado();
             }
 
-
-
-
             echo '<pre>';
             print_r($_POST);
             echo '</pre>';

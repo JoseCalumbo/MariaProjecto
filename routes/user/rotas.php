@@ -18,15 +18,6 @@ $obRouter->get('/home',[
     function($request){ return new Response(200,Pages\Home::getHomeBalcao($request)); }
 ]);
 
-/** __________________________________Utilizador _______________________________
- * inclui as rotas dos utilizador
-*/
-include __DIR__.'/RotaUtilizador.php';
-
-/** __________________________________Perfil utiliador _______________________________
- * inclui as rotas de perfil do utilizador
-*/
-include __DIR__.'/RotaPerfil.php';
 
 /** __________________________________ Exame _______________________________
  * inclui as rotas de exame
@@ -43,10 +34,92 @@ include __DIR__.'/RotaFarmacia.php';
 */
 include __DIR__.'/RotaFornecedor.php';
 
+//________________________ configuração___________________________
+
+/**
+ * inclui as rotas das configuração 
+*/
+include __DIR__.'/RotaConfiguracao.php';
+
+
+//________________________ Consulta___________________________
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaConsulta.php';
+
+
+//________________________ Consulta Diaria_______________________
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaConsultaDiaria.php';
+
+/**
+ * __________________________________ Conta _______________________________
+ * inclui as rotas da conta 
+ */
+include __DIR__.'/RotaConta.php';
+
+
+/**
+ * __________________________________ Contabilidade _______________________________
+ * inclui as rotas de RotaContabilidade
+*/
+include __DIR__.'/RotaContabilidade.php';
+
+/**
+ * __________________________________login_______________________________
+ * inclui as rotas de login 
+*/
+include __DIR__.'/RotaLogin.php';
+
+
 /** __________________________________ Medicamentos _______________________________
  * inclui as rotas de medicamento
 */
 include __DIR__.'/RotaMedicamento.php';
+
+/**
+ * __________________________________Paciente _______________________________
+ * inclui as rotas de RotaPaciente
+*/
+include __DIR__.'/RotaPaciente.php';
+
+/** __________________________________ Perfil utiliador _______________________________
+ * inclui as rotas de perfil do utilizador
+*/
+include __DIR__.'/RotaPerfil.php';
+
+/**
+ * __________________________________Triagem_______________________________
+ * inclui as rotas de negocio
+*/
+include __DIR__.'/RotaTriagem.php';
+
+/**
+ * __________________________________ Tesoraria _______________________________
+ * inclui as rotas de RotaTesouraria
+*/
+include __DIR__.'/RotaTesoraria.php';
+
+/** __________________________________ Utilizador _______________________________
+ * inclui as rotas dos utilizador
+*/
+include __DIR__.'/RotaUtilizador.php';
+
+/**
+ * __________________________________ utilitario _______________________________
+ * inclui as rotas de RotaUtilitario
+*/
+include __DIR__.'/RotaUtilitario.php';
+
+//____________________________________Zona______________________________________
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaZona.php';
+
 
 //________________________________relatorio__________________________
 $obRouter->get('/relatorio',[
@@ -75,36 +148,27 @@ $obRouter->get('/relatorio/dados',[
     function($request){ return new Response(200,Pages\Relatorio::RelatorioDados($request));}
 ]);
 
-//________________________ rota configuração___________________________
-
-/**
- * inclui as rotas da zona  
-*/
-include __DIR__.'/RotaConfiguracao.php';
-
-//________________________ rota Zona___________________________
-/**
- * inclui as rotas da zona  
-*/
-include __DIR__.'/RotaZona.php';
-
-//________________________ rota Consulta___________________________
-/**
- * inclui as rotas da zona  
-*/
-include __DIR__.'/RotaConsulta.php';
 
 
-//________________________ Rota Consulta Diaria_______________________
-/**
- * inclui as rotas da zona  
-*/
-include __DIR__.'/RotaConsultaDiaria.php';
+//__________________________________ serviços de tarefas_______________________
+$obRouter->get('/vendedor/{id}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request,$id){ return new Response(200,Pages\Operacao::getOperacao($request,$id)); }
+]);
 
+
+//__________________________________ Notificacao_______________________
+$obRouter->get('/acesso/negado',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request,$id){ return new Response(200,Pages\Notificacao::acessNegado($request,$id)); }
+]);
 
 
 //________________________ rota para ir na pagina conta___________________________
-
 
 // rota para ir na pagina conta
 $obRouter->post('/conta',[
@@ -137,66 +201,3 @@ $obRouter->get('/conta/editar',[
     ],
     function($request,$id_us){ return new Response(200,Pages\Conta::editarConta($request,$id_us));}
 ]);
-
-/**
- * __________________________________login_______________________________
- * inclui as rotas de login 
-*/
-include __DIR__.'/RotaLogin.php';
-
-/**
- * __________________________________ Conta _______________________________
- * inclui as rotas da conta 
- */
-include __DIR__.'/RotaConta.php';
-
-/**
- * __________________________________Triagem_______________________________
- * inclui as rotas de negocio
-*/
-include __DIR__.'/RotaTriagem.php';
- 
-
-//__________________________________ serviços de tarefas_______________________
-$obRouter->get('/vendedor/{id}',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\Operacao::getOperacao($request,$id)); }
-]);
-
-
-//__________________________________ Notificacao_______________________
-$obRouter->get('/acesso/negado',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request,$id){ return new Response(200,Pages\Notificacao::acessNegado($request,$id)); }
-]);
-
-/**
- * __________________________________Paciente _______________________________
- * inclui as rotas de RotaPaciente
-*/
-include __DIR__.'/RotaPaciente.php';
-
-
-/**
- * __________________________________ Tesoraria _______________________________
- * inclui as rotas de RotaTesouraria
-*/
-include __DIR__.'/RotaTesoraria.php';
-
-/**
- * __________________________________ utilitario _______________________________
- * inclui as rotas de RotaUtilitario
-*/
-include __DIR__.'/RotaUtilitario.php';
-
-/**
- * __________________________________ Contabilidade _______________________________
- * inclui as rotas de RotaContabilidade
-*/
-include __DIR__.'/RotaContabilidade.php';
-
-
