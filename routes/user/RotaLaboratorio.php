@@ -24,7 +24,8 @@ $obRouter->post('/laboratorio', [
         'requer-login'
     ],
     function ($request) {
-        return new Response(200,Pages\Laboratorio::telaLaboratorio($request));
+        return new Response(200,Pages\Laboratorio::telaLaboratorio 
+        ($request));
     }
 ]);
 

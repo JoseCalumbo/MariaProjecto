@@ -12,7 +12,7 @@ use \App\Model\Entity\FuncionarioDao;
 use \App\Model\Entity\FuncionarioNivelDao;
 use \App\Model\Entity\NivelDao;
 use \App\Controller\Mensagem\MensagemAdmin;
-
+use App\Model\Entity\ExameSolicitadoDao;
 
 class Laboratorio extends Page
 {
@@ -74,28 +74,18 @@ class Laboratorio extends Page
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal, $paginaAtual, 8);
 
-        $resultado = ExameDao::listarExame($where, 'nome_exame ', $obPagination->getLimit());
+        $resultado = ExameSolicitadoDao::listarExameSolicitado($where, 'emergencia_exame', $obPagination->getLimit());
 
-        while ($obExames = $resultado->fetchObject(ExameDao::class)) {
+        while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
 
-            $item .= View::render('configuracao/exame/listarExames', [
-                'id_exame' => $obExames->id_exame,
-                'nome' => $obExames->nome_exame,
-                'tipo' => $obExames->tipo_exame,
-                'parametros' => $obExames->parametro_exame,
-                'valor' => $obExames->valor_exame,
-                'descrisao' => $obExames->descrisao_exame,
-                'dataRegistro' => date('d-m-Y', strtotime($obExames->criado_exame)),
-                'estadoExame' => $obExames->estado_exame,
-
-                'activo' => $obExames->estado_exame == 'Activo' ? 'selected' : '',
-                'desativado' => $obExames->estado_exame == 'Desativado' ? 'selected' : '',
-
-                'Imagem' => $obExames->tipo_exame == 'Imagem' ? 'selected' : '',
-                'Sorológicos' => $obExames->tipo_exame == 'Sorológicos' ? 'selected' : '',
-                'Bioquímicos' => $obExames->tipo_exame == 'Bioquímicos' ? 'selected' : '',
-                'Urina' => $obExames->tipo_exame == 'Urina' ? 'selected' : '',
-                'Microbiológicos' => $obExames->tipo_exame == 'Microbiológicos' ? 'selected' : '',
+            $item .= View::render('laboratorio/listarExameSolicitado', [
+                'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
+                'nome_paciente' => $obExameSolicitado->id_exame,
+                'exame' => $obExameSolicitado->tipo_exame,
+                'emergencia' => $obExameSolicitado->emergencia_exame,
+                'parametro' => $obExameSolicitado->parametro_exame,
+                'data' => date('d-m-Y', strtotime($obExameSolicitado->criado_exameSolicitado)),
+    
             ]);
         }
 
@@ -122,10 +112,10 @@ class Laboratorio extends Page
     public static function telaLaboratorio($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-        $content = View::render('configuracao/exame/exame', [
+        $content = View::render('laboratorio/laboratorio', [
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
-            'item' => self::getExameSolicitado($request, $obPagination),
+            'listarExameSolicitado' => self::getExameSolicitado($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
 
         ]);

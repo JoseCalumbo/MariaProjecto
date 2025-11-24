@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Import Google Icon Font-->
+    <link href="{{URL}}/Assets/css/material-icons.css" rel="stylesheet">
+
+    <!--Import aba icon -->
+    <link rel="icon" href="{{URL}}/icon.png" type="image/x-icon">
+
+    <!--Import css-->
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/main.css" />
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/style.css" />
+    <title>{{title}}</title>
+    <style>
+        #ca1rd {
+            height: 480px !important;
+        }
+
+        .card-login {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .center-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        #buttonCriarConta1:hover {
+            background-color: #00695c !important;
+            color: white !important;
+        }
+
+        body {
+            background-image: url('{{URL}}/Assets/img/fundo1.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* evita repetição */
+            background-position: center;
+            /* centraliza a imagem #00796b teal darken-2*/
+        }
+    </style>
+</head>
+
+<body class="">
+
+    {{content}}
+
+    <!--Import script js principal do app  #00695c teal darken-3 -->
+    <script src="{{URL}}/Assets/js/app.js"></script>
+
+    <!--Import script js principal do app -->
+    <script src="{{URL}}/Assets/js/jquery/jquery.js"></script>
+
+    <!--Import script js materialize do app -->
+    <script src="{{URL}}/Assets/js/materialize.js"></script>
+
+</body>
+
+</html>

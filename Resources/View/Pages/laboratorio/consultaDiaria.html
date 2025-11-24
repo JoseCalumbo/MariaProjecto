@@ -1,0 +1,72 @@
+<section class="row section-field white">
+  <h5 class=" center"> Painel de Utilizadores</h5>
+
+  <section class=" row flex betwen painel-card col m12" style="background: #fafafa00;" >
+
+    <div class="painel-card-li">
+      <li class="btn"><a class="waves-effect waves-light modal-trigger" href="#modalConsultas">
+          <i class="material-icons white-text ">add</i> Marcar Consulta</a></li>
+    </div>
+
+    <div class="painel-card-li">
+      <li class="btn"><a class="waves-effect waves-light modal-trigger" href="#modalConsultas">
+          <i class="material-icons white-text ">add</i> Exames</a></li>
+    </div>
+
+    <div class="form-search">
+      <form method="get">
+        <div class="form-area-search">
+          <input class="input-search" type="search" name="pesquisar" placeholder=" por nome"
+            value="{{pesquisar}}">
+          <button class="button-search btn" type="submit">
+            <i class="material-icons white-text ">search</i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </section>
+
+  <table class="row  white  col m12">
+    <thead tbody class="thead">
+      <tr class="centered">
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">format_list_numbered</i> Número</th>
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">image</i>Imagem</th>
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">image</i>Nome</th>
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">person</i>Data</th>
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">timer</i>Hora</th>
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">person</i>Situação</th>
+        <th><i class="material-icons black-white " style="vertical-align: -6px;">person</i>Médico</th>
+        <th>Opção</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{listarZona}}
+    </tbody>
+
+  </table>
+
+  {{paginacao}}
+
+</section>
+
+<!--Modal Consulta -->
+<div id="modalConsultas" class="modal modalConsultas">
+  <div class="modal-content">
+    <label class="closeModal modal-close">&times;</label>
+    <h5 style="text-transform: capitalize;">Consultas</h5>
+    <p class="font-normal">
+      Remarcar ou adicionar nova consulta
+    </p>
+    <hr>
+    <div class="modal-fixed-footer mmo">
+      <a class="btn waves-effect waves-green green  accent-4 white-text" href="{{URL}}/consulta/cadastrar">
+        <i class="material-icons left white-text">assignment</i>Nova Consulta
+      </a>
+      <a class="btn waves-effect waves-green green accent-4 white-text" href="{{URL}}/consulta/cadastrar">
+        <i class="material-icons left white-text">assignment</i>Remarcar consulta
+      </a>
+    </div>
+  </div>
+</div>

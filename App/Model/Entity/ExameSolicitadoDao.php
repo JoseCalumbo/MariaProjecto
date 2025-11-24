@@ -11,7 +11,7 @@ use \PDO;
 class ExameSolicitadoDao
 {
     // id do exame solicitada
-    public $id_exameSolicitada;
+    public $id_exame_solicitado;
 
     // id consulta
     public $id_consulta;
@@ -73,7 +73,7 @@ class ExameSolicitadoDao
         // Instancia da Database
         $obDatabase = new Database('tb_consulta_exames');
 
-        $this->id_exameSolicitada = $obDatabase->insert([
+        $this->id_exame_solicitado = $obDatabase->insert([
             'id_consulta'             => $this->id_consulta = 1,
             'id_funcionario'          => $this->id_funcionario,
             'id_exame'                => $this->id_exame,
@@ -88,7 +88,7 @@ class ExameSolicitadoDao
     // Metodo responsavel por lançar o resultado do exame
     public function LançarResultado()
     {
-        return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exameSolicitada, [
+        return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exame_solicitado, [
             'descrisaoResultado_exame' => $this->resultado_exame,
             'resultado_exame'         => $this->descrisaoResultado_exame,
         ]);
@@ -102,9 +102,9 @@ class ExameSolicitadoDao
 
 
     # Apresenta os resultado da tabela exames Solicitados
-    public static function listarExame($where = null, $order = null, $limit = null, $fields = '*')
+    public static function listarExameSolicitado($where = null, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('tb_exame'))->select($where, $order, $limit, $fields);
+        return (new Database('tb_consulta_exames'))->select($where, $order, $limit, $fields);
     }
 
     //Metodo para  selecionar um registro da tabela exame

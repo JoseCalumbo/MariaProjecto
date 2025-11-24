@@ -270,4 +270,13 @@ class Page
             'content' => $content
         ]);
     }
+
+    // Método para rederizar a página Notificação
+    public static function getPageNotificacao($title, $content)
+    {
+        return View::render('notificacao/pagina', [
+            'title' => $title,
+            'content' => $content
+        ]);
+    }
 }

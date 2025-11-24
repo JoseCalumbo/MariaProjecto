@@ -11,15 +11,15 @@ use \App\Utils\Upload;
 Class Notificacao extends Page{
 
 
-    // metodo que apresenta a notificacao 
+    // metodo reponsavel por pagina Acesso negado
     public static function acessNegado($request){
 
         $usuarioLogado = Session::getUsuarioLogado();
-        $nivel=$usuarioLogado['nivel_us'];
+        $nivel=$usuarioLogado['nivel'];
 
-         $content = View::render('notificacao/acessoNegado',[
+        $content = View::render('notificacao/acessoNegado',[
             'nivel'=>$nivel,
         ]);
-        return parent::getPage('Painel Usuario', $content);
+        return parent::getPageNotificacao('Acesso Negado', $content);
     }
 }
