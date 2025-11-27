@@ -7,11 +7,8 @@ use \App\Utils\Pagination;
 use \App\Utils\Upload;
 
 use \App\Model\Entity\ExameDao;
-
-use \App\Model\Entity\FuncionarioDao;
-use \App\Model\Entity\FuncionarioNivelDao;
-use \App\Model\Entity\NivelDao;
 use \App\Controller\Mensagem\MensagemAdmin;
+use App\Model\Entity\ExameResultadoDao;
 use App\Model\Entity\ExameSolicitadoDao;
 
 class Laboratorio extends Page
@@ -20,7 +17,7 @@ class Laboratorio extends Page
     /* Metodo para exibir  as mensagens
      *@param Request 
      *@ return string
-     */
+    */
     public static function exibeMensagem($request)
     {
         $queryParam = $request->getQueryParams();
@@ -78,14 +75,16 @@ class Laboratorio extends Page
 
         while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
 
+            // echo '<pre>';
+            // print_r($obExameSolicitado);
+            // echo '</pre>';
             $item .= View::render('laboratorio/listarExameSolicitado', [
                 'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
-                'nome_paciente' => $obExameSolicitado->id_exame,
-                'exame' => $obExameSolicitado->tipo_exame,
+                'nome_paciente' => $obExameSolicitado->nome_paciente,
+                'exame' => $obExameSolicitado->nome_exame,
                 'emergencia' => $obExameSolicitado->emergencia_exame,
-                'parametro' => $obExameSolicitado->parametro_exame,
                 'data' => date('d-m-Y', strtotime($obExameSolicitado->criado_exameSolicitado)),
-    
+
             ]);
         }
 
@@ -117,11 +116,63 @@ class Laboratorio extends Page
             'msg' => self::exibeMensagem($request),
             'listarExameSolicitado' => self::getExameSolicitado($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
-
         ]);
         return parent::getPage('Tela Laboratorio', $content);
     }
 
 
+    // Método que apresenta a pagina do lançamento de resultado
+    public static function getLancarResultado($request, $id_exameSolicitado)
+    {
+        $content = View::render('laboratorio/formResultado', [
+            'titulo' => 'Lançar resultado do exame',
+            'button' => 'Salvar',
+            'obsResultado' => '',
+            'imagem' => '',
+            'ficheiro' => '',
+        ]);
 
+        return parent::getPage('Lançar Resultado', $content);
+    }
+
+    // Método que apresenta a pagina do lançamento de resultado
+    public static function setLancarResultado($request, $id_exameSolicitado)
+    {
+        
+        // Busca o  id do resultado do exame
+        $obExameResultado = new ExameResultadoDao;
+
+        // busca o exame solicitado
+        $obExameSelecionado = ExameSolicitadoDao::getExameSolicitadoId($id_exameSolicitado);
+        // obtem o id do exame solicitado
+        $idExameSolicitado = $obExameSelecionado->id_exame_solicitado;
+
+        if (isset($_POST['salvar'])) {
+
+            $exameParametro = $_POST['exameParameto'];
+            $exameResultado = $_POST['exameResultado'];
+            $exameReferencia = $_POST['exameReferencia'];
+            $obsResultado = $_POST['obsResultado'];
+
+            // Loop para inserir o resultado do exame  um por um
+            for ($i = 0; $i < count($exameParametro); $i++) {
+
+                $obExameResultado->id_exame_solicitados = $idExameSolicitado;
+                $obExameResultado->obs_resultado = $obsResultado;
+                $obExameResultado->parametro_resultado = $exameParametro[$i];
+                $obExameResultado->resultado_exame = $exameResultado[$i];
+                $obExameResultado->referencia_resultado = $exameReferencia[$i];
+                $obExameResultado->cadastrarExameResulatdo();
+            }
+        } else {
+
+            // Redireciona para os exames solicitados
+            $request->getRouter()->redirect('/laboratorio/validar?msg=cadastrado');
+        }
+
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+            exit;
+    }
 }

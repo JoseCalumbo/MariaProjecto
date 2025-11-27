@@ -5,7 +5,6 @@ namespace App\Model\Entity;
 use \App\Model\Database;
 use \App\Utils\Session;
 
-
 use \PDO;
 
 class ExameSolicitadoDao
@@ -24,9 +23,6 @@ class ExameSolicitadoDao
 
     // tipo de exame
     public $tipo_exame;
-
-    // tipo de exame
-    public $parametro_exame;
 
     // energencia exame
     public $emergencia_exame;
@@ -62,7 +58,7 @@ class ExameSolicitadoDao
             'criado_exameSolicitado' => $this->criado_exame,
 
 
-        */
+    */
 
     // faz um insert na tabela exame
     public function cadastrarExameSolicitado()
@@ -74,12 +70,11 @@ class ExameSolicitadoDao
         $obDatabase = new Database('tb_consulta_exames');
 
         $this->id_exame_solicitado = $obDatabase->insert([
-            'id_consulta'             => $this->id_consulta = 1,
+            'id_consulta'             => $this->id_consulta,
             'id_funcionario'          => $this->id_funcionario,
             'id_exame'                => $this->id_exame,
             'tipo_exame'              => $this->tipo_exame,
             'emergencia_exame'        => $this->emergencia_exame,
-            'parametro_exame'         => $this->parametro_exame,
             'criado_exameSolicitado'  => $this->criado_exameSolicitado,
         ]);
         return true;
@@ -94,22 +89,18 @@ class ExameSolicitadoDao
         ]);
     }
 
-    // faz um delete na tabela exame
-    public function apagarExame()
-    {
-        return (new Database('tb_exame'))->delete('id_exame = ' . $this->id_exame);
-    }
-
-
     # Apresenta os resultado da tabela exames Solicitados
     public static function listarExameSolicitado($where = null, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('tb_consulta_exames'))->select($where, $order, $limit, $fields);
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
+                              JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame'))->select($where, $order, $limit, $fields);
     }
 
-    //Metodo para  selecionar um registro da tabela exame
-    public static function getExameId($id_exame)
+    //Metodo para  selecionar exame solicitado
+    public static function getExameSolicitadoId($id_exame)
     {
-        return (new Database('tb_exame'))->select('id_exame = ' . $id_exame)->fetchObject(self::class);
+        return (new Database('tb_consulta_exames'))->select('id_exame_solicitado = ' . $id_exame)->fetchObject(self::class);
     }
 }

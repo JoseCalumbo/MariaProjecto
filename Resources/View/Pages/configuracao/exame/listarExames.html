@@ -8,13 +8,13 @@
 
     <td>
 
-        <a class="tooltip-container " href="{{URL}}/exame/editar/{{id_exame}}">
+       <a class="tooltip-container " href="{{URL}}/exame/editar/{{id_exame}}">
+      <!--   <a class="tooltip-container modal-trigger" href="#modalEdit{{id_exame}}" >-->
             <button type="button " class="font-normal waves-effect btn blue darken-2 tooltip-btn">
                 <i class="material-icons center">edit</i>
             </button>
             <div class="custom-tooltip">Editar Exame</div>
         </a>
-
         <a class="tooltip-container modal-trigger" href="#modal{{id_exame}}">
             <button type="button " class="font-normal waves-effect btn red darken-1 tooltip-btn">
                 <i class="material-icons center">delete</i>
@@ -23,7 +23,6 @@
         </a>
     </td>
 </tr>
-
 
 <!--- Modal apagar funcionario -->
 <div id="modal{{id_exame}}" class="modal apagarFuncionario ">
@@ -55,7 +54,7 @@
             </div>
 
             <div class=" col s12 " style="display: none;">
-                <input type="submit" id="subemeter" name="Salvar">
+                <input type="submit" id="subemeter{{id_exame}}" name="Apagar">
             </div>
         </form>
 
@@ -64,26 +63,25 @@
                 Cancelar 
             </button>
 
-            <button type="submit" class="btn red font-normal" name="apagar" required>
-                <label class="white-text col m12" for="subemeter">Apagar</label>
+            <button type="submit" class="btn red font-normal" name="Apagar" required>
+                <label class="white-text col m12" for="subemeter{{id_exame}}">Apagar</label>
             </button>
         </div>
     </div>
 </div>
 
-
 <!--- Modal editar Exame 
-<div id="modalExame{{id_exame}}" class="modal  modalImprimirTriagem1 white">
+<div id="modalEdit{{id_exame}}" class="modal  modalImprimirTriagem1 white">
   <div class="modal-content">
     <form action="{{URL}}/exame/editar/{{id_exame}}" method="post" class="row white push-m2">
       <div class="col s12 m12">
         <h5 class=" " style="text-transform: capitalize;">
           <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">science</i>
-          <strong style="font-weight: bold;">Editar novo exame</strong>
+          <strong style="font-weight: bold;">Editar Exame</strong>
         </h5>
       </div>
-
       <div class="row col s12 m12">
+
         <div class="row col m12">
           <div class="input-field col s12 m8">
             <input id="id" type="text" name="nome" value="{{nome}}" class="validate">
@@ -95,14 +93,9 @@
             <label for="nome" style="text-transform: capitalize">Valor de Exame:</label>
           </div>
 
-          <div class="input-field col s12 m8">
+          <div class="input-field col s12 m12">
             <input id="descrisao" type="text" name="descrisao" value="{{descrisao}}" />
             <label for="descrisao" style="text-transform: capitalize;">Descrisão:</label>
-          </div>
-
-          <div class="input-field col s6 m4">
-            <input id="parametros" type="text" name="parametros" value="{{parametros}}">
-            <label for="parametros" style="text-transform: capitalize;">Parametros:</label>
           </div>
         </div>
 
@@ -111,12 +104,13 @@
             <div class="input-field col s12">
               <select name="categoria">
                 <option value="" disabled selected>Escolhe uma opção</option>
+                <option value="Bioquímicos" {{Bioquímicos}}>Bioquímicos</option>
+                <option value="Hematologia" {{Hematologia}}>Hematologia</option>
                 <option value="Imagem" {{Imagem}}>Imagem</option>
                 <option value="Imunologia" {{Imunologia}}>Imunologia</option>
-                <option value="Sorológicos" {{Sorológicos}}>Sorológicos</option>
-                <option value="Bioquímicos" {{Bioquímicos}}>Bioquímicos</option>
-                <option value="Urina" {{Urina}}>Urina Súmaria</option>
                 <option value="Microbiológicos" {{Microbiológicos}}>Microbiológicos</option>
+                <option value="Sorológicos" {{Sorológicos}}>Sorológicos</option>
+                <option value="Urina" {{Urina}}>Urina Súmaria</option>
               </select>
               <label class="font-normal">Seleciona categoria</label>
             </div>
@@ -127,18 +121,18 @@
               <select name="estado">
                 <option value="" disabled selected>Escolhe uma opção</option>
                 <option value="Activo" {{activo}}>Activo</option>
-                <option value="Desativado" {{desativado}}>Desativado</option>
+                <option value="Desativado" {{Desativado}}>Desativado</option>
               </select>
-              <label class="font-normal negrito">Seleciona o estado do nível</label>
+              <label class="font-normal negrito">Seleciona o estado do exame</label>
             </div>
           </div>
 
         </div>
-        
+
       </div>
 
       <div class=" col s12 " style="display: none;">
-        <input type="submit" id="submitess" name="Salvar">
+        <input type="submit" name="Salvar" id="submitess{{id_exame}}">
       </div>
     </form>
 
@@ -147,8 +141,8 @@
         Cancelar
       </button>
 
-      <button type="submit" class="btn teal font-normal" name="apagar" required>
-        <label class="white-text col m12" for="submitess">Salvar</label>
+      <button type="submit" class="btn teal font-normal" required>
+        <label class="white-text col m12" for="submitess{{id_exame}}">Salvar</label>
       </button>
     </div>
 

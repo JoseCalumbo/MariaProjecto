@@ -2,6 +2,7 @@
 
 namespace App\Controller\Pages;
 
+use App\Model\Entity\ConsultaDao;
 use App\Model\Entity\ExameDao;
 use App\Model\Entity\ExameSolicitadoDao;
 use App\Model\Entity\PacienteDao;
@@ -130,6 +131,9 @@ class Consulta extends Page
 
         $tipoExame = [];
 
+        // Instancia consultas
+        $obConsulta = new ConsultaDao();
+
         // Instancia Exames solicitados
         $ExameSolicitados = new ExameSolicitadoDao();
 
@@ -144,33 +148,40 @@ class Consulta extends Page
         $formataIdade = date("Y", strtotime($obTriagem->nascimento_paciente));
         $idade = date("Y") - $formataIdade;
 
-        if (isset($_POST['salvar'])){
+        if (isset($_POST['salvar'])) {
+
+            if (isset($_POST['motivo'])) {
+                $obConsulta->id_paciente = $pacienteID;
+                $obConsulta->id_triagem = $id_triagem;
+                $obConsulta->conduta_consulta = $_POST['conduta'];
+                $obConsulta->motivo_consulta = $_POST['motivo'];
+                $obConsulta->diagnostico_consulta = $_POST['diagnostico'];
+                $obConsulta->observacao_consulta = $_POST['obs'];
+                $idconsulta = $obConsulta->cadastrarConsulta();
+
+            }
 
             $tipoExame = $_POST['examesTipo'];
             $nomeExame = $postVars['examesNome'];
-            $parametros = $postVars['exameParametro'];
             $urgencias = $postVars['examesEmergrncia'];
 
             // Loop para inserir exame por exame
             for ($i = 0; $i < count($tipoExame); $i++) {
 
-                 $ExameSolicitados->id_exame = $nomeExame[$i];
-                 $ExameSolicitados->tipo_exame = $tipoExame[$i];
-                 $ExameSolicitados->parametro_exame = $parametros[$i];
-                 $ExameSolicitados->emergencia_exame = $urgencias[$i];
+                $ExameSolicitados->id_consulta=$idconsulta;
+
+                $ExameSolicitados->id_exame = $nomeExame[$i];
+                $ExameSolicitados->tipo_exame = $tipoExame[$i];
+                $ExameSolicitados->emergencia_exame = $urgencias[$i];
                 $ExameSolicitados->cadastrarExameSolicitado();
             }
-
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
-            exit;
 
             // Redireciona validaçao e gerar consulta
             $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
         }
 
         $content = View::render('consulta/formConsulta1', [
+
             'titulo' => 'Ficha de Consulta',
             'button' => 'Salvar',
 

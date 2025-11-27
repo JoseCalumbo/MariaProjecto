@@ -18,9 +18,6 @@ class ExameDao
     // tipo de exame
     public $tipo_exame;
 
-    // tipo de exame
-    public $parametro_exame;
-
     // valor do exame
     public $valor_exame;
 
@@ -47,7 +44,6 @@ class ExameDao
             'id_exame' => $this->id_exame,
             'nome_exame' => $this->nome_exame,
             'tipo_exame' => $this->tipo_exame,
-            'parametro_exame' => $this->parametro_exame,
             'estado_exame' => $this->estado_exame,
             'valor_exame' => $this->valor_exame,
             'descrisao_exame' => $this->descrisao_exame,
@@ -64,7 +60,6 @@ class ExameDao
             'id_exame' => $this->id_exame,
             'nome_exame' => $this->nome_exame,
             'tipo_exame' => $this->tipo_exame,
-            'parametro_exame' => $this->parametro_exame,
             'valor_exame' => $this->valor_exame,
             'estado_exame' => $this->estado_exame,
             'descrisao_exame' => $this->descrisao_exame,

@@ -95,10 +95,9 @@
             <thead>
               <tr class="rows">
                 <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 20%;">Tipo</th>
-                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 30%;">Nome</th>
-                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Paramentro</th>
-                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Nivel de Urgencia</th>
-                <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc;">Ação</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 50%;">Nome</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 20%;">Nivel de Urgencia</th>
+                <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 10%;">Ação</th>
               </tr>
             </thead>
             <tbody id="tabela-body">
@@ -107,6 +106,7 @@
                   <select name="examesTipo[]" id="">
                     <option value="" disabled selected>seleciona</option>
                     <option value="Imagem">Imagem</option>
+                    <option value="Imagem">Hematologia</option>
                     <option value="Imunologia">Imunologia</option>
                     <option value="Bioquímica">Bioquímica</option>
                   </select>
@@ -117,7 +117,6 @@
                     {{exames}}
                   </select>
                 </td>
-                <td><input type="text" name="exameParametro[]" class="validate" equired></td>
                 <td>
                   <select name="examesEmergrncia[]" id="">
                     <option value="" disabled selected>seleciona</option>

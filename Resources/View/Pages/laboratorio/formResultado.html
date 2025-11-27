@@ -1,0 +1,178 @@
+<section class="row section-field ">
+  <h5 class="center"> {{titulo}} </h5>
+  <div class="white-text grey btn " style="text-transform: capitalize;">
+    <a href="{{URL}}/laboratorio" class="white-text"
+      style="display: flex; align-items: center; text-transform: capitalize;">
+      <i class=" material-icons left white-text ">arrow_back</i>voltar
+    </a>
+  </div>
+
+  <div class=" row offset-m2 col m9 s12">
+
+    <div class="col s12 blue-grey darken-1 row">
+      <!--header das abas-->
+      <ul class="tabs tabsvendedor blue-grey darken-1 "
+        style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
+        <li class="tab"><a class="font-normal" href="#dado">Dados do resultado</a></li>
+        <li class="tab"><a class="font-normal" href="#dado2">Carregar Ficheiro</a></li>
+      </ul>
+    </div>
+
+    <!-- formulario para resgistar consulta -->
+    <form class="" method="post" enctype="multipart/form-data">
+
+      <!--aba dados resultado-->
+      <section id="dado" class="col m12 s12">
+
+        <div class="input-field col m12 s12">
+          <textarea id="obsResultado" class="materialize-textarea" name="obsResultado"> {{obsResultado}}</textarea>
+          <label for="obsResultado" style="text-transform: capitalize;">Observação Resultado</label>
+        </div>
+
+        <table class="responsive-table white">
+          <thead>
+            <tr class="rows">
+              <th class="grey lighten-3 font-normal" style="border-right: 2px solid #fcfcfc; width: 30%;">
+                Parametro
+              </th>
+              <th class="grey lighten-3 font-normal" style="border-right: 2px solid #fcfcfc; width: 30%;">
+                Resultado
+              </th>
+              <th class="grey lighten-3 font-normal" style="border-right: 2px solid #fcfcfc; width: 30%;">Referência
+              </th>
+              <th class="grey lighten-3 font-normal" style="border-right: 2px solid #fcfcfc; width: 10%;">Ação
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tabela-body">
+            <tr class="row">
+              <td><input type="text" name="exameParameto[]" class="validate" equired></td>
+              <td><input type="text" name="exameResultado[]" class="validate" equired></td>
+              <td><input type="text" name="exameReferencia[]" class="validate" equired></td>
+              <td class="center">
+                <a class="tooltip-container btn red white-text" onclick="removerLinha(this)">
+                  <i class="material-icons center">delete</i>
+                  <div class="custom-tooltip font-normal ">Remover linha de exame</div>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="row center ">
+          <br>
+          <a class="tooltip-container btn blue" onclick="adicionarLinha()">
+            <i class="material-icons center">add</i>
+            <div class="custom-tooltip font-normal ">Adicionar linha de exame</div>
+          </a>
+        </div>
+      </section>
+
+      <!--aba carregar ficheiro-->
+      <section id="dado2" class="col m12 s12">
+        <div class="row col m12">
+
+          <div class="file-field input-field col m12 row">
+            <div class="btn col m3">
+              <span>Enviar fotos</span>
+              <input type="file" name="imagem">
+            </div>
+            <div class="file-path-wrapper col m9">
+              <input class="file-path validate" type="text" value="{{imagem}}">
+            </div>
+          </div>
+
+          <div class="file-field input-field col m12 row">
+            <div class="btn col m3">
+              <span>Outros doumentos</span>
+              <input type="file" name="documentos" multiple>
+            </div>
+            <div class="file-path-wrapper col m9">
+              <input class="file-path validate" type="text" value="{{ficheiro}}">
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="div-input push-m10 col s12 m2 row ">
+        <button class=" col m12 btn  white-text  font-normal" name="salvar" type="submit">{{button}}</button>
+      </div>
+
+    </form>
+  </div>
+
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>
+
+<script>
+
+  function adicionarLinha() {
+    const tabela = document.getElementById('tabela-body');
+    const linhaModelo = tabela.rows[0];
+    const novaLinha = linhaModelo.cloneNode(true);
+
+    // Substituir select-wrapper por selects novos
+    const wrappersClonados = Array.from(novaLinha.querySelectorAll('.select-wrapper'));
+    const selectsModelo = Array.from(linhaModelo.querySelectorAll('select'));
+
+    wrappersClonados.forEach((wrapper, idx) => {
+      const selectModelo = selectsModelo[idx];
+      if (!selectModelo) {
+        wrapper.remove();
+        return;
+      }
+
+      const novoSelect = document.createElement('select');
+      novoSelect.innerHTML = selectModelo.innerHTML;
+
+      Array.from(selectModelo.attributes).forEach(attr => {
+        if (attr.name.toLowerCase() !== 'id') {
+          novoSelect.setAttribute(attr.name, attr.value);
+        }
+      });
+
+      novoSelect.value = '';
+      novoSelect.removeAttribute('id');
+
+      wrapper.parentNode.replaceChild(novoSelect, wrapper);
+    });
+
+    // Limpar selects simples
+    novaLinha.querySelectorAll('select').forEach(select => {
+      select.value = '';
+      select.classList.remove('initialized');
+      select.removeAttribute('id');
+    });
+
+    // Limpar inputs e remover IDs
+    novaLinha.querySelectorAll('input, textarea').forEach(el => {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = false;
+      } else {
+        el.value = '';
+      }
+      el.removeAttribute('id');
+    });
+
+    tabela.appendChild(novaLinha);
+
+    // Reinicializar Materialize
+    setTimeout(() => {
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }, 0);
+  }
+
+
+  function removerLinha(botao) {
+    const linha = botao.closest('tr');
+    const tabela = document.getElementById('tabela-body');
+    if (tabela.rows.length > 1) {
+      linha.remove();
+    } else {
+      M.toast({ html: 'A tabela deve conter pelo menos uma linha.', classes: 'red' });
+    }
+  }
+
+</script>

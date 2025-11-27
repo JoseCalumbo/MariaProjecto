@@ -40,3 +40,12 @@ Existem muitos tipos de formulários médicos para preencher em hospitais. Com o
 gastos em tudo isso, outras despesas do hospital podem ser parcialmente cobertas. É por isso que os
 formulários online são a solução chave para economizar essas despesas. Escolha um modelo de 
 formulário médico agora e comece sua experiência de formulário online!
+
+
+___________________________________________________________________________________________________
+
+Parâmetro	Resultado	Unidade	Referência
+Hemoglobina	13.5	g/dL	12 – 16
+Hematócrito	41%	%	36 – 46
+Leucócitos	7200	/mm³	4000 – 10000
+Plaquetas	240000	/mm³	150000 – 450000

@@ -82,14 +82,13 @@ class Exame extends Page
                 'id_exame' => $obExames->id_exame,
                 'nome' => $obExames->nome_exame,
                 'tipo' => $obExames->tipo_exame,
-                'parametros' => $obExames->parametro_exame,
                 'valor' => $obExames->valor_exame,
                 'descrisao' => $obExames->descrisao_exame,
                 'dataRegistro' => date('d-m-Y', strtotime($obExames->criado_exame)),
                 'estadoExame' => $obExames->estado_exame,
 
-                'activo' => $obExames->estado_exame == 'Activo' ? 'selected' : '',
-                'desativado' => $obExames->estado_exame == 'Desativado' ? 'selected' : '',
+                'Activo' => $obExames->estado_exame == 'Activo' ? 'selected' : '',
+                'Desativado' => $obExames->estado_exame == 'Desativado' ? 'selected' : '',
 
                 'Imagem' => $obExames->tipo_exame == 'Imagem' ? 'selected' : '',
                 'Sorológicos' => $obExames->tipo_exame == 'Sorológicos' ? 'selected' : '',
@@ -147,7 +146,6 @@ class Exame extends Page
         $obExame->nome_exame = $_POST['nome'];
         $obExame->tipo_exame = $_POST['categoria'];
         $obExame->descrisao_exame = $_POST['descrisao'];
-        $obExame->parametro_exame = $_POST['parametros'];
         $obExame->valor_exame = $_POST['valor'];
         $obExame->estado_exame = $_POST['estado'];
 
@@ -173,7 +171,6 @@ class Exame extends Page
 
             'nome' => $obExames->nome_exame,
             'tipo' => $obExames->tipo_exame,
-            'parametros' => $obExames->parametro_exame,
             'valor' => $obExames->valor_exame,
             'descrisao' => $obExames->descrisao_exame,
             'dataRegistro' => date('d-m-Y', strtotime($obExames->criado_exame)),
@@ -197,14 +194,13 @@ class Exame extends Page
     // Metodo para editar Funcionario
     public static function setAtualizarExame($request, $id_exame)
     {
-        if (isset($_POST['Salvar'])) {
+        if (isset($_POST['Apagar'])) {
 
             // Busca o exame por id
             $obExame = ExameDao::getExameId($id_exame);
 
             $obExame->nome_exame = $_POST['nome'] ?? $obExame->nome_exame;
             $obExame->valor_exame = $_POST['valor'] ?? $obExame->valor_exame;
-            $obExame->parametro_exame = $_POST['parametros'] ?? $obExame->parametro_exame;
             $obExame->descrisao_exame = $_POST['descrisao'] ?? $obExame->descrisao_exame;
             $obExame->tipo_exame = $_POST['categoria'] ?? $obExame->tipo_exame;
             $obExame->estado_exame = $_POST['estado'] ?? $obExame->estado_exame;
@@ -223,7 +219,7 @@ class Exame extends Page
     // Metodo para apagar Funcionario
     public static function setApagarExame($request, $id_exame)
     {
-        if (isset($_POST['Salvar'], $_POST['confirmo'])) {
+        if (isset($_POST['Apagar'])) {
             // Busca o exame por id
             $obExame = ExameDao::getExameId($id_exame);
             $obExame->apagarExame();
