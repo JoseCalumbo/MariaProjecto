@@ -42,7 +42,7 @@ class ExameResultadoDao
         $this->id_resultado_exame = $obDatabase->insert([
             'id_resultado_exame'     => $this->id_resultado_exame,
             'obs_resultado'          => $this->obs_resultado,
-            'id_exame'   => $this->id_exame_solicitados,
+            'id_exame_solicitado'     => $this->id_exame_solicitados,
             'parametro_resultado'    => $this->parametro_resultado,
             'resultado_exame'        => $this->resultado_exame,
             'referencia_resultado'  => $this->referencia_resultado,

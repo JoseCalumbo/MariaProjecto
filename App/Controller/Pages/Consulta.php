@@ -158,7 +158,6 @@ class Consulta extends Page
                 $obConsulta->diagnostico_consulta = $_POST['diagnostico'];
                 $obConsulta->observacao_consulta = $_POST['obs'];
                 $idconsulta = $obConsulta->cadastrarConsulta();
-
             }
 
             $tipoExame = $_POST['examesTipo'];

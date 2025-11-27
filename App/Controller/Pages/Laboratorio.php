@@ -47,7 +47,7 @@ class Laboratorio extends Page
         } // fim do switch
     }
 
-    // Método para apresenatar os registos do exames cadastrados
+    // Método para apresenatar os registos do exames solicitados
     private static function getExameSolicitado($request, &$obPagination)
     {
         $item = '';
@@ -75,9 +75,7 @@ class Laboratorio extends Page
 
         while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
 
-            // echo '<pre>';
-            // print_r($obExameSolicitado);
-            // echo '</pre>';
+
             $item .= View::render('laboratorio/listarExameSolicitado', [
                 'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
                 'nome_paciente' => $obExameSolicitado->nome_paciente,
@@ -99,10 +97,71 @@ class Laboratorio extends Page
                 'numResultado' => $quantidadetotal,
             ]);
         }
+
         //Nenhum Exame encontado
         return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
-                                                   <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
-                                                   Não há solicitações de exames registadas no sistema.
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                   Sem nenhuma solicitação de exames registada na base de dados.
+                                                    </td>
+                                                </tr>';
+    }
+
+
+    // Método para apresenatar os registos do exames finalizados
+    private static function getExameFinalizado($request, &$obPagination)
+    {
+        $item = '';
+
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+
+        $condicoes = [
+            strlen($buscar) ? 'nome_exame LIKE "' . $buscar . '%"' : null,
+        ];
+
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
+
+        //quantidade total de registros da tabela exames
+        $quantidadetotal = ExameSolicitadoDao::listarExameFinalizado($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+
+        //pagina actual 
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        // instancia de paginacao
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 8);
+
+        $resultado = ExameSolicitadoDao::listarExameFinalizado($where, 'emergencia_exame', $obPagination->getLimit());
+
+        while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
+      
+            $item .= View::render('laboratorio/listarExameFinalizado', [
+                'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
+                'nome_paciente' => $obExameSolicitado->nome_paciente,
+                'exame' => $obExameSolicitado->nome_exame,
+                'estado' => $obExameSolicitado->estado_exame_solicitado,
+                'emergencia' => $obExameSolicitado->emergencia_exame,
+                'data' => date('d-m-Y - h:i', strtotime($obExameSolicitado->criado_exameSolicitado)),
+                'data_realizacao' => date('d-m-Y - h:i', strtotime($obExameSolicitado->data_resultado)),
+
+            ]);
+        }
+
+        // Verifica se foi realizada uma pesquisa
+        $queryParam = $request->getQueryParams();
+
+        if ($queryParam['pesquisar'] ?? '') {
+
+            return View::render('pesquisar/box_resultado', [
+                'pesquisa' => $buscar,
+                'item' => $item,
+                'numResultado' => $quantidadetotal,
+            ]);
+        }
+        //Nenhum Exame encontado
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                   Sem registro de exame finalizado.
                                                     </td>
                                                 </tr>';
     }
@@ -115,6 +174,7 @@ class Laboratorio extends Page
             'pesquisar' => $buscar,
             'msg' => self::exibeMensagem($request),
             'listarExameSolicitado' => self::getExameSolicitado($request, $obPagination),
+            'listarExameFinalizdo' => self::getExameFinalizado($request, $obPagination),
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Tela Laboratorio', $content);
@@ -165,7 +225,7 @@ class Laboratorio extends Page
                 $obExameResultado->cadastrarExameResulatdo();
             }
 
-            $obExameSelecionado->estado_exame="concluído";
+            $obExameSelecionado->estado_exame_solicitado="concluído";
             $obExameSelecionado->alterarEstadoExame();
 
             // Redireciona para os exames solicitados
@@ -175,10 +235,5 @@ class Laboratorio extends Page
             // Redireciona para os exames solicitados
             $request->getRouter()->redirect('/laboratorio?msg=erro');
         }
-
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
-        exit;
     }
 }

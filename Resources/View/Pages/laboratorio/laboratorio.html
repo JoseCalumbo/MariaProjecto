@@ -1,121 +1,43 @@
 <section class="row section-field white">
-  <div class="row" style="text-align: center;">
-    <h5 class="left" style="text-transform: capitalize; margin-left:30px;"> Painel Laboratório</h5>
-    <div class=" right col m3 form-search">
-      <form method="get">
-        <div class="form-area-search">
-          <input class="input-search" type="search" name="pesquisar" placeholder="Pesquisar paciente"
-            value="{{pesquisar}}">
-          <button class="button-search btn" type="submit">
-            <i class="material-icons white-text ">search</i>
-          </button>
-        </div>
-      </form>
+
+  <section class="rpw">
+    <div class="row" style="text-align: center;">
+      <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Painel Laboratório</h5>
+          <hr>
     </div>
-  </div>
+
+    <div class="row col offset-m1">
+      <a class="btn font-normal " disabled href="{{URL}}/laboratorio">
+        <i class="material-icons prefix white-text ">biotech</i>
+        Gerenciar Exames
+      </a>
+      <a class="btn font-normal " disabled href="{{URL}}/laboratorio">
+        <i class="material-icons prefix white-text">calendar_today</i>
+        Agendar Exame
+      </a>
+    </div>
+  </section>
 
   <section class="{{msgs}} col s12 m12 l12 ">{{msg}}</section>
 
-  <div class="col m4 ">
-    <section class="col s12 m12 offset-m1">
-      <div class="row">
-        <div class="col s12 cyan darken-4">
-          <!--header das abas-->
-          <ul class="tabs tabsvendedor cyan darken-4 row"
-            style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
-            <li class="tab col s3 m6"><a class="active font-normal" href="#UltimoExame">Exames finalizados</a></li>
-            <li class="tab col s3 m6"><a class="active font-normal" href="#pagamento2">Exames solicitados</a></li>
-            <!--  <li class="tab col s3 m3"><a class="active font-normal" href="#opcoes4">Minhas receitas</a></li> -->
-          </ul>
-        </div>
+  <div class="row col m11 offset-m1">
 
-        <!--pagina das abas-->
-        <div id="UltimoExame" class="col s12">
-          <div>
-            <table class="row col m12 responsive-table ">
-              <thead class="">
-                <tr class=" blue-grey lighten-5">
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">format_list_numbered</i>Nº
-                  </th>
-
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">person</i>Nome
-                  </th>
-
-                  <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">calendar_month</i>Data </th>
-
-                  <th class="center negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">settings</i>Opção</th>
-                </tr>
-              </thead>
-
-              <tbody tbody class="tbody">
-                {{listarConsultaFinalizada}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!--Aba content do pagamento-->
-        <div id="pagamento2" class="col s12">
-          <table class="row col m12 responsive-table ">
-            <thead class="">
-              <tr class=" blue-grey lighten-5">
-                <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">format_list_numbered</i>Numeroº
-                </th>
-
-                <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">person</i>Nome
-                </th>
-
-                <th class="font-normal negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">calendar_month</i>Data </th>
-
-                <th class="center negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">settings</i>Opção</th>
-              </tr>
-            </thead>
-
-            <tbody tbody class="tbody">
-              {{listarConsultaFinalizada}}
-            </tbody>
-          </table>
-
-          <div>
-            <a href="{{URL}}/pagamento/{{id}}" class="font-normal row black-text ">
-              <button type="button " class="waves-effect waves-light btn teal darken-3">
-                <i class="material-icons left">attach_money</i>Solicitar Exames
-              </button>
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-  </div>
-
-  <div class="row col m7 offset-m1">
-   
     <div class="col s12 blue-grey darken-1 row">
       <!--header das abas-->
       <ul class="tabs tabsvendedor blue-grey darken-1 "
         style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
         <li class="tab"><a class="active font-normal" href="#exameSolicitado">Exames Solicitados</a></li>
-        <li class="tab"><a class="font-normal" href="#pagamento2">Meus Exames</a></li>
+        <li class="tab"><a class="font-normal" href="#pExameFinalizado">Exames finalizados</a></li>
       </ul>
     </div>
 
+    <!-- Exame solicitado-->
     <div id="exameSolicitado" class="col s12">
       <section class="white col m12">
         <table class="row col m12 responsive-table ">
           <thead class="">
             <tr class=" blue-grey lighten-5">
-              <th class="font-normal negrito"><i class="material-icons black-white"
+              <th class="font-normal negrito" style="width: 7%;"><i class="material-icons black-white"
                   style="vertical-align: -6px;">format_list_numbered</i>Código
               </th>
 
@@ -128,12 +50,17 @@
               </th>
 
               <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">flag</i>Atendimento
+                  style="vertical-align: -6px;">flag</i>Nivel atendimento
               </th>
 
-              <th class="font-normal negrito"> 
+              <th class="font-normal negrito">
                 <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>
-                Data
+                Data solicitação
+              </th>
+
+              <th class="font-normal negrito">
+                <i class="material-icons black-white " style="vertical-align: -6px;">note_alt</i>
+                Estado exame
               </th>
 
               <th class="font-normal negrito">
@@ -155,52 +82,57 @@
       </section>
     </div>
 
+    <!-- Exame finalizado-->
+    <div id="pExameFinalizado" class="col s12">
 
-</section>
+      <section class="white col m12">
+        <table class="row col m12 responsive-table ">
+          <thead class="">
+            <tr class=" blue-grey lighten-5">
+              <th class="font-normal negrito"><i class="material-icons black-white"
+                  style="vertical-align: -6px;">format_list_numbered</i>Código
+              </th>
 
-<!-- MODAL para cadastrar nivel -->
-<div id="modalNivel" class="modal  modalImprimirTriagem" style="width: 600px; height: 390px;">
-  <div class="row modal-content white">
-    <h5 class=" offset-m1 col s12 m10 capitalize" style="text-transform: lowercase;">
-      <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">admin_panel_settings</i>
-      <strong style="font-weight: bold;">Cadastrar Nivel e Permissão </strong>
-    </h5>
-    <form action="{{URL}}/cadastrar/perfil" method="post" class="center white push-m2">
-      <div class="row" style="position: relative; top: -20px;">
-        <div class="input-field col s12 m8">
-          <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
-          <label for="nome" class="capitalize" style="text-transform:lowercase;">Nome do perfil de acesso:</label>
-        </div>
+              <th class="font-normal negrito"><i class="material-icons black-white"
+                  style="vertical-align: -6px;">person</i>Nome completo
+              </th>
 
-        <div class="input-field col s12 m4">
-          <input id="serie" type="text" name="serie" value="{{nome}}" class="validate">
-          <label for="serie" style="text-transform: capitalize;">Serie Perfil:</label>
-        </div>
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">science</i>Exames
+              </th>
 
-        <div class="input-field col s12 m12">
-          <input id="perfil" type="text" name="descrisao" value="{{nome}}" class="validate">
-          <label for="perfil" style="text-transform: capitalize;">Descrisão do Perfil:</label>
-        </div>
-      </div>
+              <th class="font-normal negrito">
+                <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>
+                Data solicitação
+              </th>
 
-      <div class="offset-m10 col s12 " style="display: none;">
-        <input type="submit" id="submite">
-      </div>
-    </form>
+              <th class="font-normal negrito">
+                <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>
+                Data realização
+              </th>
 
-    <div class="row" style="position: relative; top: -20px; margin-bottom: 0px;">
-      <div class="offset-m7 col s12 m5 row">
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">note_alt</i>Estado
+              </th>
 
-        <a class="btn blue-grey darken-5  white-text modal-close" style="text-transform: capitalize;">
-          Cancelar
-        </a>
+              <th class="font-normal negrito">
+                <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>
+                Ações
+              </th>
+            </tr>
+          </thead>
 
-        <a class="btn teal darken-5 white-text" style="text-transform: capitalize;">
-          <label class="white-text col m12" for="submite">salvar</label>
-        </a>
+          <tbody tbody class="tbody">
+            {{listarExameFinalizdo}}
+          </tbody>
+        </table>
 
-      </div>
+      </section>
+
+      <section class="col m12 white">
+        {{paginacao}}
+      </section>
     </div>
 
-  </div>
-</div>
+
+</section>

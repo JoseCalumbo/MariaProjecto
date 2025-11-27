@@ -28,7 +28,7 @@ class ExameSolicitadoDao
     public $emergencia_exame;
 
     // guarda o estado do exame
-    public $estado_exame;
+    public $estado_exame_solicitado;
 
     //  guarda a descrisão do resultado do exame
     public $criado_exameSolicitado;
@@ -81,14 +81,7 @@ class ExameSolicitadoDao
     public function alterarEstadoExame()
     {
         return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exame_solicitado, [
-            'estado_consulta' => $this->estado_exame,
-        ]);
-    }
-
-    // Metodo responsavel por lançar o resultado do exame
-    public function LançarResultado()
-    {
-        return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exame_solicitado, [
+            'estado_exame_solicitado' => $this->estado_exame_solicitado,
         ]);
     }
 
@@ -98,7 +91,18 @@ class ExameSolicitadoDao
         return (new Database('tb_consulta_exames ce 
                               JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
                               JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
-                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame WHERE ce.estado_consulta = "solicitado"'))->select($where, $order, $limit, $fields);
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame WHERE ce.estado_exame_solicitado = "solicitado"'))->select($where, $order, $limit, $fields);
+    }
+
+     # Apresenta os resultado da tabela exames Solicitados
+    public static function listarExameFinalizado($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
+                              JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame 
+                              JOIN tb_exame_resultado er ON  er.id_exame_solicitado = ce.id_exame_solicitado 
+                              WHERE ce.estado_exame_solicitado = "concluído"'))->select($where, $order, $limit, $fields);
     }
 
     //Metodo para  selecionar exame solicitado
