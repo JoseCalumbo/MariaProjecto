@@ -27,7 +27,7 @@ class Laboratorio extends Page
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
-                return MensagemAdmin::msgSucesso('Exame Cadastrado com sucesso');
+                return MensagemAdmin::msgSucesso('Resultado do exame lançado com sucesso');
                 break;
             case 'alterado':
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
@@ -41,8 +41,8 @@ class Laboratorio extends Page
             case 'apagado':
                 return MensagemAdmin::msgSucesso('Exame Apagado com sucesso');
                 break;
-            case 'confirma':
-                return MensagemAdmin::msgAlerta('Clica em Confirmar antes de apagar');
+            case 'erro':
+                return MensagemAdmin::msgAlerta('Resultado não lançado');
                 break;
         } // fim do switch
     }
@@ -62,7 +62,7 @@ class Laboratorio extends Page
         $where = implode(' AND ', $condicoes);
 
         //quantidade total de registros da tabela exames
-        $quantidadetotal = ExameDao::listarExame($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = ExameSolicitadoDao::listarExameSolicitado($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         //pagina actual 
         $queryParams = $request->getQueryParams();
@@ -138,7 +138,7 @@ class Laboratorio extends Page
     // Método que apresenta a pagina do lançamento de resultado
     public static function setLancarResultado($request, $id_exameSolicitado)
     {
-        
+
         // Busca o  id do resultado do exame
         $obExameResultado = new ExameResultadoDao;
 
@@ -164,15 +164,21 @@ class Laboratorio extends Page
                 $obExameResultado->referencia_resultado = $exameReferencia[$i];
                 $obExameResultado->cadastrarExameResulatdo();
             }
+
+            $obExameSelecionado->estado_exame="concluído";
+            $obExameSelecionado->alterarEstadoExame();
+
+            // Redireciona para os exames solicitados
+            $request->getRouter()->redirect('/laboratorio?msg=cadastrado');
         } else {
 
             // Redireciona para os exames solicitados
-            $request->getRouter()->redirect('/laboratorio/validar?msg=cadastrado');
+            $request->getRouter()->redirect('/laboratorio?msg=erro');
         }
 
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
-            exit;
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+        exit;
     }
 }

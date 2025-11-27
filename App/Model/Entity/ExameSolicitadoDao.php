@@ -27,11 +27,8 @@ class ExameSolicitadoDao
     // energencia exame
     public $emergencia_exame;
 
-    // guarda o resultado do exame
-    public $resultado_exame;
-
-    // Data de cadastramento do exame
-    public $descrisaoResultado_exame;
+    // guarda o estado do exame
+    public $estado_exame;
 
     //  guarda a descrisão do resultado do exame
     public $criado_exameSolicitado;
@@ -80,12 +77,18 @@ class ExameSolicitadoDao
         return true;
     }
 
+    // Metodo responsavel por lançar o estado do exame
+    public function alterarEstadoExame()
+    {
+        return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exame_solicitado, [
+            'estado_consulta' => $this->estado_exame,
+        ]);
+    }
+
     // Metodo responsavel por lançar o resultado do exame
     public function LançarResultado()
     {
         return (new Database('tb_consulta_exames'))->update('id_exame_solicitado = ' . $this->id_exame_solicitado, [
-            'descrisaoResultado_exame' => $this->resultado_exame,
-            'resultado_exame'         => $this->descrisaoResultado_exame,
         ]);
     }
 
@@ -95,7 +98,7 @@ class ExameSolicitadoDao
         return (new Database('tb_consulta_exames ce 
                               JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
                               JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
-                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame'))->select($where, $order, $limit, $fields);
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame WHERE ce.estado_consulta = "solicitado"'))->select($where, $order, $limit, $fields);
     }
 
     //Metodo para  selecionar exame solicitado
