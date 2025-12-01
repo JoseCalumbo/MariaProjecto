@@ -127,13 +127,12 @@ class Triagem extends Page
                 'numResultado' => $quantidadetotal,
             ]);
         }
-      //Nenhum Exame encontado
+        //Nenhum Exame encontado
         return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
                                                    <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
                                                     Base de dados sem registos de triagem.
                                                     </td>
                                                 </tr>';
-       
     }
 
     // Apresenta a listagem da Triagem 
@@ -385,6 +384,13 @@ class Triagem extends Page
 
             // Busca o funcionario por ID
             $obTriagem = TriagemDao::getTriagemId($id_triagem);
+
+
+            // Seleciona o paciente pelo ID
+            $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
+            // busca alterar o estado do paciente
+            $obPaciente->atualizarEstado();
+
             $obTriagem->apagarTriagem();
             $request->getRouter()->redirect('/triagem?msg=apagado');
         }

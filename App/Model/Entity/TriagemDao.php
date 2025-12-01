@@ -31,10 +31,10 @@ class TriagemDao extends PacienteDao
     public $id_funcionario; // salva o funcionario 
 
     //Método responsavel por Registrar uma nova triagem
-    public function cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete,$bilhetePaciente)
+    public function cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente)
     {
         $obPacientes = new PacienteDao;
-        $idPacienteCadastrado = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete,$bilhetePaciente);
+        $idPacienteCadastrado = $obPacientes->registrarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
         $this->id_paciente = $idPacienteCadastrado;
 
         //Pega o id do usuario logado
@@ -59,7 +59,7 @@ class TriagemDao extends PacienteDao
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
             'data_triagem' => $this->data_triagem,
-            'risco_triagem' => $this->risco_triagem 
+            'risco_triagem' => $this->risco_triagem
         ]);
         return $this->id_triagem;
     }
@@ -90,18 +90,18 @@ class TriagemDao extends PacienteDao
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
             'data_triagem' => $this->data_triagem,
-            'risco_triagem' => $this->risco_triagem 
+            'risco_triagem' => $this->risco_triagem
         ]);
         return $this->id_triagem;
     }
 
 
     //Método responsavel por Alterar o registrar da triagem
-    public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente, $bilhetePaciente )
+    public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente, $bilhetePaciente)
     {
 
         $obPacientes = PacienteDao::getPacienteId($idPaciente);
-        $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete,$bilhetePaciente );
+        $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
         $this->id_paciente = $idPacienteEditado;
 
         return (new Database('tb_triagem'))->update('id_triagem = ' . $this->id_triagem, [
@@ -116,7 +116,7 @@ class TriagemDao extends PacienteDao
             'frequencia_respiratorio_triagem' => $this->frequencia_triagem,
             'Saturacao_oxigenio_triagem' => $this->saturacao_triagem,
 
-            'risco_triagem' => $this->risco_triagem ,
+            'risco_triagem' => $this->risco_triagem,
 
             'id_paciente' => $this->id_paciente,
             'id_funcionario' => $this->id_funcionario,
@@ -131,9 +131,9 @@ class TriagemDao extends PacienteDao
     }
 
     // faz um delete de um registro apartir do paciente
-    public function apagarTriagemPaciente( $id_paciente)
+    public function apagarTriagemPaciente($id_paciente)
     {
-        return (new Database('tb_triagem'))->delete('id_paciente = ' .$id_paciente,[]);
+        return (new Database('tb_triagem'))->delete('id_paciente = ' . $id_paciente, []);
     }
 
 
@@ -151,7 +151,7 @@ class TriagemDao extends PacienteDao
      */
     public static function getListarTriagemPaciente($id_paciente, $order = null, $limit = null, $fields = '*')
     {
-        return (new Database('tb_triagem'))->select('id_paciente = ' .$id_paciente)->fetchObject(self::class);;
+        return (new Database('tb_triagem'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);;
     }
 
 
@@ -171,7 +171,7 @@ class TriagemDao extends PacienteDao
 
 
 
-        /** Apresenta as listagem dados da triagem em andamento
+    /** Apresenta as listagem dados da triagem em andamento
      * @param string $where
      */
     public static function listarTriagemFeita($where = null, $order = null, $limit = null, $fields = '*')

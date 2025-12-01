@@ -4,17 +4,19 @@
 
   <div class="row white col m12 l12 s12">
 
-    <div class="" style="margin: 10px 0px;">
-      <a class="btn font-normal " disabled href="{{URL}}/laboratorio">
-        <i class="material-icons prefix white-text " style="vertical-align: -6px;">biotech</i>
-        Prescrições
-      </a>
-      <a class="btn font-normal " disabled href="{{URL}}/laboratorio">
+    <div class="col row" style="margin: 10px 0px;">
+
+      <a class="btn font-normal"  href="{{URL}}/atestado">
         <i class="material-icons prefix white-text" style="vertical-align: -6px;">note_alt</i>
         Gerenciar Atestados
       </a>
 
-      <a class="btn font-normal " disabled href="{{URL}}/laboratorio">
+      <a class="btn font-normal "  href="{{URL}}/receita">
+        <i class="material-icons prefix white-text " style="vertical-align: -6px;">biotech</i>
+        Prescrições
+      </a>
+
+      <a class="btn font-normal " href="{{URL}}/exame">
         <i class="material-icons prefix white-text" style="vertical-align: -6px;">science</i>
         Exames
       </a>
@@ -34,7 +36,7 @@
   </div>
 
 
-  <div class="col m5 ">
+  <div class="col m4 ">
     <section class="col s12 m12 ">
       <div class="row">
         <div class="col s12  blue-grey darken-1 ">
@@ -48,12 +50,12 @@
 
         <!--pagina das abas ultima consulta-->
         <div id="consulta1" class="col s12">
-          <div>
+          <br><div>
             <table class="row col m12 responsive-table ">
               <thead class="">
                 <tr class=" blue-grey lighten-5">
                   <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">format_list_numbered</i>Nº
+                      style="vertical-align: -6px;">format_list_numbered</i>Código
                   </th>
 
                   <th class="font-normal negrito"><i class="material-icons black-white"
@@ -61,7 +63,7 @@
                   </th>
 
                   <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">calendar_month</i>Data </th>
+                      style="vertical-align: -6px;">calendar_month</i>Data consulta </th>
 
                   <th class="center negrito"> <i class="material-icons black-white "
                       style="vertical-align: -6px;">settings</i>Opção</th>
@@ -77,12 +79,12 @@
 
         <!--Aba exame solicitado -->
         <div id="consulta2" class="col s12">
-
+          <br>
           <table class="row col m12 responsive-table ">
             <thead class="">
               <tr class=" blue-grey lighten-5">
                 <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">format_list_numbered</i>Numeroº
+                    style="vertical-align: -6px;">format_list_numbered</i>Código
                 </th>
 
                 <th class="font-normal negrito"><i class="material-icons black-white"
@@ -90,7 +92,7 @@
                 </th>
 
                 <th class="font-normal negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">calendar_month</i>Data </th>
+                    style="vertical-align: -6px;">done</i>Status </th>
 
                 <th class="center negrito"> <i class="material-icons black-white "
                     style="vertical-align: -6px;">settings</i>Opção</th>
@@ -98,17 +100,9 @@
             </thead>
 
             <tbody tbody class="tbody">
-              {{listarConsultaFinalizada}}
+              {{listarExames}}
             </tbody>
           </table>
-
-          <div>
-            <a href="{{URL}}/pagamento/{{id}}" class="font-normal row black-text ">
-              <button type="button " class="waves-effect waves-light btn teal darken-3">
-                <i class="material-icons left">attach_money</i>Solicitar Exames
-              </button>
-            </a>
-          </div>
 
         </div>
 
@@ -116,14 +110,14 @@
 
   </div>
 
-  <div class="row col m6 offset-m1">
+  <div class="row col m7 offset-m1">
 
     <div class="col s12 m12 blue-grey darken-1 ">
       <!--header das abas-->
       <ul class="tabs tabsvendedor blue-grey darken-1  row"
         style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c1">Consulta na hora</a></li>
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Minhas consultas</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c1">Consulta diária</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Meus Pacientes</a></li>
         <li class="tab col s3 m4"><a class="active font-normal" href="#c3">Minha Agenda</a></li>
       </ul>
     </div>
@@ -136,17 +130,20 @@
           <thead class="">
             <tr class=" blue-grey lighten-5">
               <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px;">format_list_numbered</i>Numero</th>
+                  style="vertical-align: -6px;">format_list_numbered</i>Código</th>
               <th class="font-normal negrito"><i class="material-icons black-white"
                   style="vertical-align: -6px;">image</i>Foto</th>
               <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px;">person</i>Nome completo</th>
-              <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">calendar_month</i>Idade </th>
+                  style="vertical-align: -6px;">person</i>Nome Completo</th>
+
               <th class="font-normal negrito"> <i class="material-icons black-white "
                   style="vertical-align: -6px;">flag</i>Pioridade</th>
-              <th class="center negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">settings</i>Opção</th>
+
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">done</i>Status</th>
+
+              <th class="center negrito font-normal"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">settings</i>Ação</th>
             </tr>
           </thead>
 
@@ -175,17 +172,16 @@
                   style="vertical-align: -6px;">image</i>Foto</th>
               <th class="font-normal negrito"><i class="material-icons black-white"
                   style="vertical-align: -6px;">person</i>Nome completo</th>
+
               <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">calendar_month</i>Idade </th>
-              <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">flag</i>Pioridade</th>
-              <th class="center negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">settings</i>Opção</th>
+                  style="vertical-align: -6px;">done</i>Status</th>
+              <th class="center negrito font-normal"> <i class="material-icons black-white"
+                  style="vertical-align: -6px;">settings</i>Ações</th>
             </tr>
           </thead>
 
           <tbody tbody class="tbody">
-            {{listarConsultaa}}
+            {{listarMinhaConsulta}}
           </tbody>
         </table>
 
@@ -198,19 +194,39 @@
 
     <!-- Abas para minha consulta -->
     <div id="c3" class="col m12">
-      <section class="row  white col m12">
-        <div class="col offset-m1 m3 blue">
-          <span class="col m9"><strong>Nome:</strong> {{nome}}</span>
 
-        </div>
-      </section>
+      <br>
+
+      <table class="row col m12 responsive-table ">
+        <thead class="">
+          <tr class=" blue-grey lighten-5">
+            <th class="font-normal negrito"><i class="material-icons black-white"
+                style="vertical-align: -6px;">format_list_numbered</i>Código</th>
+
+            <th class="font-normal negrito"><i class="material-icons black-white"
+                style="vertical-align: -6px;">person</i>Nome completo</th>
+
+            <th class="font-normal negrito"> <i class="material-icons black-white "
+                style="vertical-align: -6px;">calendar_month</i>Tipo de Consulta</th>
+
+            <th class="font-normal negrito"> <i class="material-icons black-white "
+                style="vertical-align: -6px;">calendar_month</i>Data Marcação</th>
+
+            <th class="font-normal negrito"> <i class="material-icons black-white "
+                style="vertical-align: -6px;">calendar_month</i>Data Consulta</th>
+
+            <th class="center negrito font-normal"> <i class="material-icons black-white"
+                style="vertical-align: -6px;">settings</i>Ação</th>
+          </tr>
+        </thead>
+
+        <tbody tbody class="tbody">
+          {{listarMinhaAgenda}}
+        </tbody>
+      </table>
 
     </div>
 
-
-
   </div>
-
-
 
 </section>

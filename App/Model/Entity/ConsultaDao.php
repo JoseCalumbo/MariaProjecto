@@ -93,12 +93,6 @@ class ConsultaDao extends PacienteDao
         ]);
     }
 
-    // faz um delete de um registro na tabela triagem
-    public function apagarTriagem()
-    {
-        return (new Database('tb_triagem'))->delete('id_triagem = ' . $this->id_triagem, []);
-    }
-
 
     /** Apresenta as listagem dados da triagem
      * @param string $where

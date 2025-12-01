@@ -5,6 +5,7 @@ namespace App\Controller\Pages;
 use App\Model\Entity\ConsultaDao;
 use App\Model\Entity\ExameDao;
 use App\Model\Entity\ExameSolicitadoDao;
+use App\Model\Entity\MarcarConsultaDao;
 use App\Model\Entity\PacienteDao;
 use App\Model\Entity\TriagemDao;
 use \App\Utils\Pagination;
@@ -74,6 +75,7 @@ class Consulta extends Page
                 'nome_paciente' => $obPacientesEspera->nome_paciente,
                 'genero' => $obPacientesEspera->genero_paciente,
                 'idade' => $idade,
+                'estado' => $obPacientesEspera->estado_paciente,
                 'perioridade' => $triagemAtender,
             ]);
         }
@@ -82,16 +84,165 @@ class Consulta extends Page
 
         if ($queryParam['pesquisar'] ?? '') {
 
-            return View::render('pesquisar/item', [
+            return View::render('pesquisar/box_resultado', [
                 'pesquisa' => $buscar,
                 'resultados' => $item,
                 'numResultado' => $quantidadetotal,
+                'item' => '',
+
             ]);
         }
 
         return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
                                                    <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
                                                     Sem registos de pacientes em espera.
+                                                    </td>
+                                                </tr>';
+    }
+
+    // Metodo que apresenta os pacientes aspera da minha consulta
+    private static function getMinhaConsulta($request, &$obPagination)
+    {
+        $queryParam = $request->getQueryParams();
+        $obPagination = new Pagination(null, null, null);
+
+        // Var que retorna o conteudo
+        $item = '';
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+        $condicoes = [
+            strlen($buscar) ? 'nome_paciente LIKE "%' . $buscar . '%"' : null,
+        ];
+
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
+
+        //quantidade total de registros da tabela user
+        $quantidadetotal = TriagemDao::listarTriagemFeita($where, 'risco_triagem', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+
+        //pagina actual 
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        // instancia de paginacao
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
+
+        $resultado = TriagemDao::listarTriagemFeita($where, 'risco_triagem', $obPagination->getLimit());
+
+        while ($obPacientesEspera = $resultado->fetchObject(TriagemDao::class)) {
+
+            $atender =  $obPacientesEspera->risco_triagem;
+
+            $item .= View::render('consulta/listarMeusPaciente', [
+                'id_triagem' => $obPacientesEspera->id_triagem,
+                'id_paciente' => $obPacientesEspera->id_paciente,
+                'imagem' => $obPacientesEspera->imagem_paciente,
+                'nome_paciente' => $obPacientesEspera->nome_paciente,
+                'genero' => $obPacientesEspera->genero_paciente,
+                'estado' => $obPacientesEspera->estado_paciente,
+            ]);
+        }
+
+        $queryParam = $request->getQueryParams();
+
+        if ($queryParam['pesquisar'] ?? '') {
+
+            return View::render('pesquisar/box_resultado', [
+                'pesquisa' => $buscar,
+                'resultados' => $item,
+                'numResultado' => $quantidadetotal,
+                'item' => '',
+
+            ]);
+        }
+
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Sem registos de pacientes em espera.
+                                                    </td>
+                                                </tr>';
+    }
+
+
+    // Metodo que apresenta os pacientes agendados
+    private static function getMinhaAgenda($request, &$obPagination)
+    {
+        // Var que retorna o conteudo
+        $item = '';
+
+        $resultado = MarcarConsultaDao::listarConsultaMarcada();
+
+        while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
+
+            $item .= View::render('consulta/listarAgenda', [
+                'id_triagem' => "",
+                'id_paciente' => "",
+                'tipo' => "Consulta geral",
+                'nome_paciente' => "",
+                'dataMarcacao' => "12-10-2026",
+                'dataConsulta' => "12-10-2026",
+                'estado' => "",
+            ]);
+        }
+
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Sem consultas marcadas.
+                                                    </td>
+                                                </tr>';
+    }
+
+    // Metodo que apresenta os pacientes agendados
+    private static function getConsultaFinalizada($request, &$obPagination)
+    {
+        // Var que retorna o conteudo
+        $item = '';
+
+        $resultado = MarcarConsultaDao::listarConsultaMarcada();
+
+        while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
+
+            $item .= View::render('consulta/listarAgenda', [
+                'id_triagem' => "",
+                'id_paciente' => "",
+                'tipo' => "Consulta geral",
+                'nome_paciente' => "",
+                'dataMarcacao' => "12-10-2026",
+                'dataConsulta' => "12-10-2026",
+                'estado' => "",
+            ]);
+        }
+
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Sem consultas finalizada.
+                                                    </td>
+                                                </tr>';
+    }
+
+        // Metodo que apresenta os pacientes agendados
+    private static function getExameSolicitado($request, &$obPagination)
+    {
+        // Var que retorna o conteudo
+        $item = '';
+
+        $resultado = MarcarConsultaDao::listarConsultaMarcada();
+
+        while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
+
+            $item .= View::render('consulta/listarAgenda', [
+                'id_triagem' => "",
+                'id_paciente' => "",
+                'tipo' => "Consulta geral",
+                'nome_paciente' => "",
+                'dataMarcacao' => "12-10-2026",
+                'dataConsulta' => "12-10-2026",
+                'estado' => "",
+            ]);
+        }
+
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Sem exames solicitados concluido no momento.
                                                     </td>
                                                 </tr>';
     }
@@ -119,6 +270,15 @@ class Consulta extends Page
         $content = View::render('consulta/Consultorio', [
             'pesquisar' => $buscar,
             'listarConsulta' => self::getConsultasEspera($request, $obPagination),
+
+            'listarMinhaConsulta' => self::getMinhaConsulta($request, $obPagination),
+
+            'listarMinhaAgenda' => self::getMinhaAgenda($request, $obPagination),
+
+            'listarConsultaFinalizada' => self::getConsultaFinalizada($request, $obPagination),
+
+            'listarExames' => self::getExameSolicitado($request, $obPagination),
+
             'paginacao' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Consultorio', $content);
@@ -167,7 +327,7 @@ class Consulta extends Page
             // Loop para inserir exame por exame
             for ($i = 0; $i < count($tipoExame); $i++) {
 
-                $ExameSolicitados->id_consulta=$idconsulta;
+                $ExameSolicitados->id_consulta = $idconsulta;
 
                 $ExameSolicitados->id_exame = $nomeExame[$i];
                 $ExameSolicitados->tipo_exame = $tipoExame[$i];

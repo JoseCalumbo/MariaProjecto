@@ -75,11 +75,11 @@ class Laboratorio extends Page
 
         while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
 
-
             $item .= View::render('laboratorio/listarExameSolicitado', [
                 'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
                 'nome_paciente' => $obExameSolicitado->nome_paciente,
                 'exame' => $obExameSolicitado->nome_exame,
+                'estado' => $obExameSolicitado->estado_exame_solicitado,
                 'emergencia' => $obExameSolicitado->emergencia_exame,
                 'data' => date('d-m-Y', strtotime($obExameSolicitado->criado_exameSolicitado)),
 

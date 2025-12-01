@@ -4,16 +4,29 @@
         <img src="Files/Imagem/paciente/{{imagem}}" class="materialboxed circle " width="40" height="25">
     </td>
     <td class="font-normal">{{nome_paciente}}</td>
-    <td class="center font-normal">{{perioridade}}</td>
     <td class="center font-normal">{{estado}}</td>
 
     <td class="center">
 
         <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_triagem}}">
-            <button type="button " class="font-normal waves-effect btn blue accent-4 tooltip-btn">
-                <i class="material-icons center">medical_information</i>
+            <button type="button " class="font-normal waves-effect btn blue darken-1 tooltip-btn">
+                <i class="material-icons center">receipt_long</i>
             </button>
-            <div class="custom-tooltip">Iniciar Consulta</div>
+            <div class="custom-tooltip">Prescrever medicamento</div>
+        </a>
+
+        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_triagem}}">
+            <button type="button " class="font-normal waves-effect btn cyan  tooltip-btn">
+                <i class="material-icons center">calendar_month</i>
+            </button>
+            <div class="custom-tooltip">Remarcar consulta</div>
+        </a>
+
+        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_zona}}">
+            <button type="button " class="font-normal waves-effect btn teal accent-4 tooltip-btn">
+                <i class="material-icons center">print</i>
+            </button>
+            <div class="custom-tooltip">Imprimir relatórios</div>
         </a>
 
         <!--

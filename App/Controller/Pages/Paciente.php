@@ -392,6 +392,11 @@ class Paciente extends Page
             // Método de acesso para enviar dados para cadastrar triagem
             $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
 
+            // Seleciona o paciente pelo ID
+            $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
+            // busca alterar o estado do paciente
+            $obPaciente->atualizarEstadoAgurdando();
+
             $request->getRouter()->redirect('/paciente?msg=cadastrados');
             exit;
         }

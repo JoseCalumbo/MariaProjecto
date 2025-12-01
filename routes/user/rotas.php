@@ -97,6 +97,11 @@ include __DIR__.'/RotaPaciente.php';
 */
 include __DIR__.'/RotaPerfil.php';
 
+/** __________________________________ Perfil utiliador _______________________________
+ * inclui as rotas de perfil do utilizador
+*/
+include __DIR__.'/RotaAtestado.php';
+
 /**
  * __________________________________Triagem_______________________________
  * inclui as rotas de negocio
@@ -126,6 +131,11 @@ include __DIR__.'/RotaUtilitario.php';
 */
 include __DIR__.'/RotaZona.php';
 
+//____________________________________Zona______________________________________
+/**
+ * inclui as rotas da zona  
+*/
+include __DIR__.'/RotaReceita.php';
 
 //________________________________relatorio__________________________
 $obRouter->get('/relatorio',[
@@ -135,6 +145,9 @@ $obRouter->get('/relatorio',[
     ],
     function(){ return new Response(200,Pages\Relatorio::telaRelatorio());}
 ]);
+
+
+
 
 //relatorio
 $obRouter->get('/relatorio/finaceiro',[

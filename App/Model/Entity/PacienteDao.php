@@ -30,7 +30,7 @@ class PacienteDao
 
     public $imagem_paciente;
     public $documentos_paciente;
-    
+
     public $create_paciente;
 
     // campos chaves estrageiras 
@@ -44,7 +44,7 @@ class PacienteDao
         $this->create_paciente = date('y-m-d H:i:s');
         //Pega o id do usuario logado
         $this->id_funcionario = $usuarioLogado['id'];
-        
+
         // o estado actual do vendedor
         $this->estado_paciente = 'Em atendimento';
 
@@ -101,7 +101,7 @@ class PacienteDao
             'genero_paciente' => $this->genero_paciente,
             'bilhete_paciente' => $this->bilhete_paciente,
             'nascimento_paciente' => $this->nascimento_paciente,
-            'estado_paciente' => $this->estado_paciente = "Aberto",
+            'estado_paciente' => $this->estado_paciente = "Aguardando",
             'id_funcionario' => $this->id_funcionario,
             'imagem_paciente' => $this->imagem_paciente = "anonimo.png",
             'create_paciente' => $this->create_paciente,
@@ -110,7 +110,7 @@ class PacienteDao
         return $this->id_paciente;
     }
 
-    // Metodo para cadastrar Paciente 
+    // Metodo para actualizar Paciente pela triagem 
     public function AtualizarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete, $bilhetePaciente)
     {
         // Obtem os dados do formularios de triagem 
@@ -135,7 +135,7 @@ class PacienteDao
             'bilhete_paciente' => $this->bilhete_paciente,
             'genero_paciente' => $this->genero_paciente,
             'nascimento_paciente' => $this->nascimento_paciente,
-            'estado_paciente' => $this->estado_paciente = "Aberto",
+            'estado_paciente' => $this->estado_paciente = "Aguardando",
             'id_funcionario' => $this->id_funcionario,
             'imagem_paciente' => $this->imagem_paciente = "anonimo.png",
             'create_paciente' => $this->create_paciente,
@@ -144,7 +144,7 @@ class PacienteDao
         return $this->id_paciente;
     }
 
-    //atulizar campo de vendedor
+    //atulizar paciente pelo seu painel
     public function atualizar()
     {
         return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
@@ -168,6 +168,21 @@ class PacienteDao
             'estado_paciente' => $this->estado_paciente,
             'id_funcionario' => $this->id_funcionario,
             'create_paciente' => $this->create_paciente,
+        ]);
+    }
+
+    //atulizar o estado dopaciente
+    public function atualizarEstado()
+    {
+        return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
+            'estado_paciente' => $this->estado_paciente ="Alta",
+        ]);
+    }
+    //atulizar o estado dopaciente
+    public function atualizarEstadoAgurdando()
+    {
+        return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
+            'estado_paciente' => $this->estado_paciente ="Aguardando",
         ]);
     }
 
@@ -211,7 +226,7 @@ class PacienteDao
         return (new Database('tb_paciente'))->select($where, $order, $limit, $fields);
     }
 
-   /** Apresenta as listagem dados da triagem
+    /** Apresenta as listagem dados da triagem
      * @param string $where
      */
     public static function listarPacienteTriagem($id_paciente, $order = null, $limit = null, $fields = '*')
@@ -219,6 +234,4 @@ class PacienteDao
         return (new Database('tb_triagem JOIN tb_paciente ON 
                               tb_triagem.id_paciente = tb_paciente.id_paciente'))->select('id_paciente = ' . $id_paciente, $order, $limit, $fields);
     }
-
-
 }

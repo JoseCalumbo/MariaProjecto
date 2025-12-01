@@ -106,3 +106,22 @@ $obRouter->post('/triagem/apagar/{id_triagem}',[
     function($request,$id_triagem){ return new Response(200,Pages\Triagem::apagaTriagem($request,$id_triagem)); }
 ]);
 
+
+
+// rota para conta do paciente
+$obRouter->get('/triagem/paciente/{id_paciente}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request,$id_paciente){ return new Response(200,Pages\Paciente::addTriagem($request,$id_paciente));}
+]);
+
+
+// rota para conta do paciente
+$obRouter->post('/triagem/paciente/{id_paciente}',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request,$id_paciente){ return new Response(200,Pages\Paciente::addTriagem($request,$id_paciente));}
+]);
+
