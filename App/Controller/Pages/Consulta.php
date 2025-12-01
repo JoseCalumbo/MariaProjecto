@@ -108,7 +108,9 @@ class Consulta extends Page
 
         // Var que retorna o conteudo
         $item = '';
+
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+
         $condicoes = [
             strlen($buscar) ? 'nome_paciente LIKE "%' . $buscar . '%"' : null,
         ];
@@ -336,7 +338,8 @@ class Consulta extends Page
             }
 
             // Redireciona validaçao e gerar consulta
-            $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
+            $request->getRouter()->redirect('/consulta/validar/' . $idconsulta.'?msg=confirma');
+
         }
 
         $content = View::render('consulta/formConsulta1', [

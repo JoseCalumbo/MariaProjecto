@@ -6,12 +6,12 @@
 
     <div class="col row" style="margin: 10px 0px;">
 
-      <a class="btn font-normal"  href="{{URL}}/atestado">
+      <a class="btn font-normal" href="{{URL}}/atestado">
         <i class="material-icons prefix white-text" style="vertical-align: -6px;">note_alt</i>
         Gerenciar Atestados
       </a>
 
-      <a class="btn font-normal "  href="{{URL}}/receita">
+      <a class="btn font-normal " href="{{URL}}/receita">
         <i class="material-icons prefix white-text " style="vertical-align: -6px;">biotech</i>
         Prescrições
       </a>
@@ -23,14 +23,25 @@
     </div>
 
     <div class=" right col m3 form-search">
-      <form method="get">
-        <div class="form-area-search">
+      <form class="" method="get">
+        <div class="form-area-search ">
           <input class="input-search" type="search" name="pesquisar" placeholder="  Pesquisar paciente"
             value=" {{pesquisar}}">
+
           <button class="button-search btn" type="submit">
             <i class="material-icons white-text ">search</i>
           </button>
         </div>
+        <!--
+        <div style="" class="col m3">
+            <select name="status">
+              <option value="Médico" {{cargo-medico}}>Normal</option>
+              <option value="Enfermeiro" {{cargo-enfermero}}>Urgente</option>
+              <option value="Administrador" {{cargo-admin}}>Administrador</option>
+            </select>
+        </div>
+    -->
+        
       </form>
     </div>
   </div>
@@ -50,7 +61,8 @@
 
         <!--pagina das abas ultima consulta-->
         <div id="consulta1" class="col s12">
-          <br><div>
+          <br>
+          <div>
             <table class="row col m12 responsive-table ">
               <thead class="">
                 <tr class=" blue-grey lighten-5">

@@ -24,12 +24,7 @@ $obRouter->post('/consulta',[
     function($request){ return new Response(200,Pages\Consulta::telaConsulta($request));}
 ]);
 
-
-
-
-
-
-// rota para alterar um registro GET
+// rota para atender consulta GET
 $obRouter->get('/consulta/atender/{id_triagem}',[
     'middlewares'=>[
         'requer-login',
@@ -38,7 +33,7 @@ $obRouter->get('/consulta/atender/{id_triagem}',[
     function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
-// rota para alterar um registro GET
+// rota para atender consulta GET
 $obRouter->post('/consulta/atender/{id_triagem}',[
     'middlewares'=>[
         'requer-login',
@@ -48,6 +43,14 @@ $obRouter->post('/consulta/atender/{id_triagem}',[
 ]);
 
 
+// rota para validar consulta GET
+$obRouter->get('/consulta/atender/{id_triagem}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
+]);
 
 
 

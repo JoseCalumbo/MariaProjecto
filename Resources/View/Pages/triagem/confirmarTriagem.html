@@ -1,60 +1,67 @@
 <section class="row section-field">
 
+  <section class="col m12 s12 ">
+    <h5 class="black-text center"> {{titulo}} </h5>
+  </section>
+
   <nav class="col m12 blue-grey darken-1">
     <div class="nav-wrapper ">
-      <a href="{{URL}}/triagem" class="brand-logo white-text capitalize"
-        style="font-size: 18px; font-weight: bold; vertical-align: -6px;">
-        Painel Triagem
-      </a>
+
       <ul class="right hide-on-med-and-down row" style="height: 50px;">
 
-        <li class="white-text " style="text-transform: capitalize;">
-          <a href="{{URL}}/triagem" class="white-text">
-            <i class=" material-icons left white-text ">arrow_back</i>voltar
+        <li class="white-text">
+          <a href="{{URL}}/triagem" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">arrow_back</i> Voltar
           </a>
         </li>
-        <li class="white-text " style="text-transform: capitalize;">
-          <a href="{{URL}}/triagem/cadastrar" class="white-text">
-            <i class=" material-icons left white-text ">add</i> Nova Triagem
+
+        <li class="white-text">
+          <a href="{{URL}}/triagem/cadastrar" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">add</i> Nova Triagem
           </a>
         </li>
+
       </ul>
     </div>
   </nav>
 
   <section class="col m12 s12 ">
-    <h5 class="black-text center"> {{titulo}} </h5>
+    <h5 class="black-text center"> {{nome}} </h5>
   </section>
 
-  <section class="row col m11 offset-m1 ">
+  <section class="row col m9 offset-m2 ">
     <p>Os dados do paciente foram cadastrados com êxito no
-      sistema. Abaixo estão as informações registradas:</p>
+      sistema. Abaixo estão as informações registradas:
+    </p>
+
+    <div class="{{msgs}} col s12 m12">{{msg}}</div>
+
     <div class="col m9 push-m1 grey" style="border: 1px solid rgb(74, 77, 76);">
       <h6 class="capitalize negrito white-text"> Dados da triagem</h6>
       <div class="row white" style="padding:0px 37px;">
         <ul>
           <li><br></li>
-          <li class="right capitalize">triagem Nº: {{id_triagem}}</li>
-          <li class="capitalize">Nome Completo: <span>{{nome}}</span> </li>
-          <li class="capitalize">Gênero: <span>{{genero}}</span></li>
-          <li class="capitalize">Idade: <span>{{ano}} anos</span></li>
-          <li class="capitalize">Documento/bilhete: <span>{{bilhete}}</span></li>
-          <li class="capitalize">Pioridade: <span>{{pioridade}}</span></li>
+          <li class="right negrito font-normal">triagem Nº: {{id_triagem}}</li>
+          <li class="negrito font-normal"> Nome Completo: <span>{{nome}}</span> </li>
+          <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
+          <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
+          <li class="negrito font-normal"> Documento/bilhete: <span>{{bilhete}}</span></li>
+          <li class="negrito font-normal">Pioridade: <span>{{pioridade}}</span></li>
         </ul>
 
         <h6 class="capitalize negrito">Sinais Vitais</h6>
         <ul>
-          <li class="capitalize"><strong>Peso:</strong> {{peso}} kg</li>
-          <li class="capitalize"><strong>Temperatura corporal:</strong> {{temperatura}} °C</li>
-          <li class="capitalize"><strong>Pressão arterial:</strong> {{pressao}} mmHg</li>
-          <li class="capitalize"><strong>Frequência cardíaca:</strong> {{frequencia_cardiaca}} bpm</li>
-          <li class="capitalize"><strong>Frequência respiratória:</strong> {{frequencia_respiratorio}} Mrm</li>
-          <li class="capitalize"><strong>Saturação oxigênio:</strong> {{saturacao}}%</li>
+          <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
+          <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
+          <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
+          <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
+          <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span></li>
+          <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
 
         </ul>
         <h6 class="capitalize negrito">Observação importante</h6>
         <ul>
-          <li class="capitalize "><span>Avaliação Clínica rapida:</span> {{observação}}</li>
+          <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
         </ul>
         <div class="white row">
           <p class="capitalize">Gerar e enviar arquivo
@@ -74,7 +81,7 @@
         <div>
           <form class="" method="post" enctype="multipart/form-data">
             <button type="submit" name="finaliza" class="col offset-m9 btn m3 white-text font-normal ">
-            {{button1}}
+              {{button1}}
             </button>
             <br>
           </form>

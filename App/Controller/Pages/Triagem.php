@@ -182,7 +182,7 @@ class Triagem extends Page
             // Método de acesso para enviar dados para cadastrar triagem
             $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
 
-            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '');
+            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem.'?msg=confirma');
             exit;
         }
         $content = View::render('triagem/formTriagem', [
@@ -228,7 +228,7 @@ class Triagem extends Page
             // Método de acesso para enviar dados para cadastrar triagem
             $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
 
-            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '');
+            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem.'?msg=confirma');
             exit;
         }
         $content = View::render('triagem/formTriagemNova', [
@@ -290,6 +290,7 @@ class Triagem extends Page
         } // fim do switch
 
         $content = View::render('triagem/confirmarTriagem', [
+            'msg' => self::exibeMensagem($request),
             'titulo' => 'Triagem realizada com sucesso',
             'id_triagem' => $triagemRegistrado->id_triagem,
             'nome' => $triagemRegistrado->nome_paciente,
@@ -385,16 +386,17 @@ class Triagem extends Page
             // Busca o funcionario por ID
             $obTriagem = TriagemDao::getTriagemId($id_triagem);
 
-
             // Seleciona o paciente pelo ID
             $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
+
             // busca alterar o estado do paciente
             $obPaciente->atualizarEstado();
 
             $obTriagem->apagarTriagem();
+
             $request->getRouter()->redirect('/triagem?msg=apagado');
         }
-
+        // Redireciona caso o usuario não confirma
         $request->getRouter()->redirect('/triagem?msg=confirma');
     }
 }
