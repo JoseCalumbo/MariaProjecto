@@ -33,7 +33,7 @@ $obRouter->get('/consulta/atender/{id_triagem}',[
     function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
-// rota para atender consulta GET
+// rota para atender consulta POST
 $obRouter->post('/consulta/atender/{id_triagem}',[
     'middlewares'=>[
         'requer-login',
@@ -41,7 +41,6 @@ $obRouter->post('/consulta/atender/{id_triagem}',[
     ],
     function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
 ]);
-
 
 // rota para validar consulta GET
 $obRouter->get('/consulta/atender/{id_triagem}',[
@@ -51,6 +50,83 @@ $obRouter->get('/consulta/atender/{id_triagem}',[
     ],
     function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
 ]);
+
+// rota para finalizar consulta GET
+$obRouter->get('/consulta/validar/{id_consulta}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_consulta){ return new Response(200,Pages\Consulta::getValidarConsulta($request,$id_consulta)); }
+]);
+
+// rota para finalizar consulta GET
+$obRouter->get('/con/valida/{id_consulta}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_consulta){ return new Response(200,Pages\Consulta::getValidarConsulta($request,$id_consulta)); }
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

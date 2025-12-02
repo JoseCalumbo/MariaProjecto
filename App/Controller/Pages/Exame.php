@@ -17,10 +17,7 @@ use \App\Controller\Mensagem\MensagemAdmin;
 class Exame extends Page
 {
 
-    /* Metodo para exibir  as mensagens
-     *@param Request 
-     *@ return string
-     */
+    // Metodo para exibir as mensagens
     public static function exibeMensagem($request)
     {
         $queryParam = $request->getQueryParams();
@@ -33,9 +30,6 @@ class Exame extends Page
                 return MensagemAdmin::msgSucesso('Exame Cadastrado com sucesso');
                 break;
             case 'alterado':
-                return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
-                break;
-            case 'alteradonivel':
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'seleciona':

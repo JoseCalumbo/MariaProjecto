@@ -1,14 +1,13 @@
 <tr>
 
     <td>{{id_paciente}}</td>
-    <td><img class="materialboxed" src="Files/imagem/paciente/{{imagem}}" width="60" height="45"></td>
+    <td><img class="materialboxed" src="Files/imagem/paciente/{{imagem}}" width="50" height="30"></td>
     <td>{{nome}}</td>
     <td>{{genero}}</td>
-    <td>{{telefone}}</td>
-    <td class="">{{nascimento}}</td>
-    <td class="center">{{estados}}</td>
+    <td >{{nascimento}}</td>
+    <td>{{estados}}</td>
 
-    <td class="center">
+    <td>
         <!---
         <a href="{{URL}}/vendedor/{{id}}">
             <button type="button" class="waves-effect waves-light grey accent-1 btn">
@@ -91,8 +90,6 @@
 </div>
 
 
-
-
 <!--- Modal Responsavel para apresentar o modal deletar paciente -->
 <div id="modalpaciente{{id_paciente}}" class="modal modalApagarTriagem ">
     <div class="modal-content">
@@ -101,7 +98,7 @@
                 <h5 class=" " style="text-transform: capitalize;">
                     <i class="material-icons left red-text medium"
                         style="position: relative; top: -12px;">error_outline</i>
-                    <strong style="font-weight: bold;">Apagar Paciente</strong>
+                    <strong style="font-weight: bold;">Confirmar a exclusão do paciente?</strong>
                 </h5>
             </div>
 

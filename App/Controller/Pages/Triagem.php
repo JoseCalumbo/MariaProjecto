@@ -35,7 +35,9 @@ class Triagem extends Page
                 return Mensagem::msgSucesso('Triagem Apagado com sucesso');
                 break;
             case 'confirma':
-                return Mensagem::msgAlerta('Alerta é necessria a tua confirmação para pagar os dados ');
+                return Mensagem::msgAlerta('Triagem realizada  com sucesso.  É necessario fazer a Validação. Abaixo estão as informações registradas:
+
+');
                 break;
         } // fim do switch
     }
@@ -291,7 +293,7 @@ class Triagem extends Page
 
         $content = View::render('triagem/confirmarTriagem', [
             'msg' => self::exibeMensagem($request),
-            'titulo' => 'Triagem realizada com sucesso',
+            'titulo' => 'Validação da triagem',
             'id_triagem' => $triagemRegistrado->id_triagem,
             'nome' => $triagemRegistrado->nome_paciente,
             'genero' => $triagemRegistrado->genero_paciente,

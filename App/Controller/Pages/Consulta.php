@@ -8,12 +8,38 @@ use App\Model\Entity\ExameSolicitadoDao;
 use App\Model\Entity\MarcarConsultaDao;
 use App\Model\Entity\PacienteDao;
 use App\Model\Entity\TriagemDao;
+
 use \App\Utils\Pagination;
 use \App\Utils\View;
+
+use \App\Controller\Mensagem\MensagemAdmin;
+
 
 
 class Consulta extends Page
 {
+
+        // Metodo para exibir as mensagens
+    public static function exibeMensagem($request)
+    {
+        $queryParam = $request->getQueryParams();
+
+        if (!isset($queryParam['msg']))
+            return '';
+
+        switch ($queryParam['msg']) {
+            case 'cadastrado':
+                return MensagemAdmin::msgSucesso('Consulta finalizada');
+                break;
+            case 'alterado':
+                return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
+                break;
+            case 'validar':
+                return MensagemAdmin::msgAlerta('A consulta foi salva, mas é necessario validar ');
+                break;
+        } // fim do switch
+    }
+
     // Metodo que apresenta os pacientes aspera da consulta
     private static function getConsultasEspera($request, &$obPagination)
     {
@@ -221,7 +247,7 @@ class Consulta extends Page
                                                 </tr>';
     }
 
-        // Metodo que apresenta os pacientes agendados
+    // Metodo que apresenta os pacientes agendados
     private static function getExameSolicitado($request, &$obPagination)
     {
         // Var que retorna o conteudo
@@ -271,6 +297,7 @@ class Consulta extends Page
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('consulta/Consultorio', [
             'pesquisar' => $buscar,
+
             'listarConsulta' => self::getConsultasEspera($request, $obPagination),
 
             'listarMinhaConsulta' => self::getMinhaConsulta($request, $obPagination),
@@ -312,7 +339,7 @@ class Consulta extends Page
 
         if (isset($_POST['salvar'])) {
 
-            if (isset($_POST['motivo'])) {
+            if (isset($_POST['motivo'],)) {
                 $obConsulta->id_paciente = $pacienteID;
                 $obConsulta->id_triagem = $id_triagem;
                 $obConsulta->conduta_consulta = $_POST['conduta'];
@@ -322,24 +349,31 @@ class Consulta extends Page
                 $idconsulta = $obConsulta->cadastrarConsulta();
             }
 
-            $tipoExame = $_POST['examesTipo'];
-            $nomeExame = $postVars['examesNome'];
-            $urgencias = $postVars['examesEmergrncia'];
+            if (isset($_POST['examesTipo'], $_POST['examesNome'], $_POST['examesEmergrncia'],)) {
 
-            // Loop para inserir exame por exame
-            for ($i = 0; $i < count($tipoExame); $i++) {
+                $tipoExame = $_POST['examesTipo'];
+                $nomeExame = $postVars['examesNome'];
+                $urgencias = $postVars['examesEmergrncia'];
 
-                $ExameSolicitados->id_consulta = $idconsulta;
+                // Loop para inserir exame por exame
+                for ($i = 0; $i < count($tipoExame); $i++) {
 
-                $ExameSolicitados->id_exame = $nomeExame[$i];
-                $ExameSolicitados->tipo_exame = $tipoExame[$i];
-                $ExameSolicitados->emergencia_exame = $urgencias[$i];
-                $ExameSolicitados->cadastrarExameSolicitado();
+                    $ExameSolicitados->id_consulta = $idconsulta;
+
+                    $ExameSolicitados->id_exame = $nomeExame[$i];
+                    $ExameSolicitados->tipo_exame = $tipoExame[$i];
+                    $ExameSolicitados->emergencia_exame = $urgencias[$i];
+                    $ExameSolicitados->cadastrarExameSolicitado();
+                }
+
+                // Redireciona validaçao e gerar consulta
+                $request->getRouter()->redirect('/consulta/valida/' . $idconsulta .'?msg=validar');
+
+            } else {
+
+                // Redireciona validaçao e gerar consulta 
+                $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
             }
-
-            // Redireciona validaçao e gerar consulta
-            $request->getRouter()->redirect('/consulta/validar/' . $idconsulta.'?msg=confirma');
-
         }
 
         $content = View::render('consulta/formConsulta1', [
@@ -373,20 +407,22 @@ class Consulta extends Page
             'conduta' => '',
 
         ]);
+
         return parent::getPage('Ficha - consulta', $content);
     }
 
-    // Metodo para apresentar a tela Consulta 
-    public static function comfirmarConsulta($request)
+
+    // Metodo para apresentar a tela de validação da consulta 
+    public static function getValidarConsulta($request, $id_consulta)
     {
 
-        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('consulta/formConfirmaConsulta', [
-            'pesquisar' => $buscar,
-            'listarZona' => self::getConsultasEspera($request, $obPagination),
-            'paginacao' => parent::getPaginacao($request, $obPagination)
+            "button1"=>"Validar consulta",
+            "button2"=>"Finalizar consulta",
+            "msg"=>self::exibeMensagem($request)
+
         ]);
-        return parent::getPage('Painel Consulta', $content);
+        return parent::getPage('Validação da consulta', $content);
     }
 
 

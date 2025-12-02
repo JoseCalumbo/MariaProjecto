@@ -1,96 +1,96 @@
-<section class="row section-field">
+<section class="row section-field white">
 
-  <section class="col m12 s12 ">
-    <h5 class="black-text center"> {{titulo}} </h5>
+  <section>
+    <div class="row" style="text-align: center;">
+      <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> {{titulo}} </h5>
+      <hr>
+    </div>
+    
+    <div class="{{msgs}} col offset-m1 s12 m11">{{msg}}</div>
+
+    <div class="row col offset-m1">
+      <a class="btn font-normal " href="{{URL}}/triagem">
+        <i class="material-icons prefix white-text " style="vertical-align: -6px;">arrow_back</i>
+        Voltar
+      </a>
+
+      <a class="btn font-normal " href="{{URL}}/triagem/cadastrar">
+        <i class="material-icons prefix white-text" style="vertical-align: -6px;">add</i>
+        Nova triagem
+      </a>
+    </div>
   </section>
 
-  <nav class="col m12 blue-grey darken-1">
-    <div class="nav-wrapper ">
+  <div class="col offset-m1 s12 m11 blue-grey darken-1 row">
+    <!--header das abas-->
+    <div class="blue-grey darken-1 white-text capitalize" style="height: 35px; display: flex; align-items: center;
+     justify-self: center; background-color: #f5f5f5; box-shadow: none;">
+      {{nome}}
+    </div>
+  </div>
 
-      <ul class="right hide-on-med-and-down row" style="height: 50px;">
+  <section class="row col m8 offset-m2 ">
 
-        <li class="white-text">
-          <a href="{{URL}}/triagem" style="display: flex; align-items: center; text-transform: capitalize;">
-            <i class="material-icons">arrow_back</i> Voltar
-          </a>
-        </li>
+    <div class="row white" style="padding:0px 37px;">
 
-        <li class="white-text">
-          <a href="{{URL}}/triagem/cadastrar" style="display: flex; align-items: center; text-transform: capitalize;">
-            <i class="material-icons">add</i> Nova Triagem
-          </a>
-        </li>
+      <h6 class="capitalize negrito teal-text">Dados pessoas</h6>
+      <ul>
+        <li class="right negrito font-normal">triagem Nº: {{id_triagem}}</li>
+        <li class="negrito font-normal"> Nome Completo: <span>{{nome}}</span> </li>
+        <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
+        <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
+        <li class="negrito font-normal"> Documento/bilhete: <span>{{bilhete}}</span></li>
+        <li class="negrito font-normal">Pioridade: <span>{{pioridade}}</span></li>
+      </ul>
+
+      <h6 class="capitalize negrito teal-text">Sinais Vitais</h6>
+      <ul>
+        <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
+        <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
+        <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
+        <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
+        <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span></li>
+        <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
 
       </ul>
-    </div>
-  </nav>
 
-  <section class="col m12 s12 ">
-    <h5 class="black-text center"> {{nome}} </h5>
-  </section>
+      <h6 class="capitalize negrito teal-text">Observação importante</h6>
+      <ul>
+        <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
+      </ul>
 
-  <section class="row col m9 offset-m2 ">
-    <p>Os dados do paciente foram cadastrados com êxito no
-      sistema. Abaixo estão as informações registradas:
-    </p>
+      <div class="white row">
+        <hr>
 
-    <div class="{{msgs}} col s12 m12">{{msg}}</div>
+        <p class="font-normal">Clica aqui para
+          <a href="{{URL}}/triagem/gerar-ficha/{{id_triagem}}" class="capitalize blue-text darken-5"> 📄 baixar e enviar
+          </a>
+          a ficha de triagem em PDF
+        </p>
 
-    <div class="col m9 push-m1 grey" style="border: 1px solid rgb(74, 77, 76);">
-      <h6 class="capitalize negrito white-text"> Dados da triagem</h6>
-      <div class="row white" style="padding:0px 37px;">
-        <ul>
-          <li><br></li>
-          <li class="right negrito font-normal">triagem Nº: {{id_triagem}}</li>
-          <li class="negrito font-normal"> Nome Completo: <span>{{nome}}</span> </li>
-          <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
-          <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
-          <li class="negrito font-normal"> Documento/bilhete: <span>{{bilhete}}</span></li>
-          <li class="negrito font-normal">Pioridade: <span>{{pioridade}}</span></li>
-        </ul>
+        <p class="font-normal">
+          Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}" class="capitalize blue-text darken-5"
+            target="_blank"> 🖨️ Imprimir</a>
+          a ficha de triagem
+        </p>
 
-        <h6 class="capitalize negrito">Sinais Vitais</h6>
-        <ul>
-          <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
-          <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
-          <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
-          <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
-          <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span></li>
-          <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
-
-        </ul>
-        <h6 class="capitalize negrito">Observação importante</h6>
-        <ul>
-          <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
-        </ul>
-        <div class="white row">
-          <p class="capitalize">Gerar e enviar arquivo
-            <a href="{{URL}}/triagem/gerar-ficha/{{id_triagem}}" class="capitalize blue-text darken-5"> 📄 Gerar PDF
-            </a> da
-            ficha de triagem
-          </p>
-          <p class="capitalize">
-            Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
-              class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
-            a ficha de triagem
-          </p>
-
-        </div>
-        <br>
-
-        <div>
-          <form class="" method="post" enctype="multipart/form-data">
-            <button type="submit" name="finaliza" class="col offset-m9 btn m3 white-text font-normal ">
-              {{button1}}
-            </button>
-            <br>
-          </form>
-
-        </div>
-        <div><br></div>
       </div>
+      <br>
+
+      <div>
+        <form class="" method="post" enctype="multipart/form-data">
+          <button type="submit" name="finaliza" class="col offset-m9 btn m3 white-text font-normal ">
+            {{button1}}
+          </button>
+          <br>
+        </form>
+
+      </div>
+      <div><br></div>
     </div>
+
   </section>
+  
 </section>
 
 <script src="{{URL}}/Assets/js/main.js"></script>
