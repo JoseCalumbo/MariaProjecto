@@ -1,0 +1,52 @@
+<style>
+  #minha-tabela {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    /* junta as bordas em vez de duplicá-las */
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Borda sólida para as células (th e td) */
+  #minha-tabela th,
+  #minha-tabela td {
+    border: 1px solid #000000;
+    /* cor e espessura da borda */
+    padding: 10px 12px;
+    text-align: left;
+    height: 40px;
+
+  }
+
+  /* Cabeçalho com fundo */
+  #minha-tabela thead th {
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    height: 40px;
+  }
+</style>
+
+<table id="minha-tabela" class="row  white  col m12">
+  <thead>
+    <tr>
+      <th class="font-normal negrito center">Médicamento</th>
+      <th class="font-normal negrito center">Via de administração</th>
+      <th class="font-normal negrito center">Posologia</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{iteMedicamento}}
+  </tbody>
+
+</table>
+
+<li>
+  <p class="font-normal">
+    Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}" class="capitalize blue-text darken-5"
+      target="_blank"> 🖨️ Imprimir</a>
+    a ficha da receita
+  </p>
+</li>

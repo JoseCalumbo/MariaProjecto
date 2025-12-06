@@ -18,8 +18,7 @@ use \App\Controller\Mensagem\MensagemAdmin;
 
 class Consulta extends Page
 {
-
-        // Metodo para exibir as mensagens
+    // Metodo para exibir as mensagens
     public static function exibeMensagem($request)
     {
         $queryParam = $request->getQueryParams();
@@ -35,7 +34,7 @@ class Consulta extends Page
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'validar':
-                return MensagemAdmin::msgAlerta('A consulta foi salva, mas é necessario validar ');
+                return MensagemAdmin::msgAlerta('Consulta foi salva, mas é necessario validar ');
                 break;
         } // fim do switch
     }
@@ -367,8 +366,7 @@ class Consulta extends Page
                 }
 
                 // Redireciona validaçao e gerar consulta
-                $request->getRouter()->redirect('/consulta/valida/' . $idconsulta .'?msg=validar');
-
+                $request->getRouter()->redirect('/consulta/valida/' . $idconsulta . '?msg=validar');
             } else {
 
                 // Redireciona validaçao e gerar consulta 
@@ -417,16 +415,47 @@ class Consulta extends Page
     {
 
         $content = View::render('consulta/formConfirmaConsulta', [
-            "button1"=>"Validar consulta",
-            "button2"=>"Finalizar consulta",
-            "msg"=>self::exibeMensagem($request)
+            "button1" => "Validar consulta",
+            "button2" => "Finalizar consulta",
+            "msg" => self::exibeMensagem($request),
+            "receita" => self::getConsultaReceita($request, $obPagination)
 
         ]);
         return parent::getPage('Validação da consulta', $content);
     }
 
+    // Metodo que apresenta os pacientes aspera da consulta
+    private static function getConsultaReceita($request, &$obPagination)
+    {
+        $item = '';
 
+        $tabela = '';
 
+        $resultado = TriagemDao::listarTriagemFeita('risco_triagem');
+
+        while ($obPacientesEspera = $resultado->fetchObject(TriagemDao::class)) {
+            $item .= View::render('consulta/itemConsulta/listarReceitaConsulta', []);
+        }
+
+        //quantidade total
+        //$quantidadetotal = TriagemDao::listarTriagemFeita('risco_triagem', null, 'COUNT(*) as quantidade');
+        if (true) {
+
+            $tabela .= View::render('consulta/itemConsulta/tabelaReceita', [
+                'iteMedicamento' => $item
+            ]);
+        } else {
+
+            return $tabela = strlen($tabela) ? $tabela :
+                '<ul>
+                     <li class="font-normal center"> Consulta sem prescrição adicionada</li>
+                </ul>';
+        }
+
+        return $tabela;
+    }
+
+   
 
 
 

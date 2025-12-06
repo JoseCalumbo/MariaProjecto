@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tabela com borda sólida</title>
+  <style>
+    /* Estilos básicos da tabela */
+    #minha-tabela {
+      width: 90%;
+      max-width: 900px;
+      margin: 30px auto;
+      border-collapse: collapse; /* junta as bordas em vez de duplicá-las */
+      font-family: Arial, Helvetica, sans-serif;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Borda sólida para as células (th e td) */
+    #minha-tabela th,
+    #minha-tabela td {
+      border: 2px solid #2b6cb0; /* cor e espessura da borda */
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    /* Cabeçalho com fundo */
+    #minha-tabela thead th {
+      background: #2b6cb0;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    /* Alternar cores nas linhas para melhor leitura */
+    #minha-tabela tbody tr:nth-child(odd) {
+      background: #f7fbff;
+    }
+
+    /* Efeito ao passar o rato */
+    #minha-tabela tbody tr:hover {
+      background: #e6f0ff;
+    }
+
+    /* Responsividade simples: tabela rolável em ecrãs pequenos */
+    .tabela-wrapper {
+      overflow-x: auto;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tabela-wrapper">
+    <table class="minha-tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>Profissão</th>
+          <th>Local</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>João Silva</td>
+          <td>28</td>
+          <td>Enfermeiro</td>
+          <td>Luanda</td>
+        </tr>
+        <tr>
+          <td>Mariana Costa</td>
+          <td>34</td>
+          <td>Médica</td>
+          <td>Huambo</td>
+        </tr>
+        <tr>
+          <td>Carlos Mendes</td>
+          <td>41</td>
+          <td>Técnico de Lab.</td>
+          <td>Benguela</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

@@ -93,6 +93,17 @@ class ConsultaDao extends PacienteDao
         ]);
     }
 
+     # Apresenta os resultado da tabela exames Solicitados
+    public static function listarConsultaRelizada($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
+                              JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame 
+                              JOIN tb_exame_resultado er ON  er.id_exame_solicitado = ce.id_exame_solicitado 
+                              WHERE ce.estado_exame_solicitado = "concluído"'))->select($where, $order, $limit, $fields);
+    }
+
 
     /** Apresenta as listagem dados da triagem
      * @param string $where

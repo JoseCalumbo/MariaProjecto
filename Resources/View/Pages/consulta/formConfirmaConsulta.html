@@ -45,10 +45,13 @@
 
         <div class="row white" style="padding:0px 37px;">
 
-            <h6 class="capitalize negrito teal-text">Dados do Paciente</h6>
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-user fa-1x " aria-hidden="true"></i>
+                Dados do Paciente
+            </h6>
             <hr>
             <ul>
-                <li class="right negrito font-normal">triagem Nº: {{id_triagem}}</li>
+                <li class="right negrito font-normal">Paciente nº: {{id_paciente}}</li>
                 <li class="negrito font-normal"> Nome Completo: <span>{{nome}}</span> </li>
                 <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
                 <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
@@ -56,9 +59,30 @@
                 <li class="negrito font-normal">Pioridade: <span>{{pioridade}}</span></li>
             </ul>
 
-            <h6 class="capitalize negrito teal-text">Dados da triagem</h6>
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-user-md fa-1x " aria-hidden="true"></i>
+                Dados da consulta
+            </h6>
             <hr>
             <ul>
+                <li class="right negrito font-normal">Consulta nº: {{id_consulta}}</li>
+                <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
+                <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
+                <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
+                <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
+                <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span>
+                </li>
+                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
+                <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
+            </ul>
+
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-stethoscope fa-1x " aria-hidden="true"></i>
+                Dados da Triagem
+            </h6>
+            <hr>
+            <ul>
+                <li class="right negrito font-normal">Triagem nº: {{id_triagem}}</li>
                 <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
                 <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
                 <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
@@ -76,20 +100,10 @@
                 </li>
             </ul>
 
-            <h6 class="capitalize negrito teal-text">Dados da consulta</h6>
-            <hr>
-            <ul>
-                <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
-                <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
-                <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
-                <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
-                <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span>
-                </li>
-                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
-                <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
-            </ul>
-
-            <h6 class="capitalize negrito teal-text">Exames Solicitados</h6>
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-flask-vial fa-1x " aria-hidden="true"></i>
+                Exames Solicitados
+            </h6>
             <hr>
             <ul>
                 <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
@@ -108,10 +122,20 @@
                         a ficha de exames
                     </p>
                 </li>
-
             </ul>
 
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-pills fa-1x " aria-hidden="true"></i>
+                Prescrição
+            </h6>
+            <hr>
+            
+               {{receita}}
+
             <div class="white row">
+                <h6 class="capitalize negrito teal-text">
+                    Relátorios
+                </h6>
                 <hr>
 
                 <p class="font-normal">Clica aqui para
@@ -150,7 +174,9 @@
                 </form>
 
             </div>
+
             <div><br></div>
+
         </div>
 
     </section>
