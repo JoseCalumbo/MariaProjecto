@@ -56,7 +56,8 @@
                 <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
                 <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
                 <li class="negrito font-normal"> Documento/bilhete: <span>{{bilhete}}</span></li>
-                <li class="negrito font-normal">Pioridade: <span>{{pioridade}}</span></li>
+                <li class="negrito font-normal">Telefone: <span>{{telefone}}</span></li>
+                <li class="negrito font-normal">Morada: <span>{{morada}}</span></li>
             </ul>
 
             <h6 class="capitalize negrito teal-text">
@@ -105,32 +106,16 @@
                 Exames Solicitados
             </h6>
             <hr>
-            <ul>
-                <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
-                <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
-                <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
-                <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
-                <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span>
-                </li>
-                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
-                <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
 
-                <li>
-                    <p class="font-normal">
-                        Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
-                            class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
-                        a ficha de exames
-                    </p>
-                </li>
-            </ul>
+            {{exames}}
 
             <h6 class="capitalize negrito teal-text">
                 <i class="fa fa-pills fa-1x " aria-hidden="true"></i>
                 Prescrição
             </h6>
             <hr>
-            
-               {{receita}}
+
+            {{receita}}
 
             <div class="white row">
                 <h6 class="capitalize negrito teal-text">

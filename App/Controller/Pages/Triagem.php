@@ -137,7 +137,7 @@ class Triagem extends Page
                                                 </tr>';
     }
 
-    // Apresenta a listagem da Triagem 
+    // Apresenta o painel ou Tela da Triagem 
     public static function pagTriagem($request)
     {
         $funcionarioLogado = Session::getUsuarioLogado();
@@ -167,6 +167,8 @@ class Triagem extends Page
         $generoPacinete = $postVars['genero'] ?? '';
         $nascimentoPacinete = $postVars['nascimento'] ?? '';
         $bilhetePaciente = $postVars['bilhete'] ?? '';
+        $telefonePaciente = $postVars['telefone1'] ?? '';
+        $moradaPaciente = $postVars['morada'] ?? '';
 
         $obTriagem = new TriagemDao;
 
@@ -184,14 +186,17 @@ class Triagem extends Page
             // Método de acesso para enviar dados para cadastrar triagem
             $id_triagem = $obTriagem->cadastrarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
 
-            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem.'?msg=confirma');
+            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '?msg=confirma');
             exit;
         }
         $content = View::render('triagem/formTriagem', [
-            'titulo' => 'Cadastrar nova triagem',
+            'titulo' => 'Registrar nova triagem',
             'pesquisar' => '',
             'nome' => '',
             'bilhete' => '',
+            'telefone1' => '',
+            'morada' => '',
+
             'frequencia' => '',
             'pressao' => '',
             'peso' => '',
@@ -204,7 +209,7 @@ class Triagem extends Page
         return parent::getPage('Registrar nova triagem ', $content);
     }
 
-    //Método responsavel por cadastrar novo triagem para os paciente
+    //Método responsavel por cadastrar novo triagem para os paciente existentes
     public static function cadastrarNovaTriagem($request, $id_triagem)
     {
         //Instancia da classe model da triagem
@@ -230,11 +235,11 @@ class Triagem extends Page
             // Método de acesso para enviar dados para cadastrar triagem
             $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
 
-            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem.'?msg=confirma');
+            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '?msg=confirma');
             exit;
         }
         $content = View::render('triagem/formTriagemNova', [
-            'titulo' => ' Cadastrar  Nova triagem - ' . $triagemCadastrar->nome_paciente . '',
+            'titulo' => 'Registrar nova triagem - ' . $triagemCadastrar->nome_paciente . '',
             'pesquisar' => '',
             'nome' => $triagemCadastrar->nome_paciente,
             'data' => $triagemCadastrar->nascimento_paciente,
@@ -254,10 +259,9 @@ class Triagem extends Page
         return parent::getPage('Registrar nova triagem ', $content);
     }
 
-    //cadastra novo triagem
+    //Confirma a triagem refistrada
     public static function getTriagemRegistrada($request, $id_triagem)
     {
-
         // Verifica se foi finalizado
         if (isset($_POST['finaliza'])) {
             $request->getRouter()->redirect('/triagem?msg=cadastrado');
@@ -350,6 +354,8 @@ class Triagem extends Page
 
         $content = View::render('triagem/formTriagem', [
             'titulo' => ' Editar Triagem',
+            'telefone1' => '',
+            'morada' => '',
             'nome' => $triagemRegistrado->nome_paciente,
             'bilhete' => $triagemRegistrado->bilhete_paciente,
             'data' => $triagemRegistrado->nascimento_paciente,

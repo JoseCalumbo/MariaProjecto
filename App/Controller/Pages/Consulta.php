@@ -39,7 +39,7 @@ class Consulta extends Page
         } // fim do switch
     }
 
-    // Metodo que apresenta os pacientes aspera da consulta
+    // Metodo que apresenta os pacientes aspera da consulta PRINCIPAL
     private static function getConsultasEspera($request, &$obPagination)
     {
         $queryParam = $request->getQueryParams();
@@ -274,7 +274,7 @@ class Consulta extends Page
                                                 </tr>';
     }
 
-    // busca todos os exames para o select
+    // busca todos os exames para o select dos exames 
     public static function getExamesSelect()
     {
         $resultadoExame = '';
@@ -366,7 +366,7 @@ class Consulta extends Page
                 }
 
                 // Redireciona validaçao e gerar consulta
-                $request->getRouter()->redirect('/consulta/valida/' . $idconsulta . '?msg=validar');
+                $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
             } else {
 
                 // Redireciona validaçao e gerar consulta 
@@ -413,19 +413,68 @@ class Consulta extends Page
     // Metodo para apresentar a tela de validação da consulta 
     public static function getValidarConsulta($request, $id_consulta)
     {
+        $obConsultaRealizada = ConsultaDao::getConsultaRelizada($id_consulta);
 
         $content = View::render('consulta/formConfirmaConsulta', [
+
             "button1" => "Validar consulta",
             "button2" => "Finalizar consulta",
+
+            'nome' => $obConsultaRealizada->nome_paciente,
+            'nome' => $obConsultaRealizada->nome_paciente,
+
             "msg" => self::exibeMensagem($request),
-            "receita" => self::getConsultaReceita($request, $obPagination)
+            "receita" => self::getConsultaReceita($id_consulta),
+            "exames" => self::getConsultaExame($id_consulta)
+
+
+
+
 
         ]);
         return parent::getPage('Validação da consulta', $content);
     }
 
     // Metodo que apresenta os pacientes aspera da consulta
-    private static function getConsultaReceita($request, &$obPagination)
+    private static function getConsultaExame($id_consulta)
+    {
+        $item2 = '';
+
+        $tabela = '';
+
+        $quantidadeExame = ExameSolicitadoDao::quantidadeExameSolicitado($id_consulta, null, null, 'COUNT(*) as total')->fetchObject(ExameSolicitadoDao::class);
+
+        $totalExame = $quantidadeExame->total;
+
+        $resultadoExame = ExameSolicitadoDao::listarExameSolicitadoValido($id_consulta);
+
+        while ($obExameSolicitado2 = $resultadoExame->fetchObject(ExameSolicitadoDao::class)) {
+            $item2 .= View::render('consulta/itemConsulta/listarExameConsulta', [
+                'tipo' => $obExameSolicitado2->tipo_exame,
+                'exame' => $obExameSolicitado2->nome_exame,
+                'emergencia' => $obExameSolicitado2->emergencia_exame,
+                'estado' => $obExameSolicitado2->estado_exame_solicitado,
+            ]);
+        }
+
+        if ((int)$totalExame == 0) {
+
+            return $tabela = strlen($tabela) ? $tabela :
+                '<ul>
+                     <li class="font-normal center"> Sem exame adicionada há consulta </li>
+                </ul>';
+            exit;
+        } else {
+
+            $tabela .= View::render('consulta/itemConsulta/tabelaExame', [
+                'itemExames' => $item2,
+            ]);
+        }
+        return $tabela;
+    }
+
+    // Metodo que apresenta os pacientes aspera da consulta
+    private static function getConsultaReceita($id_consulta)
     {
         $item = '';
 
@@ -439,7 +488,7 @@ class Consulta extends Page
 
         //quantidade total
         //$quantidadetotal = TriagemDao::listarTriagemFeita('risco_triagem', null, 'COUNT(*) as quantidade');
-        if (true) {
+        if (false) {
 
             $tabela .= View::render('consulta/itemConsulta/tabelaReceita', [
                 'iteMedicamento' => $item
@@ -455,7 +504,6 @@ class Consulta extends Page
         return $tabela;
     }
 
-   
 
 
 

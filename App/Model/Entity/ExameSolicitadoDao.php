@@ -94,6 +94,29 @@ class ExameSolicitadoDao
                               JOIN tb_exame    e ON e.id_exame    =  ce.id_exame WHERE ce.estado_exame_solicitado = "solicitado"'))->select($where, $order, $limit, $fields);
     }
 
+    # Apresenta o numero total de exames Solicitados em uma consulta
+    public static function quantidadeExameSolicitado($id_consulta, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c1 ON ce.id_consulta = c1.id_consulta 
+                              JOIN tb_paciente p ON c1.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame
+                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta ='.$id_consulta, $order, $limit, $fields);
+    
+    }
+
+    # Apresenta os resultado da tabela exames Solicitados na pagina de validação da consuta
+    public static function listarExameSolicitadoValido($id_consulta, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c1 ON ce.id_consulta = c1.id_consulta 
+                              JOIN tb_paciente p ON c1.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame
+                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta ='.$id_consulta, $order, $limit, $fields);
+    
+    }
+
+
      # Apresenta os resultado da tabela exames Solicitados
     public static function listarExameFinalizado($where = null, $order = null, $limit = null, $fields = '*')
     {
