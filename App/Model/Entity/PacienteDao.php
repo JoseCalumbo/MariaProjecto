@@ -68,7 +68,7 @@ class PacienteDao
             'morada_paciente' => $this->morada_paciente,
             'imagem_paciente' => $this->imagem_paciente,
             'documentos_paciente' => $this->documentos_paciente,
-            'estado_paciente' => $this->estado_paciente,
+            'estado_paciente' => $this->estado_paciente = "Activo",
             'id_funcionario' => $this->id_funcionario,
             'create_paciente' => $this->create_paciente,
         ]);
@@ -76,7 +76,7 @@ class PacienteDao
         return $this->id_paciente;
     }
 
-    // Metodo para cadastrar Paciente 
+    // Metodo para cadastrar Paciente pela triagem
     public function registrarTriagemPaciente($nomepaciente, $generoPacinete, $nascimentoPacinete, $bilhetePaciente)
     {
         // Obtem os dados do formularios de triagem 
@@ -175,14 +175,14 @@ class PacienteDao
     public function atualizarEstado()
     {
         return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
-            'estado_paciente' => $this->estado_paciente ="Alta",
+            'estado_paciente' => $this->estado_paciente = "Activo",
         ]);
     }
     //atulizar o estado dopaciente
     public function atualizarEstadoAgurdando()
     {
         return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
-            'estado_paciente' => $this->estado_paciente ="Aguardando",
+            'estado_paciente' => $this->estado_paciente = "Aguardando",
         ]);
     }
 

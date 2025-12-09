@@ -35,7 +35,7 @@ class Paciente extends Page
                 return Mensagem::msgSucesso('Paciente Alterado com sucesso');
                 break;
             case 'apagado':
-                return Mensagem::msgSucesso('Paciente Apagdo com sucesso');
+                return Mensagem::msgSucesso('Paciente Apagado com sucesso');
                 break;
         } // fim do switch
     }
@@ -66,10 +66,6 @@ class Paciente extends Page
 
         while ($obPaciente = $resultado->fetchObject(PacienteDao::class)) {
 
-            // formata a idade do paciente
-            $formataIdade = date("Y", strtotime($obPaciente->nascimento_paciente));
-            $idades = date("Y") - $formataIdade;
-
            //$idade = $idades == 2025 ? $idade : "0";
 
             $item .= View::render('paciente/listarPaciente', [
@@ -77,7 +73,7 @@ class Paciente extends Page
                 'imagem' => $obPaciente->imagem_paciente,
                 'nome' => $obPaciente->nome_paciente,
                 'genero' => $obPaciente->genero_paciente,
-                'nascimento' => $idades,
+                'nascimento' => !empty($obPaciente->nascimento_paciente) ? (date('Y') - date('Y', strtotime($obPaciente->nascimento_paciente))) : "Indefinido",
                 'telefone' => $obPaciente->telefone1_paciente,
                 'estados' => $obPaciente->estado_paciente,
             ]);
@@ -145,9 +141,7 @@ class Paciente extends Page
                 $obPaciente->morada_paciente = $postVars['morada'];
 
                 $obPaciente->motivo_paciente = $postVars['motivo'];
-                $obPaciente->estado_paciente = $postVars['estado'];
-
-
+                $obPaciente->estado_paciente = $postVars['estado'] ;
                 $obPaciente->responsavelNome_paciente = $postVars['responsavelNome'];
                 $obPaciente->responsavelTelefone_paciente = $postVars['responsavelTelefone'];
 
@@ -205,6 +199,7 @@ class Paciente extends Page
             'pai' => '',
             'mae' => '',
             'motivo' => '',
+            'angolana' => 'selected',
             'responsavelNome' => '',
             'responsavelTelefone' => '',
             'morada' => '',
@@ -306,13 +301,13 @@ class Paciente extends Page
             'email' => $obPaciente->email_paciente,
             'morada' => $obPaciente->morada_paciente,
             'motivo' => $obPaciente->motivo_paciente,
-            'Atendimento agendado' => $obPaciente->estado_paciente == 'Atendimento agendado' ? 'selected' : '',
-            'Em Triagem' => $obPaciente->estado_paciente == 'Em Triagem' ? 'selected' : '',
-            'Em tratamento' => $obPaciente->estado_paciente == 'Em tratamento' ? 'selected' : '',
-            'Em atendimento' => $obPaciente->estado_paciente == 'Em atendimento' ? 'selected' : '',
-            'Consulta Marcada' => $obPaciente->estado_paciente == 'Consulta Marcada' ? 'selected' : '',
-            'Alta' => $obPaciente->estado_paciente == 'Alta' ? 'selected' : '',
-            'Aberto' => $obPaciente->estado_paciente == 'Aberto' ? 'selected' : '',
+
+            'aguardando' => $obPaciente->estado_paciente == 'Aguardando' ? 'selected' : '',
+            'activo' => $obPaciente->estado_paciente == 'Activo' ? 'selected' : '',
+            'alta' => $obPaciente->estado_paciente == 'Alta' ? 'selected' : '',
+            'em_observacao' => $obPaciente->estado_paciente == 'Em observação' ? 'selected' : '',
+            'em_observacao' => $obPaciente->estado_paciente == 'Em observação' ? 'selected' : '',
+            'internado' => $obPaciente->estado_paciente == 'Internado' ? 'selected' : '',
 
             'responsavelNome' => $obPaciente->responsavel_paciente,
             'responsavelTelefone' => $obPaciente->telefoneResponsavel_paciente,
@@ -351,12 +346,13 @@ class Paciente extends Page
             'email' => $obPaciente->email_paciente,
             'morada' => $obPaciente->morada_paciente,
             'motivo' => $obPaciente->motivo_paciente,
-            'Atendimento agendado' => $obPaciente->estado_paciente == 'Atendimento agendado' ? 'selected' : '',
-            'Em Triagem' => $obPaciente->estado_paciente == 'Em Triagem' ? 'selected' : '',
-            'Em tratamento' => $obPaciente->estado_paciente == 'Em tratamento' ? 'selected' : '',
-            'Em atendimento' => $obPaciente->estado_paciente == 'Em atendimento' ? 'selected' : '',
-            'Consulta Marcada' => $obPaciente->estado_paciente == 'Consulta Marcada' ? 'selected' : '',
-            'Alta' => $obPaciente->estado_paciente == 'Alta' ? 'selected' : '',
+
+            'aguardando' => $obPaciente->estado_paciente == 'Aguardando' ? 'selected' : '',
+            'activo' => $obPaciente->estado_paciente == 'Activo' ? 'selected' : '',
+            'alta' => $obPaciente->estado_paciente == 'Alta' ? 'selected' : '',
+            'em_observacao' => $obPaciente->estado_paciente == 'Em observação' ? 'selected' : '',
+            'em_observacao' => $obPaciente->estado_paciente == 'Em observação' ? 'selected' : '',
+            'internado' => $obPaciente->estado_paciente == 'Internado' ? 'selected' : '',
             'estado' => $obPaciente->estado_paciente,
 
             'responsavelNome' => $obPaciente->responsavel_paciente,
