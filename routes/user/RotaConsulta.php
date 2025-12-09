@@ -61,12 +61,12 @@ $obRouter->get('/consulta/validar/{id_consulta}',[
 ]);
 
 // rota para finalizar consulta GET
-$obRouter->get('/con/valida/{id_consulta}',[
+$obRouter->post('/consulta/validar/{id_consulta}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_consulta){ return new Response(200,Pages\Consulta::getValidarConsulta($request,$id_consulta)); }
+    function($request,$id_consulta){ return new Response(200,Pages\Consulta::setValidarConsulta($request,$id_consulta)); }
 ]);
 
 

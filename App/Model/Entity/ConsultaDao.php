@@ -68,7 +68,6 @@ class ConsultaDao extends PacienteDao
     //Método responsavel por Alterar o registrar da triagem
     public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente, $bilhetePaciente)
     {
-
         $obPacientes = PacienteDao::getPacienteId($idPaciente);
         $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
         $this->id_paciente = $idPacienteEditado;
@@ -116,9 +115,7 @@ class ConsultaDao extends PacienteDao
                               JOIN tb_exame    e ON e.id_exame    =  ce.id_exame
                               '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta ='.$id_consulta, $order, $limit, $fields);
     
-
     }
-
 
     /** Apresenta as listagem dados da triagem
      * @param string $where

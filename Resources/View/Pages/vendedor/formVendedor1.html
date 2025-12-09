@@ -1,0 +1,162 @@
+<section class="section-field">
+
+    <nav class='flex row  grey darken-3'>
+        
+        <div class="nav-wrapper ">
+          <div class="col s12">
+            <a href="#!" class="breadcrumb white-text font-media">{{titulo}} </a>
+          </div>
+        </div>
+
+        <div class="nav-wrapper col m3 ">
+            <div class="col s12">
+              <a href="{{URL}}" class="breadcrumb white-text font-normal">Home</a>
+              <a href="{{URL}}/vendedor" class="breadcrumb white-text flow-text font-normal">Painel vendedor</a>
+            </div>
+          </div>
+    </nav>
+
+    <div class="row input-field">
+
+        <!-- formulario para cadastramento de usuario start -->
+        <form class="col m10 push-m1" method="post" enctype="multipart/form-data">
+
+            <ul class="collapsible white">
+
+                <li class="active">
+                    <div id="form-collapsible" class="collapsible-header white white-text font-normal grey darken-3" ><i class="material-icons">person</i>Dados pessoais</div>
+    
+                    <div class="collapsible-body row">
+
+                        <div class="label-float col s12 m12 ">
+                            <input type="text" placeholder=" " name="nome" value="{{nome}}">
+                            <label>Nome Completo:</label>
+                        </div>
+    
+                        <div class="col s12 m6">
+                            <label>Genero:</label>
+                            <div class="input-radio">
+                                <label>
+                                    <input type="radio" value="Masculino" id="masc" name="genero" class="with-gap" checked>
+                                    <span for="masc">Masculino </span>
+                                </label>
+    
+                                <label>
+                                    <input type="radio" value="Feminino" id="fem" name="genero" class="with-gap" {{genero}}>
+                                    <span for="fem">Feminino</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="input-date col s12 m6 row">
+                            <label for="">Data de nascimento:</label>
+                            <input type="date" name="data" value="{{data}}">
+                        </div>
+    
+                        <div class="label-float col s12 m6 row">
+                            <input type="text" placeholder=" " name="pai" value="{{pai}}" />
+                            <label>Nome do pai:</label>
+                        </div>
+    
+                        <div class="label-float col s12 m6 row">
+                            <input type="text" placeholder=" " name="mae" value="{{mae}}" />
+                            <label>Nome da mãe:</label>
+                        </div>
+                        <br>
+    
+                        <div class="label-float col s12 m12 row">
+                            <input type="text" placeholder=" " name="bilhete" value="{{bilhete}}" />
+                            <label>Bilhete</label>
+                        </div>
+    
+                        <div class="label-float col s12 m12">
+                            <input type="select" placeholder=" " name="morada" value="{{morada}}" />
+                            <label>Morada:</label>
+                        </div>
+                        <br>
+                        
+                        <div class="select-field col s12 m12">
+                            <br>
+                            <select name="nivel" id="academico">
+                                <option value="">Nivel Academico: </option>
+                                <option value="base" for="nivel" {{base-nivel}}>Ensino de Base</option>
+                                <option value="medio" for="nivel" {{medio}}>Ensino Medio</option>
+                                <option value="licenciado" for="nivel" {{licenciado}}> licenciado</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal grey darken-3"><i class="material-icons">phone</i>Contactos</div>
+    
+                    <div class="collapsible-body row">
+                        <div class="label-float col s12 m6">
+                            <input type="text" placeholder=" " name="telefone1" value="{{telefone1}}" />
+                            <label>Telefone 1:</label>
+                        </div>
+    
+                        <div class="label-float col s12 m6 row">
+                            <input type="text" placeholder=" " name="telefone2" value="{{telefone2}}" />
+                            <label>Telefone 2:</label>
+                        </div>
+    
+                        <div class="label-float col s12 m12 row">
+                            <input type="email" placeholder=" " name="email" value="{{email}}" />
+                            <label>E-mail:</label>
+                        </div>
+                    </div>
+                </li>
+    
+                <!--collapsible dados zona-->
+                <li class="active">
+                    <div class="collapsible-header white white-text font-normal grey darken-3"> <i class="material-icons">place</i> Zona de venda </div>
+                    <div class="collapsible-body">
+    
+                        <div class="select-field">
+                            <select name="zona" id="academico">
+                                {{zonas}}
+                            </select>
+                        </div>
+                    </div>
+                </li>
+    
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal grey darken-3"><i class="material-icons">work</i>Tipos de negócio </div>
+    
+                    <div class="collapsible-body row">
+
+                        {{negocios}}
+
+                    </div>
+                </li>
+
+                <li class="active">
+                    <div class="collapsible-header white-text font-normal grey darken-3">
+                        <i class="material-icons">image</i>Carregar ficheiro
+                    </div>
+
+                    <div class="collapsible-body  bodyy">
+                        <div class="input-file flex col s12 m12 row ">
+                            <label id="image" class="img-label blue darken-4 btn-large" for="img">
+                                <i class="material-icons left">archive</i> Selecionar imagem
+                            </label>
+                            <input type="file" id="img" name="imagem">
+                            <img class="foto col m2 offset-m6" src="{{URL}}/Files/Imagem/vendedor/{{imagem}}" width="85" height="57">
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+            <div class="div-input  col s12 m12">
+                <button class="button blue darken-4 white-text" type="submit">{{button}}</button>
+            </div>
+        </form>
+        <!-- formulario para cadastramento de usuario end -->
+   
+    </div>
+
+</section>
+
+<script src="{{URL}}/Assets/js/main.js"></script>

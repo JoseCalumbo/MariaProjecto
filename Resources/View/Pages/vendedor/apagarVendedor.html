@@ -1,0 +1,31 @@
+
+        <section class="row section-field col m12">
+
+            <h4>Apagar Vendedor</h4>
+
+            <form method="post" class="row col s12 m8 white push-m2">
+                <div class="col s12 m">
+                    <strong>Tem a certeza que deseja apagar este Vendedor ?</strong>
+                </div>
+                <div class="col s12 m2">
+                    <img src="{{URL}}/Files/Imagem/vendedor/{{imagem}}" class="materialboxed" width="100" height="125">
+                </div>
+        
+                <div class="col s12 m6">
+                    <p>Numero: <strong>{{id}}</strong></p>
+                    <p>Nome: <strong>{{nome}} </strong></p>
+                    <p>Criado em: <strong>{{Criado}}</strong></p>
+                </div>
+        
+                <div class="col s12 m8">
+                    <a href="{{URL}}/vendedor">
+                        <button type="button" class="button">Cancelar</button>
+                    </a>
+                </div>
+        
+                <div class="col s12 m8">
+                    <button type="submit" class="button" name="apagar" required>Confirmar</button>
+                </div>
+            </form>
+        
+        </section>

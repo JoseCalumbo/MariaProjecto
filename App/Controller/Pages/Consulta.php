@@ -34,7 +34,7 @@ class Consulta extends Page
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'validar':
-                return MensagemAdmin::msgAlerta('Consulta foi salva, mas é necessario validar ');
+                return MensagemAdmin::msgAlerta('Consulta foi salva, mas é necessario validar ou finalizar o seu estado');
                 break;
         } // fim do switch
     }
@@ -415,23 +415,129 @@ class Consulta extends Page
     {
         $obConsultaRealizada = ConsultaDao::getConsultaRelizada($id_consulta);
 
+        // obtem o id da triagem
+        $idTriagem = $obConsultaRealizada->id_triagem;
+        //Instancia da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($idTriagem);
+
         $content = View::render('consulta/formConfirmaConsulta', [
 
+            "msg" => self::exibeMensagem($request),
+
             "button1" => "Validar consulta",
+
             "button2" => "Finalizar consulta",
 
+            // dados do paciente
+            'id_paciente' => $obConsultaRealizada->id_paciente,
             'nome' => $obConsultaRealizada->nome_paciente,
-            'nome' => $obConsultaRealizada->nome_paciente,
+            'genero' => $obConsultaRealizada->genero_paciente,
+            'ano' => !empty($obConsultaRealizada->nascimento_paciente) ? (date('Y') - date('Y', strtotime($obConsultaRealizada->nascimento_paciente))) : "Indefinido",
+            'bilhete' => !empty($obConsultaRealizada->bilhete_paciente) ? $obConsultaRealizada->bilhete_paciente : "indefinido",
+            'telefone' => !empty($obConsultaRealizada->telefone1_paciente) ? $obConsultaRealizada->telefone1_paciente : "indefinido",
+            'morada' => !empty($obConsultaRealizada->morada_paciente) ? $obConsultaRealizada->morada_paciente : "indefinido",
 
-            "msg" => self::exibeMensagem($request),
+            // dados da consulta
+            'id_consulta' => $obConsultaRealizada->id_consulta,
+            'motivo' => !empty($obConsultaRealizada->motivo_consulta) ? $obConsultaRealizada->motivo_consulta : "indefinido",
+            'conduta' => !empty($obConsultaRealizada->conduta_consulta) ? $obConsultaRealizada->conduta_consulta : "indefinido",
+            'diagnostico' => !empty($obConsultaRealizada->diagnostico_consulta) ? $obConsultaRealizada->diagnostico_consulta : "indefinido",
+            'obs' => !empty($obConsultaRealizada->observacao_consulta) ? $obConsultaRealizada->observacao_consulta : "indefinido",
+            'retorno' => !empty($obConsultaRealizada->retorno_consulta) ? $obConsultaRealizada->retorno_consulta : "indefinido",
+            'data' => !empty($obConsultaRealizada->criado_consulta) ? (date('d-m-Y', strtotime($obConsultaRealizada->criado_consulta))) : "indefinido",
+
+            // dados da triagem
+            'id_triagem' => $triagemRegistrado->id_triagem,
+            'peso' =>  !empty($triagemRegistrado->temperatura_triagem) ? $triagemRegistrado->temperatura_triagem : "indefinido",
+            'temperatura' =>  !empty($triagemRegistrado->temperatura_triagem) ? $triagemRegistrado->temperatura_triagem : "indefinido",
+            'pressao' =>  !empty($triagemRegistrado->pressao_arterial_triagem) ? $triagemRegistrado->pressao_arterial_triagem : "indefinido",
+            'cardiaca' =>  !empty($triagemRegistrado->frequencia_cardiaca_triagem) ? $triagemRegistrado->frequencia_cardiaca_triagem : "indefinido",
+            'respiratorio' =>  !empty($triagemRegistrado->frequencia_respiratorio_triagem) ? $triagemRegistrado->frequencia_respiratorio_triagem : "indefinido",
+            'saturacao' =>  !empty($triagemRegistrado->Saturacao_oxigenio_triagem) ? $triagemRegistrado->Saturacao_oxigenio_triagem : "indefinido",
+            'observação' =>  !empty($triagemRegistrado->observacao_triagem) ? $triagemRegistrado->observacao_triagem : "indefinido",
+
             "receita" => self::getConsultaReceita($id_consulta),
+
             "exames" => self::getConsultaExame($id_consulta)
 
+        ]);
+        return parent::getPage('Validação da consulta', $content);
+    }
 
+    // Metodo para apresentar a tela de validação da consulta 
+    public static function setValidarConsulta($request, $id_consulta)
+    {
 
+        if (isset($_POST['finalizar'])) {
 
+            echo '<pre>';
+            print_r("finalizar");
+            echo '</pre>';
+            
+
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+             exit;
+        }
+
+        if (isset($_POST['validar'])) {
+
+            echo '<pre>';
+            print_r("valiada");
+            echo '</pre>';
+            exit;
+        }
+
+        $obConsultaRealizada = ConsultaDao::getConsultaRelizada($id_consulta);
+
+        // obtem o id da triagem
+        $idTriagem = $obConsultaRealizada->id_triagem;
+        //Instancia da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($idTriagem);
+
+        $content = View::render('consulta/formConfirmaConsulta', [
+
+            "msg" => self::exibeMensagem($request),
+
+            "button1" => "Validar consulta",
+
+            "button2" => "Finalizar consulta",
+
+            // dados do paciente
+            'id_paciente' => $obConsultaRealizada->id_paciente,
+            'nome' => $obConsultaRealizada->nome_paciente,
+            'genero' => $obConsultaRealizada->genero_paciente,
+            'ano' => !empty($obConsultaRealizada->nascimento_paciente) ? (date('Y') - date('Y', strtotime($obConsultaRealizada->nascimento_paciente))) : "Indefinido",
+            'bilhete' => !empty($obConsultaRealizada->bilhete_paciente) ? $obConsultaRealizada->bilhete_paciente : "indefinido",
+            'telefone' => !empty($obConsultaRealizada->telefone1_paciente) ? $obConsultaRealizada->telefone1_paciente : "indefinido",
+            'morada' => !empty($obConsultaRealizada->morada_paciente) ? $obConsultaRealizada->morada_paciente : "indefinido",
+
+            // dados da consulta
+            'id_consulta' => $obConsultaRealizada->id_consulta,
+            'motivo' => !empty($obConsultaRealizada->motivo_consulta) ? $obConsultaRealizada->motivo_consulta : "indefinido",
+            'conduta' => !empty($obConsultaRealizada->conduta_consulta) ? $obConsultaRealizada->conduta_consulta : "indefinido",
+            'diagnostico' => !empty($obConsultaRealizada->diagnostico_consulta) ? $obConsultaRealizada->diagnostico_consulta : "indefinido",
+            'obs' => !empty($obConsultaRealizada->observacao_consulta) ? $obConsultaRealizada->observacao_consulta : "indefinido",
+            'retorno' => !empty($obConsultaRealizada->retorno_consulta) ? $obConsultaRealizada->retorno_consulta : "indefinido",
+            'data' => !empty($obConsultaRealizada->criado_consulta) ? (date('d-m-Y', strtotime($obConsultaRealizada->criado_consulta))) : "indefinido",
+
+            // dados da triagem
+            'id_triagem' => $triagemRegistrado->id_triagem,
+            'peso' =>  !empty($triagemRegistrado->temperatura_triagem) ? $triagemRegistrado->temperatura_triagem : "indefinido",
+            'temperatura' =>  !empty($triagemRegistrado->temperatura_triagem) ? $triagemRegistrado->temperatura_triagem : "indefinido",
+            'pressao' =>  !empty($triagemRegistrado->pressao_arterial_triagem) ? $triagemRegistrado->pressao_arterial_triagem : "indefinido",
+            'cardiaca' =>  !empty($triagemRegistrado->frequencia_cardiaca_triagem) ? $triagemRegistrado->frequencia_cardiaca_triagem : "indefinido",
+            'respiratorio' =>  !empty($triagemRegistrado->frequencia_respiratorio_triagem) ? $triagemRegistrado->frequencia_respiratorio_triagem : "indefinido",
+            'saturacao' =>  !empty($triagemRegistrado->Saturacao_oxigenio_triagem) ? $triagemRegistrado->Saturacao_oxigenio_triagem : "indefinido",
+            'observação' =>  !empty($triagemRegistrado->observacao_triagem) ? $triagemRegistrado->observacao_triagem : "indefinido",
+
+            "receita" => self::getConsultaReceita($id_consulta),
+
+            "exames" => self::getConsultaExame($id_consulta)
 
         ]);
+
         return parent::getPage('Validação da consulta', $content);
     }
 
@@ -439,35 +545,40 @@ class Consulta extends Page
     private static function getConsultaExame($id_consulta)
     {
         $item2 = '';
-
+        $idTriagem = '';
         $tabela = '';
 
         $quantidadeExame = ExameSolicitadoDao::quantidadeExameSolicitado($id_consulta, null, null, 'COUNT(*) as total')->fetchObject(ExameSolicitadoDao::class);
-
         $totalExame = $quantidadeExame->total;
 
         $resultadoExame = ExameSolicitadoDao::listarExameSolicitadoValido($id_consulta);
-
         while ($obExameSolicitado2 = $resultadoExame->fetchObject(ExameSolicitadoDao::class)) {
+
             $item2 .= View::render('consulta/itemConsulta/listarExameConsulta', [
                 'tipo' => $obExameSolicitado2->tipo_exame,
                 'exame' => $obExameSolicitado2->nome_exame,
                 'emergencia' => $obExameSolicitado2->emergencia_exame,
                 'estado' => $obExameSolicitado2->estado_exame_solicitado,
             ]);
+
+            // Busca os id necessarios para link da imprissão 
+            $idConsulta = $obExameSolicitado2->id_consulta;
+            $idExameSolicitado = $obExameSolicitado2->id_exame_solicitado;
         }
 
         if ((int)$totalExame == 0) {
-
             return $tabela = strlen($tabela) ? $tabela :
                 '<ul>
                      <li class="font-normal center"> Sem exame adicionada há consulta </li>
                 </ul>';
             exit;
+            
         } else {
 
             $tabela .= View::render('consulta/itemConsulta/tabelaExame', [
                 'itemExames' => $item2,
+                'id_consulta' => $idConsulta,
+                'id_exame_solicitado' => $idExameSolicitado,
             ]);
         }
         return $tabela;

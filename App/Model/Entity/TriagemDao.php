@@ -95,11 +95,9 @@ class TriagemDao extends PacienteDao
         return $this->id_triagem;
     }
 
-
     //Método responsavel por Alterar o registrar da triagem
     public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente, $bilhetePaciente)
     {
-
         $obPacientes = PacienteDao::getPacienteId($idPaciente);
         $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
         $this->id_paciente = $idPacienteEditado;

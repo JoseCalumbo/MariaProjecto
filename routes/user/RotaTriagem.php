@@ -13,7 +13,15 @@ $obRouter->get('/triagem',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Triagem::pagTriagem($request)); }
+    function($request){ return new Response(200,Pages\Triagem::TelaTriagem($request)); }
+]);
+
+ // rota painel Triagem get
+$obRouter->post('/triagem',[
+    'middlewares'=>[
+        'requer-login'
+    ],
+    function($request){ return new Response(200,Pages\Triagem::TelaTriagem($request)); }
 ]);
 
 

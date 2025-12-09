@@ -85,13 +85,27 @@ class ExameSolicitadoDao
         ]);
     }
 
+    /* Apresenta os resultado da tabela exames Solicitados
+    public static function getExameSolicitado($id_exame_solicitado)
+    {
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
+                              JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame 
+                              WHERE ce.estado_exame_solicitado = "solicitado"')
+                              )->select('id_exame_solicitado ='.$id_exame_solicitado);
+    }
+
+    */
+
     # Apresenta os resultado da tabela exames Solicitados
     public static function listarExameSolicitado($where = null, $order = null, $limit = null, $fields = '*')
     {
         return (new Database('tb_consulta_exames ce 
                               JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
                               JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
-                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame WHERE ce.estado_exame_solicitado = "solicitado"'))->select($where, $order, $limit, $fields);
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame 
+                              WHERE ce.estado_exame_solicitado = "solicitado"'))->select($where, $order, $limit, $fields);
     }
 
     # Apresenta o numero total de exames Solicitados em uma consulta

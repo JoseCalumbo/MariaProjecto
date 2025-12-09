@@ -7,12 +7,7 @@ use \App\Utils\Pagination;
 use \App\Utils\Upload;
 
 use \App\Model\Entity\ExameDao;
-
-use \App\Model\Entity\FuncionarioDao;
-use \App\Model\Entity\FuncionarioNivelDao;
-use \App\Model\Entity\NivelDao;
 use \App\Controller\Mensagem\MensagemAdmin;
-
 
 class Exame extends Page
 {
@@ -130,7 +125,6 @@ class Exame extends Page
         return parent::getPage('Painel Exames', $content);
     }
 
-
     // Metodo que cadastrar novo Exame
     public static function cadastrarExame($request)
     {
@@ -208,7 +202,6 @@ class Exame extends Page
 
         $request->getRouter()->redirect('/exame?msg=seleciona');
     }
-
 
     // Metodo para apagar Funcionario
     public static function setApagarExame($request, $id_exame)

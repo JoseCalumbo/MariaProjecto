@@ -1,14 +1,16 @@
 
 <?php
 /**
- * Todas as rotas aqui serve para impresao 
+ * ROTA DE IMPRESSÃO E DOWNLOAD DE FICHA E LISTA DE RELATÓRIO
+ * Todas as rotas aqui servem excluíosivamente para relátorios de todo o sistema 
 */
 
 use \App\Http\Response;
 use \App\Controller\Imprimir;
 
+#_________________________________________ rotas da triagem____________________________________________
 
-//imprimir a listagem de triagem
+//Rota de download da ficha de triagem
 $obRouter->get('/triagem/gerar-ficha/{id_triagem}', [
     'middlewares' => [
         'requer-login'
@@ -18,7 +20,7 @@ $obRouter->get('/triagem/gerar-ficha/{id_triagem}', [
     }
 ]);
 
-//imprimir a listagem de triagem
+//Rota para imprimir a ficha de triagem
 $obRouter->get('/triagem/imprimir-ficha/{id_triagem}', [
     'middlewares' => [
         'requer-login'
@@ -29,88 +31,37 @@ $obRouter->get('/triagem/imprimir-ficha/{id_triagem}', [
 ]);
 
 
-/**
- * 
- * ROTA PARA OBTER OS RELATORIO DOS VENDEDORES 
- * 
- */
+#_________________________________________ rotas da consulta____________________________________________
 
-//imprimir vendedor  listagem
-$obRouter->get('/relatorio/listaVendedor', [
+//Rota de download da ficha dos exames solicitados
+$obRouter->get('/exame/gerar-ficha/{id_exame_solicitado}', [
     'middlewares' => [
         'requer-login'
     ],
-    function ($request) {
-        return new Response(200, Imprimir\VendedorPDF::ListaVendedorPDF($request));
+    function ($request,$id_exame_solicitado) {
+        return new Response(200, Imprimir\ExameSolicitadaPDF::baixarExameSolicitado($request, $id_exame_solicitado));
     }
 ]);
 
-//imprimir vendedor  listagem
-$obRouter->get('/relatorio/imprimilistaVendedor', [
+//Rota para imprimir a ficha dos  exames solicitados
+$obRouter->get('/exame/imprimir-ficha/{id_exame_solicitado}', [
     'middlewares' => [
         'requer-login'
     ],
-    function ($request) {
-        return new Response(200, Imprimir\VendedorPDF::imprimiVendedorPDF($request));
+    function ($request,$id_exame_solicitado) {
+        return new Response(200, Imprimir\ExameSolicitadaPDF::imprimirExameSolicitado($request,$id_exame_solicitado));
     }
 ]);
 
 
-//Imprimi a ficha de um vendedores 
-$obRouter->get('/vendedorFicha/{id}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id) {
-        return new Response(200, Imprimir\VendedorPDF::imprimiFicha($request, $id));
-    }
-]);
 
-//Imprimi a cartao de um vendedores 
-$obRouter->get('/cartao/{id}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id) {
-        return new Response(200, Imprimir\VendedorPDF::cartaoVendedor($request, $id));
-    }
-]);
 
-//Imprimi a ficha de um vendedores 
-$obRouter->get('/declaracao/{id}', [
-    'middlewares' => [
-        'requer-login'
-    ],
-    function ($request, $id) {
-        return new Response(200, Imprimir\VendedorPDF::declaracaoVendedor($request, $id));
-    }
-]);
 
-// pagina generica 
-$obRouter->get('/page/{idPagina}', [
-    function ($idPagina, $acao) {
-        return new Response(200, 'Pagina' . $idPagina . '-' . $acao);
-    }
-]);
 
-//ver a listagem de Usuario 
-$obRouter->get('/relatorio/listaUser',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Imprimir\VendedorPDF::ListaVendedorPDF($request)); }
-]);
 
-//ver a listagem de Usuario 
-$obRouter->get('/relatorio/imprimirLista',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Imprimir\VendedorPDF::imprimiVendedorPDF($request)); }
-]);
 
-/**
- * __________________________________Negocio_______________________________
- * inclui as rotas de negocio
- */
-include __DIR__ . '/recibo.php';
+
+
+
+
+

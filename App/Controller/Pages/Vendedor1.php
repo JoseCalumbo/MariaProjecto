@@ -8,6 +8,7 @@ use \App\Utils\Upload;
 use \App\Model\Entity\VendedorDao;
 use \App\Controller\Mensagem\Mensagem;
 use App\Model\Entity\AddNegocioDao;
+use App\Model\Entity\PacienteDao;
 use App\Model\Entity\NegocioDao;
 use App\Model\Entity\ZonaDao;
 
@@ -41,7 +42,7 @@ Class Vendedor1 extends Page {
         $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
 
         $condicoes = [
-            strlen($buscar) ? 'nome LIKE "'.$buscar.'%"': null,
+            strlen($buscar) ? 'nome_paciente LIKE "'.$buscar.'%"': null,
        ];
            
        // coloca na consulta sql
@@ -57,15 +58,15 @@ Class Vendedor1 extends Page {
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal,$paginaAtual,5);
 
-        $resultado = VendedorDao::listarVendedor($where,'nome',$obPagination->getLimit());
+        $resultado = VendedorDao::listarVendedor($where,'nome_paciente',$obPagination->getLimit());
         
        while($obVendedor = $resultado->fetchObject(VendedorDao::class)){
 
             $item .= View::render('vendedor/listarvendedor', [
                 'id'=>$obVendedor->id,
                 'imagem'=>$obVendedor->imagem,
-                'nome'=>$obVendedor->nome,
-                'genero'=>$obVendedor->genero,
+                'nome'=>$obVendedor->nome_paciente,
+                'genero'=>$obVendedor->genero_paciente,
                 'telefone'=>$obVendedor->telefone1,
             ]);
       }
@@ -121,9 +122,9 @@ Class Vendedor1 extends Page {
 
         $resultadoNeg ='';
 
-        $negocios = NegocioDao::listarNegocio( null,'negocio');
+        $negocios = PacienteDao::listarPaciente( null,'negocio');
 
-        while($obNegocio = $negocios->fetchObject(NegocioDao::class)){
+        while($obNegocio = $negocios->fetchObject(PacienteDao::class)){
 
             $resultadoNeg .= View::render('vendedor/item/item_negocios', [
             'value'=>$obNegocio->id_negocio,
@@ -179,7 +180,6 @@ Class Vendedor1 extends Page {
                     $obVendedor->email = $postVars['email'];
                     $obVendedor->morada = $postVars['morada'];
                     $obVendedor->id_zona = $postVars['zona'];
-                    $obVendedor->nivelacademico = $postVars['nivel'];
                     $obVendedor->imagem = $obUpload->getBaseName();
                     $obVendedor->cadastrar();
     
@@ -297,14 +297,13 @@ Class Vendedor1 extends Page {
     // metodo para apagar um vendedor
     public static function apagarVendedor($request,$id){
 
-        $obAddNegocio = new AddNegocioDao();
+        $obAddNegocio = new PacienteDao();
         
         $obVendedor = VendedorDao::getVendedorId($id);
         
         // validacao do click do botao apagar
         if(isset($_POST['apagar'])){
 
-            $obAddNegocio-> deleteAddNegocio($id);
 
             $obVendedor->apagar();
 

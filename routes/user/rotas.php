@@ -220,3 +220,14 @@ $obRouter->get('/conta/editar',[
     ],
     function($request,$id_us){ return new Response(200,Pages\Conta::editarConta($request,$id_us));}
 ]);
+
+
+
+// Página inicial admin
+$obRouter->get('/vendedor', [
+    'middlewares'=>[
+    ],
+    function ($request) {
+        return new Response(200, Pages\Vendedor1::telaVendedor($request));
+    }
+]);

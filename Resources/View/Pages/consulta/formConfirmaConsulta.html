@@ -66,15 +66,14 @@
             </h6>
             <hr>
             <ul>
-                <li class="right negrito font-normal">Consulta nº: {{id_consulta}}</li>
-                <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
-                <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
-                <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
-                <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
-                <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span>
-                </li>
-                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
-                <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
+                <li class="right negrito font-normal">Nº do Processo Clínico: {{id_consulta}}</li>
+                <li class="negrito font-normal">Especialidade:<span> Clinica geral</span></li>
+                <li class="negrito font-normal">Motivo da Consulta:<span> {{motivo}}</span></li>
+                <li class="negrito font-normal">Diagnóstico:<span>{{diagnostico}} </span> </li>
+                <li class="negrito font-normal">Conduta: <span>{{conduta}}</span></li>
+                <li class="negrito font-normal">Observação:<span> {{obs}}</span></li>
+                <li class="negrito font-normal">Próximo Retorno:<span> {{retorno}}</span></li>
+                <li class="negrito font-normal">Data da Consulta:<span> {{data}}</span></li>
             </ul>
 
             <h6 class="capitalize negrito teal-text">
@@ -87,18 +86,17 @@
                 <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
                 <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
                 <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
-                <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
-                <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}} Mrm</span>
-                </li>
-                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
+                <li class="negrito font-normal">Frequência cardíaca:<span> {{cardiaca}} bpm </span></li>
+                <li class="negrito font-normal">Frequência respiratória: <span>{{respiratorio}} Mrm</span></li>
+                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}} %</span></li>
                 <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
-                <li>
-                    <p class="font-normal">
-                        Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
-                            class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
-                        a ficha da triagem
+
+                <!--
+                    <p class="font-normal center">
+                        <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}" class="font-normal white-text darken-5 btn"
+                        target="_blank"> 🖨️ Imprimir ficha da triagem</a>
                     </p>
-                </li>
+                -->
             </ul>
 
             <h6 class="capitalize negrito teal-text">
@@ -147,17 +145,17 @@
 
             <div>
                 <form class="row" method="post" enctype="multipart/form-data">
-                    <button type="submit" name="finaliza" class="col offset-m7 btn orange m2 white-text font-normal ">
+                    <button type="submit" name="finalizar" class="col offset-m7 btn orange m2 white-text font-normal ">
                         {{button1}}
                     </button>
 
-                    <button type="submit" style="margin-left: 6px;" name="valida"
+                    <button type="submit" name="validar" style="margin-left: 6px;"
                         class="col btn m2 white-text font-normal">
                         {{button2}}
                     </button>
                     <br>
+                    
                 </form>
-
             </div>
 
             <div><br></div>

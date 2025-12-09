@@ -37,7 +37,7 @@ class Triagem extends Page
             case 'confirma':
                 return Mensagem::msgAlerta('Triagem realizada  com sucesso.  É necessario fazer a Validação. Abaixo estão as informações registradas:
 
-');
+                ');
                 break;
         } // fim do switch
     }
@@ -130,15 +130,16 @@ class Triagem extends Page
             ]);
         }
         //Nenhum Exame encontado
-        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
-                                                   <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
-                                                    Base de dados sem registos de triagem.
-                                                    </td>
-                                                </tr>';
+        return $item;
+      //  return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+      //                                             <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
+      //                                              Base de dados sem registos de triagem.
+      //                                              </td>
+       //                                         </tr>';
     }
 
     // Apresenta o painel ou Tela da Triagem 
-    public static function pagTriagem($request)
+    public static function TelaTriagem($request)
     {
         $funcionarioLogado = Session::getUsuarioLogado();
         $id = $funcionarioLogado['id'];
@@ -303,17 +304,16 @@ class Triagem extends Page
             'genero' => $triagemRegistrado->genero_paciente,
             'bilhete' => $triagemRegistrado->bilhete_paciente,
             'ano' => $idade,
+
             'pioridade' => $triagemAtender,
             'peso' => $triagemRegistrado->peso_triagem,
-
             'temperatura' => $triagemRegistrado->temperatura_triagem,
-
             'pressao' => $triagemRegistrado->pressao_arterial_triagem,
-
             'frequencia_cardiaca' => $triagemRegistrado->frequencia_cardiaca_triagem,
             'frequencia_respiratorio' => $triagemRegistrado->frequencia_respiratorio_triagem,
             'saturacao' => $triagemRegistrado->Saturacao_oxigenio_triagem,
             'observação' => $triagemRegistrado->observacao_triagem,
+            
             'button1' => 'Finalizar',
         ]);
 

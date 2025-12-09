@@ -106,7 +106,6 @@ class Laboratorio extends Page
                                                 </tr>';
     }
 
-
     // Método para apresenatar os registos do exames finalizados
     private static function getExameFinalizado($request, &$obPagination)
     {

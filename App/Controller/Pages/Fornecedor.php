@@ -65,7 +65,7 @@ class Fornecedor extends Page
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 8);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 5);
 
         $resultado = FornecedorDao::listarFornecedor($where, 'nome_fornecedor ', $obPagination->getLimit());
 
@@ -93,6 +93,8 @@ class Fornecedor extends Page
                 'numResultado' => $quantidadetotal,
             ]);
         }
+
+   
         //Nenhum Exame encontado
         return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
                                                    <td colspan="7" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">

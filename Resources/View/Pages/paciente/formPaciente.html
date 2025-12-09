@@ -1,5 +1,5 @@
 <section class="section-field row">
-        <h5 class="black-text center"> {{titulo}} </h5>
+    <h5 class="black-text center"> {{titulo}} </h5>
 
     <nav class="col m12 blue-grey darken-1">
         <div class="nav-wrapper ">
@@ -83,11 +83,11 @@
                             class="material-icons">phone</i>Contactos e Endereço</div>
                     <div class="collapsible-body row">
                         <div class="input-field col s12 m6">
-                            <input id="telefone1" type="text"  name="telefone1" value="{{telefone1}}" />
+                            <input id="telefone1" type="text" name="telefone1" value="{{telefone1}}" />
                             <label for="telefone1" style="text-transform: capitalize;">Primeiro nº Telefone:</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="telefone2" type="text"  name="telefone2" value="{{telefone2}}" />
+                            <input id="telefone2" type="text" name="telefone2" value="{{telefone2}}" />
                             <label for="telefone2" style="text-transform: capitalize;">Segundo nº
                                 Telefone(Opcional):</label>
                         </div>
@@ -122,14 +122,12 @@
                             <div class="input-field col s12 m4">
                                 <select name="estado">
                                     <option value="" disabled selected>Escolhe uma opção</option>
-                                    <option value="Atendimento agendado" {{Atendimento agendado}}>Atendimento agendado
-                                    </option>
-                                    <option value="Em Triagem" {{Em Triagem}}>Em Triagem </option>
-                                    <option value="Em tratamento" {{Em tratamento}}>Em tratamento</option>
-                                    <option value="Em atendimento" {{Em atendimento}}>Em atendimento</option>
-                                    <option value="Consulta Marcada" {{Consulta Marcada}}>Consulta Marcada</option>
-                                    <option value="Alta" {{Alta}}>Alta</option>
-                                    <option value="Aguardando" {{Aberto}}>Aguardando</option>
+                                    <option value="Activo" {{activo}}>Activo</option>
+                                    <option value="Alta" {{alta}}>Alta</option>
+                                    <option value="Aguardando" {{aguardando}}>Aguardando</option>
+                                    <option value="Em tratamento" {{em_atendimento}}>Em atendimento</option>
+                                    <option value="Em observação" {{em_observacao}}>Em observação</option>
+                                    <option value="Internado" {{internado}}>Internado</option>
                                 </select>
                                 <label style="text-transform: capitalize; font-size: 14px;">Sector e Estado do
                                     Paciente</label>
@@ -137,7 +135,8 @@
                             <div class="input-field col s12 m7">
                                 <input id="responsavelNome" type="text" name="responsavelNome"
                                     value="{{responsavelNome}}" />
-                                <label for="responsavelNome" style="text-transform: capitalize;">Nome do Responsável</label>
+                                <label for="responsavelNome" style="text-transform: capitalize;">Nome do
+                                    Responsável</label>
                             </div>
                             <div class="input-field col s12 m5">
                                 <input id="responsavelTelefone" type="text" data-length="30" name="responsavelTelefone"
