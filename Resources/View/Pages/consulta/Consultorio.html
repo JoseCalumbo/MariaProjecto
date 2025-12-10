@@ -1,6 +1,7 @@
 <section class="row section-field white">
   <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Painel consultório</h5>
   <hr>
+  <section class="{{msgs}} col s12 m12 l112 ">{{msg}}</section>
 
   <div class="row white col m12 l12 s12">
 
@@ -41,7 +42,7 @@
             </select>
         </div>
     -->
-        
+
       </form>
     </div>
   </div>
@@ -160,14 +161,14 @@
           </thead>
 
           <tbody tbody class="tbody">
-            {{listarConsulta}}
+            {{listarPacienteEspera}}
           </tbody>
         </table>
 
       </section>
 
       <section class="col m12 white">
-        {{paginacao}}
+        {{pagConsultasEspera}}
       </section>
     </div>
 
@@ -204,7 +205,7 @@
       </section>
     </div>
 
-    <!-- Abas para minha consulta -->
+    <!-- Abas para minha agenda -->
     <div id="c3" class="col m12">
 
       <br>

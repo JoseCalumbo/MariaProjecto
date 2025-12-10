@@ -172,12 +172,13 @@ class PacienteDao
     }
 
     //atulizar o estado dopaciente
-    public function atualizarEstado()
+    public function atualizarEstado($estado)
     {
         return (new Database('tb_paciente'))->update('id_paciente = ' . $this->id_paciente, [
-            'estado_paciente' => $this->estado_paciente = "Activo",
+            'estado_paciente' => $this->estado_paciente = $estado,
         ]);
     }
+
     //atulizar o estado dopaciente
     public function atualizarEstadoAgurdando()
     {
@@ -196,6 +197,15 @@ class PacienteDao
     public static function getPacienteId($id_paciente)
     {
         return (new Database('tb_paciente'))->select('id_paciente = ' . $id_paciente)->fetchObject(self::class);
+    }
+
+
+    # Apresenta os pacientes aguardando
+    public static function listarPacienteEspera($order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_paciente JOIN  tb_triagem ON 
+                              tb_paciente.id_paciente = tb_triagem.id_paciente')
+                              )->select('tb_paciente.estado_paciente = "Aguardando"',$order, $limit, $fields);
     }
 
 

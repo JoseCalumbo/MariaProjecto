@@ -260,7 +260,7 @@ class Triagem extends Page
         return parent::getPage('Registrar nova triagem ', $content);
     }
 
-    //Confirma a triagem refistrada
+    //Confirma a triagem registrada
     public static function getTriagemRegistrada($request, $id_triagem)
     {
         // Verifica se foi finalizado
@@ -307,12 +307,12 @@ class Triagem extends Page
 
             'pioridade' => $triagemAtender,
             'peso' => $triagemRegistrado->peso_triagem,
-            'temperatura' => $triagemRegistrado->temperatura_triagem,
-            'pressao' => $triagemRegistrado->pressao_arterial_triagem,
-            'frequencia_cardiaca' => $triagemRegistrado->frequencia_cardiaca_triagem,
-            'frequencia_respiratorio' => $triagemRegistrado->frequencia_respiratorio_triagem,
-            'saturacao' => $triagemRegistrado->Saturacao_oxigenio_triagem,
-            'observação' => $triagemRegistrado->observacao_triagem,
+            'temperatura' => !empty($triagemRegistrado->temperatura_triagem) ? ''.$triagemRegistrado->temperatura_triagem.' °C' : "indefinido",
+            'pressao' => !empty($triagemRegistrado->pressao_arterial_triagem) ? $triagemRegistrado->pressao_arterial_triagem.' mmHg' : "indefinido",
+            'frequencia_cardiaca' => !empty($triagemRegistrado->frequencia_cardiaca_triagem) ? $triagemRegistrado->frequencia_cardiaca_triagem.' bpm' : "indefinido",
+            'frequencia_respiratorio'=>!empty($triagemRegistrado->frequencia_respiratorio_triagem) ? $triagemRegistrado->frequencia_respiratorio_triagem : "indefinido",
+            'saturacao' => !empty($triagemRegistrado->Saturacao_oxigenio_triagem) ? ''.$triagemRegistrado->Saturacao_oxigenio_triagem.' %' : "indefinido",
+            'observação' => !empty($triagemRegistrado->observacao_triagem) ? $triagemRegistrado->observacao_triagem : "indefinido",
             
             'button1' => 'Finalizar',
         ]);
@@ -398,7 +398,8 @@ class Triagem extends Page
             $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
 
             // busca alterar o estado do paciente
-            $obPaciente->atualizarEstado();
+            $estado = "Activo";
+            $obPaciente->atualizarEstado($estado);
 
             $obTriagem->apagarTriagem();
 

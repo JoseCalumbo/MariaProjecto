@@ -67,14 +67,16 @@ class ConsultaDao extends PacienteDao
     }
 
     //Método responsavel ao estado da consulta
+    public function estadoConsulta($estado)
+    {
+         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+            'estado_consulta' => $this->estado_consulta = $estado,
+        ]);
+    }
+
+    //Método responsavel ao estado da consulta
     public function finalizarConsulta()
     {
-
-        echo '<pre>';
-        print_r( "as" );
-        echo '</pre>';
-        exit;
-
          return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
             'estado_consulta' => $this->estado_consulta = "Finalizada",
         ]);

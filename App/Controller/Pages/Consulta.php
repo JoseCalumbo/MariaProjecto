@@ -28,7 +28,7 @@ class Consulta extends Page
 
         switch ($queryParam['msg']) {
             case 'cadastrado':
-                return MensagemAdmin::msgSucesso('Consulta finalizada');
+                return MensagemAdmin::msgSucesso('Consulta registrada com sucesso');
                 break;
             case 'alterado':
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
@@ -40,13 +40,11 @@ class Consulta extends Page
     }
 
     // Metodo que apresenta os pacientes aspera da consulta PRINCIPAL
-    private static function getConsultasEspera($request, &$obPagination)
+    private static function getPacienteEspera($request, &$obPagination)
     {
-        $queryParam = $request->getQueryParams();
-        $obPagination = new Pagination(null, null, null);
-
         // Var que retorna o conteudo
         $item = '';
+
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $condicoes = [
             strlen($buscar) ? 'nome_paciente LIKE "%' . $buscar . '%"' : null,
@@ -55,19 +53,9 @@ class Consulta extends Page
         // coloca na consulta sql
         $where = implode(' AND ', $condicoes);
 
-        //quantidade total de registros da tabela user
-        $quantidadetotal = TriagemDao::listarTriagemFeita($where, 'risco_triagem', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $resultado = PacienteDao::listarPacienteEspera($where);
 
-        //pagina actual 
-        $queryParams = $request->getQueryParams();
-        $paginaAtual = $queryParams['page'] ?? 1;
-
-        // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
-
-        $resultado = TriagemDao::listarTriagemFeita($where, 'risco_triagem', $obPagination->getLimit());
-
-        while ($obPacientesEspera = $resultado->fetchObject(TriagemDao::class)) {
+        while ($obPacientesEspera = $resultado->fetchObject(ConsultaDao::class)) {
 
             $atender =  $obPacientesEspera->risco_triagem;
             $triagemAtender = "";
@@ -89,17 +77,12 @@ class Consulta extends Page
                     break;
             } // fim do switch
 
-            // formata a idade do paciente
-            $formataIdade = date("Y", strtotime($obPacientesEspera->nascimento_paciente));
-            $idade = date("Y") - $formataIdade;
-
-            $item .= View::render('consulta/listarConsulta', [
+            $item .= View::render('consulta/listarPacienteEspera', [
                 'id_triagem' => $obPacientesEspera->id_triagem,
                 'id_paciente' => $obPacientesEspera->id_paciente,
                 'imagem' => $obPacientesEspera->imagem_paciente,
                 'nome_paciente' => $obPacientesEspera->nome_paciente,
                 'genero' => $obPacientesEspera->genero_paciente,
-                'idade' => $idade,
                 'estado' => $obPacientesEspera->estado_paciente,
                 'perioridade' => $triagemAtender,
             ]);
@@ -107,12 +90,11 @@ class Consulta extends Page
 
         $queryParam = $request->getQueryParams();
 
-        if ($queryParam['pesquisar'] ?? '') {
+        if ($queryParam['pesquisarq'] ?? '') {
 
             return View::render('pesquisar/box_resultado', [
                 'pesquisa' => $buscar,
                 'resultados' => $item,
-                'numResultado' => $quantidadetotal,
                 'item' => '',
 
             ]);
@@ -188,7 +170,6 @@ class Consulta extends Page
                                                     </td>
                                                 </tr>';
     }
-
 
     // Metodo que apresenta os pacientes agendados
     private static function getMinhaAgenda($request, &$obPagination)
@@ -295,9 +276,11 @@ class Consulta extends Page
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('consulta/Consultorio', [
+            'msg' => self::exibeMensagem($request),
+
             'pesquisar' => $buscar,
 
-            'listarConsulta' => self::getConsultasEspera($request, $obPagination),
+            'listarPacienteEspera' => self::getPacienteEspera($request, $obPagination),
 
             'listarMinhaConsulta' => self::getMinhaConsulta($request, $obPagination),
 
@@ -307,7 +290,7 @@ class Consulta extends Page
 
             'listarExames' => self::getExameSolicitado($request, $obPagination),
 
-            'paginacao' => parent::getPaginacao($request, $obPagination)
+            'pagConsultasEspera' => parent::getPaginacao($request, $obPagination)
         ]);
         return parent::getPage('Painel Consultorio', $content);
     }
@@ -409,7 +392,6 @@ class Consulta extends Page
         return parent::getPage('Ficha - consulta', $content);
     }
 
-
     // Metodo para apresentar a tela de validação da consulta 
     public static function getValidarConsulta($request, $id_consulta)
     {
@@ -424,8 +406,9 @@ class Consulta extends Page
 
             "msg" => self::exibeMensagem($request),
 
-            "buttonValidar" => "Validar consulta",
+            "buttonValidar" => "Salvar e aguardar resultados",
             "buttonFinalizar" => "Finalizar consulta",
+            "buttoncancelar" => "Anular consulta",
 
             // dados do paciente
             'id_paciente' => $obConsultaRealizada->id_paciente,
@@ -468,72 +451,32 @@ class Consulta extends Page
     {
         $obConsulta = ConsultaDao::getConsulta($id_consulta);
 
-        if (isset($_POST['finalizar'])) {
+        // Busca a pacinte  da consulta por id
+        $obPaciente = PacienteDao::getPacienteId($obConsulta->id_paciente);
 
+        // Verifica se foi finalizado
+        if (isset($_POST['finalizar'])) {
             $obConsulta->finalizarConsulta();
 
+            if ($obConsulta->estado_consulta == "Finalizada") {
+                $obPaciente->atualizarEstado("Em tratamento");
+            }
+
             // Redireciona ao consultorio
-            $request->getRouter()->redirect('/consulta?msg=validar');
+            $request->getRouter()->redirect('/consulta?msg=cadastrado');
         }
 
+        // Verifica se foi validada
         if (isset($_POST['validar'])) {
 
-            echo '<pre>';
-            print_r("valiada");
-            echo '</pre>';
-            exit;
+            $obConsulta->estadoConsulta("Exames pendentes");
+            if ($obConsulta->estado_consulta == "Exames pendentes") {
+                $obPaciente->atualizarEstado("Em observação");
+            }
+
+            // Redireciona ao consultorio
+            $request->getRouter()->redirect('/consulta?msg=cadastrado');
         }
-
-        $obConsultaRealizada = ConsultaDao::getConsultaRelizada($id_consulta);
-
-        // obtem o id da triagem
-        $idTriagem = $obConsultaRealizada->id_triagem;
-        //Instancia da triagem
-        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($idTriagem);
-
-        $content = View::render('consulta/formConfirmaConsulta', [
-
-            "msg" => self::exibeMensagem($request),
-
-            "button1" => "Validar consulta",
-
-            "button2" => "Finalizar consulta",
-
-            // dados do paciente
-            'id_paciente' => $obConsultaRealizada->id_paciente,
-            'nome' => $obConsultaRealizada->nome_paciente,
-            'genero' => $obConsultaRealizada->genero_paciente,
-            'ano' => !empty($obConsultaRealizada->nascimento_paciente) ? (date('Y') - date('Y', strtotime($obConsultaRealizada->nascimento_paciente))) : "Indefinido",
-            'bilhete' => !empty($obConsultaRealizada->bilhete_paciente) ? $obConsultaRealizada->bilhete_paciente : "indefinido",
-            'telefone' => !empty($obConsultaRealizada->telefone1_paciente) ? $obConsultaRealizada->telefone1_paciente : "indefinido",
-            'morada' => !empty($obConsultaRealizada->morada_paciente) ? $obConsultaRealizada->morada_paciente : "indefinido",
-
-            // dados da consulta
-            'id_consulta' => $obConsultaRealizada->id_consulta,
-            'motivo' => !empty($obConsultaRealizada->motivo_consulta) ? $obConsultaRealizada->motivo_consulta : "indefinido",
-            'conduta' => !empty($obConsultaRealizada->conduta_consulta) ? $obConsultaRealizada->conduta_consulta : "indefinido",
-            'diagnostico' => !empty($obConsultaRealizada->diagnostico_consulta) ? $obConsultaRealizada->diagnostico_consulta : "indefinido",
-            'obs' => !empty($obConsultaRealizada->observacao_consulta) ? $obConsultaRealizada->observacao_consulta : "indefinido",
-            'retorno' => !empty($obConsultaRealizada->retorno_consulta) ? $obConsultaRealizada->retorno_consulta : "indefinido",
-            'data' => !empty($obConsultaRealizada->criado_consulta) ? (date('d-m-Y', strtotime($obConsultaRealizada->criado_consulta))) : "indefinido",
-
-            // dados da triagem
-            'id_triagem' => $triagemRegistrado->id_triagem,
-            'peso' =>  !empty($triagemRegistrado->temperatura_triagem) ? $triagemRegistrado->temperatura_triagem : "indefinido",
-            'temperatura' =>  !empty($triagemRegistrado->temperatura_triagem) ? $triagemRegistrado->temperatura_triagem : "indefinido",
-            'pressao' =>  !empty($triagemRegistrado->pressao_arterial_triagem) ? $triagemRegistrado->pressao_arterial_triagem : "indefinido",
-            'cardiaca' =>  !empty($triagemRegistrado->frequencia_cardiaca_triagem) ? $triagemRegistrado->frequencia_cardiaca_triagem : "indefinido",
-            'respiratorio' =>  !empty($triagemRegistrado->frequencia_respiratorio_triagem) ? $triagemRegistrado->frequencia_respiratorio_triagem : "indefinido",
-            'saturacao' =>  !empty($triagemRegistrado->Saturacao_oxigenio_triagem) ? $triagemRegistrado->Saturacao_oxigenio_triagem : "indefinido",
-            'observação' =>  !empty($triagemRegistrado->observacao_triagem) ? $triagemRegistrado->observacao_triagem : "indefinido",
-
-            "receita" => self::getConsultaReceita($id_consulta),
-
-            "exames" => self::getConsultaExame($id_consulta)
-
-        ]);
-
-        return parent::getPage('Validação da consulta', $content);
     }
 
     // Metodo que apresenta os pacientes aspera da consulta
@@ -614,7 +557,7 @@ class Consulta extends Page
 
 
 
-    // Metodo que marca a consulta
+    /* Metodo que marca a consulta
     public static function getMarcarConsulta($request, $id_paciente)
     {
         $content = View::render('consulta/formMarcarConsulta', [
@@ -628,7 +571,6 @@ class Consulta extends Page
         ]);
         return parent::getPage('Marcação de consulta', $content);
     }
-
     // Metodo que marca a consulta
     public static function setMarcarConsulta($request, $id_paciente)
     {
@@ -653,4 +595,5 @@ class Consulta extends Page
         ]);
         return parent::getPage('Ficha - consulta', $content);
     }
+    */
 }

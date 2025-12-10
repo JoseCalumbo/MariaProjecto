@@ -19,9 +19,7 @@ class Paciente extends Page
     // exibe a messagem de operacao
     public static function exibeMensagem($request)
     {
-
         $queryParam = $request->getQueryParams();
-
         if (!isset($queryParam['msg'])) return '';
 
         switch ($queryParam['msg']) {
@@ -66,7 +64,7 @@ class Paciente extends Page
 
         while ($obPaciente = $resultado->fetchObject(PacienteDao::class)) {
 
-           //$idade = $idades == 2025 ? $idade : "0";
+            //$idade = $idades == 2025 ? $idade : "0";
 
             $item .= View::render('paciente/listarPaciente', [
                 'id_paciente' => $obPaciente->id_paciente,
@@ -141,7 +139,7 @@ class Paciente extends Page
                 $obPaciente->morada_paciente = $postVars['morada'];
 
                 $obPaciente->motivo_paciente = $postVars['motivo'];
-                $obPaciente->estado_paciente = $postVars['estado'] ;
+                $obPaciente->estado_paciente = $postVars['estado'];
                 $obPaciente->responsavelNome_paciente = $postVars['responsavelNome'];
                 $obPaciente->responsavelTelefone_paciente = $postVars['responsavelTelefone'];
 
@@ -395,7 +393,9 @@ class Paciente extends Page
             // busca alterar o estado do paciente
             $obPaciente->atualizarEstadoAgurdando();
 
-            $request->getRouter()->redirect('/paciente?msg=cadastrados');
+            //$request->getRouter()->redirect('/paciente?msg=cadastrados');
+            $request->getRouter()->redirect('/triagem/confirmar/' . $id_triagem . '?msg=confirma');
+
             exit;
         }
         $content = View::render('triagem/formAddTriagem', [
@@ -431,7 +431,7 @@ class Paciente extends Page
         // Instancia da class Triagem
         $TriagemPaciente = new TriagemDao;
 
-        if (isset($_POST['Salvar'],$_POST['confirmo'],)) {
+        if (isset($_POST['Salvar'], $_POST['confirmo'],)) {
 
             $TriagemPaciente->apagarTriagemPaciente($id_paciente);
 
@@ -443,9 +443,4 @@ class Paciente extends Page
             $request->getRouter()->redirect('/paciente?msg=confirma');
         }
     }
-
 }
-
-
-
-

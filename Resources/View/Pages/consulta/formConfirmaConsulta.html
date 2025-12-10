@@ -2,7 +2,8 @@
 
     <section>
         <div class="row" style="text-align: center;">
-            <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Validar Informações da consulta
+            <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Validação e Encerramento da
+                Consulta
             </h5>
             <hr>
         </div>
@@ -141,21 +142,21 @@
                         class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
                     o atestado médico
                 </p>
-
             </div>
-            <br>
 
             <div>
                 <form class="row" method="post" enctype="multipart/form-data">
-                    <button type="submit" name="validar" class="col offset-m7 btn orange m2 white-text font-normal" >
+                    <button type="submit" name="validar" style="margin-left: 6px;"
+                        class="col push-m6 btn blue m4 white-text font-normal">
+                        <i class="material-icons prefix white-text" style="vertical-align: -6px;">check_circle</i>
                         {{buttonValidar}}
                     </button>
 
-                    <button type="submit" name="finalizar" style="margin-left: 6px;" class="col btn m2 white-text font-normal">
+                    <button type="submit" name="finalizar" style="margin-left: 6px;"
+                        class="col push-m6  btn m3 white-text font-normal">
+                        <i class="material-icons prefix white-text" style="vertical-align: -6px;">done_all</i>
                         {{buttonFinalizar}}
                     </button>
-                    <br>
-
                 </form>
             </div>
 
