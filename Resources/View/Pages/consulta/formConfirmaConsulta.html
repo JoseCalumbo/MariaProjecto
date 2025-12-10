@@ -2,7 +2,8 @@
 
     <section>
         <div class="row" style="text-align: center;">
-            <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Validação da consulta</h5>
+            <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Validar Informações da consulta
+            </h5>
             <hr>
         </div>
 
@@ -13,13 +14,13 @@
                 <i class="material-icons prefix white-text " style="vertical-align: -6px;">arrow_back</i>
                 Voltar
             </a>
-            <!--
-            <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
-                <i class="material-icons prefix white-text" style="vertical-align: -6px;">print</i>
-                Relatórios
-            </a>
-            -->
 
+            <!--
+                <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
+                    <i class="material-icons prefix white-text" style="vertical-align: -6px;">print</i>
+                    Relatórios
+                </a>
+            -->
             <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
                 <i class="material-icons prefix white-text" style="vertical-align: -6px;">calendar_today</i>
                 Remarcar consulta
@@ -31,6 +32,7 @@
             </a>
 
         </div>
+
     </section>
 
     <div class="col offset-m1 s12 m11 blue-grey darken-1 row">
@@ -145,16 +147,15 @@
 
             <div>
                 <form class="row" method="post" enctype="multipart/form-data">
-                    <button type="submit" name="finalizar" class="col offset-m7 btn orange m2 white-text font-normal ">
-                        {{button1}}
+                    <button type="submit" name="validar" class="col offset-m7 btn orange m2 white-text font-normal" >
+                        {{buttonValidar}}
                     </button>
 
-                    <button type="submit" name="validar" style="margin-left: 6px;"
-                        class="col btn m2 white-text font-normal">
-                        {{button2}}
+                    <button type="submit" name="finalizar" style="margin-left: 6px;" class="col btn m2 white-text font-normal">
+                        {{buttonFinalizar}}
                     </button>
                     <br>
-                    
+
                 </form>
             </div>
 

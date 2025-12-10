@@ -20,6 +20,7 @@ class ConsultaDao extends PacienteDao
     public $retorno_consulta;
     public $criado_consulta;
     public $alterado_consulta;
+    public $estado_consulta;
 
     // campos da triagem
     public $id_triagem;
@@ -65,37 +66,40 @@ class ConsultaDao extends PacienteDao
         return $this->id_consulta;
     }
 
-    //Método responsavel por Alterar o registrar da triagem
-    public function atualizarTriagem($nomePacinete, $generoPacinete, $nascimentoPacinete, $idPaciente, $bilhetePaciente)
+    //Método responsavel ao estado da consulta
+    public function finalizarConsulta()
     {
-        $obPacientes = PacienteDao::getPacienteId($idPaciente);
-        $idPacienteEditado = $obPacientes->AtualizarTriagemPaciente($nomePacinete, $generoPacinete, $nascimentoPacinete, $bilhetePaciente);
-        $this->id_paciente = $idPacienteEditado;
 
-        return (new Database('tb_triagem'))->update('id_triagem = ' . $this->id_triagem, [
-            'id_triagem' => $this->id_triagem,
-            'observacao_triagem' => $this->observacao_triagem,
+        echo '<pre>';
+        print_r( "as" );
+        echo '</pre>';
+        exit;
 
-            'peso_triagem' => $this->peso_triagem,
-            'temperatura_triagem' => $this->temperatura_triagem,
-            'pressao_arterial_triagem' => $this->pressao_triagem,
-
-            'frequencia_cardiaca_triagem' => $this->cardiaca_triagem,
-            'frequencia_respiratorio_triagem' => $this->frequencia_triagem,
-            'Saturacao_oxigenio_triagem' => $this->saturacao_triagem,
-
-            'risco_triagem' => $this->risco_triagem,
-
-            'id_paciente' => $this->id_paciente,
-            'id_funcionario' => $this->id_funcionario,
-            'data_triagem' => $this->data_triagem,
+         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+            'estado_consulta' => $this->estado_consulta = "Finalizada",
         ]);
     }
 
-  // Método responsavel por selecinar uma triagem salva pelo id
-    public static function getTriagemId($id_triagem)
+    //Método responsavel ao estado da consulta
+    public function validarConsulta()
     {
-        return (new Database('tb_triagem'))->select('id_triagem = ' . $id_triagem)->fetchObject(self::class);
+         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+            'estado_consulta' => $this->estado_consulta = "Remarcada",
+        ]);
+    }
+
+    //Método responsavel ao estado da consulta
+    public function esperarExameConsulta()
+    {
+         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+            'estado_consulta' => $this->estado_consulta = "Exames pendentes",
+        ]);
+    }
+
+  // Método responsavel para selecionar uma consulta
+    public static function getConsulta($id_consulta)
+    {
+        return (new Database('tb_consulta'))->select('id_consulta = ' . $id_consulta)->fetchObject(self::class);
     }
 
     # Apresenta os resultado da tabela exames Solicitados

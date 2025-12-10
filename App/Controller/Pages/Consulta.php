@@ -424,9 +424,8 @@ class Consulta extends Page
 
             "msg" => self::exibeMensagem($request),
 
-            "button1" => "Validar consulta",
-
-            "button2" => "Finalizar consulta",
+            "buttonValidar" => "Validar consulta",
+            "buttonFinalizar" => "Finalizar consulta",
 
             // dados do paciente
             'id_paciente' => $obConsultaRealizada->id_paciente,
@@ -467,18 +466,14 @@ class Consulta extends Page
     // Metodo para apresentar a tela de validação da consulta 
     public static function setValidarConsulta($request, $id_consulta)
     {
+        $obConsulta = ConsultaDao::getConsulta($id_consulta);
 
         if (isset($_POST['finalizar'])) {
 
-            echo '<pre>';
-            print_r("finalizar");
-            echo '</pre>';
-            
+            $obConsulta->finalizarConsulta();
 
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
-             exit;
+            // Redireciona ao consultorio
+            $request->getRouter()->redirect('/consulta?msg=validar');
         }
 
         if (isset($_POST['validar'])) {
@@ -572,7 +567,6 @@ class Consulta extends Page
                      <li class="font-normal center"> Sem exame adicionada há consulta </li>
                 </ul>';
             exit;
-            
         } else {
 
             $tabela .= View::render('consulta/itemConsulta/tabelaExame', [
