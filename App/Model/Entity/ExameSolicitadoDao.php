@@ -115,8 +115,7 @@ class ExameSolicitadoDao
                               JOIN tb_consulta c1 ON ce.id_consulta = c1.id_consulta 
                               JOIN tb_paciente p ON c1.id_paciente  = p.id_paciente 
                               JOIN tb_exame    e ON e.id_exame    =  ce.id_exame
-                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta ='.$id_consulta, $order, $limit, $fields);
-    
+                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta =' . $id_consulta, $order, $limit, $fields);
     }
 
     # Apresenta os resultado da tabela exames Solicitados na pagina de validação da consuta
@@ -126,12 +125,11 @@ class ExameSolicitadoDao
                               JOIN tb_consulta c1 ON ce.id_consulta = c1.id_consulta 
                               JOIN tb_paciente p ON c1.id_paciente  = p.id_paciente 
                               JOIN tb_exame    e ON e.id_exame    =  ce.id_exame
-                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta ='.$id_consulta, $order, $limit, $fields);
-    
+                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta =' . $id_consulta, $order, $limit, $fields);
     }
 
 
-     # Apresenta os resultado da tabela exames Solicitados
+    # Apresenta os resultado da tabela exames Solicitados
     public static function listarExameFinalizado($where = null, $order = null, $limit = null, $fields = '*')
     {
         return (new Database('tb_consulta_exames ce 
@@ -146,5 +144,23 @@ class ExameSolicitadoDao
     public static function getExameSolicitadoId($id_exame)
     {
         return (new Database('tb_consulta_exames'))->select('id_exame_solicitado = ' . $id_exame)->fetchObject(self::class);
+    }
+    /** Apresenta as listagem dos meus exames solicitados feita
+     * @param string $where
+     */
+    public static function listarMeuExamesSolicitado($id, $order = null, $limit = null, $fields = '*')
+    {
+        //Pega o id do usuario logado
+        $usuarioLogado = Session::getUsuarioLogado();
+        $id = $usuarioLogado['id'];
+
+        return (new Database('tb_consulta_exames ce 
+                              JOIN tb_consulta c ON ce.id_consulta = c.id_consulta 
+                              JOIN tb_paciente p ON c.id_paciente  = p.id_paciente 
+                              JOIN tb_exame    e ON e.id_exame    =  ce.id_exame 
+                              JOIN tb_exame_resultado er ON  er.id_exame_solicitado = ce.id_exame_solicitado
+                            ')
+       // )->select('c1.id_funcionario = ' . $id . '', $order, $limit, $fields);
+        )->select('c.id_funcionario = ' . $id . '', $order, $limit, $fields);
     }
 }

@@ -27,3 +27,16 @@ $obRouter->post('/receita', [
         return new Response(200,Pages\Atestado::telaAtestado($request));
     }
 ]);
+
+//_____________________________________________________________________________________________
+
+// Apresenta a tela de gereciamento de Prescricao  e sua listagem GET
+$obRouter->get('/consulta/prescrever/{id_consulta}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request,$id_consulta) {
+        return new Response(200,Pages\Prescrisao::getTelaGeradorReceita($request, $id_consulta));
+    }
+]);
+

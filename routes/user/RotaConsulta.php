@@ -138,7 +138,7 @@ $obRouter->get('/consulta/marcar',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_paciente){ return new Response(200,Pages\Consulta::getMarcarConsulta($request,$id_paciente)); }
+   // function($request,$id_paciente){ return new Response(200,Pages\Consulta::getMarcarConsulta($request,$id_paciente)); }
 ]);
 
 // rota para marcar consulta
@@ -147,5 +147,5 @@ $obRouter->post('/consulta/marcar',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_paciente){ return new Response(200,Pages\Consulta::setMarcarConsulta($request,$id_paciente)); }
+   // function($request,$id_paciente){ return new Response(200,Pages\Consulta::setMarcarConsulta($request,$id_paciente)); }
 ]);

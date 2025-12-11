@@ -133,7 +133,7 @@ class Laboratorio extends Page
         $resultado = ExameSolicitadoDao::listarExameFinalizado($where, 'emergencia_exame', $obPagination->getLimit());
 
         while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
-      
+
             $item .= View::render('laboratorio/listarExameFinalizado', [
                 'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
                 'nome_paciente' => $obExameSolicitado->nome_paciente,
@@ -183,8 +183,17 @@ class Laboratorio extends Page
     // Método que apresenta a pagina do lançamento de resultado
     public static function getLancarResultado($request, $id_exameSolicitado)
     {
+
+        // busca o exame solicitado
+        $obExameSelecionado = ExameSolicitadoDao::getExameSolicitadoId($id_exameSolicitado);
+
+        // obtem o id do exame solicitado
+        $idExame = $obExameSelecionado->id_exame;
+
+        $obExame = ExameDao::getExameId($idExame);
+
         $content = View::render('laboratorio/formResultado', [
-            'titulo' => 'Lançar resultado do exame',
+            'titulo' => 'Lançar resultado do exame - '.$obExame->nome_exame.' ',
             'button' => 'Salvar',
             'obsResultado' => '',
             'imagem' => '',
@@ -224,7 +233,7 @@ class Laboratorio extends Page
                 $obExameResultado->cadastrarExameResulatdo();
             }
 
-            $obExameSelecionado->estado_exame_solicitado="concluído";
+            $obExameSelecionado->estado_exame_solicitado = "concluído";
             $obExameSelecionado->alterarEstadoExame();
 
             // Redireciona para os exames solicitados

@@ -1,23 +1,30 @@
 <tr>
     <td class="font-normal">{{id_paciente}}</td>
     <td>
-        <img src="Files/Imagem/paciente/{{imagem}}" class="materialboxed circle " width="30" height="25">
+        <img src="Files/Imagem/paciente/{{imagem}}" class="materialboxed circle " width="40" height="35">
     </td>
     <td class="font-normal">{{nome_paciente}}</td>
     <td class="font-normal">{{exames}}</td>
     <td class="font-normal">{{receita}}</td>
     <td class=" font-normal">{{estado}}</td>
 
-    <td class="center">
+    <td>
 
-        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_triagem}}">
+        <a class="tooltip-container " href="{{URL}}/consulta/prescrever/{{id_consulta}}">
             <button type="button " class="font-normal waves-effect btn blue darken-1 tooltip-btn">
                 <i class="material-icons center">receipt_long</i>
             </button>
             <div class="custom-tooltip">Prescrever medicamento</div>
         </a>
 
-        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_zona}}">
+        <a class="tooltip-container " href="{{URL}}/consulta/remarcar/{{id_paciente}}">
+            <button type="button " class="font-normal waves-effect btn blue-grey darken-3 tooltip-btn">
+                <i class="material-icons center">calendar_today</i>
+            </button>
+            <div class="custom-tooltip">Remarcar Consulta</div>
+        </a>
+
+        <a class="tooltip-container " href="{{URL}}/consulta/imprimir/{{id_consulta}}">
             <button type="button " class="font-normal waves-effect btn teal accent-4 tooltip-btn">
                 <i class="material-icons center">print</i>
             </button>

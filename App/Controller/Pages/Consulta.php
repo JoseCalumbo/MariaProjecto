@@ -138,23 +138,19 @@ class Consulta extends Page
 
         $resultado = ConsultaDao::listarConsultaFeita($where, 'nome_paciente', $obPagination->getLimit());
 
-        while ($obPacientesEspera1 = $resultado->fetchObject(ConsultaDao::class)) {
-
-            // echo '<pre>';
-            // print_r( $obPacientesEspera1 );
-            //echo '</pre>';
+        while ($obMeuPacientesConsulta = $resultado->fetchObject(ConsultaDao::class)) {
 
             $item .= View::render('consulta/listarMeusPaciente', [
-                'id_triagem' => $obPacientesEspera1->id_triagem,
-                'id_paciente' => $obPacientesEspera1->id_paciente,
-                'imagem' => $obPacientesEspera1->imagem_paciente,
-                'nome_paciente' => $obPacientesEspera1->nome_paciente,
-                'genero' => $obPacientesEspera1->genero_paciente,
-                'estado' => $obPacientesEspera1->estado_paciente,
+                'id_consulta' => $obMeuPacientesConsulta->id_consulta,
+                'id_triagem' => $obMeuPacientesConsulta->id_triagem,
+                'id_paciente' => $obMeuPacientesConsulta->id_paciente,
+                'imagem' => $obMeuPacientesConsulta->imagem_paciente,
+                'nome_paciente' => $obMeuPacientesConsulta->nome_paciente,
+                'receita' =>  !empty($obMeuPacientesConsulta->add_receita_consulta) ? $obMeuPacientesConsulta->add_receita_consulta : "______",
+                'exames' => $obMeuPacientesConsulta->estado_consulta  == "Exames pendentes" ? $obMeuPacientesConsulta->estado_consulta : "Sem exames",
+                'estado' => $obMeuPacientesConsulta->estado_paciente,
             ]);
         }
-
-         // exit;
 
         $queryParam = $request->getQueryParams();
 
@@ -171,35 +167,7 @@ class Consulta extends Page
 
         return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
                                                    <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
-                                                    Sem registos de pacientes em espera.
-                                                    </td>
-                                                </tr>';
-    }
-
-    // Metodo que apresenta os pacientes agendados
-    private static function getMinhaAgenda($request, &$obPagination)
-    {
-        // Var que retorna o conteudo
-        $item = '';
-
-        $resultado = MarcarConsultaDao::listarConsultaMarcada();
-
-        while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
-
-            $item .= View::render('consulta/listarAgenda', [
-                'id_triagem' => "",
-                'id_paciente' => "",
-                'tipo' => "Consulta geral",
-                'nome_paciente' => "",
-                'dataMarcacao' => "12-10-2026",
-                'dataConsulta' => "12-10-2026",
-                'estado' => "",
-            ]);
-        }
-
-        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
-                                                   <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
-                                                    Sem consultas marcadas.
+                                                    Nenhum paciente encontrado.
                                                     </td>
                                                 </tr>';
     }
@@ -232,30 +200,57 @@ class Consulta extends Page
                                                 </tr>';
     }
 
-    // Metodo que apresenta os pacientes agendados
+    // Método para apresenatar os registos do exames finalizados
     private static function getExameSolicitado($request, &$obPagination)
     {
-        // Var que retorna o conteudo
         $item = '';
 
-        $resultado = MarcarConsultaDao::listarConsultaMarcada();
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
-        while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
+        $condicoes = [
+            strlen($buscar) ? 'nome_exame LIKE "' . $buscar . '%"' : null,
+        ];
 
-            $item .= View::render('consulta/listarAgenda', [
-                'id_triagem' => "",
-                'id_paciente' => "",
-                'tipo' => "Consulta geral",
-                'nome_paciente' => "",
-                'dataMarcacao' => "12-10-2026",
-                'dataConsulta' => "12-10-2026",
-                'estado' => "",
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
+
+        //quantidade total de registros da tabela exames
+        $quantidadetotal = ExameSolicitadoDao::listarMeuExamesSolicitado($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+
+        //pagina actual 
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        // instancia de paginacao
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 8);
+
+        $resultado = ExameSolicitadoDao::listarMeuExamesSolicitado($where, 'emergencia_exame', $obPagination->getLimit());
+
+        while ($obExameSolicitado = $resultado->fetchObject(ExameSolicitadoDao::class)) {
+
+            $item .= View::render('consulta/listarExameSolicitado', [
+                'id_exameSolicitado' => $obExameSolicitado->id_exame_solicitado,
+                'nome_paciente' => $obExameSolicitado->nome_paciente,
+                'exame' => $obExameSolicitado->nome_exame,
+                'estado' => $obExameSolicitado->estado_exame_solicitado,
+            ]);
+        } 
+
+        // Verifica se foi realizada uma pesquisa
+        $queryParam = $request->getQueryParams();
+
+        if ($queryParam['pesquisar'] ?? '') {
+
+            return View::render('pesquisar/box_resultado', [
+                'pesquisa' => $buscar,
+                'item' => $item,
+                'numResultado' => $quantidadetotal,
             ]);
         }
-
+        //Nenhum Exame encontado
         return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
                                                    <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
-                                                    Sem exames solicitados concluido no momento.
+                                                   Nenhum exame solicitado concluido encontrado.
                                                     </td>
                                                 </tr>';
     }
@@ -288,8 +283,6 @@ class Consulta extends Page
             'listarPacienteEspera' => self::getPacienteEspera($request, $obPagination),
 
             'listarMinhaConsulta' => self::getMinhaConsulta($request, $obPagination),
-
-            'listarMinhaAgenda' => self::getMinhaAgenda($request, $obPagination),
 
             'listarConsultaFinalizada' => self::getConsultaFinalizada($request, $obPagination),
 

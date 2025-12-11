@@ -141,7 +141,8 @@ class ConsultaDao extends PacienteDao
         $id = $usuarioLogado['id'];
 
         return (new Database('tb_consulta JOIN tb_paciente ON 
-                              tb_consulta.id_paciente = tb_paciente.id_paciente')
+                              tb_consulta.id_paciente = tb_paciente.id_paciente
+                            ')
         )->select('tb_consulta.id_funcionario = ' . $id . '', $order, $limit, $fields);
     }
 }
