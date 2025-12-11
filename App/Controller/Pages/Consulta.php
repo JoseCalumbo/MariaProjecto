@@ -111,6 +111,7 @@ class Consulta extends Page
     private static function getMinhaConsulta($request, &$obPagination)
     {
         $queryParam = $request->getQueryParams();
+
         $obPagination = new Pagination(null, null, null);
 
         // Var que retorna o conteudo
@@ -126,7 +127,7 @@ class Consulta extends Page
         $where = implode(' AND ', $condicoes);
 
         //quantidade total de registros da tabela user
-        $quantidadetotal = TriagemDao::listarTriagemFeita($where, 'risco_triagem', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $quantidadetotal = ConsultaDao::listarConsultaFeita($where, 'nome_paciente', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         //pagina actual 
         $queryParams = $request->getQueryParams();
@@ -135,21 +136,25 @@ class Consulta extends Page
         // instancia de paginacao
         $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
 
-        $resultado = TriagemDao::listarTriagemFeita($where, 'risco_triagem', $obPagination->getLimit());
+        $resultado = ConsultaDao::listarConsultaFeita($where, 'nome_paciente', $obPagination->getLimit());
 
-        while ($obPacientesEspera = $resultado->fetchObject(TriagemDao::class)) {
+        while ($obPacientesEspera1 = $resultado->fetchObject(ConsultaDao::class)) {
 
-            $atender =  $obPacientesEspera->risco_triagem;
+            // echo '<pre>';
+            // print_r( $obPacientesEspera1 );
+            //echo '</pre>';
 
             $item .= View::render('consulta/listarMeusPaciente', [
-                'id_triagem' => $obPacientesEspera->id_triagem,
-                'id_paciente' => $obPacientesEspera->id_paciente,
-                'imagem' => $obPacientesEspera->imagem_paciente,
-                'nome_paciente' => $obPacientesEspera->nome_paciente,
-                'genero' => $obPacientesEspera->genero_paciente,
-                'estado' => $obPacientesEspera->estado_paciente,
+                'id_triagem' => $obPacientesEspera1->id_triagem,
+                'id_paciente' => $obPacientesEspera1->id_paciente,
+                'imagem' => $obPacientesEspera1->imagem_paciente,
+                'nome_paciente' => $obPacientesEspera1->nome_paciente,
+                'genero' => $obPacientesEspera1->genero_paciente,
+                'estado' => $obPacientesEspera1->estado_paciente,
             ]);
         }
+
+         // exit;
 
         $queryParam = $request->getQueryParams();
 

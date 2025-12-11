@@ -69,7 +69,7 @@ class ConsultaDao extends PacienteDao
     //Método responsavel ao estado da consulta
     public function estadoConsulta($estado)
     {
-         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
             'estado_consulta' => $this->estado_consulta = $estado,
         ]);
     }
@@ -77,7 +77,7 @@ class ConsultaDao extends PacienteDao
     //Método responsavel ao estado da consulta
     public function finalizarConsulta()
     {
-         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
             'estado_consulta' => $this->estado_consulta = "Finalizada",
         ]);
     }
@@ -85,7 +85,7 @@ class ConsultaDao extends PacienteDao
     //Método responsavel ao estado da consulta
     public function validarConsulta()
     {
-         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
             'estado_consulta' => $this->estado_consulta = "Remarcada",
         ]);
     }
@@ -93,12 +93,12 @@ class ConsultaDao extends PacienteDao
     //Método responsavel ao estado da consulta
     public function esperarExameConsulta()
     {
-         return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
             'estado_consulta' => $this->estado_consulta = "Exames pendentes",
         ]);
     }
 
-  // Método responsavel para selecionar uma consulta
+    // Método responsavel para selecionar uma consulta
     public static function getConsulta($id_consulta)
     {
         return (new Database('tb_consulta'))->select('id_consulta = ' . $id_consulta)->fetchObject(self::class);
@@ -109,18 +109,17 @@ class ConsultaDao extends PacienteDao
     {
         return (new Database('tb_consulta c 
                               JOIN tb_paciente p ON c.id_paciente  = p.id_paciente                               
-                              '))->select('c.id_consulta ='.$id_consulta)->fetchObject(self::class);
+                              '))->select('c.id_consulta =' . $id_consulta)->fetchObject(self::class);
     }
 
     # Apresenta os resultado da tabela exames Solicitados
     public static function quantidadeReceitaAdcionado($id_consulta, $order = null, $limit = null, $fields = '*')
     {
-       return (new Database('tb_consulta_exames ce 
+        return (new Database('tb_consulta_exames ce 
                               JOIN tb_consulta c1 ON ce.id_consulta = c1.id_consulta 
                               JOIN tb_paciente p ON c1.id_paciente  = p.id_paciente 
                               JOIN tb_exame    e ON e.id_exame    =  ce.id_exame
-                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta ='.$id_consulta, $order, $limit, $fields);
-    
+                              '))->select('ce.estado_exame_solicitado = "solicitado" AND c1.id_consulta =' . $id_consulta, $order, $limit, $fields);
     }
 
     /** Apresenta as listagem dados da triagem
@@ -132,6 +131,17 @@ class ConsultaDao extends PacienteDao
                               tb_triagem.id_paciente = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
     }
 
+    /** Apresenta as listagem da consulta feita
+     * @param string $where
+     */
+    public static function listarConsultaFeita($id, $order = null, $limit = null, $fields = '*')
+    {
+        //Pega o id do usuario logado
+        $usuarioLogado = Session::getUsuarioLogado();
+        $id = $usuarioLogado['id'];
 
-  
+        return (new Database('tb_consulta JOIN tb_paciente ON 
+                              tb_consulta.id_paciente = tb_paciente.id_paciente')
+        )->select('tb_consulta.id_funcionario = ' . $id . '', $order, $limit, $fields);
+    }
 }

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultório</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        /* Ajustes visuais */
+        .menu-top button, .menu-top input {
+            margin-right: 10px;
+        }
+
+        .tabs .tab a {
+            color: #263238;
+            font-weight: bold;
+        }
+        .tabs .tab a.active {
+            background-color: #00796b !important;
+            color: white !important;
+        }
+        .tabs .indicator {
+            background-color: #004d40;
+        }
+
+        .icon-small {
+            font-size: 18px !important;
+            vertical-align: -3px;
+        }
+        
+        table td i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="grey lighten-4">
+
+<div class="container">
+
+    <!-- ================= MENU SUPERIOR ================= -->
+    <div class="row menu-top" style="margin-top:20px;">
+        <button class="btn teal">
+            <i class="material-icons left">assignment</i>Gerenciar Atestados
+        </button>
+
+        <button class="btn teal">
+            <i class="material-icons left">description</i>Prescrições
+        </button>
+
+        <button class="btn teal">
+            <i class="material-icons left">event</i>Minha Agenda
+        </button>
+
+        <div class="right">
+            <div class="input-field" style="margin-top:0;">
+                <input id="search" type="search" placeholder="Pesquisar paciente...">
+                <label class="label-icon" for="search">
+                    <i class="material-icons">search</i>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- ================= ABAS PRINCIPAIS ================= -->
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s4"><a class="active" href="#consultas_hoje">Consultas de Hoje</a></li>
+                <li class="tab col s4"><a href="#minhas_consultas">Minhas Consultas</a></li>
+                <li class="tab col s4"><a href="#historico">Histórico</a></li>
+            </ul>
+        </div>
+
+        <!-- ================= ABA: CONSULTAS DE HOJE ================= -->
+        <div id="consultas_hoje" class="col s12 white z-depth-1" style="padding:20px;">
+            <h6><b>Consultas de Hoje</b></h6>
+
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Foto</th>
+                        <th>Nome</th>
+                        <th>Exames</th>
+                        <th>Receita</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemplo -->
+                    <tr>
+                        <td>12</td>
+                        <td><i class="material-icons">person</i></td>
+                        <td>Américo Zeusuita</td>
+                        <td>Sem exames</td>
+                        <td>—</td>
+                        <td>Em atendimento</td>
+                        <td>
+                            <button class="btn-small blue">
+                                <i class="material-icons">edit</i>
+                            </button>
+                            <button class="btn-small green">
+                                <i class="material-icons">print</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ================= ABA: MINHAS CONSULTAS ================= -->
+        <div id="minhas_consultas" class="col s12 white z-depth-1" style="padding:20px;">
+            <h6><b>Minhas Consultas</b></h6>
+
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Foto</th>
+                        <th>Nome</th>
+                        <th>Exames</th>
+                        <th>Receita</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>38</td>
+                        <td><i class="material-icons">person_outline</i></td>
+                        <td>Zélianey Camila</td>
+                        <td>Exames pendentes</td>
+                        <td>Com receita</td>
+                        <td>Em observação</td>
+                        <td>
+                            <button class="btn-small blue"><i class="material-icons">edit_calendar</i></button>
+                            <button class="btn-small cyan"><i class="material-icons">note_add</i></button>
+                            <button class="btn-small green"><i class="material-icons">print</i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ================= ABA: HISTÓRICO ================= -->
+        <div id="historico" class="col s12 white z-depth-1" style="padding:20px;">
+            <h6><b>Histórico</b></h6>
+
+            <!-- SUB-ABAS -->
+            <ul class="tabs">
+                <li class="tab col s6"><a class="active" href="#ultimas">Últimas Consultas</a></li>
+                <li class="tab col s6"><a href="#exames_solicitados">Exames Solicitados</a></li>
+            </ul>
+
+            <!-- SUB ABA 1 -->
+            <div id="ultimas" class="col s12" style="padding:20px;">
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Paciente</th>
+                            <th>Status</th>
+                            <th>Relatório</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10/12/2025</td>
+                            <td>Maria José</td>
+                            <td>Finalizada</td>
+                            <td><button class="btn-small green"><i class="material-icons">print</i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SUB ABA 2 -->
+            <div id="exames_solicitados" class="col s12" style="padding:20px;">
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Exame</th>
+                            <th>Status</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>José Manuel</td>
+                            <td>Hemograma</td>
+                            <td>Pendente</td>
+                            <td><button class="btn-small blue"><i class="material-icons">description</i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tabs = document.querySelectorAll('.tabs');
+        M.Tabs.init(tabs);
+    });
+</script>
+
+</body>
+</html>
