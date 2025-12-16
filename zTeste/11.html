@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Médico com IA</title>
+
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #e4e9f7;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45px;
+      background: #00695c;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-left img {
+      height: 28px;
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: #4caf50;
+      border-radius: 50%;
+    }
+
+    /* SIDEBAR CHAT */
+    .chat-sidebar {
+      position: fixed;
+      top: 45px;
+      left: 0;
+      width: 380px;
+      height: calc(100vh - 45px);
+      background: #fff;
+      z-index: 999;
+      transform: translateX(-100%);
+      transition: transform .3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .chat-header {
+      padding: 8px;
+      text-align: right;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      background: #f5f5f5;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* FLOAT BUTTON */
+    .chat-fab {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #fff;
+      color: #00695c;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,.3);
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* MAIN */
+    main {
+      padding: 70px 20px 20px;
+      transition: margin-left .3s ease;
+    }
+
+    .chat-sidebar.open ~ main {
+      margin-left: 380px;
+    }
+
+    .box {
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      min-height: 300px;
+    }
+
+    /* LOADING SPINNER */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #00695c;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* VALIDAÇÃO */
+    .input-field.error input,
+    .input-field.error textarea {
+      border-bottom: 1px solid #f44336 !important;
+      box-shadow: 0 1px 0 0 #f44336 !important;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* TOAST CUSTOMIZADO */
+    .toast {
+      border-radius: 4px;
+    }
+
+    .toast.success {
+      background-color: #4caf50;
+    }
+
+    .toast.error {
+      background-color: #f44336;
+    }
+
+    /* FORM */
+    .input-field {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+    }
+
+    .chat-message.user {
+      background: #e3f2fd;
+      text-align: right;
+    }
+
+    .chat-message.system {
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-left">
+      <img src="https://clipartcraft.com/images/best-logo-design-transparent-6.png">
+      <div>
+        <div>Painel Médico</div>
+        <small>IA Prescrição</small>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span>Dr. José Moculo</span>
+      <div class="online-dot"></div>
+    </div>
+  </div>
+
+  <!-- CHAT BUTTON -->
+  <div class="chat-fab" id="btnOpenChat">
+    <i class='bx bx-chat bx-sm'></i>
+  </div>
+
+  <!-- CHAT SIDEBAR -->
+  <div class="chat-sidebar" id="chatSidebar">
+    <div class="chat-header">
+      <a class="btn-flat" id="btnCloseChat"><i class='bx bx-x'></i></a>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message system">
+        <em>Chat iniciado. Como posso ajudar?</em>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" class="browser-default" placeholder="Digite a mensagem">
+      <a class="btn" onclick="sendMsg()">Enviar</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="mainContent">
+    <div class="row">
+      <!-- FORMULÁRIO DE SINTOMAS -->
+      <div class="col s12">
+        <div class="box">
+          <h6>📋 Dados do Paciente</h6>
+          <form id="formPaciente">
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <input type="text" id="nomePaciente" required>
+                <label for="nomePaciente">Nome do Paciente *</label>
+                <span class="error-message" id="errorNome">Campo obrigatório</span>
+              </div>
+              <div class="input-field col s12 m3">
+                <input type="number" id="idadePaciente" min="0" max="150" required>
+                <label for="idadePaciente">Idade *</label>
+                <span class="error-message" id="errorIdade">Idade inválida</span>
+              </div>
+              <div class="input-field col s12 m3">
+                <input type="number" id="pesoPaciente" min="1" max="300" step="0.1">
+                <label for="pesoPaciente">Peso (kg)</label>
+                <span class="error-message" id="errorPeso">Peso inválido</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="sintomas" class="materialize-textarea" required></textarea>
+                <label for="sintomas">Sintomas Relatados *</label>
+                <span class="error-message" id="errorSintomas">Descreva os sintomas</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="alergias" class="materialize-textarea"></textarea>
+                <label for="alergias">Alergias Conhecidas</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="box" style="position: relative;">
+          <h6>🧠 Sugestão da IA</h6>
+          <div id="resultadoIA"><em>Aguardando análise...</em></div>
+          <div class="loading-overlay" id="loadingIA">
+            <div>
+              <div class="spinner"></div>
+              <p style="margin-top:10px;text-align:center;color:#00695c;">Analisando...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="box">
+          <h6>✍️ Prescrição Final</h6>
+          <textarea id="prescricaoFinal" class="materialize-textarea" placeholder="Editar prescrição"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:10px;">
+      <a class="btn green" onclick="gerarPrescricao()" id="btnAnalisar">
+        <i class='bx bx-brain'></i> Analisar
+      </a>
+      <a class="btn blue" onclick="salvarPrescricao()" id="btnSalvar">
+        <i class='bx bx-save'></i> Salvar
+      </a>
+    </div>
+  </main>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Inicializar Materialize
+    document.addEventListener('DOMContentLoaded', function() {
+      M.updateTextFields();
+    });
+
+    // CHAT CONTROLS
+    const chatSidebar = document.getElementById('chatSidebar');
+    const btnOpen = document.getElementById('btnOpenChat');
+    const btnClose = document.getElementById('btnCloseChat');
+
+    btnOpen.onclick = () => {
+      chatSidebar.classList.add('open');
+      btnOpen.style.display = 'none';
+    };
+
+    btnClose.onclick = () => {
+      chatSidebar.classList.remove('open');
+      btnOpen.style.display = 'flex';
+    };
+
+    // VALIDAÇÕES
+    function validarCampo(campo, errorId, validacao) {
+      const input = document.getElementById(campo);
+      const error = document.getElementById(errorId);
+      const inputField = input.closest('.input-field');
+
+      if (!validacao(input.value)) {
+        inputField.classList.add('error');
+        error.classList.add('show');
+        return false;
+      } else {
+        inputField.classList.remove('error');
+        error.classList.remove('show');
+        return true;
+      }
+    }
+
+    function validarFormulario() {
+      let valido = true;
+
+      // Validar nome
+      valido &= validarCampo('nomePaciente', 'errorNome', (v) => v.trim().length >= 3);
+
+      // Validar idade
+      valido &= validarCampo('idadePaciente', 'errorIdade', (v) => {
+        const idade = parseInt(v);
+        return idade >= 0 && idade <= 150;
+      });
+
+      // Validar peso (opcional, mas se preenchido deve ser válido)
+      const peso = document.getElementById('pesoPaciente').value;
+      if (peso) {
+        valido &= validarCampo('pesoPaciente', 'errorPeso', (v) => {
+          const p = parseFloat(v);
+          return p > 0 && p <= 300;
+        });
+      }
+
+      // Validar sintomas
+      valido &= validarCampo('sintomas', 'errorSintomas', (v) => v.trim().length >= 10);
+
+      return valido;
+    }
+
+    // GERAR PRESCRIÇÃO COM LOADING
+    async function gerarPrescricao() {
+      // Validar formulário
+      if (!validarFormulario()) {
+        M.toast({html: '⚠️ Preencha todos os campos obrigatórios', classes: 'error'});
+        return;
+      }
+
+      // Desabilitar botão
+      const btnAnalisar = document.getElementById('btnAnalisar');
+      btnAnalisar.classList.add('disabled');
+
+      // Mostrar loading
+      const loading = document.getElementById('loadingIA');
+      loading.classList.add('active');
+
+      // Simular chamada à IA (substitua por API real)
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Coletar dados
+        const nome = document.getElementById('nomePaciente').value;
+        const idade = document.getElementById('idadePaciente').value;
+        const sintomas = document.getElementById('sintomas').value;
+        const alergias = document.getElementById('alergias').value;
+
+        // Gerar resposta (mock - substitua por API real)
+        const resultado = `
+          <div style="line-height:1.8;">
+            <strong>Análise para ${nome} (${idade} anos)</strong><br><br>
+            <strong>Diagnóstico Sugerido:</strong><br>
+            Quadro viral respiratório leve<br><br>
+            <strong>Prescrição Recomendada:</strong><br>
+            • Paracetamol 500mg - 1 comprimido de 8/8h por 5 dias<br>
+            • Repouso e hidratação abundante<br>
+            • Retornar se febre persistir por mais de 3 dias<br><br>
+            ${alergias ? `<strong>⚠️ Alergias:</strong> ${alergias}<br>` : ''}
+            <em style="color:#666;font-size:12px;">Esta é uma sugestão. Revise antes de prescrever.</em>
+          </div>
+        `;
+
+        document.getElementById('resultadoIA').innerHTML = resultado;
+        document.getElementById('prescricaoFinal').value = 
+          `Paracetamol 500mg\n1 comprimido de 8/8h\nDuração: 5 dias\n\nOrientações:\n- Repouso\n- Hidratação`;
+
+        M.updateTextFields();
+        M.toast({html: '✅ Análise concluída com sucesso!', classes: 'success'});
+
+      } catch (error) {
+        M.toast({html: '❌ Erro ao gerar prescrição', classes: 'error'});
+        console.error(error);
+      } finally {
+        // Ocultar loading e reabilitar botão
+        loading.classList.remove('active');
+        btnAnalisar.classList.remove('disabled');
+      }
+    }
+
+    // SALVAR PRESCRIÇÃO
+    function salvarPrescricao() {
+      const prescricao = document.getElementById('prescricaoFinal').value;
+
+      if (!prescricao.trim()) {
+        M.toast({html: '⚠️ Nenhuma prescrição para salvar', classes: 'error'});
+        return;
+      }
+
+      // Simular salvamento
+      M.toast({html: '💾 Prescrição salva com sucesso!', classes: 'success'});
+      
+      // Aqui você adicionaria a lógica de salvamento real
+      console.log('Salvando prescrição:', prescricao);
+    }
+
+    // CHAT COM VALIDAÇÃO
+    function sendMsg() {
+      const input = document.getElementById('chatInput');
+      const mensagem = input.value.trim();
+
+      if (!mensagem) {
+        M.toast({html: '⚠️ Digite uma mensagem', classes: 'error'});
+        return;
+      }
+
+      // Adicionar mensagem do usuário
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.innerHTML += `
+        <div class="chat-message user">
+          <b>Você:</b> ${mensagem}
+        </div>
+      `;
+
+      input.value = '';
+
+      // Scroll para baixo
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Simular resposta (substitua por IA real)
+      setTimeout(() => {
+        chatMessages.innerHTML += `
+          <div class="chat-message system">
+            <b>Assistente:</b> Mensagem recebida. Como posso ajudar com esta questão?
+          </div>
+        `;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+
+    // Permitir Enter no chat
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMsg();
+      }
+    });
+  </script>
+</body>
+</html>

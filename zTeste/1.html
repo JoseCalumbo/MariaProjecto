@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Médico com IA</title>
+
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #e4e9f7;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45px;
+      background: #00695c;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-left img {
+      height: 28px;
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: #4caf50;
+      border-radius: 50%;
+    }
+
+    /* SIDEBAR CHAT */
+    .chat-sidebar {
+      position: fixed;
+      top: 45px;
+      left: 0;
+      width: 380px;
+      height: calc(100vh - 45px);
+      background: #fff;
+      z-index: 999;
+      transform: translateX(-100%);
+      transition: transform .3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .chat-header {
+      padding: 8px;
+      text-align: right;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      background: #f5f5f5;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* FLOAT BUTTON */
+    .chat-fab {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #fff;
+      color: #00695c;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,.3);
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* MAIN */
+    main {
+      padding: 70px 20px 20px;
+      transition: margin-left .3s ease;
+    }
+
+    .chat-sidebar.open ~ main {
+      margin-left: 380px;
+    }
+
+    .box {
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      min-height: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-left">
+      <img src="https://clipartcraft.com/images/best-logo-design-transparent-6.png">
+      <div>
+        <div>Painel Médico</div>
+        <small>IA Prescrição</small>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span>Dr. José Moculo</span>
+      <div class="online-dot"></div>
+    </div>
+  </div>
+
+  <!-- CHAT BUTTON -->
+  <div class="chat-fab" id="btnOpenChat">
+    <i class='bx bx-chat bx-sm'></i>
+  </div>
+
+  <!-- CHAT SIDEBAR -->
+  <div class="chat-sidebar" id="chatSidebar">
+    <div class="chat-header">
+      <a class="btn-flat" id="btnCloseChat"><i class='bx bx-x'></i></a>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <em>Chat iniciado...</em>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" class="browser-default" placeholder="Digite a mensagem">
+      <a class="btn" onclick="sendMsg()">Enviar</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="mainContent">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="box">
+          <h6>🧠 Sugestão da IA</h6>
+          <div id="resultadoIA"><em>Aguardando análise...</em></div>
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="box">
+          <h6>✍️ Prescrição Final</h6>
+          <textarea class="materialize-textarea" placeholder="Editar prescrição"></textarea>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <a class="btn green" onclick="gerarPrescricao()">Analisar</a>
+      <a class="btn blue">Salvar</a>
+    </div>
+  </main>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    const chatSidebar = document.getElementById('chatSidebar');
+    const btnOpen = document.getElementById('btnOpenChat');
+    const btnClose = document.getElementById('btnCloseChat');
+
+    btnOpen.onclick = () => {
+      chatSidebar.classList.add('open');
+      btnOpen.style.display = 'none';
+    };
+
+    btnClose.onclick = () => {
+      chatSidebar.classList.remove('open');
+      btnOpen.style.display = 'flex';
+    };
+
+    function gerarPrescricao() {
+      document.getElementById('resultadoIA').innerHTML = 'Paracetamol 500mg 8/8h por 5 dias';
+    }
+
+    function sendMsg() {
+      const input = document.getElementById('chatInput');
+      if(!input.value) return;
+      document.getElementById('chatMessages').innerHTML += `<div><b>Você:</b> ${input.value}</div>`;
+      input.value='';
+    }
+  </script>
+</body>
+</html>

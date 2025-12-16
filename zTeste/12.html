@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Médico com IA</title>
+
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #e4e9f7;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45px;
+      background: #00695c;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-left img {
+      height: 28px;
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: #4caf50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* SIDEBAR CHAT */
+    .chat-sidebar {
+      position: fixed;
+      top: 45px;
+      left: 0;
+      width: 380px;
+      height: calc(100vh - 45px);
+      background: #fff;
+      z-index: 999;
+      transform: translateX(-100%);
+      transition: transform .3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .chat-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .chat-header {
+      padding: 12px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header h6 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      background: #fafafa;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      padding: 12px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    /* FLOAT BUTTON */
+    .chat-fab {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #00695c;
+      color: #fff;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.3);
+      cursor: pointer;
+      z-index: 1001;
+      transition: all .3s ease;
+    }
+
+    .chat-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,.4);
+    }
+
+    /* MAIN */
+    main {
+      padding: 60px 20px 20px;
+      transition: margin-left .3s ease;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .chat-sidebar.open ~ main {
+      margin-left: calc(380px + (100vw - 1400px) / 2);
+    }
+
+    @media (max-width: 1400px) {
+      .chat-sidebar.open ~ main {
+        margin-left: 380px;
+      }
+    }
+
+    /* BOX */
+    .box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .box h6 {
+      margin: 0 0 15px 0;
+      font-weight: 500;
+      color: #00695c;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TABS CUSTOMIZADAS */
+    .tabs {
+      background: transparent;
+      box-shadow: none;
+      margin-bottom: 0;
+    }
+
+    .tabs .tab {
+      background: rgba(255,255,255,0.7);
+      margin-right: 5px;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .tabs .tab a {
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .tabs .tab a:hover {
+      background: rgba(0,105,92,0.05);
+      color: #00695c;
+    }
+
+    .tabs .tab a.active {
+      background: #fff;
+      color: #00695c;
+    }
+
+    .tabs .indicator {
+      background-color: #00695c;
+      height: 3px;
+    }
+
+    .tab-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 0 8px 8px 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* LOADING SPINNER */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #00695c;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* VALIDAÇÃO */
+    .input-field.error input,
+    .input-field.error textarea {
+      border-bottom: 1px solid #f44336 !important;
+      box-shadow: 0 1px 0 0 #f44336 !important;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* CHAT MESSAGE */
+    .chat-message {
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-message.user {
+      background: #e3f2fd;
+      text-align: right;
+      margin-left: 40px;
+    }
+
+    .chat-message.system {
+      background: #f5f5f5;
+      margin-right: 40px;
+    }
+
+    /* RESULTADO IA */
+    #resultadoIA {
+      line-height: 1.8;
+      min-height: 200px;
+    }
+
+    #resultadoIA em {
+      color: #999;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 992px) {
+      .chat-sidebar {
+        width: 100%;
+      }
+      
+      .chat-sidebar.open ~ main {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-left">
+      <img src="https://clipartcraft.com/images/best-logo-design-transparent-6.png" alt="Logo">
+      <div>
+        <div>Painel Médico</div>
+        <small>IA Prescrição</small>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span>Dr. José Moculo</span>
+      <div class="online-dot"></div>
+    </div>
+  </div>
+
+  <!-- CHAT BUTTON -->
+  <div class="chat-fab" id="btnOpenChat">
+    <i class='bx bx-chat bx-sm'></i>
+  </div>
+
+  <!-- CHAT SIDEBAR -->
+  <div class="chat-sidebar" id="chatSidebar">
+    <div class="chat-header">
+      <h6><i class='bx bx-message-square-dots'></i> Assistente IA</h6>
+      <a class="btn-flat" id="btnCloseChat"><i class='bx bx-x bx-sm'></i></a>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message system">
+        <strong>Assistente:</strong> Olá! Como posso ajudar com suas dúvidas médicas?
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+      <a class="btn teal" onclick="sendMsg()">
+        <i class='bx bx-send'></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="mainContent">
+    
+    <!-- PARTE 1: SUGESTÃO DA IA -->
+    <div class="row">
+      <div class="col s12">
+        <div class="box" style="position: relative;">
+          <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
+          <div id="resultadoIA">
+            <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
+          </div>
+          <div class="loading-overlay" id="loadingIA">
+            <div style="text-align: center;">
+              <div class="spinner"></div>
+              <p style="margin-top:15px;color:#00695c;font-weight:500;">
+                <i class='bx bx-loader-alt bx-spin'></i> Analisando dados...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTE 2: TABS (DADOS DO PACIENTE E PRESCRIÇÃO) -->
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s6">
+            <a class="active" href="#tabDadosPaciente">
+              <i class='bx bx-user-circle'></i> Dados do Paciente
+            </a>
+          </li>
+          <li class="tab col s6">
+            <a href="#tabPrescricao">
+              <i class='bx bx-edit'></i> Prescrição Final
+            </a>
+          </li>
+        </ul>
+
+        <!-- TAB 1: DADOS DO PACIENTE -->
+        <div id="tabDadosPaciente" class="tab-content">
+          <form id="formPaciente">
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <input type="text" id="nomePaciente" required>
+                <label for="nomePaciente">Nome do Paciente *</label>
+                <span class="error-message" id="errorNome">Campo obrigatório (mínimo 3 caracteres)</span>
+              </div>
+              <div class="input-field col s12 m3">
+                <input type="number" id="idadePaciente" min="0" max="150" required>
+                <label for="idadePaciente">Idade *</label>
+                <span class="error-message" id="errorIdade">Idade inválida (0-150)</span>
+              </div>
+              <div class="input-field col s12 m3">
+                <input type="number" id="pesoPaciente" min="1" max="300" step="0.1">
+                <label for="pesoPaciente">Peso (kg)</label>
+                <span class="error-message" id="errorPeso">Peso inválido (1-300kg)</span>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="sintomas" class="materialize-textarea" required></textarea>
+                <label for="sintomas">Sintomas Relatados *</label>
+                <span class="error-message" id="errorSintomas">Descreva os sintomas (mínimo 10 caracteres)</span>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <textarea id="alergias" class="materialize-textarea"></textarea>
+                <label for="alergias">Alergias Conhecidas</label>
+              </div>
+              <div class="input-field col s12 m6">
+                <textarea id="medicamentosUso" class="materialize-textarea"></textarea>
+                <label for="medicamentosUso">Medicamentos em Uso</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <button type="button" class="btn green" onclick="gerarPrescricao()" id="btnAnalisar">
+                  <i class='bx bx-brain'></i> Analisar com IA
+                </button>
+                <button type="button" class="btn grey lighten-1" onclick="limparFormulario()">
+                  <i class='bx bx-trash'></i> Limpar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- TAB 2: PRESCRIÇÃO FINAL -->
+        <div id="tabPrescricao" class="tab-content">
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="prescricaoFinal" class="materialize-textarea" style="min-height: 250px;"></textarea>
+              <label for="prescricaoFinal">Prescrição Médica</label>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col s12">
+              <button type="button" class="btn blue" onclick="salvarPrescricao()" id="btnSalvar">
+                <i class='bx bx-save'></i> Salvar Prescrição
+              </button>
+              <button type="button" class="btn teal" onclick="imprimirPrescricao()">
+                <i class='bx bx-printer'></i> Imprimir
+              </button>
+              <button type="button" class="btn orange" onclick="copiarPrescricao()">
+                <i class='bx bx-copy'></i> Copiar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Inicializar Materialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar tabs
+      const tabs = document.querySelectorAll('.tabs');
+      M.Tabs.init(tabs);
+      
+      // Atualizar labels dos campos
+      M.updateTextFields();
+    });
+
+    // CHAT CONTROLS
+    const chatSidebar = document.getElementById('chatSidebar');
+    const btnOpen = document.getElementById('btnOpenChat');
+    const btnClose = document.getElementById('btnCloseChat');
+
+    btnOpen.onclick = () => {
+      chatSidebar.classList.add('open');
+      btnOpen.style.display = 'none';
+    };
+
+    btnClose.onclick = () => {
+      chatSidebar.classList.remove('open');
+      btnOpen.style.display = 'flex';
+    };
+
+    // VALIDAÇÕES
+    function validarCampo(campo, errorId, validacao) {
+      const input = document.getElementById(campo);
+      const error = document.getElementById(errorId);
+      const inputField = input.closest('.input-field');
+
+      if (!validacao(input.value)) {
+        inputField.classList.add('error');
+        error.classList.add('show');
+        return false;
+      } else {
+        inputField.classList.remove('error');
+        error.classList.remove('show');
+        return true;
+      }
+    }
+
+    function validarFormulario() {
+      let valido = true;
+
+      valido &= validarCampo('nomePaciente', 'errorNome', (v) => v.trim().length >= 3);
+      valido &= validarCampo('idadePaciente', 'errorIdade', (v) => {
+        const idade = parseInt(v);
+        return idade >= 0 && idade <= 150;
+      });
+
+      const peso = document.getElementById('pesoPaciente').value;
+      if (peso) {
+        valido &= validarCampo('pesoPaciente', 'errorPeso', (v) => {
+          const p = parseFloat(v);
+          return p > 0 && p <= 300;
+        });
+      }
+
+      valido &= validarCampo('sintomas', 'errorSintomas', (v) => v.trim().length >= 10);
+
+      return valido;
+    }
+
+    // GERAR PRESCRIÇÃO COM IA
+    async function gerarPrescricao() {
+      if (!validarFormulario()) {
+        M.toast({html: '⚠️ Preencha todos os campos obrigatórios corretamente', classes: 'red'});
+        return;
+      }
+
+      const btnAnalisar = document.getElementById('btnAnalisar');
+      btnAnalisar.classList.add('disabled');
+
+      const loading = document.getElementById('loadingIA');
+      loading.classList.add('active');
+
+      try {
+        // Simular processamento da IA (2-3 segundos)
+        await new Promise(resolve => setTimeout(resolve, 2500));
+
+        const nome = document.getElementById('nomePaciente').value;
+        const idade = document.getElementById('idadePaciente').value;
+        const peso = document.getElementById('pesoPaciente').value;
+        const sintomas = document.getElementById('sintomas').value;
+        const alergias = document.getElementById('alergias').value;
+        const medicamentos = document.getElementById('medicamentosUso').value;
+
+        // Resultado da análise da IA
+        const resultado = `
+          <div style="line-height:1.9;">
+            <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
+            
+            <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
+            
+            <p><strong>Sintomas:</strong><br>${sintomas}</p>
+            
+            ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
+            ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
+            
+            <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+            
+            <p><strong>🔍 Diagnóstico Sugerido:</strong><br>
+            Quadro viral respiratório agudo de vias aéreas superiores</p>
+            
+            <p><strong>💊 Recomendações Terapêuticas:</strong></p>
+            <ul style="margin-left:20px;">
+              <li>Paracetamol 750mg - 1 comprimido de 8/8h por 5 dias</li>
+              <li>Dipirona 500mg - 1 comprimido se febre persistente (máx 4x/dia)</li>
+              <li>Repouso relativo</li>
+              <li>Hidratação oral abundante (mínimo 2L/dia)</li>
+              <li>Retornar se febre > 3 dias ou piora dos sintomas</li>
+            </ul>
+            
+            <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
+              <small><strong>⚠️ Atenção:</strong> Esta é uma sugestão baseada em IA. 
+              Revise cuidadosamente antes de prescrever ao paciente.</small>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('resultadoIA').innerHTML = resultado;
+
+        // Preencher prescrição final
+        const prescricaoTexto = `PRESCRIÇÃO MÉDICA
+
+Paciente: ${nome}
+Idade: ${idade} anos
+Data: ${new Date().toLocaleDateString('pt-BR')}
+
+MEDICAMENTOS:
+
+1) Paracetamol 750mg
+   Posologia: 1 comprimido de 8/8 horas
+   Duração: 5 dias
+   Via: Oral
+
+2) Dipirona 500mg
+   Posologia: 1 comprimido se febre persistente
+   Frequência: Máximo 4x ao dia
+   Via: Oral
+
+ORIENTAÇÕES:
+- Repouso relativo
+- Hidratação oral abundante (mínimo 2 litros/dia)
+- Retornar em caso de febre persistente por mais de 3 dias
+- Retornar se houver piora dos sintomas
+
+___________________________
+Dr. José Moculo
+CRM: XXXXX`;
+
+        document.getElementById('prescricaoFinal').value = prescricaoTexto;
+        M.updateTextFields();
+        M.textareaAutoResize(document.getElementById('prescricaoFinal'));
+
+        M.toast({html: '✅ Análise concluída com sucesso!', classes: 'green'});
+
+        // Mudar para a tab de prescrição
+        const instance = M.Tabs.getInstance(document.querySelector('.tabs'));
+        instance.select('tabPrescricao');
+
+      } catch (error) {
+        M.toast({html: '❌ Erro ao gerar prescrição', classes: 'red'});
+        console.error(error);
+      } finally {
+        loading.classList.remove('active');
+        btnAnalisar.classList.remove('disabled');
+      }
+    }
+
+    // SALVAR PRESCRIÇÃO
+    function salvarPrescricao() {
+      const prescricao = document.getElementById('prescricaoFinal').value;
+
+      if (!prescricao.trim()) {
+        M.toast({html: '⚠️ Nenhuma prescrição para salvar', classes: 'orange'});
+        return;
+      }
+
+      // Aqui você adicionaria a lógica de salvamento real (banco de dados, API, etc)
+      console.log('Salvando prescrição:', prescricao);
+      M.toast({html: '💾 Prescrição salva com sucesso!', classes: 'green'});
+    }
+
+    // IMPRIMIR PRESCRIÇÃO
+    function imprimirPrescricao() {
+      const prescricao = document.getElementById('prescricaoFinal').value;
+      
+      if (!prescricao.trim()) {
+        M.toast({html: '⚠️ Nenhuma prescrição para imprimir', classes: 'orange'});
+        return;
+      }
+
+      const printWindow = window.open('', '', 'width=800,height=600');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Prescrição Médica</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 40px; }
+              pre { white-space: pre-wrap; font-family: Arial, sans-serif; line-height: 1.6; }
+            </style>
+          </head>
+          <body>
+            <pre>${prescricao}</pre>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.print();
+    }
+
+    // COPIAR PRESCRIÇÃO
+    function copiarPrescricao() {
+      const prescricao = document.getElementById('prescricaoFinal').value;
+      
+      if (!prescricao.trim()) {
+        M.toast({html: '⚠️ Nenhuma prescrição para copiar', classes: 'orange'});
+        return;
+      }
+
+      navigator.clipboard.writeText(prescricao).then(() => {
+        M.toast({html: '📋 Prescrição copiada!', classes: 'green'});
+      }).catch(() => {
+        M.toast({html: '❌ Erro ao copiar', classes: 'red'});
+      });
+    }
+
+    // LIMPAR FORMULÁRIO
+    function limparFormulario() {
+      document.getElementById('formPaciente').reset();
+      document.getElementById('resultadoIA').innerHTML = '<em>Preencha os dados do paciente e clique em "Analisar"...</em>';
+      document.getElementById('prescricaoFinal').value = '';
+      
+      // Remover erros
+      document.querySelectorAll('.input-field.error').forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('.error-message.show').forEach(el => el.classList.remove('show'));
+      
+      M.updateTextFields();
+      M.toast({html: '🗑️ Formulário limpo', classes: 'blue-grey'});
+    }
+
+    // CHAT COM VALIDAÇÃO
+    function sendMsg() {
+      const input = document.getElementById('chatInput');
+      const mensagem = input.value.trim();
+
+      if (!mensagem) {
+        M.toast({html: '⚠️ Digite uma mensagem', classes: 'orange'});
+        return;
+      }
+
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.innerHTML += `
+        <div class="chat-message user">
+          <strong>Você:</strong> ${mensagem}
+        </div>
+      `;
+
+      input.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Simular resposta da IA
+      setTimeout(() => {
+        chatMessages.innerHTML += `
+          <div class="chat-message system">
+            <strong>Assistente:</strong> Entendi sua questão sobre "${mensagem}". 
+            Posso ajudar com informações médicas gerais, dosagens e interações medicamentosas.
+          </div>
+        `;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+
+    // Enter no chat
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMsg();
+      }
+    });
+  </script>
+</body>
+</html>

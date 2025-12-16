@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Página com Tabs - Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h3 class="mb-4">Exemplo de Página com Tabs</h3>
+
+    <!-- Abas -->
+    <ul class="nav nav-tabs" id="meuTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                data-bs-target="#home" type="button" role="tab">
+                Início
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="perfil-tab" data-bs-toggle="tab"
+                data-bs-target="#perfil" type="button" role="tab">
+                Perfil
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="config-tab" data-bs-toggle="tab"
+                data-bs-target="#config" type="button" role="tab">
+                Configurações
+            </button>
+        </li>
+    </ul>
+
+    <!-- Conteúdo das abas -->
+    <div class="tab-content border border-top-0 p-3" id="meuTabContent">
+
+        <!-- Aba Início -->
+        <div class="tab-pane fade show active" id="home" role="tabpanel">
+            <h5>Bem-vindo</h5>
+            <p>Conteúdo da aba Início.</p>
+        </div>
+
+        <!-- Aba Perfil -->
+        <div class="tab-pane fade" id="perfil" role="tabpanel">
+            <h5>Perfil do Usuário</h5>
+            <p>Informações do perfil aqui.</p>
+        </div>
+
+        <!-- Aba Configurações -->
+        <div class="tab-pane fade" id="config" role="tabpanel">
+            <h5>Configurações</h5>
+            <p>Opções de configuração do sistema.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

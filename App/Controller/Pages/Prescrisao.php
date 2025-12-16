@@ -1,25 +1,42 @@
-<?php 
+<?php
 
 namespace App\Controller\Pages;
+
 use \App\Utils\Pagination;
 use \App\Model\Entity\UsuarioDao;
 use \App\Model\Entity\ZonaDao;
 use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
+use \App\Utils\ConsultaMedica;
 
 
-Class Prescrisao extends Page{
+class Prescrisao extends Page
+{
 
     // Metodo para gerar a pescrisao
-    public static function getTelaGeradorReceita($request, $id_consulta){
-
-        $buscar = filter_input(INPUT_GET, 'pesquisar',FILTER_SANITIZE_STRING);
-        $content = View::render('consulta/consulta',[
-             'pesquisar'=>$buscar,
-            // 'listarZona'=>self::getBusca($request,$obPagination),
-           //  'paginacao'=>parent::getPaginacao($request,$obPagination)
+    public static function getTelaGeradorReceita($request, $id_consulta)
+    {
+        $consulta = new ConsultaMedica();
+        $dados = "Paciente 20 anos, 60kg, febre 38ºC — qual medicamento usar?";
+        $resposta = $consulta->analisarPaciente($dados);
+        $content = View::render('ReceitaLayouts/contem', [
+           'dados' => $resposta,
         ]);
-        return parent::getPage('Painel Consulta', $content);
+        return parent::getPageReceita('Geradar de consulta', $content);
     }
-
 }
+
+
+/*
+require_once "ConsultaMedica.php";
+
+$consulta = new ConsultaMedica();
+
+$dados = "Paciente 20 anos, 60kg, febre 38ºC — qual medicamento usar?";
+
+$resposta = $consulta->analisarPaciente($dados);
+
+echo "<pre>";
+echo $resposta;
+echo "</pre>";
+*/

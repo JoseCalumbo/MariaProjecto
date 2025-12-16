@@ -271,6 +271,15 @@ class Page
         ]);
     }
 
+    // Método para rederizar a página gerador de receita
+    public static function getPageReceita($title, $content)
+    {
+        return View::render('ReceitaLayouts/pagina', [
+            'title' => $title,
+            'content' => $content
+        ]);
+    }
+
     // Método para rederizar a página Notificação
     public static function getPageNotificacao($title, $content)
     {
