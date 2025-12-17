@@ -14,25 +14,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
-
     <style>
         body {
             background: #e4e9f7;
             font-family: 'Roboto', sans-serif;
-        }
-
-        .font-normal{ text-transform: none;}
-
-        /* drop menu conta activa*/
-        .img-conta {
-            border-radius: 50%;
-            margin-right: 5px;
-            position: relative;
-            top: 11px;
-            color: white;
-            cursor: pointer;
-            border: 1px solid rgb(255, 248, 248);
         }
 
         .nav {
@@ -371,30 +356,11 @@
         /* RESULTADO IA */
         #resultadoIA {
             line-height: 1.8;
-            padding: 10px;
+            min-height: 200px;
         }
 
         #resultadoIA em {
             color: #999;
-        }
-
-        /* Scrollbar customizada para resultado IA */
-        #resultadoIA::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        #resultadoIA::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-
-        #resultadoIA::-webkit-scrollbar-thumb {
-            background: #00695c;
-            border-radius: 4px;
-        }
-
-        #resultadoIA::-webkit-scrollbar-thumb:hover {
-            background: #004d40;
         }
 
         /* RESPONSIVO */
@@ -413,20 +379,384 @@
 
 <body>
 
+
     <!--HEADER-->
-    {{header}}
+    <header class="header  navbar-fixed">
+
+        <nav class="nav menu teal lighten-1 navbar-fixed">
+
+            <div class="nav-wrapper">
+                <!-- logotipo-->
+                <a href="{{URL}}" class="brand-logo" style="position: relative; left: 85px;">
+                    <img class="" src="{{URL}}/Assets/img/logoMenu.png" width="65" height="50">
+                </a>
+
+                <!--dados ou foto de perfil-->
+                <ul class="right hide-on-med-and-down ">
+                    <li class="rigth">
+                        <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1">
+                            {{info}}
+                            <i class="material-icons right lighten-2 icon-tight-left">arrow_drop_down</i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- itens de menu-->
+                <ul class="right hide-on-med-and-down">
+
+                    <li class="capitalize disabled">
+                        <a href="{{URL}}" class="{{acessoHome}}" style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px;">home</i>Inicio
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger {{ATENDIMENTO_VIEW}}" data-target="dropdown-hospital"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px;">local_hospital</i>
+                            Recepção
+                            <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger {{CONSULTA_VIEW}}" data-target="dropdown-consulta"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px;">medical_services</i>
+                            Consultório
+                            <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger {{PACIENTE_CREATE}}" data-target="dropdown-paciente"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px;">person</i> Paciente
+                            <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger {{LABORATORIO_ACESS}}" data-target="dropdown-lab"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px; ">science</i> Laboratório
+                            <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger {{RECEPÇAO}} " data-target="dropdown-farmacia"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight">vaccines</i>Farmácia
+                            <i class="material-icons right icon-tight-left "
+                                style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger " data-target="dropdown-config"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px;">settings</i> Configuração
+                            <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+                    <li class="capitalize">
+                        <a href="#!" class="dropdown-trigger " data-target="dropdown-mais"
+                            style="font-size: 13px; text-transform: capitalize;">
+                            <i class="material-icons left icon-tight" style="font-size: 18px;">list</i> Mais
+                            <i class="material-icons right icon-tight-left" style="font-size: 18px;">arrow_drop_down</i>
+                        </a>
+                    </li>
+
+
+            </div>
+
+            <!-- Dropdown minha conta -->
+            <ul id="dropdown1" class="dropdown-content">
+
+                <li>
+                    <p class="black-text font-normal center negrito">{{nome1}}</p>
+                </li>
+
+                <li class="divider teal"></li> <!-- Linha de separação -->
+
+                <li><a class="black-text font-normal" href="{{URL}}/conta"><i
+                            class="material-icons left">account_circle</i>Minha Conta</a></li>
+                <li><a class="black-text font-normal" href="{{URL}}/conta"><i
+                            class="material-icons left">tungsten</i>Meu
+                        turno</a></li>
+                <li><a class="black-text font-normal" href="{{URL}}/conta/seguranca"><i
+                            class="material-icons left">note_alt</i>Alter
+                        senha</a></li>
+                <li><a class="black-text font-normal" href="{{URL}}/conta"><i
+                            class="material-icons left">calendar_month</i>Agenda</a></li>
+
+                <li class="divider teal"></li> <!-- Linha de separação -->
+                <li><a class="black-text font-normal" href="{{URL}}/contas/perfil"> <i
+                            class="material-icons left">email</i>
+                        Mensagem</a></li>
+                <li><a class="black-text font-normal" href="{{URL}}/conta"> <i
+                            class="material-icons left">notifications</i>
+                        Notificação</a></li>
+                <li class="divider teal"></li> <!-- Linha de separação -->
+
+                <li> <a class="black-text font-normal " href="{{URL}}/conta"><i
+                            class="material-icons left">dvr</i>Logs</a>
+                </li>
+                <li> <a class="black-text font-normal " href="{{URL}}/logout"><i
+                            class="material-icons left">stop</i>Bloquear</a></li>
+
+                <li><a class="black-text font-normal" href="{{URL}}/logout"> <i
+                            class="material-icons left">exit_to_app</i>
+                        Terminar Sessão</a></li>
+
+            </ul>
+
+            <!-- Dropdown mais -->
+            <ul id="dropdown-mais" class="dropdown-content">
+                <li>
+                    <a href="{{URL}}/contabilidade" class="capitalize font-normal {{SALFT}} ">
+                        <i class="material-icons left">bar_chart</i>Contabilidade
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/tesouraria" class="capitalize font-normal {{CAIXA_VIEW}}">
+                        <i class="material-icons left">local_hospital</i>Tesouraria
+                    </a>
+                </li>
+                <li>
+                    <a href="{{URL}}/utilitario" class="dropdown-trigger {{{{PERSONALIZAR}}}} font-normal"
+                        data-target="dropdown-far">
+                        <i class="material-icons left">build</i>Utilitarios
+                        <i class="material-icons right">chevron_right</i>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Dropdown hospital recepção -->
+            <ul id="dropdown-hospital" class="dropdown-content">
+
+                <li>
+                    <a href="{{URL}}/paciente" class="font-normal  {{ATENDIMENTO_VIEW}}">
+                        <i class="material-icons left">medical_information</i>Atendimento - Check-in
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/triagem" class="font-normal {{PACIENTE_CREATE}}">
+                        <i class="material-icons left icon-tight" style="font-size: 18px;">assignment_ind</i> Gerenciar
+                        triagem
+                    </a>
+                </li>
+
+                <li class="divider"></li> <!-- Linha de separação -->
+
+                <li>
+                    <a href="{{URL}}/consulta/marcar" class="font-normal {{MARCAR_CONSULTA_VIEW}}">
+                        <i class="material-icons left">event</i>Marcar consulta
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/paciente" class="font-normal {{EXAME_VIEW}}">
+                        <i class="material-icons left">biotech</i>Agendar Exame
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/paciente" class="font-normal {{INTERNAMENTO_VIEW}}">
+                        <i class="material-icons left">hotel</i>Internamentos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/paciente" class="font-normal {{AGENDAR}}">
+                        <i class="material-icons left">calendar_today</i>Agenda Médica
+                    </a>
+                </li>
+
+            </ul>
+
+            <!--dropdown consultório-->
+            <ul id="dropdown-consulta" class="dropdown-content">
+                <li>
+                    <a href="{{URL}}/consulta" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
+                        data-target="dropdown-cadstramento">
+                        <i class="material-icons left">note_alt</i> Atendimento - consultório
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/consulta-diaria " class="dropdown-trigger-sub {{acessoNegado}} font-normal"
+                        data-target="dropdown-cadstramento">
+                        <i class="material-icons left">medical_information</i> Pescrições
+                    </a>
+                </li>
+
+                <li class="divider"></li> <!-- Linha de separação -->
+                <li>
+                    <a class="font-normal {{}}" href="{{URL}}/agendas">
+                        <i class="material-icons left">medical_information</i>Resultado Exame
+                    </a>
+                </li>
+
+                <li>
+                    <a class="font-normal {{}}" href="{{URL}}/agendas">
+                        <i class="material-icons left">medical_information</i>Gerenciar Atestado
+                    </a>
+                </li>
+
+                <li>
+                    <a class="font-normal {{}}" href="{{URL}}/agendas">
+                        <i class="material-icons left">calendar_month</i>Minha Agendas
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Dropdown Laboratório -->
+            <ul id="dropdown-lab" class="dropdown-content">
+                <li>
+                    <a href="{{URL}}/laboratorio" class="font-normal">
+                        <i class="material-icons left">science</i> Exames Solicitados
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/exame" class="font-normal">
+                        <i class="material-icons left">biotech</i>Gerenciar Exames
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#!" class="font-normal "> <i class="material-icons left">calendar_today</i>Agendamento de
+                        Exame
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#!" class="font-normal ">
+                        <i class="material-icons left">add</i>Solicitação de Exame
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Dropdown paciente -->
+            <ul id="dropdown-paciente" class="dropdown-content">
+
+                <li>
+                    <a href="{{URL}}/paciente" class="font-normal {{PACIENTE_CREATE}}">
+                        <i class="material-icons left">person_add</i>Cadastrar Pacientes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/funcionario" class="font-normal {{TRANSFERIR_VIEW}}">
+                        <i class="material-icons left">people</i>Transferência de Paciente
+                    </a>
+                </li>
+
+                <li class="divider"></li> <!-- Linha de separação -->
+                <li>
+                    <a href="{{URL}}/perfil" class="font-normal {{INTERNAMENTO_VIEW}}">
+                        <i class="material-icons left">hotel</i>Paciente Recebidos
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Dropdown Farmacia -->
+            <ul id="dropdown-farmacia" class="dropdown-content">
+                <li><a href="{{URL}}/farmacia" class="font-normal"><i
+                            class="material-icons left">medical_services</i>Atendimento farmacêutico</a></li>
+                <li><a href="{{URL}}/medicamento" class="font-normal"><i
+                            class="material-icons left">local_pharmacy</i>Cadastrar medicamentos</a></li>
+                <li><a href="{{URL}}/fornecedor" class="font-normal"><i
+                            class="material-icons left">medication_liquid</i>Fornecedores</a></li>
+                <li><a href="{{URL}}/fornecedor" class="font-normal"><i
+                            class="material-icons left">inventory_2</i>Gestão de
+                        estoque</a></li>
+            </ul>
+
+            <!-- Dropdown configuração -->
+            <ul id="dropdown-config" class="dropdown-content">
+                <li>
+                    <a href="{{URL}}/utilizadores" class="font-normal {{USER_VIEW}}">
+                        <i class="material-icons left">group</i>Utilizadores
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/perfil" class="font-normal {{USER_PERFIL_VIEW}}">
+                        <i class="material-icons left">manage_accounts</i>Perfil de Acesso
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/configuracao-cadastros" class="font-normal {{CREATE_SERVICE}}">
+                        <i class="material-icons left">add</i>Cadastramento Básicos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/configuracao" class="font-normal {{CREATE_SERVICE}}">
+                        <i class="material-icons left">settings</i>Informação Geral
+                    </a>
+                </li>
+
+                <li class="divider"></li> <!-- Linha de separação -->
+
+                <li>
+                    <a href="{{URL}}/relatorio" class="font-normal {{DATABASE_VIEW}}">
+                        <i class="material-icons left">backup</i>Cópia de Segurança
+                    </a>
+                </li>
+
+                <li class="divider"></li> <!-- Linha de separação -->
+
+                <li>
+                    <a href="{{URL}}/relatorio" class="font-normal {{PERSONALIZAR}}">
+                        <i class="material-icons left">build</i>Personalizar
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/site" class="font-normal">
+                        <i class="material-icons left">support_agent</i>Suporte técnico
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{URL}}/site" class="font-normal">
+                        <i class="material-icons left">help</i>Ajuda
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Dropdown tesouraria -->
+            <ul id="dropdown-tesouraria" class="dropdown-content">
+                <li><a href="#!" class="capitalize">Entradas e Saidas</a></li>
+                <li><a href="#!" class="capitalize">Finalidade de pagamentos</a></li>
+                <li class="divider"></li> <!-- Linha de separação -->
+                <li><a href="#!" class="capitalize">Gerar Salft</a></li>
+                <li><a href="#!" class="capitalize">Histórico de vendas</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
 
     <!-- CHAT BUTTON -->
     <div class="chat-fab" id="btnOpenChat">
-        <i class="material-icons icon-tight" style="font-size: 18px;">chat</i>
+        <i class='bx bx-chat bx-sm'></i>
     </div>
 
     <!-- CHAT SIDEBAR -->
     <div class="chat-sidebar" id="chatSidebar">
         <div class="chat-header">
             <h6><i class='bx bx-message-square-dots'></i> Assistente IA</h6>
-            <a class="btn-flat" id="btnCloseChat"><i class="material-icons icon-tight"
-                    style="font-size: 18px;">close</i></a>
+            <a class="btn-flat" id="btnCloseChat"><i class='bx bx-x bx-sm'></i></a>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-message system">
@@ -436,13 +766,10 @@
         <div class="chat-input">
             <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
             <a class="btn teal" onclick="sendMsg()">
-                <i class="material-icons icon-tight" style="font-size: 18px;">send</i>
+                <i class='bx bx-send'></i>
             </a>
         </div>
     </div>
-
-    <h5 class="center" style=" margin-left:30px;">Prescrição assistida por IA </h5>
-    <hr>
 
     <!-- MAIN CONTENT -->
     <main id="mainContent">
@@ -451,38 +778,25 @@
         <div class="row">
 
             <!-- PARTE 1: SUGESTÃO DA IA (ESQUERDA - 50%) -->
-            <div class="col s12 m6 l6">
-                <div class="box" style="position: relative; min-height: 250px;">
+            <div class="col s12 l6">
+                <div class="box" style="position: relative; min-height: 500px;">
                     <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
-                    <div id="resultadoIA" style="max-height: 500px; overflow-y: auto;">
-                        <em>Confirma e preenche os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
+                    <div id="resultadoIA">
+                        <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
                     </div>
                     <div class="loading-overlay" id="loadingIA">
                         <div style="text-align: center;">
                             <div class="spinner"></div>
                             <p style="margin-top:15px;color:#00695c;font-weight:500;">
-                                <i class='bx bx-loader-alt bx-spin'></i>A gerar receita aguarde...
+                                <i class='bx bx-loader-alt bx-spin'></i> Analisando dados...
                             </p>
                         </div>
                     </div>
                 </div>
-
-                <!-- CAMPO DE PROMPT ADICIONAL -->
-                <div class="box" style="margin-top: 15px;">
-                    <h6><i class='bx bx-message-square-edit'></i> Prompt Adicional</h6>
-                    <div class="input-field" style="margin-top: 15px;">
-                        <textarea id="promptAdicional" class="materialize-textarea"
-                            placeholder="Ex: Considera o histórico do paciente, ou evitar anti-inflamatórios..."></textarea>
-                        <label for="promptAdicional">Instruções extras para a IA (opcional)</label>
-                    </div>
-                    <button type="button" class="btn waves-effect teal font-normal" onclick="refazerAnalise()" id="btnRefazer">
-                        <i class='bx bx-refresh'></i> Refazer análise
-                    </button>
-                </div>
             </div>
 
             <!-- PARTE 2: TABS (DIREITA - 50%) -->
-            <div class="col s12 m6 l6">
+            <div class="col s12 l6">
                 <!-- TABS HEADER -->
                 <div class="custom-tabs">
                     <button class="custom-tab active" onclick="switchTab('tabDadosPaciente')" id="btnTabDados">
@@ -585,10 +899,7 @@
     </main>
 
     <!-- Materialize JS -->
-    <script src="{{URL}}/Assets/js/materialize.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <script>
 
         //navbar dropdown do menu dos usuario logado
@@ -712,10 +1023,9 @@
                 const sintomas = document.getElementById('sintomas').value;
                 const alergias = document.getElementById('alergias').value;
                 const medicamentos = document.getElementById('medicamentosUso').value;
-                const promptAdicional = document.getElementById('promptAdicional').value;
 
                 // Resultado da análise da IA
-                let resultado = `
+                const resultado = `
           <div style="line-height:1.9;">
             <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
             
@@ -725,7 +1035,6 @@
             
             ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
             ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
-            ${promptAdicional ? `<p><strong>🎯 Considerações especiais:</strong><br>${promptAdicional}</p>` : ''}
             
             <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
             
@@ -870,117 +1179,6 @@ CRM: XXXXX`;
             M.toast({ html: '🗑️ Formulário limpo', classes: 'blue-grey' });
         }
 
-        // REFAZER ANÁLISE COM PROMPT ADICIONAL
-        async function refazerAnalise() {
-            const promptAdicional = document.getElementById('promptAdicional').value.trim();
-
-            if (!promptAdicional) {
-                M.toast({ html: '⚠️ Digite instruções adicionais no campo de prompt', classes: 'orange' });
-                return;
-            }
-
-            // Verificar se já existe uma análise
-            const resultadoAtual = document.getElementById('resultadoIA').innerHTML;
-            if (resultadoAtual.includes('<em>')) {
-                M.toast({ html: '⚠️ Faça a análise inicial primeiro', classes: 'orange' });
-                return;
-            }
-
-            const btnRefazer = document.getElementById('btnRefazer');
-            btnRefazer.classList.add('disabled');
-
-            const loading = document.getElementById('loadingIA');
-            loading.classList.add('active');
-
-            try {
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                const nome = document.getElementById('nomePaciente').value;
-                const idade = document.getElementById('idadePaciente').value;
-                const peso = document.getElementById('pesoPaciente').value;
-
-                // Análise refinada com prompt adicional
-                const resultadoRefinado = `
-          <div style="line-height:1.9;">
-            <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Refinada</h6>
-            
-            <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
-            
-            <div style="background:#e8f5e9;padding:12px;border-radius:6px;margin:15px 0;">
-              <strong>🎯 Considerações do médico:</strong><br>
-              ${promptAdicional}
-            </div>
-            
-            <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
-            
-            <p><strong>🔍 Diagnóstico Ajustado:</strong><br>
-            Quadro viral respiratório agudo - Análise ajustada conforme instruções médicas</p>
-            
-            <p><strong>💊 Prescrição Personalizada:</strong></p>
-            <ul style="margin-left:20px;">
-              <li>Paracetamol 500mg - 1 comprimido de 8/8h por 5 dias (ajustado)</li>
-              <li>Dipirona 500mg - alternativa se necessário</li>
-              <li>Repouso e acompanhamento específico conforme orientações</li>
-              <li>Hidratação abundante</li>
-            </ul>
-            
-            <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
-              <small><strong>✅ Análise refinada:</strong> A IA considerou suas instruções adicionais para gerar esta recomendação personalizada.</small>
-            </div>
-          </div>
-        `;
-
-                document.getElementById('resultadoIA').innerHTML = resultadoRefinado;
-
-                // Atualizar prescrição
-                const prescricaoAtualizada = `PRESCRIÇÃO MÉDICA - ANÁLISE REFINADA
-
-Paciente: ${nome}
-Idade: ${idade} anos
-Data: ${new Date().toLocaleDateString('pt-BR')}
-
-CONSIDERAÇÕES MÉDICAS:
-${promptAdicional}
-
-MEDICAMENTOS:
-
-1) Paracetamol 500mg
-   Posologia: 1 comprimido de 8/8 horas
-   Duração: 5 dias
-   Via: Oral
-
-2) Dipirona 500mg (alternativa)
-   Posologia: Se necessário
-   Via: Oral
-
-ORIENTAÇÕES:
-- Repouso e acompanhamento conforme orientações específicas
-- Hidratação oral abundante
-- Retornar se necessário
-
-___________________________
-Dr. José Moculo
-CRM: XXXXX`;
-
-                document.getElementById('prescricaoFinal').value = prescricaoAtualizada;
-                M.updateTextFields();
-                M.textareaAutoResize(document.getElementById('prescricaoFinal'));
-
-                M.toast({ html: '✅ Análise refinada com sucesso!', classes: 'green' });
-
-                setTimeout(() => {
-                    switchTab('tabPrescricaoFinal');
-                }, 500);
-
-            } catch (error) {
-                M.toast({ html: '❌ Erro ao refazer análise', classes: 'red' });
-                console.error(error);
-            } finally {
-                loading.classList.remove('active');
-                btnRefazer.classList.remove('disabled');
-            }
-        }
-
         // CHAT COM VALIDAÇÃO
         function sendMsg() {
             const input = document.getElementById('chatInput');
@@ -1020,7 +1218,6 @@ CRM: XXXXX`;
             }
         });
     </script>
-
 </body>
 
 </html>

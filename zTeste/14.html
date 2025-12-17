@@ -389,7 +389,7 @@
       
       <!-- PARTE 1: SUGESTÃO DA IA (ESQUERDA - 50%) -->
       <div class="col s12 l6">
-        <div class="box" style="position: relative; min-height: 500px;">
+        <div class="box" style="position: relative; min-height: 300px;">
           <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
           <div id="resultadoIA">
             <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
@@ -402,6 +402,18 @@
               </p>
             </div>
           </div>
+        </div>
+
+        <!-- CAMPO DE PROMPT ADICIONAL -->
+        <div class="box" style="margin-top: 15px;">
+          <h6><i class='bx bx-message-square-edit'></i> Prompt Adicional</h6>
+          <div class="input-field" style="margin-top: 15px;">
+            <textarea id="promptAdicional" class="materialize-textarea" placeholder="Ex: Considerar histórico de diabetes, focar em medicamentos genéricos, evitar anti-inflamatórios..."></textarea>
+            <label for="promptAdicional">Instruções extras para a IA (opcional)</label>
+          </div>
+          <button type="button" class="btn waves-effect teal" onclick="refazerAnalise()" id="btnRefazer">
+            <i class='bx bx-refresh'></i> Refazer Análise
+          </button>
         </div>
       </div>
 
@@ -615,9 +627,10 @@
         const sintomas = document.getElementById('sintomas').value;
         const alergias = document.getElementById('alergias').value;
         const medicamentos = document.getElementById('medicamentosUso').value;
+        const promptAdicional = document.getElementById('promptAdicional').value;
 
         // Resultado da análise da IA
-        const resultado = `
+        let resultado = `
           <div style="line-height:1.9;">
             <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
             
@@ -627,6 +640,7 @@
             
             ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
             ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
+            ${promptAdicional ? `<p><strong>🎯 Considerações especiais:</strong><br>${promptAdicional}</p>` : ''}
             
             <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
             
@@ -769,6 +783,117 @@ CRM: XXXXX`;
       
       M.updateTextFields();
       M.toast({html: '🗑️ Formulário limpo', classes: 'blue-grey'});
+    }
+
+    // REFAZER ANÁLISE COM PROMPT ADICIONAL
+    async function refazerAnalise() {
+      const promptAdicional = document.getElementById('promptAdicional').value.trim();
+      
+      if (!promptAdicional) {
+        M.toast({html: '⚠️ Digite instruções adicionais no campo de prompt', classes: 'orange'});
+        return;
+      }
+
+      // Verificar se já existe uma análise
+      const resultadoAtual = document.getElementById('resultadoIA').innerHTML;
+      if (resultadoAtual.includes('<em>')) {
+        M.toast({html: '⚠️ Faça a análise inicial primeiro', classes: 'orange'});
+        return;
+      }
+
+      const btnRefazer = document.getElementById('btnRefazer');
+      btnRefazer.classList.add('disabled');
+
+      const loading = document.getElementById('loadingIA');
+      loading.classList.add('active');
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const nome = document.getElementById('nomePaciente').value;
+        const idade = document.getElementById('idadePaciente').value;
+        const peso = document.getElementById('pesoPaciente').value;
+
+        // Análise refinada com prompt adicional
+        const resultadoRefinado = `
+          <div style="line-height:1.9;">
+            <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Refinada</h6>
+            
+            <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
+            
+            <div style="background:#e8f5e9;padding:12px;border-radius:6px;margin:15px 0;">
+              <strong>🎯 Considerações do médico:</strong><br>
+              ${promptAdicional}
+            </div>
+            
+            <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+            
+            <p><strong>🔍 Diagnóstico Ajustado:</strong><br>
+            Quadro viral respiratório agudo - Análise ajustada conforme instruções médicas</p>
+            
+            <p><strong>💊 Prescrição Personalizada:</strong></p>
+            <ul style="margin-left:20px;">
+              <li>Paracetamol 500mg - 1 comprimido de 8/8h por 5 dias (ajustado)</li>
+              <li>Dipirona 500mg - alternativa se necessário</li>
+              <li>Repouso e acompanhamento específico conforme orientações</li>
+              <li>Hidratação abundante</li>
+            </ul>
+            
+            <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
+              <small><strong>✅ Análise refinada:</strong> A IA considerou suas instruções adicionais para gerar esta recomendação personalizada.</small>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('resultadoIA').innerHTML = resultadoRefinado;
+
+        // Atualizar prescrição
+        const prescricaoAtualizada = `PRESCRIÇÃO MÉDICA - ANÁLISE REFINADA
+
+Paciente: ${nome}
+Idade: ${idade} anos
+Data: ${new Date().toLocaleDateString('pt-BR')}
+
+CONSIDERAÇÕES MÉDICAS:
+${promptAdicional}
+
+MEDICAMENTOS:
+
+1) Paracetamol 500mg
+   Posologia: 1 comprimido de 8/8 horas
+   Duração: 5 dias
+   Via: Oral
+
+2) Dipirona 500mg (alternativa)
+   Posologia: Se necessário
+   Via: Oral
+
+ORIENTAÇÕES:
+- Repouso e acompanhamento conforme orientações específicas
+- Hidratação oral abundante
+- Retornar se necessário
+
+___________________________
+Dr. José Moculo
+CRM: XXXXX`;
+
+        document.getElementById('prescricaoFinal').value = prescricaoAtualizada;
+        M.updateTextFields();
+        M.textareaAutoResize(document.getElementById('prescricaoFinal'));
+
+        M.toast({html: '✅ Análise refinada com sucesso!', classes: 'green'});
+
+        setTimeout(() => {
+          switchTab('tabPrescricaoFinal');
+        }, 500);
+
+      } catch (error) {
+        M.toast({html: '❌ Erro ao refazer análise', classes: 'red'});
+        console.error(error);
+      } finally {
+        loading.classList.remove('active');
+        btnRefazer.classList.remove('disabled');
+      }
     }
 
     // CHAT COM VALIDAÇÃO

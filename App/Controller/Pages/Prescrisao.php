@@ -2,13 +2,8 @@
 
 namespace App\Controller\Pages;
 
-use \App\Utils\Pagination;
-use \App\Model\Entity\UsuarioDao;
-use \App\Model\Entity\ZonaDao;
-use \App\Model\Entity\VendedorDao;
 use \App\Utils\View;
 use \App\Utils\ConsultaMedica;
-
 
 class Prescrisao extends Page
 {
@@ -16,14 +11,16 @@ class Prescrisao extends Page
     // Metodo para gerar a pescrisao
     public static function getTelaGeradorReceita($request, $id_consulta)
     {
-        $consulta = new ConsultaMedica();
+      //  $consulta = new ConsultaMedica();
         $dados = "Paciente 20 anos, 60kg, febre 38ºC — qual medicamento usar?";
-        $resposta = $consulta->analisarPaciente($dados);
+
+      //  $resposta = $consulta->analisarPaciente($dados);
         $content = View::render('ReceitaLayouts/contem', [
-           'dados' => $resposta,
+          // 'dados' => $resposta,
         ]);
         return parent::getPageReceita('Geradar de consulta', $content);
     }
+
 }
 
 

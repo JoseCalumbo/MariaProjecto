@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,22 @@
     body {
       background: #e4e9f7;
       font-family: 'Roboto', sans-serif;
+    }
+
+    .nav {
+      height: 46px;
+      line-height: 46px;
+      /* Centraliza os itens verticalmente */
+    }
+
+    .nav .brand-logo,
+    .nav ul li a i {
+      height: 46px;
+      line-height: 46px;
+    }
+
+    .dropdown-content {
+      min-width: 220px;
     }
 
     /* TOP BAR */
@@ -29,7 +46,7 @@
       justify-content: space-between;
       padding: 0 15px;
       z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
     }
 
     .top-left {
@@ -51,8 +68,15 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
     }
 
     /* SIDEBAR CHAT */
@@ -68,7 +92,7 @@
       transition: transform .3s ease;
       display: flex;
       flex-direction: column;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .chat-sidebar.open {
@@ -126,7 +150,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
       cursor: pointer;
       z-index: 1001;
       transition: all .3s ease;
@@ -134,7 +158,7 @@
 
     .chat-fab:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 16px rgba(0,0,0,.4);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
     }
 
     /* MAIN */
@@ -146,12 +170,12 @@
       margin-right: auto;
     }
 
-    .chat-sidebar.open ~ main {
+    .chat-sidebar.open~main {
       margin-left: calc(380px + (100vw - 1400px) / 2);
     }
 
     @media (max-width: 1400px) {
-      .chat-sidebar.open ~ main {
+      .chat-sidebar.open~main {
         margin-left: 380px;
       }
     }
@@ -161,7 +185,7 @@
       background: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       margin-bottom: 20px;
     }
 
@@ -185,7 +209,7 @@
     .custom-tab {
       flex: 1;
       padding: 12px 20px;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.7);
       border: none;
       border-radius: 8px 8px 0 0;
       cursor: pointer;
@@ -200,21 +224,21 @@
     }
 
     .custom-tab:hover {
-      background: rgba(0,105,92,0.1);
+      background: rgba(0, 105, 92, 0.1);
       color: #00695c;
     }
 
     .custom-tab.active {
       background: #fff;
       color: #00695c;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .tab-content-wrapper {
       background: #fff;
       padding: 20px;
       border-radius: 0 8px 8px 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .tab-panel {
@@ -231,6 +255,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -244,7 +269,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.95);
       display: none;
       align-items: center;
       justify-content: center;
@@ -266,8 +291,13 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     /* VALIDAÇÃO */
@@ -301,6 +331,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -321,11 +352,30 @@
     /* RESULTADO IA */
     #resultadoIA {
       line-height: 1.8;
-      min-height: 200px;
+      padding: 10px;
     }
 
     #resultadoIA em {
       color: #999;
+    }
+
+    /* Scrollbar customizada para resultado IA */
+    #resultadoIA::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #resultadoIA::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    #resultadoIA::-webkit-scrollbar-thumb {
+      background: #00695c;
+      border-radius: 4px;
+    }
+
+    #resultadoIA::-webkit-scrollbar-thumb:hover {
+      background: #004d40;
     }
 
     /* RESPONSIVO */
@@ -333,13 +383,15 @@
       .chat-sidebar {
         width: 100%;
       }
-      
-      .chat-sidebar.open ~ main {
+
+      .chat-sidebar.open~main {
         margin-left: 0;
       }
     }
   </style>
+
 </head>
+
 <body>
 
   <!-- TOP BAR -->
@@ -383,15 +435,15 @@
 
   <!-- MAIN CONTENT -->
   <main id="mainContent">
-    
+
     <!-- LAYOUT HORIZONTAL (LADO A LADO) -->
     <div class="row">
-      
+
       <!-- PARTE 1: SUGESTÃO DA IA (ESQUERDA - 50%) -->
       <div class="col s12 l6">
-        <div class="box" style="position: relative; min-height: 500px;">
+        <div class="box" style="position: relative; min-height: 300px;">
           <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
-          <div id="resultadoIA">
+          <div id="resultadoIA" style="max-height: 500px; overflow-y: auto;">
             <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
           </div>
           <div class="loading-overlay" id="loadingIA">
@@ -402,6 +454,19 @@
               </p>
             </div>
           </div>
+        </div>
+
+        <!-- CAMPO DE PROMPT ADICIONAL -->
+        <div class="box" style="margin-top: 15px;">
+          <h6><i class='bx bx-message-square-edit'></i> Prompt Adicional</h6>
+          <div class="input-field" style="margin-top: 15px;">
+            <textarea id="promptAdicional" class="materialize-textarea"
+              placeholder="Ex: Considerar histórico de diabetes, focar em medicamentos genéricos, evitar anti-inflamatórios..."></textarea>
+            <label for="promptAdicional">Instruções extras para a IA (opcional)</label>
+          </div>
+          <button type="button" class="btn waves-effect teal" onclick="refazerAnalise()" id="btnRefazer">
+            <i class='bx bx-refresh'></i> Refazer Análise
+          </button>
         </div>
       </div>
 
@@ -419,7 +484,7 @@
 
         <!-- TABS CONTENT -->
         <div class="tab-content-wrapper">
-          
+
           <!-- TAB 1: DADOS DO PACIENTE -->
           <div id="tabDadosPaciente" class="tab-panel active">
             <form id="formPaciente">
@@ -440,7 +505,7 @@
                   <span class="error-message" id="errorPeso">Peso inválido (1-300kg)</span>
                 </div>
               </div>
-              
+
               <div class="row">
                 <div class="input-field col s12">
                   <textarea id="sintomas" class="materialize-textarea" required></textarea>
@@ -448,7 +513,7 @@
                   <span class="error-message" id="errorSintomas">Descreva os sintomas (mínimo 10 caracteres)</span>
                 </div>
               </div>
-              
+
               <div class="row">
                 <div class="input-field col s12 m6">
                   <textarea id="alergias" class="materialize-textarea"></textarea>
@@ -481,7 +546,7 @@
                 <label for="prescricaoFinal">Prescrição Médica</label>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col s12">
                 <button type="button" class="btn blue" onclick="salvarPrescricao()" id="btnSalvar">
@@ -506,9 +571,10 @@
 
   <!-- Materialize JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <script>
     // Inicializar Materialize
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       M.updateTextFields();
       M.textareaAutoResize(document.querySelectorAll('.materialize-textarea'));
     });
@@ -519,7 +585,7 @@
       document.querySelectorAll('.custom-tab').forEach(tab => {
         tab.classList.remove('active');
       });
-      
+
       document.querySelectorAll('.tab-panel').forEach(panel => {
         panel.classList.remove('active');
       });
@@ -530,9 +596,9 @@
       } else {
         document.getElementById('btnTabPrescricao').classList.add('active');
       }
-      
+
       document.getElementById(tabId).classList.add('active');
-      
+
       // Atualizar campos do Materialize
       M.updateTextFields();
       M.textareaAutoResize(document.querySelectorAll('.materialize-textarea'));
@@ -595,7 +661,7 @@
     // GERAR PRESCRIÇÃO COM IA
     async function gerarPrescricao() {
       if (!validarFormulario()) {
-        M.toast({html: '⚠️ Preencha todos os campos obrigatórios corretamente', classes: 'red'});
+        M.toast({ html: '⚠️ Preencha todos os campos obrigatórios corretamente', classes: 'red' });
         return;
       }
 
@@ -615,9 +681,10 @@
         const sintomas = document.getElementById('sintomas').value;
         const alergias = document.getElementById('alergias').value;
         const medicamentos = document.getElementById('medicamentosUso').value;
+        const promptAdicional = document.getElementById('promptAdicional').value;
 
         // Resultado da análise da IA
-        const resultado = `
+        let resultado = `
           <div style="line-height:1.9;">
             <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
             
@@ -627,6 +694,7 @@
             
             ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
             ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
+            ${promptAdicional ? `<p><strong>🎯 Considerações especiais:</strong><br>${promptAdicional}</p>` : ''}
             
             <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
             
@@ -684,7 +752,7 @@ CRM: XXXXX`;
         M.updateTextFields();
         M.textareaAutoResize(document.getElementById('prescricaoFinal'));
 
-        M.toast({html: '✅ Análise concluída com sucesso!', classes: 'green'});
+        M.toast({ html: '✅ Análise concluída com sucesso!', classes: 'green' });
 
         // Mudar para a tab de prescrição
         setTimeout(() => {
@@ -692,7 +760,7 @@ CRM: XXXXX`;
         }, 500);
 
       } catch (error) {
-        M.toast({html: '❌ Erro ao gerar prescrição', classes: 'red'});
+        M.toast({ html: '❌ Erro ao gerar prescrição', classes: 'red' });
         console.error(error);
       } finally {
         loading.classList.remove('active');
@@ -705,20 +773,20 @@ CRM: XXXXX`;
       const prescricao = document.getElementById('prescricaoFinal').value;
 
       if (!prescricao.trim()) {
-        M.toast({html: '⚠️ Nenhuma prescrição para salvar', classes: 'orange'});
+        M.toast({ html: '⚠️ Nenhuma prescrição para salvar', classes: 'orange' });
         return;
       }
 
       console.log('Salvando prescrição:', prescricao);
-      M.toast({html: '💾 Prescrição salva com sucesso!', classes: 'green'});
+      M.toast({ html: '💾 Prescrição salva com sucesso!', classes: 'green' });
     }
 
     // IMPRIMIR PRESCRIÇÃO
     function imprimirPrescricao() {
       const prescricao = document.getElementById('prescricaoFinal').value;
-      
+
       if (!prescricao.trim()) {
-        M.toast({html: '⚠️ Nenhuma prescrição para imprimir', classes: 'orange'});
+        M.toast({ html: '⚠️ Nenhuma prescrição para imprimir', classes: 'orange' });
         return;
       }
 
@@ -744,16 +812,16 @@ CRM: XXXXX`;
     // COPIAR PRESCRIÇÃO
     function copiarPrescricao() {
       const prescricao = document.getElementById('prescricaoFinal').value;
-      
+
       if (!prescricao.trim()) {
-        M.toast({html: '⚠️ Nenhuma prescrição para copiar', classes: 'orange'});
+        M.toast({ html: '⚠️ Nenhuma prescrição para copiar', classes: 'orange' });
         return;
       }
 
       navigator.clipboard.writeText(prescricao).then(() => {
-        M.toast({html: '📋 Prescrição copiada!', classes: 'green'});
+        M.toast({ html: '📋 Prescrição copiada!', classes: 'green' });
       }).catch(() => {
-        M.toast({html: '❌ Erro ao copiar', classes: 'red'});
+        M.toast({ html: '❌ Erro ao copiar', classes: 'red' });
       });
     }
 
@@ -762,13 +830,124 @@ CRM: XXXXX`;
       document.getElementById('formPaciente').reset();
       document.getElementById('resultadoIA').innerHTML = '<em>Preencha os dados do paciente e clique em "Analisar"...</em>';
       document.getElementById('prescricaoFinal').value = '';
-      
+
       // Remover erros
       document.querySelectorAll('.input-field.error').forEach(el => el.classList.remove('error'));
       document.querySelectorAll('.error-message.show').forEach(el => el.classList.remove('show'));
-      
+
       M.updateTextFields();
-      M.toast({html: '🗑️ Formulário limpo', classes: 'blue-grey'});
+      M.toast({ html: '🗑️ Formulário limpo', classes: 'blue-grey' });
+    }
+
+    // REFAZER ANÁLISE COM PROMPT ADICIONAL
+    async function refazerAnalise() {
+      const promptAdicional = document.getElementById('promptAdicional').value.trim();
+
+      if (!promptAdicional) {
+        M.toast({ html: '⚠️ Digite instruções adicionais no campo de prompt', classes: 'orange' });
+        return;
+      }
+
+      // Verificar se já existe uma análise
+      const resultadoAtual = document.getElementById('resultadoIA').innerHTML;
+      if (resultadoAtual.includes('<em>')) {
+        M.toast({ html: '⚠️ Faça a análise inicial primeiro', classes: 'orange' });
+        return;
+      }
+
+      const btnRefazer = document.getElementById('btnRefazer');
+      btnRefazer.classList.add('disabled');
+
+      const loading = document.getElementById('loadingIA');
+      loading.classList.add('active');
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const nome = document.getElementById('nomePaciente').value;
+        const idade = document.getElementById('idadePaciente').value;
+        const peso = document.getElementById('pesoPaciente').value;
+
+        // Análise refinada com prompt adicional
+        const resultadoRefinado = `
+          <div style="line-height:1.9;">
+            <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Refinada</h6>
+            
+            <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
+            
+            <div style="background:#e8f5e9;padding:12px;border-radius:6px;margin:15px 0;">
+              <strong>🎯 Considerações do médico:</strong><br>
+              ${promptAdicional}
+            </div>
+            
+            <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+            
+            <p><strong>🔍 Diagnóstico Ajustado:</strong><br>
+            Quadro viral respiratório agudo - Análise ajustada conforme instruções médicas</p>
+            
+            <p><strong>💊 Prescrição Personalizada:</strong></p>
+            <ul style="margin-left:20px;">
+              <li>Paracetamol 500mg - 1 comprimido de 8/8h por 5 dias (ajustado)</li>
+              <li>Dipirona 500mg - alternativa se necessário</li>
+              <li>Repouso e acompanhamento específico conforme orientações</li>
+              <li>Hidratação abundante</li>
+            </ul>
+            
+            <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
+              <small><strong>✅ Análise refinada:</strong> A IA considerou suas instruções adicionais para gerar esta recomendação personalizada.</small>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('resultadoIA').innerHTML = resultadoRefinado;
+
+        // Atualizar prescrição
+        const prescricaoAtualizada = `PRESCRIÇÃO MÉDICA - ANÁLISE REFINADA
+
+Paciente: ${nome}
+Idade: ${idade} anos
+Data: ${new Date().toLocaleDateString('pt-BR')}
+
+CONSIDERAÇÕES MÉDICAS:
+${promptAdicional}
+
+MEDICAMENTOS:
+
+1) Paracetamol 500mg
+   Posologia: 1 comprimido de 8/8 horas
+   Duração: 5 dias
+   Via: Oral
+
+2) Dipirona 500mg (alternativa)
+   Posologia: Se necessário
+   Via: Oral
+
+ORIENTAÇÕES:
+- Repouso e acompanhamento conforme orientações específicas
+- Hidratação oral abundante
+- Retornar se necessário
+
+___________________________
+Dr. José Moculo
+CRM: XXXXX`;
+
+        document.getElementById('prescricaoFinal').value = prescricaoAtualizada;
+        M.updateTextFields();
+        M.textareaAutoResize(document.getElementById('prescricaoFinal'));
+
+        M.toast({ html: '✅ Análise refinada com sucesso!', classes: 'green' });
+
+        setTimeout(() => {
+          switchTab('tabPrescricaoFinal');
+        }, 500);
+
+      } catch (error) {
+        M.toast({ html: '❌ Erro ao refazer análise', classes: 'red' });
+        console.error(error);
+      } finally {
+        loading.classList.remove('active');
+        btnRefazer.classList.remove('disabled');
+      }
     }
 
     // CHAT COM VALIDAÇÃO
@@ -777,7 +956,7 @@ CRM: XXXXX`;
       const mensagem = input.value.trim();
 
       if (!mensagem) {
-        M.toast({html: '⚠️ Digite uma mensagem', classes: 'orange'});
+        M.toast({ html: '⚠️ Digite uma mensagem', classes: 'orange' });
         return;
       }
 
@@ -804,11 +983,13 @@ CRM: XXXXX`;
     }
 
     // Enter no chat
-    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+    document.getElementById('chatInput').addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         sendMsg();
       }
     });
   </script>
+  
 </body>
+
 </html>

@@ -1,13 +1,430 @@
-  <!-- CHAT BUTTON -->
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Médico com IA</title>
+
+    <link href="{{URL}}/Assets/css/material-icons.css" rel="stylesheet">
+
+    <link rel="icon" href="{{URL}}/icon.png" type="image/x-icon">
+
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
+
+    <style>
+        body {
+            background: #e4e9f7;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* drop menu conta activa*/
+        .img-conta {
+            border-radius: 50%;
+            margin-right: 5px;
+            position: relative;
+            top: 11px;
+            color: white;
+            cursor: pointer;
+            border: 1px solid rgb(255, 248, 248);
+        }
+
+        .nav {
+            height: 46px;
+            line-height: 46px;
+            /* Centraliza os itens verticalmente */
+        }
+
+        .nav .brand-logo,
+        .nav ul li a i {
+            height: 46px;
+            line-height: 46px;
+        }
+
+        .dropdown-content {
+            min-width: 220px;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            background: #00695c;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+        }
+
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-left img {
+            height: 28px;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* SIDEBAR CHAT */
+        .chat-sidebar {
+            position: fixed;
+            top: 45px;
+            left: 0;
+            width: 380px;
+            height: calc(100vh - 45px);
+            background: #fff;
+            z-index: 999;
+            transform: translateX(-100%);
+            transition: transform .3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .chat-header {
+            padding: 12px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h6 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            background: #fafafa;
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            padding: 12px;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* FLOAT BUTTON */
+        .chat-fab {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #00695c;
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+            cursor: pointer;
+            z-index: 1001;
+            transition: all .3s ease;
+        }
+
+        .chat-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+        }
+
+        /* MAIN */
+        main {
+            padding: 60px 20px 20px;
+            transition: margin-left .3s ease;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chat-sidebar.open~main {
+            margin-left: calc(380px + (100vw - 1400px) / 2);
+        }
+
+        @media (max-width: 1400px) {
+            .chat-sidebar.open~main {
+                margin-left: 380px;
+            }
+        }
+
+        /* BOX */
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .box h6 {
+            margin: 0 0 15px 0;
+            font-weight: 500;
+            color: #00695c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* TABS CUSTOMIZADAS */
+        .custom-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 0;
+            background: transparent;
+        }
+
+        .custom-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #666;
+            font-weight: 500;
+            transition: all .3s ease;
+            font-size: 14px;
+        }
+
+        .custom-tab:hover {
+            background: rgba(0, 105, 92, 0.1);
+            color: #00695c;
+        }
+
+        .custom-tab.active {
+            background: #fff;
+            color: #00695c;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab-content-wrapper {
+            background: #fff;
+            padding: 20px;
+            border-radius: 0 8px 8px 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* LOADING SPINNER */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #00695c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* VALIDAÇÃO */
+        .input-field.error input,
+        .input-field.error textarea {
+            border-bottom: 1px solid #f44336 !important;
+            box-shadow: 0 1px 0 0 #f44336 !important;
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* CHAT MESSAGE */
+        .chat-message {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.user {
+            background: #e3f2fd;
+            text-align: right;
+            margin-left: 40px;
+        }
+
+        .chat-message.system {
+            background: #f5f5f5;
+            margin-right: 40px;
+        }
+
+        /* RESULTADO IA */
+        #resultadoIA {
+            line-height: 1.8;
+            padding: 10px;
+        }
+
+        #resultadoIA em {
+            color: #999;
+        }
+
+        /* Scrollbar customizada para resultado IA */
+        #resultadoIA::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #resultadoIA::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        #resultadoIA::-webkit-scrollbar-thumb {
+            background: #00695c;
+            border-radius: 4px;
+        }
+
+        #resultadoIA::-webkit-scrollbar-thumb:hover {
+            background: #004d40;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 992px) {
+            .chat-sidebar {
+                width: 100%;
+            }
+
+            .chat-sidebar.open~main {
+                margin-left: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    
+    <!--HEADER-->
+    {{header}}
+
+    <!-- CHAT BUTTON -->
     <div class="chat-fab" id="btnOpenChat">
-        <i class='bx bx-chat bx-sm'></i>
+        <i class="material-icons icon-tight" style="font-size: 18px;">chat</i>
     </div>
 
     <!-- CHAT SIDEBAR -->
     <div class="chat-sidebar" id="chatSidebar">
         <div class="chat-header">
             <h6><i class='bx bx-message-square-dots'></i> Assistente IA</h6>
-            <a class="btn-flat" id="btnCloseChat"><i class='bx bx-x bx-sm'></i></a>
+            <a class="btn-flat" id="btnCloseChat"><i class="material-icons icon-tight"
+                    style="font-size: 18px;">close</i></a>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-message system">
@@ -17,10 +434,13 @@
         <div class="chat-input">
             <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
             <a class="btn teal" onclick="sendMsg()">
-                <i class='bx bx-send'></i>
+                <i class="material-icons icon-tight" style="font-size: 18px;">send</i>
             </a>
         </div>
     </div>
+
+    <h5 class="center" style=" margin-left:30px;">Prescrição assistida por IA </h5>
+    <hr>
 
     <!-- MAIN CONTENT -->
     <main id="mainContent">
@@ -30,9 +450,9 @@
 
             <!-- PARTE 1: SUGESTÃO DA IA (ESQUERDA - 50%) -->
             <div class="col s12 l6">
-                <div class="box" style="position: relative; min-height: 500px;">
+                <div class="box" style="position: relative; min-height: 250px;">
                     <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
-                    <div id="resultadoIA">
+                    <div id="resultadoIA" style="max-height: 500px; overflow-y: auto;">
                         <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
                     </div>
                     <div class="loading-overlay" id="loadingIA">
@@ -43,6 +463,19 @@
                             </p>
                         </div>
                     </div>
+                </div>
+
+                <!-- CAMPO DE PROMPT ADICIONAL -->
+                <div class="box" style="margin-top: 15px;">
+                    <h6><i class='bx bx-message-square-edit'></i> Prompt Adicional</h6>
+                    <div class="input-field" style="margin-top: 15px;">
+                        <textarea id="promptAdicional" class="materialize-textarea"
+                            placeholder="Ex: Considerar histórico de diabetes, focar em medicamentos genéricos, evitar anti-inflamatórios..."></textarea>
+                        <label for="promptAdicional">Instruções extras para a IA (opcional)</label>
+                    </div>
+                    <button type="button" class="btn waves-effect teal" onclick="refazerAnalise()" id="btnRefazer">
+                        <i class='bx bx-refresh'></i> Refazer Análise
+                    </button>
                 </div>
             </div>
 
@@ -150,7 +583,10 @@
     </main>
 
     <!-- Materialize JS -->
+    <script src="{{URL}}/Assets/js/materialize.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script>
 
         //navbar dropdown do menu dos usuario logado
@@ -274,9 +710,10 @@
                 const sintomas = document.getElementById('sintomas').value;
                 const alergias = document.getElementById('alergias').value;
                 const medicamentos = document.getElementById('medicamentosUso').value;
+                const promptAdicional = document.getElementById('promptAdicional').value;
 
                 // Resultado da análise da IA
-                const resultado = `
+                let resultado = `
           <div style="line-height:1.9;">
             <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
             
@@ -286,6 +723,7 @@
             
             ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
             ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
+            ${promptAdicional ? `<p><strong>🎯 Considerações especiais:</strong><br>${promptAdicional}</p>` : ''}
             
             <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
             
@@ -430,6 +868,117 @@ CRM: XXXXX`;
             M.toast({ html: '🗑️ Formulário limpo', classes: 'blue-grey' });
         }
 
+        // REFAZER ANÁLISE COM PROMPT ADICIONAL
+        async function refazerAnalise() {
+            const promptAdicional = document.getElementById('promptAdicional').value.trim();
+
+            if (!promptAdicional) {
+                M.toast({ html: '⚠️ Digite instruções adicionais no campo de prompt', classes: 'orange' });
+                return;
+            }
+
+            // Verificar se já existe uma análise
+            const resultadoAtual = document.getElementById('resultadoIA').innerHTML;
+            if (resultadoAtual.includes('<em>')) {
+                M.toast({ html: '⚠️ Faça a análise inicial primeiro', classes: 'orange' });
+                return;
+            }
+
+            const btnRefazer = document.getElementById('btnRefazer');
+            btnRefazer.classList.add('disabled');
+
+            const loading = document.getElementById('loadingIA');
+            loading.classList.add('active');
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                const nome = document.getElementById('nomePaciente').value;
+                const idade = document.getElementById('idadePaciente').value;
+                const peso = document.getElementById('pesoPaciente').value;
+
+                // Análise refinada com prompt adicional
+                const resultadoRefinado = `
+          <div style="line-height:1.9;">
+            <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Refinada</h6>
+            
+            <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
+            
+            <div style="background:#e8f5e9;padding:12px;border-radius:6px;margin:15px 0;">
+              <strong>🎯 Considerações do médico:</strong><br>
+              ${promptAdicional}
+            </div>
+            
+            <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+            
+            <p><strong>🔍 Diagnóstico Ajustado:</strong><br>
+            Quadro viral respiratório agudo - Análise ajustada conforme instruções médicas</p>
+            
+            <p><strong>💊 Prescrição Personalizada:</strong></p>
+            <ul style="margin-left:20px;">
+              <li>Paracetamol 500mg - 1 comprimido de 8/8h por 5 dias (ajustado)</li>
+              <li>Dipirona 500mg - alternativa se necessário</li>
+              <li>Repouso e acompanhamento específico conforme orientações</li>
+              <li>Hidratação abundante</li>
+            </ul>
+            
+            <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
+              <small><strong>✅ Análise refinada:</strong> A IA considerou suas instruções adicionais para gerar esta recomendação personalizada.</small>
+            </div>
+          </div>
+        `;
+
+                document.getElementById('resultadoIA').innerHTML = resultadoRefinado;
+
+                // Atualizar prescrição
+                const prescricaoAtualizada = `PRESCRIÇÃO MÉDICA - ANÁLISE REFINADA
+
+Paciente: ${nome}
+Idade: ${idade} anos
+Data: ${new Date().toLocaleDateString('pt-BR')}
+
+CONSIDERAÇÕES MÉDICAS:
+${promptAdicional}
+
+MEDICAMENTOS:
+
+1) Paracetamol 500mg
+   Posologia: 1 comprimido de 8/8 horas
+   Duração: 5 dias
+   Via: Oral
+
+2) Dipirona 500mg (alternativa)
+   Posologia: Se necessário
+   Via: Oral
+
+ORIENTAÇÕES:
+- Repouso e acompanhamento conforme orientações específicas
+- Hidratação oral abundante
+- Retornar se necessário
+
+___________________________
+Dr. José Moculo
+CRM: XXXXX`;
+
+                document.getElementById('prescricaoFinal').value = prescricaoAtualizada;
+                M.updateTextFields();
+                M.textareaAutoResize(document.getElementById('prescricaoFinal'));
+
+                M.toast({ html: '✅ Análise refinada com sucesso!', classes: 'green' });
+
+                setTimeout(() => {
+                    switchTab('tabPrescricaoFinal');
+                }, 500);
+
+            } catch (error) {
+                M.toast({ html: '❌ Erro ao refazer análise', classes: 'red' });
+                console.error(error);
+            } finally {
+                loading.classList.remove('active');
+                btnRefazer.classList.remove('disabled');
+            }
+        }
+
         // CHAT COM VALIDAÇÃO
         function sendMsg() {
             const input = document.getElementById('chatInput');
@@ -469,3 +1018,7 @@ CRM: XXXXX`;
             }
         });
     </script>
+
+</body>
+
+</html>

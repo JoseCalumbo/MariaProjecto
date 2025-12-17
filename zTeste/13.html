@@ -384,12 +384,10 @@
   <!-- MAIN CONTENT -->
   <main id="mainContent">
     
-    <!-- LAYOUT HORIZONTAL (LADO A LADO) -->
+    <!-- PARTE 1: SUGESTÃO DA IA -->
     <div class="row">
-      
-      <!-- PARTE 1: SUGESTÃO DA IA (ESQUERDA - 50%) -->
-      <div class="col s12 l6">
-        <div class="box" style="position: relative; min-height: 500px;">
+      <div class="col s12">
+        <div class="box" style="position: relative;">
           <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
           <div id="resultadoIA">
             <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
@@ -404,9 +402,11 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- PARTE 2: TABS (DIREITA - 50%) -->
-      <div class="col s12 l6">
+    <!-- PARTE 2: TABS (DADOS DO PACIENTE E PRESCRIÇÃO) -->
+    <div class="row">
+      <div class="col s12">
         <!-- TABS HEADER -->
         <div class="custom-tabs">
           <button class="custom-tab active" onclick="switchTab('tabDadosPaciente')" id="btnTabDados">
@@ -499,7 +499,6 @@
 
         </div>
       </div>
-
     </div>
 
   </main>

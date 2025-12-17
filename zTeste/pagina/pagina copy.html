@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f7f9fc
+        }
+
+        .container {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+
+        .card {
+            border-radius: 12px
+        }
+
+        .sidebar {
+            min-height: 70vh
+        }
+
+        pre.ia-output {
+            white-space: pre-wrap;
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef
+        }
+
+        .small-muted {
+            font-size: .85rem;
+            color: #6c757d
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Prescrição médica IA</a>
+            <div class="d-flex align-items-center">
+                <div class="me-3 small-muted">Dr. {{nome}}</div>
+                <div class="badge bg-success">IA: Online</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <div class="row g-2">
+
+            <!-- AREA PRINCIPAL: PRESCRIÇÃO E IA -->
+            <main class="col-lg-12">
+                <div class="card shadow-sm p-3">
+                    <h5 class="mb-3">Gerar Sugestão de Prescrição via IA </h5>
+
+                    <form id="form-prescricao" method="post" action="/index.php?r=consulta_create">
+                        
+                        <input type="hidden" name="id_paciente" value="">
+                        <input type="hidden" name="id_medico" value="">
+                        <input type="hidden" name="csrf_token" value="">
+
+                        {{content}}
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <input type="text" name="idade" class="form-control" placeholder="Idade"
+                                    value="">
+                            </div>
+
+                            <div class="col-6">
+                                <input type="text" name="peso" class="form-control" placeholder="Peso"
+                                    value="">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button id="btn-ia" type="button" class="btn btn-primary">Gerar sugestão com IA</button>
+                            <button id="btn-salvar" type="submit" class="btn btn-success">Salvar consulta</button>
+                            <button id="btn-limpar" type="button" class="btn btn-outline-secondary">Limpar</button>
+                        </div>
+                    </form>
+
+
+                    <hr>
+
+                    <div id="ia-card" class="mt-3 d-none">
+                        <h6>Resultado da IA</h6>
+                        <div class="mb-2 small-muted">(Revise sempre antes de aceitar — obrigatório confirmar por
+                            profissional)</div>
+                        <div id="ia-output" class="ia-output mb-2">—</div>
+
+                        <div class="d-flex gap-2">
+                            <button id="btn-aceitar" class="btn btn-outline-success btn-sm">Aceitar Prescrição</button>
+                            <button id="btn-editar" class="btn btn-outline-primary btn-sm">Editar</button>
+                            <a id="btn-download" class="btn btn-outline-secondary btn-sm d-none" href="#">Baixar PDF</a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            const btnIA = document.getElementById('btn-ia');
+            const outputCard = document.getElementById('ia-card');
+            const output = document.getElementById('ia-output');
+            const form = document.getElementById('form-prescricao');
+            const btnAceitar = document.getElementById('btn-aceitar');
+            const btnEditar = document.getElementById('btn-editar');
+            const btnDownload = document.getElementById('btn-download');
+            const historico = document.getElementById('historico');
+
+            // Gera sugestão via AJAX para endpoint do Controller
+            btnIA.addEventListener('click', async function () {
+                btnIA.disabled = true; btnIA.innerText = 'Gerando...';
+
+                const formData = new FormData(form);
+
+                try {
+                    const resp = await fetch('/index.php?r=consulta_generate_ai', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!resp.ok) throw new Error('Erro no servidor');
+
+                    const data = await resp.json();
+
+                    if (data.success) {
+                        output.innerText = data.text;
+                        outputCard.classList.remove('d-none');
+                        btnDownload.href = '/index.php?r=consulta_download_pdf_preview&id=' + (data.consulta_id ?? '');
+                        btnDownload.classList.remove('d-none');
+                        btnDownload.classList.remove('disabled');
+                        // opcional: preencher historico se enviado
+                        if (data.historico && data.historico.length) {
+                            historico.innerHTML = '';
+                            data.historico.forEach(h => {
+                                const li = document.createElement('li'); li.className = 'list-group-item small'; li.innerText = h;
+                                historico.appendChild(li);
+                            });
+                        }
+                    } else {
+                        output.innerText = 'A IA não retornou sugestão: ' + (data.error || 'erro desconhecido');
+                        outputCard.classList.remove('d-none');
+                    }
+
+                } catch (err) {
+                    console.error(err);
+                    output.innerText = 'Erro ao contactar o servidor: ' + err.message;
+                    outputCard.classList.remove('d-none');
+                }
+
+                btnIA.disabled = false; btnIA.innerText = 'Gerar sugestão com IA';
+            });
+
+            // Aceitar -> submete formulário normalmente para salvar no banco
+            btnAceitar.addEventListener('click', function () {
+                // opcional: preencher hidden com texto da IA antes de submeter
+                const iaText = output.innerText || '';
+                // cria campo hidden resposta_ia
+                let f = form.querySelector('input[name="resposta_ia"]');
+                if (!f) {
+                    f = document.createElement('input'); f.type = 'hidden'; f.name = 'resposta_ia'; form.appendChild(f);
+                }
+                f.value = iaText;
+
+                form.submit();
+            });
+
+            // Editar -> copia texto da IA para textarea para o medico ajustar
+            btnEditar.addEventListener('click', function () {
+                const txt = output.innerText || '';
+                const ta = document.getElementById('sintomas');
+                ta.value = txt;
+                window.scrollTo({ top: ta.offsetTop - 80, behavior: 'smooth' });
+            });
+
+            // Limpar
+            document.getElementById('btn-limpar').addEventListener('click', function () {
+                form.reset(); output.innerText = '—'; outputCard.classList.add('d-none');
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

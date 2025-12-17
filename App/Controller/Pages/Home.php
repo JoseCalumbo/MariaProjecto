@@ -9,7 +9,7 @@ use App\Model\Entity\ZonaDao;
 
 class Home extends Page
 {
-    // busca o total dos Usuario
+    // busca o total dos Funcionarios
     public static function getDadosVendedor()
     {
         //quantidade total de registros da tabela user
@@ -17,7 +17,7 @@ class Home extends Page
         return $quantidadetotal;
     }
 
-    // busca o total dos Vendedor
+    // busca o total Consultas
     public static function getDadosUsuario()
     {
         //quantidade total de registros da tabela user
@@ -25,8 +25,8 @@ class Home extends Page
         return $quantidadetotal;
     }
 
-    // busca o total dos Vendedor
-    public static function getzonas()
+    // busca o total de paciente
+    public static function getPacientes()
     {
         //quantidade total de registros da tabela user
         $quantidadetotal = ZonaDao::listarZona(null, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
@@ -34,7 +34,7 @@ class Home extends Page
     }
 
     // funcao para apresenatar os registos dos dados 
-    private static function getBuscaVedendor($request)
+    private static function getUsuario($request)
     {
         $queryParam = $request->getQueryParams();
 
@@ -81,14 +81,13 @@ class Home extends Page
         }
     }
 
-    // tela home adim
+    // tela Administrador
     public static function getHome($request)
     {
-
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeDasbord', [
             'pesquisar' => $buscar,
-            'BuscaVendedor' => self::getBuscaVedendor($request),
+            'BuscaVendedor' => self::getUsuario($request),
             //'totalUsuario' => self::getDadosUsuario(),
             // 'totalVendedor' => self::getDadosVendedor(),
             //'totalzona' => self::getzonas(),
@@ -98,27 +97,36 @@ class Home extends Page
         return parent::getPage('Auxiliar Médico', $content);
     }
 
-    //tela home Medico
-    public static function getHomeMedico($request)
+    //tela Consultorio
+    public static function getHomeConsultorio($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeMedico', [
             'pesquisar' => $buscar,
-            'BuscaVendedor' => self::getBuscaVedendor($request),
+            'BuscaVendedor' => self::getUsuario($request),
         ]);
-        return parent::getHeaderMedico('Venda Ambulante', $content);
+        return parent::getPage('Venda Ambulante', $content);
     }
 
-    // tela balcao
-    public static function getHomeBalcao($request)
+    // tela Farmacia
+    public static function getHomeFarmacia($request)
     {
         $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
         $content = View::render('home/homeBalcao', [
             'pesquisar' => $buscar,
-            'BuscaVendedor' => self::getBuscaVedendor($request),
+            'BuscaVendedor' => self::getUsuario($request),
         ]);
-        return parent::getHeaderDados('Venda Ambulante', $content);
+        return parent::getPage('Farmacia', $content);
     }
 
-
+    // tela laboratorio
+    public static function getHomeLaboratorio($request)
+    {
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+        $content = View::render('home/homeBalcao', [
+            'pesquisar' => $buscar,
+            'BuscaVendedor' => self::getUsuario($request),
+        ]);
+        return parent::getPage('Lanoratorio', $content);
+    }
 }
