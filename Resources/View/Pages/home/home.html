@@ -1,233 +1,484 @@
-<section class="section-field white">
+<style>
+    body {
+        background: #ffffff;
+        min-height: 100vh;
+        padding: 20px 0;
+    }
 
-    <!-- HERO CAROUSEL -->
-    <div class="carousel carousel-slider hero-carousel">
+    .row {
+        margin-bottom: 10px;
+    }
 
-        <a class="carousel-item" href="#three!">
-            <img src="{{URL}}/Assets/img/hero3.png">
-        </a>
-        <a class="carousel-item" href="#three!">
-            <img src="{{URL}}/Assets/img/hero4.png">
-        </a>
+    .dashboard-card {
+        position: relative;
+        margin-bottom: 8px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: #ffffff !important;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .dashboard-card .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        color: #999;
+        cursor: pointer;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 50%;
+        padding: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .dashboard-card .close-btn:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: #666;
+    }
+
+    .dashboard-card .card-content {
+        color: #333 !important;
+    }
+
+    .dashboard-card h6,
+    .dashboard-card p,
+    .dashboard-card .metric-value {
+        color: #333 !important;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-header h6 {
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .dashboard-header i {
+        font-size: 2rem;
+    }
+
+    .metric-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 10px 0;
+        text-shadow: none;
+    }
+
+    .icon-colored {
+        border-radius: 12px;
+        padding: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem !important;
+    }
+
+    .green-icon {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .amber-icon {
+        background: #FFA000;
+        color: white;
+    }
+
+    .blue-icon {
+        background: #2196F3;
+        color: white;
+    }
+
+    .red-icon {
+        background: #F44336;
+        color: white;
+    }
+
+    .teal-icon {
+        background: #26A69A;
+        color: white;
+    }
+
+    .indigo-icon {
+        background: #5C6BC0;
+        color: white;
+    }
+
+    .grey-icon {
+        background: #616161;
+        color: white;
+    }
+
+    .row {
+        margin-left: -2px;
+        margin-right: -2px;
+    }
+
+    .row .col {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 250px;
+        padding: 10px;
+    }
+
+    .carousel.carousel-slider {
+        height: 200px;
+    }
+
+    .carousel .carousel-item {
+        height: 200px;
+    }
+
+    .carousel .carousel-item img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    canvas {
+        max-height: 230px;
+    }
+</style>
+
+<div class="container white">
+    <!-- Linha 1: 3 painéis de métricas -->
+    <div class="row painel-linha">
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content">
+                    <div class="dashboard-header">
+                        <i class="material-icons green-icon icon-colored">local_hospital</i>
+                        <h6>Consultas Realizadas</h6>
+                    </div>
+                    <div class="metric-value">342</div>
+                    <p style="opacity: 0.7;">↑ 12% vs mês anterior</p>
+                </div>
+            </div>
+        </div>
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content">
+                    <div class="dashboard-header">
+                        <i class="material-icons amber-icon icon-colored">event_available</i>
+                        <h6>Agendamentos</h6>
+                    </div>
+                    <div class="metric-value">89</div>
+                    <p style="opacity: 0.7;">Próximos 7 dias</p>
+                </div>
+            </div>
+        </div>
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content">
+                    <div class="dashboard-header">
+                        <i class="material-icons blue-icon icon-colored">people</i>
+                        <h6>Pacientes Ativos</h6>
+                    </div>
+                    <div class="metric-value">1.247</div>
+                    <p style="opacity: 0.7;">↑ 8% vs mês anterior</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Texto central -->
-    <div class="hero-caption">
-        <h3>ola</h3>
+    <!-- Linha 2: Banner Carousel -->
+    <div class="row painel-linha">
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content" style="padding: 0;">
+                    <h6 style="padding: 10px 10px 5px 10px; font-weight: bold;">
+                        <i class="material-icons red-icon icon-colored"
+                            style="vertical-align: middle; margin-right: 8px; font-size: 1.8rem !important;">campaign</i>
+                        Avisos e Campanhas
+                    </h6>
+
+                    <div class="carousel carousel-slider center">
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/800x200/2196F3/ffffff?text=Campanha+de+Vacinação"
+                                class="responsive-img">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/800x200/4CAF50/ffffff?text=Consultas+Preventivas"
+                                class="responsive-img">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/800x200/FFA000/ffffff?text=Novos+Serviços+Disponíveis"
+                                class="responsive-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- start Item  da parte da pesquisaaa -->
-    <div class="area-busca ">
-        {{BuscaVendedor}}
+    <!-- Linha 3: 2 painéis com gráficos -->
+    <div class="row painel-linha">
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content">
+                    <h6 style="font-weight: bold; margin-bottom: 10px;">
+                        <i class="material-icons teal-icon icon-colored"
+                            style="vertical-align: middle; margin-right: 8px; font-size: 1.8rem !important;">show_chart</i>
+                        Evolução de Consultas
+                    </h6>
+                    <div class="chart-container">
+                        <canvas id="vendasChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content">
+                    <h6 style="font-weight: bold; margin-bottom: 10px;">
+                        <i class="material-icons indigo-icon icon-colored"
+                            style="vertical-align: middle; margin-right: 8px; font-size: 1.8rem !important;">credit_card</i>
+                        Status de Pagamentos
+                    </h6>
+                    <div class="chart-container">
+                        <canvas id="devedoresChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- end Item  da parte da pesquisa  mail notifications-->
-    <br>
 
-    <section class="row col m12 white">
-        <h4 class="teal-text">Minhas Ações </h4>
-        <br>
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating  btn-large  waves-effect waves-light teal">
-                        <i class="material-icons large">person_add</i>
-                    </a>
-                    <p class="teal-text">Cadastrar Funcionarios</p>
+    <!-- Linha 4: Top 10 Produtos -->
+    <div class="row painel-linha">
+        <div class="col painel">
+            <div class="card dashboard-card">
+                <i class="material-icons close-btn">close</i>
+                <div class="card-content">
+                    <h6 style="font-weight: bold; margin-bottom: 10px;">
+                        <i class="material-icons grey-icon icon-colored"
+                            style="vertical-align: middle; margin-right: 8px; font-size: 1.8rem !important;">bar_chart</i>
+                        Top 10 Especialidades Mais Procuradas
+                    </h6>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="produtosChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">password</i>
-                    </a>
-                    <p class="teal-text">Atualizar Senha</p>
-                </div>
-            </div>
-        </div>
+</div>
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script>
+    function ajustarLinha(linha) {
+        const paineis = linha.querySelectorAll(".painel");
+        const qtd = paineis.length;
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">person_add</i>
-                    </a>
-                    <p class="teal-text">Editar conta</p>
-                </div>
-            </div>
-        </div>
+        paineis.forEach(p => p.className = "col painel");
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">settings</i>
-                    </a>
-                    <p class="teal-text">Configuração de sistemas</p>
-                </div>
-            </div>
-        </div>
+        if (qtd === 1) {
+            paineis[0].classList.add("s12");
+        } else if (qtd === 2) {
+            paineis.forEach(p => p.classList.add("s6"));
+        } else if (qtd === 3) {
+            paineis.forEach(p => p.classList.add("s4"));
+        } else if (qtd === 4) {
+            paineis.forEach(p => p.classList.add("s3"));
+        }
+    }
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">add</i>
-                    </a>
-                    <p class="teal-text">Cadastrar Funcionarios</p>
-                </div>
-            </div>
-        </div>
+    function ajustarTodas() {
+        document.querySelectorAll(".painel-linha").forEach(linha => ajustarLinha(linha));
+    }
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a href="{{URL}}/permissao" class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">lock_clock</i>
-                    </a>
-                    <p class="teal-text">Definir Permissões</p>
-                </div>
-            </div>
-        </div>
+    document.addEventListener("DOMContentLoaded", () => {
+        ajustarTodas();
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">person</i>
-                    </a>
-                    <p class="teal-text">Editar conta</p>
-                </div>
-            </div>
-        </div>
+        // Fechar painéis
+        document.querySelectorAll(".close-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const col = btn.closest(".painel");
+                const linha = btn.closest(".painel-linha");
+                col.remove();
+                ajustarLinha(linha);
+            });
+        });
 
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">settings</i>
-                    </a>
-                    <p class="teal-text">Configuração de sistemas</p>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m3 ">
-            <br>
-            <div class=" ">
-                <div class="card-content red-text center">
-                    <a class="btn-floating btn-large waves-effect waves-light teal">
-                        <i class="material-icons large">settings</i>
-                    </a>
-                    <p class="teal-text">Configuração de sistemas</p>
-                </div>
-            </div>
-        </div>
+        // Inicializar carousel
+        const elems = document.querySelectorAll('.carousel.carousel-slider');
+        const instances = M.Carousel.init(elems, {
+            fullWidth: true,
+            indicators: true
+        });
 
-    </section>
+        // Autoplay carousel
+        setInterval(() => {
+            instances.forEach(instance => instance.next());
+        }, 4000);
 
-    <section class="row col m12 white">
+        // Gráfico de Consultas (Linha)
+        const ctxVendas = document.getElementById('vendasChart').getContext('2d');
+        new Chart(ctxVendas, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Consultas Realizadas',
+                    data: [245, 289, 267, 312, 334, 298, 342],
+                    borderColor: '#26a69a',
+                    backgroundColor: 'rgba(38, 166, 154, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#26a69a',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#666',
+                            callback: function (value) {
+                                return value + ' consultas';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#666'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                }
+            }
+        });
 
-        <h4 class="teal-text">Os meus processos</h4>
-        <br>
-        <div class="col s12 m12 teal row">
-            <div class="col m10 white-text">
-                <h5 class="white-text capitalize">Funcionarios Cadastrados</h5>
-                <a class="waves-effect waves-light teal">
-                    <i class="material-icons  center" style="font-size: 40px;">person_search</i>
-                    <span style="font-size: 40px;" class="capitalize">23</span>
-                </a>
-            </div>
-            <div class="col m2 ">
-                <h5 class="center ">
-                    <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
-                </h5>
-            </div>
-        </div>
+        // Gráfico de Devedores (Doughnut)
+        const ctxDevedores = document.getElementById('devedoresChart').getContext('2d');
+        new Chart(ctxDevedores, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pagos', 'Pendentes', 'Atrasados'],
+                datasets: [{
+                    data: [65, 25, 10],
+                    backgroundColor: [
+                        '#4CAF50',
+                        '#FFC107',
+                        '#F44336'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#666',
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
-        <div class="col s12 m12 teal row">
-            <div class="col m10 white-text">
-                <h5 class="white-text capitalize">Triagem Cadastrados</h5>
-                <a class="waves-effect waves-light teal">
-                    <i class="material-icons  center" style="font-size: 40px;">assignment_ind</i>
-                    <span style="font-size: 40px;" class="capitalize">161</span>
-                </a>
-            </div>
-            <div class="col m2 ">
-                <h5 class="center ">
-                    <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
-                </h5>
-            </div>
-        </div>
+        // Gráfico Top 10 Produtos (Barra Horizontal)
+        const ctxProdutos = document.getElementById('produtosChart').getContext('2d');
+        new Chart(ctxProdutos, {
+            type: 'bar',
+            data: {
+                labels: ['Produto A', 'Produto B', 'Produto C', 'Produto D', 'Produto E', 'Produto F', 'Produto G', 'Produto H', 'Produto I', 'Produto J'],
+                datasets: [{
+                    label: 'Lucro (Kz)',
+                    data: [8500, 7200, 6800, 5900, 5400, 4800, 4200, 3900, 3500, 3200],
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF',
+                        '#FF9F40',
+                        '#FF6384',
+                        '#C9CBCF',
+                        '#4BC0C0',
+                        '#FF6384'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#666',
+                            callback: function (value) {
+                                return value.toLocaleString() + ' Kz';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#666'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 
-        <div class="col s12 m12 teal row">
-            <div class="col m10 white-text">
-                <h5 class="white-text capitalize">Consultas Cadastrados</h5>
-                <a class="waves-effect waves-light teal">
-                    <i class="material-icons  center" style="font-size: 40px;">medical_services</i>
-                    <span style="font-size: 40px;" class="capitalize">92</span>
-                </a>
-            </div>
-            <div class="col m2 ">
-                <h5 class="center ">
-                    <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
-                </h5>
-            </div>
-        </div>
+</body>
 
-        <h4 class="teal-text">Notificação e Avisos</h4>
-        <br>
-        <div class="col s12 m12 row">
-
-            <div class="col m3 offset-m1 teal">
-                <div class="col m10 white-text">
-                    <h5 class="white-text capitalize">Configuração de sistemas</h5>
-                    <a class="waves-effect waves-light teal">
-                        <i class="material-icons  center" style="font-size: 40px;">settings</i>
-                        <span style="font-size: 40px;" class="capitalize">23</span>
-                    </a>
-                    <h5 class="center ">
-                        <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
-                    </h5>
-                </div>
-            </div>
-
-            <div class="col m3 offset-m1 teal">
-                <div class="col m10 white-text">
-                    <h5 class="white-text capitalize">Configuração de sistemas</h5>
-                    <a class="waves-effect waves-light teal">
-                        <i class="material-icons  center" style="font-size: 40px;">settings</i>
-                        <span style="font-size: 40px;" class="capitalize">23</span>
-                    </a>
-                    <h5 class="center ">
-                        <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
-                    </h5>
-                </div>
-            </div>
-
-            <div class="col m3 offset-m1 teal">
-                <div class="col m10 white-text">
-                    <h5 class="white-text capitalize">Configuração de sistemas</h5>
-                    <a class="waves-effect waves-light teal">
-                        <i class="material-icons  center" style="font-size: 40px;">settings</i>
-                        <span style="font-size: 40px;" class="capitalize">23</span>
-                    </a>
-                    <h5 class="center ">
-                        <a class="" href="http://" style="text-transform: lowercase;">Ver mais</a>
-                    </h5>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-</section>
+</html>
