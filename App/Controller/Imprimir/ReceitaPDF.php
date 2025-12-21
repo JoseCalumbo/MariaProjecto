@@ -2,25 +2,23 @@
 
 namespace App\Controller\Imprimir;
 
-use App\Model\Entity\MensalidadeDao;
-use App\Model\Entity\NegocioDao;
-use App\Model\Entity\PagamentoDao;
 use \App\Utils\ViewPagePDF;
 use \App\Utils\View;
 use \App\Utils\Session;
 use \App\Model\Entity\VendedorDao;
+use \App\Model\Entity\ReceitaDao;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class FacturaPDF{
+class ReceitaPDF{
 
 
 
     // metodo que renderiza os dados dos vendedores na pagina HTML, lista de Vendedor 
     public static function getFacturaDados($id_conta,$id){
 
-        $dadosFactura = PagamentoDao::listarFactura($id_conta);
+        $dadosFactura = ReceitaDao::getReceitaID($id_conta);
 
         // obtem o vendedor 
         $obVendedor = VendedorDao::getVendedorId($id);
@@ -30,9 +28,9 @@ class FacturaPDF{
         $hora = date('H:i');
 
         //obtem a logo
-        $logo = 'http://localhost/projectovenda/Assets/img/logo1.png';
+        $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu1.png';
 
-        return View::renderPDF('factura/factura',[
+        return View::renderPDF('receita/receita',[
             'id' => $dadosFactura->id,
             'nome' => $dadosFactura->nome,
             'email' => $dadosFactura->email,
@@ -92,9 +90,9 @@ class FacturaPDF{
 
             $item = '';
     
-            $resultado = PagamentoDao::contaListagen($id);
+            $resultado = ReceitaDao::getReceitaID($id);
 
-            while ($dadosFactura  = $resultado->fetchObject(PagamentoDao::class)) {
+            while ($dadosFactura  = $resultado->fetchObject(ReceitaDao::class)) {
     
                 $item .= View::renderPDF('factura/listarest', [
                     'id' => $dadosFactura->id,
