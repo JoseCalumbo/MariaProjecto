@@ -12,6 +12,10 @@ $resposta = $consulta->analisarPaciente($dados);
 echo "<pre>";
 echo $resposta;
 echo "</pre>";
+
+
 */
+
+
 
         
