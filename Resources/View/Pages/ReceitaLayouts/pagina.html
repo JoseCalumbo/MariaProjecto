@@ -696,6 +696,7 @@
 
         // GERAR PRESCRIÇÃO COM IA
         async function gerarPrescricao() {
+            
             if (!validarFormulario()) {
                 M.toast({ html: '⚠️ Preencha todos os campos obrigatórios corretamente', classes: 'red' });
                 return;
@@ -721,68 +722,68 @@
 
                 // Resultado da análise da IA
                 let resultado = `
-          <div style="line-height:1.9;">
-            <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
-            
-            <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
-            
-            <p><strong>Sintomas:</strong><br>${sintomas}</p>
-            
-            ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
-            ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
-            ${promptAdicional ? `<p><strong>🎯 Considerações especiais:</strong><br>${promptAdicional}</p>` : ''}
-            
-            <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
-            
-            <p><strong>🔍 Diagnóstico Sugerido:</strong><br>
-            Quadro viral respiratório agudo de vias aéreas superiores</p>
-            
-            <p><strong>💊 Recomendações Terapêuticas:</strong></p>
-            <ul style="margin-left:20px;">
-              <li>Paracetamol 750mg - 1 comprimido de 8/8h por 5 dias</li>
-              <li>Dipirona 500mg - 1 comprimido se febre persistente (máx 4x/dia)</li>
-              <li>Repouso relativo</li>
-              <li>Hidratação oral abundante (mínimo 2L/dia)</li>
-              <li>Retornar se febre > 3 dias ou piora dos sintomas</li>
-            </ul>
-            
-            <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
-              <small><strong>⚠️ Atenção:</strong> Esta é uma sugestão baseada em IA. 
-              Revise cuidadosamente antes de prescrever ao paciente.</small>
-            </div>
-          </div>
-        `;
+                  <div style="line-height:1.9;">
+                    <h6 style="color:#00695c;margin-bottom:15px;">📋 Análise Completa</h6>
+                    
+                    <p><strong>Paciente:</strong> ${nome}, ${idade} anos${peso ? `, ${peso}kg` : ''}</p>
+                    
+                    <p><strong>Sintomas:</strong><br>${sintomas}</p>
+                    
+                    ${alergias ? `<p><strong>⚠️ Alergias:</strong> ${alergias}</p>` : ''}
+                    ${medicamentos ? `<p><strong>💊 Medicamentos em uso:</strong> ${medicamentos}</p>` : ''}
+                    ${promptAdicional ? `<p><strong>🎯 Considerações especiais:</strong><br>${promptAdicional}</p>` : ''}
+                    
+                    <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+                    
+                    <p><strong>🔍 Diagnóstico Sugerido:</strong><br>
+                    Quadro viral respiratório agudo de vias aéreas superiores</p>
+                    
+                    <p><strong>💊 Recomendações Terapêuticas:</strong></p>
+                    <ul style="margin-left:20px;">
+                      <li>Paracetamol 750mg - 1 comprimido de 8/8h por 5 dias</li>
+                      <li>Dipirona 500mg - 1 comprimido se febre persistente (máx 4x/dia)</li>
+                      <li>Repouso relativo</li>
+                      <li>Hidratação oral abundante (mínimo 2L/dia)</li>
+                      <li>Retornar se febre > 3 dias ou piora dos sintomas</li>
+                    </ul>
+                    
+                    <div style="background:#fff3cd;padding:12px;border-radius:6px;margin-top:15px;">
+                      <small><strong>⚠️ Atenção:</strong> Esta é uma sugestão baseada em IA. 
+                      Revise cuidadosamente antes de prescrever ao paciente.</small>
+                    </div>
+                  </div>
+                `;
 
                 document.getElementById('resultadoIA').innerHTML = resultado;
 
                 // Preencher prescrição final
                 const prescricaoTexto = `PRESCRIÇÃO MÉDICA
 
-Paciente: ${nome}
-Idade: ${idade} anos
-Data: ${new Date().toLocaleDateString('pt-BR')}
+                Paciente: ${nome}
+                Idade: ${idade} anos
+                Data: ${new Date().toLocaleDateString('pt-BR')}
 
-MEDICAMENTOS:
+                MEDICAMENTOS:
 
-1) Paracetamol 750mg
-   Posologia: 1 comprimido de 8/8 horas
-   Duração: 5 dias
-   Via: Oral
+                1) Paracetamol 750mg
+                   Posologia: 1 comprimido de 8/8 horas
+                   Duração: 5 dias
+                   Via: Oral
 
-2) Dipirona 500mg
-   Posologia: 1 comprimido se febre persistente
-   Frequência: Máximo 4x ao dia
-   Via: Oral
+                2) Dipirona 500mg
+                   Posologia: 1 comprimido se febre persistente
+                   Frequência: Máximo 4x ao dia
+                   Via: Oral
 
-ORIENTAÇÕES:
-- Repouso relativo
-- Hidratação oral abundante (mínimo 2 litros/dia)
-- Retornar em caso de febre persistente por mais de 3 dias
-- Retornar se houver piora dos sintomas
+                ORIENTAÇÕES:
+                - Repouso relativo
+                - Hidratação oral abundante (mínimo 2 litros/dia)
+                - Retornar em caso de febre persistente por mais de 3 dias
+                - Retornar se houver piora dos sintomas
 
-___________________________
-Dr. José Moculo
-CRM: XXXXX`;
+                ___________________________
+                Dr. José Moculo
+                CRM: XXXXX`;
 
                 document.getElementById('prescricaoFinal').value = prescricaoTexto;
                 M.updateTextFields();
@@ -940,32 +941,32 @@ CRM: XXXXX`;
                 // Atualizar prescrição
                 const prescricaoAtualizada = `PRESCRIÇÃO MÉDICA - ANÁLISE REFINADA
 
-Paciente: ${nome}
-Idade: ${idade} anos
-Data: ${new Date().toLocaleDateString('pt-BR')}
+                    Paciente: ${nome}
+                    Idade: ${idade} anos
+                    Data: ${new Date().toLocaleDateString('pt-BR')}
 
-CONSIDERAÇÕES MÉDICAS:
-${promptAdicional}
+                    CONSIDERAÇÕES MÉDICAS:
+                    ${promptAdicional}
 
-MEDICAMENTOS:
+                    MEDICAMENTOS:
 
-1) Paracetamol 500mg
-   Posologia: 1 comprimido de 8/8 horas
-   Duração: 5 dias
-   Via: Oral
+                    1) Paracetamol 500mg
+                       Posologia: 1 comprimido de 8/8 horas
+                       Duração: 5 dias
+                       Via: Oral
 
-2) Dipirona 500mg (alternativa)
-   Posologia: Se necessário
-   Via: Oral
+                    2) Dipirona 500mg (alternativa)
+                       Posologia: Se necessário
+                       Via: Oral
 
-ORIENTAÇÕES:
-- Repouso e acompanhamento conforme orientações específicas
-- Hidratação oral abundante
-- Retornar se necessário
+                    ORIENTAÇÕES:
+                    - Repouso e acompanhamento conforme orientações específicas
+                    - Hidratação oral abundante
+                    - Retornar se necessário
 
-___________________________
-Dr. José Moculo
-CRM: XXXXX`;
+                    ___________________________
+                    Dr. José Moculo
+                    CRM: XXXXX`;
 
                 document.getElementById('prescricaoFinal').value = prescricaoAtualizada;
                 M.updateTextFields();

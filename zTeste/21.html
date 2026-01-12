@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Médico com IA</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #e4e9f7;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45px;
+      background: #00695c;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-left img {
+      height: 28px;
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: #4caf50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* CHAT SIDEBAR */
+    .chat-sidebar {
+      position: fixed;
+      top: 45px;
+      left: 0;
+      width: 380px;
+      height: calc(100vh - 45px);
+      background: #fff;
+      z-index: 999;
+      transform: translateX(-100%);
+      transition: transform .3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      background: #fafafa;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      padding: 12px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* FLOAT BUTTON */
+    .chat-fab {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #00695c;
+      color: #fff;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* MAIN */
+    main {
+      padding: 60px 20px 20px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* BOX */
+    .box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+    }
+
+    .box h6 {
+      margin: 0 0 15px 0;
+      font-weight: 500;
+      color: #00695c;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TABS CUSTOMIZADAS */
+    .custom-tabs {
+      display: flex;
+      overflow-x: auto;
+      gap: 5px;
+      background: transparent;
+    }
+
+    .custom-tab {
+      flex: 1 0 auto; 
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #666;
+      font-weight: 500;
+      transition: all .3s ease;
+      font-size: 13px;
+      white-space: nowrap; 
+    }
+
+    .custom-tab.active {
+      background: #fff;
+      color: #00695c;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab-content-wrapper {
+      background: #fff;
+      padding: 25px;
+      border-radius: 0 8px 8px 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      min-height: 450px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* TABELA DE MEDICAMENTOS */
+    .responsive-table td {
+      padding: 15px 8px !important; 
+    }
+
+    /* LOADING IA */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .loading-overlay.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <div class="top-left">
+      <img src="https://clipartcraft.com/images/best-logo-design-transparent-6.png" alt="Logo">
+      <div>
+        <div>Painel Médico</div>
+        <small>IA Prescrição</small>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span>Dr. José Moculo</span>
+      <div class="online-dot"></div>
+    </div>
+  </div>
+
+  <div class="chat-fab" id="btnOpenChat">
+    <i class='bx bx-chat bx-sm'></i>
+  </div>
+
+  <div class="chat-sidebar" id="chatSidebar">
+    <div class="chat-header" style="padding:15px; background:#f5f5f5; display:flex; justify-content:space-between; align-items:center;">
+      <h6 style="margin:0;"><i class='bx bx-message-square-dots'></i> Assistente IA</h6>
+      <a href="#!" id="btnCloseChat" class="grey-text text-darken-2"><i class='bx bx-x bx-sm'></i></a>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message system" style="background:#eee; padding:10px; border-radius:8px; margin-bottom:10px;">
+        <strong>Assistente:</strong> Olá! Em que posso ajudar?
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Sua dúvida...">
+      <button class="btn teal" onclick="sendMsg()"><i class='bx bx-send'></i></button>
+    </div>
+  </div>
+
+  <main>
+    <div class="row">
+      <div class="col s12 l6">
+        <div class="box" style="position: relative; min-height: 350px;">
+          <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
+          <div id="resultadoIA" style="max-height: 500px; overflow-y: auto;">
+            <em class="grey-text">Preencha os dados e clique em "Analisar"...</em>
+          </div>
+          <div class="loading-overlay" id="loadingIA">
+            <div class="preloader-wrapper active">
+              <div class="spinner-layer spinner-teal-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div>
+            </div>
+            <p class="teal-text">Processando com IA...</p>
+          </div>
+        </div>
+
+        <div class="box">
+          <h6><i class='bx bx-message-square-edit'></i> Prompt Adicional</h6>
+          <div class="input-field">
+            <textarea id="promptAdicional" class="materialize-textarea" placeholder="Ex: Paciente hipertenso..."></textarea>
+          </div>
+          <button class="btn waves-effect blue-grey darken-2" onclick="refazerAnalise()">
+            <i class='bx bx-refresh'></i> Refazer Análise
+          </button>
+        </div>
+      </div>
+
+      <div class="col s12 l6">
+        <div class="custom-tabs">
+          <button class="custom-tab active" onclick="switchTab('tabDadosPaciente')" id="btnTabDados">
+            <i class='bx bx-user-circle'></i> Dados do Paciente
+          </button>
+          <button class="custom-tab" onclick="switchTab('tabMedicamentos')" id="btnTabMedicamentos">
+            <i class='bx bx-plus-medical'></i> Adicionar Medicamento
+          </button>
+          <button class="custom-tab" onclick="switchTab('tabObservacoes')" id="btnTabObservacoes">
+            <i class='bx bx-note'></i> Observações
+          </button>
+        </div>
+
+        <div class="tab-content-wrapper">
+          <div id="tabDadosPaciente" class="tab-panel active">
+            <form id="formPaciente">
+              <div class="row">
+                <div class="input-field col s12 m8">
+                  <input type="text" id="nomePaciente" required>
+                  <label for="nomePaciente">Nome Completo *</label>
+                </div>
+                <div class="input-field col s6 m2">
+                  <input type="number" id="idadePaciente" required>
+                  <label for="idadePaciente">Idade</label>
+                </div>
+                <div class="input-field col s6 m2">
+                  <input type="number" id="pesoPaciente" step="0.1">
+                  <label for="pesoPaciente">Peso (kg)</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="sintomas" class="materialize-textarea" required></textarea>
+                  <label for="sintomas">Sintomas Relatados *</label>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="btn teal darken-2" onclick="gerarPrescricao()">
+                  <i class='bx bx-brain'></i> Analisar com IA
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div id="tabMedicamentos" class="tab-panel">
+            <h6 style="font-size:14px; color:#00695c; margin-bottom:15px;">Medicamentos Prescritos</h6>
+            <table class="responsive-table highlight">
+              <thead>
+                <tr>
+                  <th width="40%">Medicamento</th>
+                  <th width="25%">Via</th>
+                  <th width="25%">Posologia</th>
+                  <th width="10%"></th>
+                </tr>
+              </thead>
+              <tbody id="tabela-medicamento-body">
+                <tr>
+                  <td>
+                    <select name="medicamentoNome[]">
+                      <option value="" disabled selected>Selecione</option>
+                      <option value="Paracetamol 750mg">Paracetamol 750mg</option>
+                      <option value="Dipirona 500mg">Dipirona 500mg</option>
+                      <option value="Ibuprofeno 600mg">Ibuprofeno 600mg</option>
+                      <option value="Amoxicilina 500mg">Amoxicilina 500mg</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="medicamentoVia[]">
+                      <option value="" disabled selected>Via</option>
+                      <option value="Oral">Oral</option>
+                      <option value="Intravenosa">Intravenosa</option>
+                      <option value="Tópica">Tópica</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" name="medicamentoPosologia[]" placeholder="Ex: 8/8h">
+                  </td>
+                  <td class="center">
+                    <a href="#!" class="red-text" onclick="removerLinhaMedicamento(this)"><i class='bx bx-trash-alt bx-sm'></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="center" style="margin-top:20px;">
+              <button class="btn-small indigo lighten-1" onclick="adicionarLinhaMedicamento()">
+                <i class='bx bx-plus'></i> Adicionar Linha
+              </button>
+            </div>
+
+            <div style="margin-top:40px; padding-top:20px; border-top:1px solid #eee; display:flex; gap:10px; justify-content: center; flex-wrap: wrap;">
+              <button class="btn teal darken-2" onclick="salvarPrescricaoMedicamentos()">
+                <i class='bx bx-save'></i> Salvar
+              </button>
+              <button class="btn blue-grey darken-1" onclick="imprimirPrescricao()">
+                <i class='bx bx-printer'></i> Imprimir
+              </button>
+              <button class="btn-flat deep-orange-text text-lighten-1" onclick="limparTudoVoltar()">
+                <i class='bx bx-x-circle'></i> Limpar Tudo
+              </button>
+            </div>
+          </div>
+
+          <div id="tabObservacoes" class="tab-panel">
+            <div class="input-field">
+              <textarea id="prescricaoFinal" class="materialize-textarea" style="min-height: 250px; font-family: monospace; font-size: 13px;"></textarea>
+              <label for="prescricaoFinal">Texto Final da Prescrição</label>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn teal darken-2" onclick="salvarPrescricao()"><i class='bx bx-save'></i> Finalizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      M.updateTextFields();
+      M.FormSelect.init(document.querySelectorAll('select'));
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.custom-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      if(tabId === 'tabDadosPaciente') document.getElementById('btnTabDados').classList.add('active');
+      if(tabId === 'tabMedicamentos') document.getElementById('btnTabMedicamentos').classList.add('active');
+      if(tabId === 'tabObservacoes') document.getElementById('btnTabObservacoes').classList.add('active');
+
+      M.FormSelect.init(document.querySelectorAll('select'));
+      M.updateTextFields();
+    }
+
+    // CORREÇÃO DA FUNÇÃO ADICIONAR LINHA
+    function adicionarLinhaMedicamento() {
+      const tabela = document.getElementById('tabela-medicamento-body');
+      
+      // 1. Clona a primeira linha
+      const novaLinha = tabela.rows[0].cloneNode(true);
+      
+      // 2. Limpa os valores dos inputs de texto
+      novaLinha.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+
+      // 3. CORREÇÃO MATERIALIZE: Remove a estrutura visual antiga do select para evitar duplicados
+      // Procuramos por divs com a classe .select-wrapper (criadas pelo Materialize)
+      novaLinha.querySelectorAll('.select-wrapper').forEach(wrapper => {
+        const selectOriginal = wrapper.querySelector('select');
+        // Movemos o select original para fora da div wrapper e removemos a div
+        wrapper.parentNode.insertBefore(selectOriginal, wrapper);
+        wrapper.remove();
+      });
+
+      // 4. Reseta o valor do select original
+      novaLinha.querySelectorAll('select').forEach(s => {
+        s.selectedIndex = 0;
+      });
+
+      // 5. Adiciona a linha limpa na tabela
+      tabela.appendChild(novaLinha);
+
+      // 6. Re-inicializa o Materialize apenas nos novos selects da nova linha
+      M.FormSelect.init(novaLinha.querySelectorAll('select'));
+    }
+
+    function removerLinhaMedicamento(botao) {
+      const tabela = document.getElementById('tabela-medicamento-body');
+      if (tabela.rows.length > 1) {
+        botao.closest('tr').remove();
+      } else {
+        M.toast({html: 'Mínimo de uma linha necessária'});
+      }
+    }
+
+    function gerarPrescricao() {
+      const loading = document.getElementById('loadingIA');
+      loading.classList.add('active');
+      setTimeout(() => {
+        loading.classList.remove('active');
+        M.toast({html: 'Análise concluída!'});
+        switchTab('tabMedicamentos');
+      }, 1000);
+    }
+
+    function salvarPrescricaoMedicamentos() {
+        M.toast({html: 'Medicamentos guardados!', classes: 'teal'});
+        switchTab('tabObservacoes');
+    }
+
+    function limparTudoVoltar() {
+      if(confirm("Deseja limpar todos os campos?")) {
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
