@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Prescrição - Painel Médico IA</title>
+    
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    
+    <style>
+        body {
+            background: #e4e9f7;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            background: #00695c;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+        }
+
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-left img {
+            height: 28px;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* MAIN */
+        main {
+            padding: 80px 20px 40px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* PÁGINA DE CONFIRMAÇÃO */
+        .confirmacao-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .confirmacao-icone {
+            font-size: 80px;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+
+        .confirmacao-titulo {
+            color: #00695c;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .confirmacao-subtitulo {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .resumo-prescricao {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+            border-left: 4px solid #00695c;
+        }
+
+        .resumo-prescricao h5 {
+            color: #00695c;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .resumo-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .resumo-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .resumo-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .resumo-item p {
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .medicamento-lista {
+            margin-top: 10px;
+        }
+
+        .medicamento-item {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border-left: 3px solid #00695c;
+        }
+
+        .medicamento-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .medicamento-item small {
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .botoes-confirmacao {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn i {
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 200px;
+            padding: 12px 20px;
+        }
+
+        .info-box {
+            background: #e8f5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #c8e6c9;
+        }
+
+        @media (max-width: 992px) {
+            .confirmacao-container {
+                padding: 20px;
+            }
+            
+            .botoes-confirmacao {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-left">
+            <img src="https://clipartcraft.com/images/best-logo-design-transparent-6.png" alt="Logo">
+            <div>
+                <div>Painel Médico</div>
+                <small>Confirmação de Prescrição</small>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <span>Dr. José Moculo</span>
+            <div class="online-dot"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <div class="confirmacao-container">
+            <div class="confirmacao-icone">
+                <i class='bx bx-check-circle'></i>
+            </div>
+            
+            <h1 class="confirmacao-titulo">Prescrição Salva com Sucesso!</h1>
+            
+            <p class="confirmacao-subtitulo">
+                A prescrição médica foi registrada no sistema e está disponível para consulta.
+            </p>
+            
+            <div class="info-box">
+                <p style="margin: 0; color: #2e7d32;">
+                    <i class='bx bx-info-circle'></i> A prescrição foi salva no histórico do paciente e pode ser acessada a qualquer momento.
+                </p>
+            </div>
+            
+            <div class="resumo-prescricao">
+                <h5>Resumo da Prescrição</h5>
+                
+                <div class="resumo-item">
+                    <strong>Paciente:</strong>
+                    <p id="resumoNomePaciente">-</p>
+                </div>
+                
+                <div class="resumo-item">
+                    <strong>Informações do Paciente:</strong>
+                    <p id="resumoInfoPaciente">-</p>
+                </div>
+                
+                <div class="resumo-item">
+                    <strong>Data da Prescrição:</strong>
+                    <p id="resumoData">-</p>
+                </div>
+                
+                <div class="resumo-item">
+                    <strong>Medicamentos Prescritos:</strong>
+                    <div id="resumoMedicamentos" class="medicamento-lista">
+                        <p>Nenhum medicamento registrado.</p>
+                    </div>
+                </div>
+                
+                <div class="resumo-item">
+                    <strong>Observações e Orientações:</strong>
+                    <p id="resumoObservacoes">-</p>
+                </div>
+            </div>
+            
+            <div class="botoes-confirmacao">
+                <button type="button" class="btn teal waves-effect" onclick="imprimirConfirmacao()">
+                    <i class='bx bx-printer'></i> Imprimir Confirmação
+                </button>
+                
+                <button type="button" class="btn green waves-effect" onclick="iniciarNovaPrescricao()">
+                    <i class='bx bx-plus-circle'></i> Nova Prescrição
+                </button>
+                
+                <button type="button" class="btn blue waves-effect" onclick="voltarParaPrescricoes()">
+                    <i class='bx bx-list-ul'></i> Ver Todas Prescrições
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p style="color: #999; font-size: 14px;">
+                    <i class='bx bx-info-circle'></i> Esta prescrição foi registrada no sistema com ID: 
+                    <strong id="idPrescricao">PRESC-XXXXXX</strong>
+                </p>
+                <p style="color: #999; font-size: 12px; margin-top: 5px;">
+                    Data e hora do registro: <span id="dataRegistro">-</span>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Carregar dados da prescrição do localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const dadosPrescricao = JSON.parse(localStorage.getItem('ultimaPrescricao'));
+            
+            if (dadosPrescricao) {
+                // Preencher informações básicas
+                document.getElementById('resumoNomePaciente').textContent = dadosPrescricao.nomePaciente;
+                
+                // Informações do paciente
+                let infoPaciente = `Idade: ${dadosPrescricao.idadePaciente} anos`;
+                if (dadosPrescricao.pesoPaciente && dadosPrescricao.pesoPaciente !== 'Não informado') {
+                    infoPaciente += ` | Peso: ${dadosPrescricao.pesoPaciente} kg`;
+                }
+                document.getElementById('resumoInfoPaciente').textContent = infoPaciente;
+                
+                document.getElementById('resumoData').textContent = dadosPrescricao.data;
+                document.getElementById('resumoObservacoes').textContent = dadosPrescricao.observacoes;
+                document.getElementById('idPrescricao').textContent = dadosPrescricao.id;
+                document.getElementById('dataRegistro').textContent = new Date().toLocaleString('pt-BR');
+                
+                // Preencher lista de medicamentos
+                const medicamentosContainer = document.getElementById('resumoMedicamentos');
+                if (dadosPrescricao.medicamentos && dadosPrescricao.medicamentos.length > 0) {
+                    medicamentosContainer.innerHTML = '';
+                    dadosPrescricao.medicamentos.forEach((med, index) => {
+                        const div = document.createElement('div');
+                        div.className = 'medicamento-item';
+                        div.innerHTML = `
+                            <strong>${index + 1}. ${med.medicamento}</strong>
+                            <small>Via: ${med.via} | Posologia: ${med.posologia}</small>
+                        `;
+                        medicamentosContainer.appendChild(div);
+                    });
+                } else {
+                    medicamentosContainer.innerHTML = '<p>Nenhum medicamento registrado na tabela.</p>';
+                }
+            } else {
+                // Se não houver dados, redirecionar para a página principal
+                alert('Nenhuma prescrição encontrada. Redirecionando para a página inicial...');
+                window.location.href = 'index.html';
+            }
+        });
+        
+        // Imprimir confirmação
+        function imprimirConfirmacao() {
+            const dadosPrescricao = JSON.parse(localStorage.getItem('ultimaPrescricao'));
+            if (!dadosPrescricao) return;
+            
+            const printWindow = window.open('', '', 'width=800,height=600');
+            let medicamentosHTML = '';
+            
+            if (dadosPrescricao.medicamentos && dadosPrescricao.medicamentos.length > 0) {
+                dadosPrescricao.medicamentos.forEach((med, index) => {
+                    medicamentosHTML += `
+                        <div style="margin-bottom: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+                            <strong>${index + 1}. ${med.medicamento}</strong><br>
+                            <small>Via: ${med.via} | Posologia: ${med.posologia}</small>
+                        </div>
+                    `;
+                });
+            } else {
+                medicamentosHTML = '<p>Nenhum medicamento registrado.</p>';
+            }
+            
+            // Informações do paciente
+            let infoPaciente = `Idade: ${dadosPrescricao.idadePaciente} anos`;
+            if (dadosPrescricao.pesoPaciente && dadosPrescricao.pesoPaciente !== 'Não informado') {
+                infoPaciente += ` | Peso: ${dadosPrescricao.pesoPaciente} kg`;
+            }
+            
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Confirmação de Prescrição Médica</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 40px; line-height: 1.6; }
+                            h1 { color: #00695c; border-bottom: 2px solid #00695c; padding-bottom: 10px; }
+                            .confirmacao { border: 2px solid #00695c; padding: 30px; border-radius: 8px; }
+                            .header { text-align: center; margin-bottom: 30px; }
+                            .logo { text-align: center; margin-bottom: 20px; }
+                            .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; text-align: center; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="logo">
+                            <h2>Painel Médico IA</h2>
+                            <p>Confirmação de Prescrição</p>
+                        </div>
+                        
+                        <div class="confirmacao">
+                            <div class="header">
+                                <h1>CONFIRMAÇÃO DE PRESCRIÇÃO MÉDICA</h1>
+                            </div>
+                            
+                            <p><strong>ID da Prescrição:</strong> ${dadosPrescricao.id}</p>
+                            <p><strong>Paciente:</strong> ${dadosPrescricao.nomePaciente}</p>
+                            <p><strong>Informações:</strong> ${infoPaciente}</p>
+                            <p><strong>Data da Prescrição:</strong> ${dadosPrescricao.data}</p>
+                            
+                            <h3>MEDICAMENTOS PRESCRITOS:</h3>
+                            ${medicamentosHTML}
+                            
+                            <h3>OBSERVAÇÕES E ORIENTAÇÕES:</h3>
+                            <p>${dadosPrescricao.observacoes}</p>
+                            
+                            <div class="footer">
+                                <p><em>Prescrição registrada no sistema Painel Médico IA</em></p>
+                                <p><strong>Dr. José Moculo</strong><br>
+                                CRM: XXXXX | Especialidade: Clínica Geral</p>
+                                <p>Data de impressão: ${new Date().toLocaleString('pt-BR')}</p>
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+        
+        // Iniciar nova prescrição
+        function iniciarNovaPrescricao() {
+            // Limpar dados da prescrição atual do localStorage
+            localStorage.removeItem('ultimaPrescricao');
+            
+            // Redirecionar para a página principal
+            window.location.href = 'index.html';
+        }
+        
+        // Voltar para lista de prescrições
+        function voltarParaPrescricoes() {
+            // Em um sistema real, isso redirecionaria para a lista de prescrições
+            alert('Em um sistema real, você seria redirecionado para a lista de todas as prescrições.');
+            // Por enquanto, vamos redirecionar para a página principal
+            window.location.href = 'index.html';
+        }
+        
+        // Função para copiar ID da prescrição
+        function copiarIdPrescricao() {
+            const idPrescricao = document.getElementById('idPrescricao').textContent;
+            navigator.clipboard.writeText(idPrescricao).then(() => {
+                alert('ID da prescrição copiado para a área de transferência: ' + idPrescricao);
+            }).catch(() => {
+                alert('Erro ao copiar o ID da prescrição.');
+            });
+        }
+    </script>
+</body>
+</html>

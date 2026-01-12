@@ -15,7 +15,7 @@ class Prescrisao extends Page
         $dados = "Paciente 20 anos, 60kg, febre 38ºC — qual medicamento usar?";
 
       //  $resposta = $consulta->analisarPaciente($dados);
-        $content = View::render('ReceitaLayouts/contem', [
+        $content = View::render('ReceitaLayouts/mainIA', [
           // 'dados' => $resposta,
         ]);
         return parent::getPageReceita('Geradar de consulta', $content);
