@@ -1,4 +1,6 @@
+
 window.onload = function () {
+
 
   var btnGerar = document.querySelector("#btnAnalisar");
   var btnRefazer = document.querySelector("#btnRefazer");
@@ -54,7 +56,7 @@ window.onload = function () {
   }
 
   // gerar a primeira vez
-  btnGerar.onclick = function () {
+   btnGerar.onclick = function () {
 
     xhttp = new XMLHttpRequest();
 
@@ -82,6 +84,7 @@ window.onload = function () {
     xhttp.send();
   }
 
+      
   // metodo que refaz o analize com a obs do médico
   // btnRefazer.onclick = function () {
 
