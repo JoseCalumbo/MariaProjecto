@@ -30,7 +30,7 @@ class Prescrisao extends Page
   {
     $IA1 = new OpenRouterService();
 
-    $res = $IA1->sendMessage("Em um agente auxiliar medica, (utilizado por um médico) que ajuda a exclarecer e não substituir
+    $resposta = $IA1->sendMessage("Em um agente auxiliar medica, (utilizado por um médico) que ajuda a exclarecer e não substituir
                              o médico no consultorio, 
 
                             dados do paciente:
@@ -60,14 +60,15 @@ class Prescrisao extends Page
                             
     ");
 
-    $enviarResultado = nl2br($res['reply']);
+    
+   // $enviarResultado = nl2br($resposta['reply']);
     
     echo '<p>';
-    echo nl2br($res['reply']);
+    echo nl2br($resposta[]);
     echo '</p>';
 
     // return $res['reply'];
-    return  $enviarResultado ;
+  //  return  $enviarResultado ;
   }
 
 
@@ -130,11 +131,4 @@ class Prescrisao extends Page
 
   }
 
-  public function olaMundo2()
-  {
-    $consulta = new ConsultaMedica();
-    $dados = "Paciente 20 anos, 60kg, febre 38ºC — qual medicamento usar?";
-    $resposta = $consulta->analisarPaciente($dados);
-    echo json_decode($resposta);
-  }
 }

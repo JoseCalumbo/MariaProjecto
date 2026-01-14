@@ -11,12 +11,6 @@ $obRouter->get('/',[
     function($request){ return new Response(200,Pages\Home::getHome($request)); }
 ]);
 
-$obRouter->get('/home',[
-    'middlewares'=>[
-        'requer-login'
-    ],
-    function($request){ return new Response(200,Pages\Home::getHomeBalcao($request)); }
-]);
 
 
 /** __________________________________ Exame _______________________________
@@ -145,6 +139,13 @@ $obRouter->get('/relatorio',[
     ],
     function(){ return new Response(200,Pages\Relatorio::telaRelatorio());}
 ]);
+
+//________________________________Recepcao__________________________
+
+/**
+ * inclui as rotas da Recepcao  
+*/
+include __DIR__.'/RotaRecepcao.php';
 
 
 

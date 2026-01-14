@@ -391,8 +391,12 @@ h1 {
 /*minhas font de texto*/
 .font-normal {
     font-size: 11pt;
-    text-transform: none !important;
     font-weight: normal !important;
+    text-transform: lowercase !important;
+}
+
+.font-normal::first-letter {
+  text-transform: uppercase !important;
 }
 
 .maiscula {

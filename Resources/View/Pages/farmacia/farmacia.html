@@ -1,227 +1,1248 @@
-<section class="row section-field white">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-      <h5 class="" style="margin-left: 20px;"> Farmácia atendimento</h5>
-    <hr>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-  <div class="col m4">
-    <section class="col s12 m12 ">
-      <div class="row">
-        <div class="col s12 blue-grey darken-1 ">
-          <!--header das abas-->
-          <ul class="tabs tabsvendedor blue-grey darken-1  row">
-            <li class="tab col s3 m6"><a class="active font-normal" href="#dados1">Última despensa</a></li>
-            <li class="tab col s3 m6"><a class="active font-normal" href="#opcoes4">Receitas</a></li>
-          </ul>
-        </div>
-        <!--pagina das abas-->
-        <div id="dados1" class="col s12">
-          <div>
-            <table class="row col m12 responsive-table ">
-              <thead class="">
-                <tr class=" blue-grey lighten-5">
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">format_list_numbered</i>Nº
-                  </th>
-
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">person</i>Nome
-                  </th>
-
-                  <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">calendar_month</i>Data </th>
-
-                  <th class="center negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">settings</i>Opção</th>
-                </tr>
-              </thead>
-
-              <tbody tbody class="tbody">
-                {{listarConsultaFinalizada}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!--Aba content do pagamento-->
-        <div id="pagamento2" class="col s12">
-        
-          <table class="row col m12 responsive-table ">
-            <thead class="">
-              <tr class=" blue-grey lighten-5">
-                <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">format_list_numbered</i>Nº
-                </th>
-
-                <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">person</i>Nome
-                </th>
-
-                <th class="font-normal negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">calendar_month</i>Data </th>
-
-                <th class="center negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">settings</i>Opção</th>
-              </tr>
-            </thead>
-
-            <tbody tbody class="tbody">
-              {{listarConsultaFinalizada}}
-            </tbody>
-          </table>
-
-          <div>
-            <a href="{{URL}}/pagamento/{{id}}" class="font-normal row black-text ">
-              <button type="button " class="waves-effect waves-light btn teal darken-3">
-                <i class="material-icons left">attach_money</i>Solicitar Exames
-              </button>
-            </a>
-          </div>
-
-        </div>
-
-        <!--Aba content da opcoes-->
-        <div id="opcoes4" class="col s12">
-          <br>
-          <div>
-            <p>Status de Conta</p>
-            <form action="" method="post">
-
-              <div class="card ">
-
-                <div class="switch row ">
-
-                  <div class="col l8">
-                    <p><strong class="font-normal">Desactivar a conta</strong></p>
-                    <p class="font-small">Se a conta estiver desativada todos os serviços são suspenso
-                    </p>
-                  </div>
-
-                  <label class="col l1 push-l2">
-                    <input class="blue" type="checkbox" id="mudar">
-                    <span class="lever"></span>
-                  </label>
+  :root {
+    --primary-color: #2a7f62;
+    --secondary-color: #4CAF50;
+    --accent-color: #FF9800;
+    --light-color: #f8f9fa;
+    --dark-color: #333;
+    --danger-color: #e53935;
+    --warning-color: #ffb300;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+  }
 
 
-                </div>
-              </div>
 
-            </form>
-          </div>
-          <br>
-          <div>
-            <button type="button" class="waves-effect waves-light blue accent-4 btn disabled button-normal">
-              <a class="white-text" href="{{URL}}/vendedor/{{id}}">
-                <i class="material-icons right">print</i>
-                <span class="left maiscula">Imprimir Declaração</span>
-              </a>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+  /* Menu Topo Fixo */
+  .top-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
 
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+  }
+
+  .logo i {
+    font-size: 28px;
+    margin-right: 10px;
+  }
+
+  .logo h1 {
+    font-size: 22px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .menu-items {
+    display: flex;
+    height: 100%;
+    flex: 1;
+    overflow-x: auto;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+    border-bottom: 4px solid transparent;
+  }
+
+  .menu-item:hover,
+  .menu-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 4px solid var(--accent-color);
+  }
+
+  .menu-item i {
+    margin-right: 8px;
+    font-size: 18px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 10px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  /* Main content */
+  .main-content {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .header h2 {
+    color: var(--primary-color);
+    font-size: 28px;
+  }
+
+  /* Layout de Vendas */
+  .vendas-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+  }
+
+  @media (max-width: 992px) {
+    .vendas-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Produtos */
+  .produtos-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .section-header h3 {
+    color: var(--primary-color);
+    font-size: 22px;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 50px;
+    padding: 10px 20px;
+    width: 300px;
+  }
+
+  .search-bar input {
+    border: none;
+    background: none;
+    margin-left: 10px;
+    flex: 1;
+    outline: none;
+    font-size: 16px;
+  }
+
+  .categorias {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .categoria-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .categoria-btn:hover,
+  .categoria-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .produto-card {
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .produto-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-5px);
+  }
+
+  .produto-tipo {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+
+  .tipo-receita {
+    background-color: #ffebee;
+    color: var(--danger-color);
+  }
+
+  .tipo-controlado {
+    background-color: #fff3e0;
+    color: var(--warning-color);
+  }
+
+  .tipo-livre {
+    background-color: #e8f5e9;
+    color: var(--secondary-color);
+  }
+
+  .produto-nome {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 5px;
+    flex: 1;
+  }
+
+  .produto-desc {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+    flex: 1;
+  }
+
+  .produto-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .produto-preco {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  .produto-estoque {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .btn-adicionar {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-adicionar:hover {
+    background-color: #1f6b52;
+  }
+
+  .btn-adicionar:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  /* Carrinho */
+  .carrinho-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .carrinho-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .carrinho-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carrinho-items {
+    flex: 1;
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+
+  .carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .carrinho-item:last-child {
+    border-bottom: none;
+  }
+
+  .item-info h4 {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .item-info .item-preco {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+
+  .item-controles {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .quantidade-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quantidade-btn:hover {
+    background-color: #f5f5f5;
+  }
+
+  .quantidade {
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+  }
+
+  .remover-item {
+    color: var(--danger-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+  }
+
+  .carrinho-resumo {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+  }
+
+  .resumo-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .resumo-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+  }
+
+  .btn-finalizar {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .btn-finalizar:hover {
+    background-color: #3d8b40;
+  }
+
+  /* Modal de Finalização */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background-color: white;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header h3 {
+    color: var(--primary-color);
+  }
+
+  .close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .menu-items {
+      overflow-x: auto;
+    }
+
+    .menu-item {
+      padding: 0 15px;
+      font-size: 14px;
+    }
+
+    .menu-item i {
+      margin-right: 5px;
+      font-size: 16px;
+    }
+
+    .logo h1 {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding-top: 60px;
+    }
+
+    .top-menu {
+      height: 60px;
+      padding: 0 10px;
+    }
+
+    .logo {
+      margin-right: 15px;
+    }
+
+    .logo h1 {
+      font-size: 16px;
+    }
+
+    .logo i {
+      font-size: 22px;
+      margin-right: 5px;
+    }
+
+    .menu-item {
+      padding: 0 12px;
+      font-size: 13px;
+    }
+
+    .menu-item i {
+      margin-right: 4px;
+      font-size: 14px;
+    }
+
+    .user-info {
+      padding-left: 10px;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+    }
+
+    .search-bar {
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .produtos-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+</style>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="header">
+    <h5 class="center">Venda de Medicamentos</h5>
   </div>
 
-  <div class="col m8">
-
-    <nav class="blue-grey darken-1 ">
-      <div class="nav-wrapper">
-        <form>
-          <div class="input-field custom-search" style="border: 1px solid #e6e4e4;">
-            <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
-            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-            <i class="material-icons center">close</i>
-          </div>
-        </form>
-      </div>
-    </nav>
-
-    <section class="  white col m12">
-      <br>
-
-      <table class="row col m12 responsive-table ">
-        <thead class="">
-          <tr class=" blue-grey lighten-5">
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">format_list_numbered</i>Nº</th>
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">image</i>Foto</th>
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">person</i>Nome</th>
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">transgender</i>Genero</th>
-            <th class="font-normal negrito"> <i class="material-icons black-white "
-                style="vertical-align: -6px;">calendar_month</i>Idade </th>
-            <th class="font-normal negrito"> <i class="material-icons black-white "
-                style="vertical-align: -6px;">flag</i>Pioridade</th>
-            <th class="center negrito"> <i class="material-icons black-white "
-                style="vertical-align: -6px;">settings</i>Opção</th>
-          </tr>
-        </thead>
-
-        <tbody tbody class="tbody">
-          {{listarConsulta}}
-        </tbody>
-      </table>
-
-    </section>
-
-    <section class="col m12 white">
-      {{paginacao}}
-    </section>
-  </div>
-
-
-
-</section>
-
-
-<!-- MODAL para cadastrar nivel -->
-<div id="modalNivel" class="modal  modalImprimirTriagem" style="width: 600px; height: 390px;">
-  <div class="row modal-content white">
-    <h5 class=" offset-m1 col s12 m10 capitalize" style="text-transform: lowercase;">
-      <i class="material-icons left teal-text medium" style="position: relative; top: -12px;">admin_panel_settings</i>
-      <strong style="font-weight: bold;">Cadastrar Nivel e Permissão </strong>
-    </h5>
-
-
-
-    <form action="{{URL}}/cadastrar/perfil" method="post" class="center white push-m2">
-      <div class="row" style="position: relative; top: -20px;">
-        <div class="input-field col s12 m8">
-          <input id="nome" type="text" name="nome" value="{{nome}}" class="validate">
-          <label for="nome" class="capitalize" style="text-transform:lowercase;">Nome do perfil de acesso:</label>
-        </div>
-
-        <div class="input-field col s12 m4">
-          <input id="serie" type="text" name="serie" value="{{nome}}" class="validate">
-          <label for="serie" style="text-transform: capitalize;">Serie Perfil:</label>
-        </div>
-
-        <div class="input-field col s12 m12">
-          <input id="perfil" type="text" name="descrisao" value="{{nome}}" class="validate">
-          <label for="perfil" style="text-transform: capitalize;">Descrisão do Perfil:</label>
+  <div class="vendas-container">
+    <!-- Seção de Produtos -->
+    <div class="produtos-section">
+      <div class="section-header">
+        <h6>Medicamentos Disponíveis</h6>
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-medicamento" placeholder="Buscar medicamento...">
         </div>
       </div>
 
-      <div class="offset-m10 col s12 " style="display: none;">
-        <input type="submit" id="submite">
+      <div class="categorias">
+        <button class="categoria-btn active" data-categoria="todos">Todos</button>
+        <button class="categoria-btn" data-categoria="analgesicos">Analgésicos</button>
+        <button class="categoria-btn" data-categoria="antibioticos">Antibióticos</button>
+        <button class="categoria-btn" data-categoria="hipertensao">Hipertensão</button>
+        <button class="categoria-btn" data-categoria="diabetes">Diabetes</button>
+        <button class="categoria-btn" data-categoria="controlados">Controlados</button>
       </div>
-    </form>
 
-    <div class="row" style="position: relative; top: -20px; margin-bottom: 0px;">
-      <div class="offset-m7 col s12 m5 row">
-
-        <a class="btn blue-grey darken-5  white-text modal-close" style="text-transform: capitalize;">
-          Cancelar
-        </a>
-
-        <a class="btn teal darken-5 white-text" style="text-transform: capitalize;">
-          <label class="white-text col m12" for="submite">salvar</label>
-        </a>
-
+      <div class="produtos-grid" id="produtos-grid">
+        <!-- Produtos serão inseridos via JavaScript -->
       </div>
     </div>
 
+    <!-- Seção do Carrinho -->
+    <div class="carrinho-section">
+      <div class="carrinho-header">
+        <div class="carrinho-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h6>Carrinho de Compras</h6>
+      </div>
+
+      <div class="carrinho-items" id="carrinho-items">
+        <!-- Itens do carrinho serão inseridos via JavaScript -->
+        <div id="carrinho-vazio" style="text-align: center; padding: 40px 0; color: #999;">
+          <i class="fas fa-shopping-cart" style="font-size: 48px; margin-bottom: 15px;"></i>
+          <p>Seu carrinho está vazio</p>
+          <p style="font-size: 14px;">Adicione medicamentos para iniciar uma venda</p>
+        </div>
+      </div>
+
+      <div class="carrinho-resumo">
+        <div class="resumo-item">
+          <span>Subtotal:</span>
+          <span id="subtotal">R$ 0,00</span>
+        </div>
+        <div class="resumo-item">
+          <span>Desconto:</span>
+          <span id="desconto">R$ 0,00</span>
+        </div>
+        <div class="resumo-total">
+          <span>Total:</span>
+          <span id="total">R$ 0,00</span>
+        </div>
+
+        <button class="btn-finalizar" id="btn-finalizar-venda">
+          <i class="fas fa-check-circle"></i> Finalizar Venda
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- Modal de Finalização de Venda -->
+<div class="modal" id="modal-finalizar">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Finalizar Venda</h3>
+      <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-venda">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cliente-nome">Nome do Cliente</label>
+            <input type="text" id="cliente-nome" class="form-control" placeholder="Digite o nome do cliente">
+          </div>
+          <div class="form-group">
+            <label for="cliente-cpf">CPF (opcional)</label>
+            <input type="text" id="cliente-cpf" class="form-control" placeholder="000.000.000-00">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="forma-pagamento">Forma de Pagamento</label>
+          <select id="forma-pagamento" class="form-control" required>
+            <option value="">Selecione...</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartao-debito">Cartão de Débito</option>
+            <option value="cartao-credito">Cartão de Crédito</option>
+            <option value="pix">PIX</option>
+            <option value="convenio">Convênio</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="receita-medica">Receita Médica</label>
+          <select id="receita-medica" class="form-control">
+            <option value="nao">Não possui</option>
+            <option value="sim">Possui receita comum</option>
+            <option value="controlada">Possui receita controlada</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="observacoes">Observações</label>
+          <textarea id="observacoes" class="form-control" rows="3"
+            placeholder="Observações sobre a venda..."></textarea>
+        </div>
+
+        <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span>Valor Total:</span>
+            <span id="modal-total" style="font-weight: bold; font-size: 18px;">R$ 0,00</span>
+          </div>
+
+          <div class="form-group" id="troco-container" style="display: none;">
+            <label for="valor-recebido">Valor Recebido</label>
+            <input type="number" id="valor-recebido" class="form-control" placeholder="0,00" step="0.01">
+            <div style="margin-top: 10px;">
+              <strong>Troco: </strong><span id="troco">R$ 0,00</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 25px;">
+          <button type="button" class="btn-adicionar" style="flex: 1;" id="btn-cancelar-venda">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-finalizar" style="flex: 2; margin-top: 0;">
+            <i class="fas fa-check"></i> Confirmar Venda
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Comprovante -->
+<div class="modal" id="modal-comprovante">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Comprovante de Venda</h3>
+      <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Farmácia Saúde Total</h4>
+        <p>CNPJ: 12.345.678/0001-99</p>
+        <p>Av. Principal, 1234 - Centro</p>
+        <p>Tel: (11) 3456-7890</p>
+      </div>
+
+      <div id="comprovante-conteudo">
+        <!-- Conteúdo do comprovante será gerado via JavaScript -->
+      </div>
+
+      <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ddd;">
+        <p>Obrigado pela preferência!</p>
+        <p style="font-size: 14px; color: #666;">Volte sempre</p>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 25px;">
+        <button class="btn-adicionar" style="flex: 1;" id="btn-fechar-comprovante">
+          Fechar
+        </button>
+        <button class="btn-finalizar" style="flex: 1; margin-top: 0;" id="btn-imprimir-comprovante">
+          <i class="fas fa-print"></i> Imprimir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Dados de exemplo para medicamentos
+  const medicamentos = [
+    { id: 1, nome: "Dipirona 500mg", descricao: "Analgésico e antitérmico", preco: 200.90, estoque: 45, tipo: "livre", categoria: "analgesicos" },
+    { id: 2, nome: "Amoxicilina 500mg", descricao: "Antibiótico de amplo espectro", preco: 300.50, estoque: 22, tipo: "receita", categoria: "antibioticos" },
+    { id: 3, nome: "Losartana 50mg", descricao: "Anti-hipertensivo", preco: 400.75, estoque: 18, tipo: "receita", categoria: "hipertensao" },
+    { id: 4, nome: "Metformina 850mg", descricao: "Antidiabético oral", preco: 200.20, estoque: 30, tipo: "receita", categoria: "diabetes" },
+    { id: 5, nome: "Diazepam 10mg", descricao: "Ansiolítico e relaxante muscular", preco: 80.90, estoque: 12, tipo: "controlado", categoria: "controlados" },
+    { id: 6, nome: "Ibuprofeno 400mg", descricao: "Anti-inflamatório não esteroidal", preco: 80.50, estoque: 38, tipo: "livre", categoria: "analgesicos" },
+    { id: 7, nome: "Omeprazol 20mg", descricao: "Inibidor de bomba de prótons", preco: 75.80, estoque: 25, tipo: "livre", categoria: "analgesicos" },
+    { id: 8, nome: "Insulina NPH", descricao: "Insulina de ação intermediária", preco: 80.90, estoque: 15, tipo: "controlado", categoria: "diabetes" },
+    { id: 9, nome: "Sinvastatina 20mg", descricao: "Redutor de colesterol", preco: 300.40, estoque: 20, tipo: "receita", categoria: "hipertensao" },
+    { id: 10, nome: "Azitromicina 500mg", descricao: "Antibiótico macrolídeo", preco: 380.60, estoque: 16, tipo: "receita", categoria: "antibioticos" },
+    { id: 11, nome: "Paracetamol 750mg", descricao: "Analgésico e antitérmico", preco: 400.80, estoque: 50, tipo: "livre", categoria: "analgesicos" },
+    { id: 12, nome: "Rivotril 2mg", descricao: "Ansiolítico (clonazepam)", preco: 105.30, estoque: 8, tipo: "controlado", categoria: "controlados" }
+  ];
+
+  // Estado da aplicação
+  let carrinho = [];
+  let totalVenda = 0;
+  let subtotal = 0;
+  let desconto = 0;
+  let categoriaAtiva = "todos";
+  let termoBusca = "";
+
+  // Elementos DOM
+  const produtosGrid = document.getElementById('produtos-grid');
+  const carrinhoItems = document.getElementById('carrinho-items');
+  const carrinhoVazio = document.getElementById('carrinho-vazio');
+  const subtotalEl = document.getElementById('subtotal');
+  const descontoEl = document.getElementById('desconto');
+  const totalEl = document.getElementById('total');
+  const btnFinalizar = document.getElementById('btn-finalizar-venda');
+  const modalFinalizar = document.getElementById('modal-finalizar');
+  const modalComprovante = document.getElementById('modal-comprovante');
+  const modalTotal = document.getElementById('modal-total');
+  const trocoContainer = document.getElementById('troco-container');
+  const valorRecebido = document.getElementById('valor-recebido');
+  const trocoEl = document.getElementById('troco');
+  const formaPagamento = document.getElementById('forma-pagamento');
+  const closeButtons = document.querySelectorAll('.close-modal');
+  const searchInput = document.getElementById('search-medicamento');
+  const categoriaBtns = document.querySelectorAll('.categoria-btn');
+  const comprovanteConteudo = document.getElementById('comprovante-conteudo');
+
+  // Inicialização
+  document.addEventListener('DOMContentLoaded', () => {
+    renderizarProdutos();
+    atualizarCarrinho();
+
+    // Adicionar event listeners
+    btnFinalizar.addEventListener('click', abrirModalFinalizar);
+    searchInput.addEventListener('input', (e) => {
+      termoBusca = e.target.value.toLowerCase();
+      renderizarProdutos();
+    });
+
+    categoriaBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoriaBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        categoriaAtiva = btn.dataset.categoria;
+        renderizarProdutos();
+      });
+    });
+
+    // Formulário de finalização
+    document.getElementById('form-venda').addEventListener('submit', finalizarVenda);
+    document.getElementById('btn-cancelar-venda').addEventListener('click', () => {
+      modalFinalizar.style.display = 'none';
+    });
+
+    // Troco dinâmico
+    valorRecebido.addEventListener('input', calcularTroco);
+    formaPagamento.addEventListener('change', (e) => {
+      trocoContainer.style.display = e.target.value === 'dinheiro' ? 'block' : 'none';
+      if (e.target.value !== 'dinheiro') {
+        valorRecebido.value = '';
+        trocoEl.textContent = 'R$ 0,00';
+      }
+    });
+
+    // Comprovante
+    document.getElementById('btn-fechar-comprovante').addEventListener('click', () => {
+      modalComprovante.style.display = 'none';
+      resetarVenda();
+    });
+
+    document.getElementById('btn-imprimir-comprovante').addEventListener('click', () => {
+      window.print();
+    });
+
+    // Fechar modais
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        modalFinalizar.style.display = 'none';
+        modalComprovante.style.display = 'none';
+      });
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === modalFinalizar) modalFinalizar.style.display = 'none';
+      if (event.target === modalComprovante) modalComprovante.style.display = 'none';
+    });
+
+    // Menu interativo
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        menuItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        // Em uma aplicação real, aqui carregaríamos o módulo correspondente
+        const menuText = item.querySelector('span').textContent;
+        document.querySelector('.header h2').textContent = menuText;
+      });
+    });
+  });
+
+  // Renderizar produtos
+  function renderizarProdutos() {
+    produtosGrid.innerHTML = '';
+
+    const medicamentosFiltrados = medicamentos.filter(med => {
+      // Filtrar por categoria
+      if (categoriaAtiva !== 'todos' && med.categoria !== categoriaAtiva) {
+        return false;
+      }
+
+      // Filtrar por busca
+      if (termoBusca && !med.nome.toLowerCase().includes(termoBusca) &&
+        !med.descricao.toLowerCase().includes(termoBusca)) {
+        return false;
+      }
+
+      return true;
+    });
+
+    if (medicamentosFiltrados.length === 0) {
+      produtosGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px 0; color: #999;">
+                        <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px;"></i>
+                        <p>Nenhum medicamento encontrado</p>
+                        <p style="font-size: 14px;">Tente buscar por outro termo</p>
+                    </div>
+                `;
+      return;
+    }
+
+    medicamentosFiltrados.forEach(med => {
+      const tipoClass = {
+        'receita': 'tipo-receita',
+        'controlado': 'tipo-controlado',
+        'livre': 'tipo-livre'
+      }[med.tipo];
+
+      const tipoText = {
+        'receita': 'Receita',
+        'controlado': 'Controlado',
+        'livre': 'Livre'
+      }[med.tipo];
+
+      const produtoCard = document.createElement('div');
+      produtoCard.className = 'produto-card';
+      produtoCard.innerHTML = `
+                    <span class="produto-tipo ${tipoClass}">${tipoText}</span>
+                    <h4 class="produto-nome">${med.nome}</h4>
+                    <p class="produto-desc">${med.descricao}</p>
+                    <div class="produto-info">
+                        <div class="produto-preco">R$ ${med.preco.toFixed(2)}</div>
+                        <div class="produto-estoque">Estoque: ${med.estoque}</div>
+                    </div>
+                    <button class="btn-adicionar" data-id="${med.id}" ${med.estoque === 0 ? 'disabled' : ''}>
+                        <i class="fas fa-cart-plus"></i> ${med.estoque === 0 ? 'Indisponível' : 'Adicionar'}
+                    </button>
+                `;
+
+      produtosGrid.appendChild(produtoCard);
+
+      // Adicionar evento ao botão
+      const btn = produtoCard.querySelector('.btn-adicionar');
+      if (med.estoque > 0) {
+        btn.addEventListener('click', () => adicionarAoCarrinho(med.id));
+      }
+    });
+  }
+
+  // Adicionar item ao carrinho
+  function adicionarAoCarrinho(id) {
+    const medicamento = medicamentos.find(m => m.id === id);
+    const itemNoCarrinho = carrinho.find(item => item.id === id);
+
+    if (itemNoCarrinho) {
+      if (itemNoCarrinho.quantidade < medicamento.estoque) {
+        itemNoCarrinho.quantidade++;
+      } else {
+        alert(`Estoque insuficiente! Apenas ${medicamento.estoque} unidades disponíveis.`);
+        return;
+      }
+    } else {
+      if (medicamento.estoque > 0) {
+        carrinho.push({
+          ...medicamento,
+          quantidade: 1
+        });
+      } else {
+        alert('Medicamento indisponível no momento!');
+        return;
+      }
+    }
+
+    atualizarCarrinho();
+  }
+
+  // Atualizar carrinho
+  function atualizarCarrinho() {
+    // Atualizar display do carrinho
+    if (carrinho.length === 0) {
+      carrinhoVazio.style.display = 'block';
+      carrinhoItems.innerHTML = '';
+      carrinhoItems.appendChild(carrinhoVazio);
+    } else {
+      carrinhoVazio.style.display = 'none';
+      carrinhoItems.innerHTML = '';
+
+      carrinho.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'carrinho-item';
+        itemEl.innerHTML = `
+                        <div class="item-info">
+                            <h6>${item.nome}</h6>
+                            <div class="item-preco">R$ ${item.preco.toFixed(2)}</div>
+                        </div>
+                        <div class="item-controles">
+                            <button class="quantidade-btn diminuir" data-id="${item.id}">-</button>
+                            <span class="quantidade">${item.quantidade}</span>
+                            <button class="quantidade-btn aumentar" data-id="${item.id}">+</button>
+                            <button class="remover-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+
+        carrinhoItems.appendChild(itemEl);
+
+        // Event listeners para controles
+        itemEl.querySelector('.diminuir').addEventListener('click', () => alterarQuantidade(item.id, -1));
+        itemEl.querySelector('.aumentar').addEventListener('click', () => alterarQuantidade(item.id, 1));
+        itemEl.querySelector('.remover-item').addEventListener('click', () => removerDoCarrinho(item.id));
+      });
+    }
+
+    // Calcular totais
+    subtotal = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    desconto = 0; // Poderia ser calculado com base em promoções
+
+    // Aplicar desconto para compras acima de R$ 100
+    if (subtotal > 100) {
+      desconto = subtotal * 0.05; // 5% de desconto
+    }
+
+    totalVenda = subtotal - desconto;
+
+    // Atualizar exibição dos valores
+    subtotalEl.textContent = `R$ ${subtotal.toFixed(2)}`;
+    descontoEl.textContent = `R$ ${desconto.toFixed(2)}`;
+    totalEl.textContent = `R$ ${totalVenda.toFixed(2)}`;
+
+    // Atualizar total no modal
+    modalTotal.textContent = `R$ ${totalVenda.toFixed(2)}`;
+  }
+
+  // Alterar quantidade de item no carrinho
+  function alterarQuantidade(id, delta) {
+    const itemIndex = carrinho.findIndex(item => item.id === id);
+    if (itemIndex === -1) return;
+
+    const medicamento = medicamentos.find(m => m.id === id);
+
+    if (delta === 1 && carrinho[itemIndex].quantidade >= medicamento.estoque) {
+      alert(`Estoque insuficiente! Apenas ${medicamento.estoque} unidades disponíveis.`);
+      return;
+    }
+
+    if (delta === -1 && carrinho[itemIndex].quantidade <= 1) {
+      removerDoCarrinho(id);
+      return;
+    }
+
+    carrinho[itemIndex].quantidade += delta;
+    atualizarCarrinho();
+  }
+
+  // Remover item do carrinho
+  function removerDoCarrinho(id) {
+    if (confirm('Remover este item do carrinho?')) {
+      carrinho = carrinho.filter(item => item.id !== id);
+      atualizarCarrinho();
+    }
+  }
+
+  // Abrir modal de finalização
+  function abrirModalFinalizar() {
+    if (carrinho.length === 0) {
+      alert('Adicione medicamentos ao carrinho antes de finalizar a venda!');
+      return;
+    }
+
+    modalFinalizar.style.display = 'flex';
+    modalTotal.textContent = `R$ ${totalVenda.toFixed(2)}`;
+
+    // Resetar campos
+    document.getElementById('cliente-nome').value = '';
+    document.getElementById('cliente-cpf').value = '';
+    document.getElementById('forma-pagamento').value = '';
+    document.getElementById('receita-medica').value = 'nao';
+    document.getElementById('observacoes').value = '';
+    trocoContainer.style.display = 'none';
+    valorRecebido.value = '';
+    trocoEl.textContent = 'R$ 0,00';
+  }
+
+  // Calcular troco
+  function calcularTroco() {
+    const valor = parseFloat(valorRecebido.value) || 0;
+    const troco = valor - totalVenda;
+
+    if (troco >= 0) {
+      trocoEl.textContent = `R$ ${troco.toFixed(2)}`;
+      trocoEl.style.color = 'green';
+    } else {
+      trocoEl.textContent = `Falta: R$ ${Math.abs(troco).toFixed(2)}`;
+      trocoEl.style.color = 'red';
+    }
+  }
+
+  // Finalizar venda
+  function finalizarVenda(e) {
+    e.preventDefault();
+
+    const formaPagamentoVal = document.getElementById('forma-pagamento').value;
+    const clienteNome = document.getElementById('cliente-nome').value || "Cliente não identificado";
+    const clienteCPF = document.getElementById('cliente-cpf').value;
+    const receitaMedica = document.getElementById('receita-medica').value;
+    const observacoes = document.getElementById('observacoes').value;
+
+    if (!formaPagamentoVal) {
+      alert('Selecione uma forma de pagamento!');
+      return;
+    }
+
+    // Verificar se é pagamento em dinheiro e se o valor é suficiente
+    if (formaPagamentoVal === 'dinheiro') {
+      const valorRecebidoVal = parseFloat(valorRecebido.value) || 0;
+      if (valorRecebidoVal < totalVenda) {
+        alert('Valor recebido insuficiente para cobrir o total da compra!');
+        return;
+      }
+    }
+
+    // Verificar receita para medicamentos controlados
+    const temControlado = carrinho.some(item => item.tipo === 'controlado');
+    if (temControlado && receitaMedica !== 'controlada') {
+      if (!confirm('Atenção: Há medicamentos controlados no carrinho, mas não foi informada receita controlada. Deseja continuar?')) {
+        return;
+      }
+    }
+
+    modalFinalizar.style.display = 'none';
+
+    // Gerar comprovante
+    gerarComprovante(clienteNome, clienteCPF, formaPagamentoVal, receitaMedica, observacoes);
+    modalComprovante.style.display = 'flex';
+  }
+
+  // Gerar comprovante
+  function gerarComprovante(clienteNome, clienteCPF, formaPagamento, receitaMedica, observacoes) {
+    const dataHora = new Date().toLocaleString('pt-BR');
+    const numeroVenda = Math.floor(Math.random() * 10000) + 1000;
+
+    let comprovanteHTML = `
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Data/Hora:</strong> ${dataHora}</p>
+                    <p><strong>Nº da Venda:</strong> ${numeroVenda}</p>
+                    <p><strong>Cliente:</strong> ${clienteNome}</p>
+                    ${clienteCPF ? `<p><strong>CPF:</strong> ${clienteCPF}</p>` : ''}
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Itens da Venda</h4>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <th style="text-align: left; padding: 8px 0;">Item</th>
+                                <th style="text-align: center; padding: 8px 0;">Qtd</th>
+                                <th style="text-align: right; padding: 8px 0;">Valor</th>
+                                <th style="text-align: right; padding: 8px 0;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+    carrinho.forEach(item => {
+      const totalItem = item.preco * item.quantidade;
+      comprovanteHTML += `
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                        <td style="padding: 8px 0;">${item.nome}</td>
+                        <td style="text-align: center; padding: 8px 0;">${item.quantidade}</td>
+                        <td style="text-align: right; padding: 8px 0;">R$ ${item.preco.toFixed(2)}</td>
+                        <td style="text-align: right; padding: 8px 0;">R$ ${totalItem.toFixed(2)}</td>
+                    </tr>
+                `;
+    });
+
+    comprovanteHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Subtotal:</span>
+                        <span>R$ ${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Desconto:</span>
+                        <span>R$ ${desconto.toFixed(2)}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px;">
+                        <span>Total:</span>
+                        <span>R$ ${totalVenda.toFixed(2)}</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Forma de Pagamento:</strong> ${formaPagamento}</p>
+                    <p><strong>Receita Médica:</strong> ${receitaMedica === 'nao' ? 'Não' : receitaMedica === 'sim' ? 'Receita comum' : 'Receita controlada'}</p>
+                    ${observacoes ? `<p><strong>Observações:</strong> ${observacoes}</p>` : ''}
+                </div>
+            `;
+
+    comprovanteConteudo.innerHTML = comprovanteHTML;
+  }
+
+  // Resetar venda após conclusão
+  function resetarVenda() {
+    // Atualizar estoque (em um sistema real, isso seria feito no backend)
+    carrinho.forEach(itemCarrinho => {
+      const medicamento = medicamentos.find(m => m.id === itemCarrinho.id);
+      if (medicamento) {
+        medicamento.estoque -= itemCarrinho.quantidade;
+      }
+    });
+
+    // Limpar carrinho
+    carrinho = [];
+    atualizarCarrinho();
+    renderizarProdutos();
+  }
+</script>

@@ -10,11 +10,12 @@ class OpenRouterService
 
 
     //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
+    // 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
 
     public function __construct()
     {
         // Ideal: guardar a chave no .env
-        $this->apiKey = $_ENV['OPENROUTER_API_KEY'] ?? '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';
+        $this->apiKey = $_ENV['OPENROUTER_API_KEY'] ?? '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';
     }
 
     /**

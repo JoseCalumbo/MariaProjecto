@@ -1,0 +1,852 @@
+<!-- Materialize CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+<style>
+  /* TÍTULO DA PÁGINA */
+  .page-title {
+    text-align: center;
+    margin: 20px 0 30px 0;
+    color: #1976d2;
+    font-weight: 600;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background: #1976d2;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  }
+
+  .top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .top-left img {
+    height: 28px;
+  }
+
+  .online-dot {
+    width: 10px;
+    height: 10px;
+    background: #4caf50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* SIDEBAR CHAT */
+  .chat-sidebar {
+    position: fixed;
+    top: 45px;
+    left: 0;
+    width: 380px;
+    height: calc(100vh - 45px);
+    background: #fff;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .chat-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .chat-header {
+    padding: 12px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chat-header h6 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .chat-messages {
+    flex: 1;
+    padding: 15px;
+    background: #fafafa;
+    overflow-y: auto;
+  }
+
+  .chat-input {
+    padding: 12px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 8px;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  /* FLOAT BUTTON */
+  .chat-fab {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #1976d2;
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+    cursor: pointer;
+    z-index: 1001;
+    transition: all .3s ease;
+  }
+
+  .chat-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+  }
+
+  /* MAIN */
+  main {
+    padding: 60px 20px 20px;
+    transition: margin-left .3s ease;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chat-sidebar.open~main {
+    margin-left: calc(380px + (100vw - 1400px) / 2);
+  }
+
+  @media (max-width: 1400px) {
+    .chat-sidebar.open~main {
+      margin-left: 380px;
+    }
+  }
+
+  /* BOX */
+  .box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+  }
+
+  .box h6 {
+    margin: 0 0 15px 0;
+    font-weight: 500;
+    color: #1976d2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* CHAT MESSAGE */
+  .chat-message {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .chat-message.user {
+    background: #e3f2fd;
+    text-align: right;
+    margin-left: 40px;
+  }
+
+  .chat-message.system {
+    background: #f5f5f5;
+    margin-right: 40px;
+  }
+
+  /* CARD ESTATÍSTICAS (ATUALIZADO) */
+  .stats-card {
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .stats-card h3 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .stats-card p {
+    margin: 5px 0 0 0;
+    color: #666;
+  }
+
+  .stats-card .btn-ver-mais {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: transparent;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-transform: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+    border: 1px solid currentColor;
+  }
+
+  .stats-card .btn-ver-mais:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  /* CORES ESPECÍFICAS PARA OS CARDS */
+  .stats-card:nth-child(1) h3 {
+    color: #1976d2;
+  }
+
+  .stats-card:nth-child(1) .btn-ver-mais {
+    color: #009688;
+    /* TEAL */
+  }
+
+  .stats-card:nth-child(2) h3 {
+    color: #fb8c00;
+  }
+
+  .stats-card:nth-child(2) .btn-ver-mais {
+    color: #4caf50;
+    /* VERDE */
+  }
+
+  .stats-card:nth-child(3) h3 {
+    color: #9c27b0;
+  }
+
+  .stats-card:nth-child(3) .btn-ver-mais {
+    color: #ff9800;
+    /* LARANJA */
+  }
+
+  .stats-card:nth-child(4) h3 {
+    color: #43a047;
+  }
+
+  .stats-card:nth-child(4) .btn-ver-mais {
+    color: #2196f3;
+    /* AZUL */
+  }
+
+  /* TABELA */
+  .responsive-table {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+
+  .responsive-table thead tr {
+    background-color: #e0e0e0;
+  }
+
+  .responsive-table th {
+    padding: 12px 10px;
+    font-weight: 500;
+    color: #424242;
+  }
+
+  .responsive-table thead tr th:not(:last-child) {
+    border-right: 2px solid #fff;
+  }
+
+  .responsive-table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .responsive-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+
+  .responsive-table td {
+    padding: 10px 8px;
+  }
+
+  /* BADGE STATUS */
+  .badge-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .badge-status.aguardando {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .badge-status.pago {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .badge-status.aberto {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  /* ALINHAMENTO DOS ÍCONES */
+  .btn i {
+    vertical-align: middle;
+    line-height: inherit;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* BOTÕES DE AÇÃO */
+  .action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .action-buttons .btn {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* RESPONSIVO */
+  @media (max-width: 992px) {
+    .chat-sidebar {
+      width: 100%;
+    }
+
+    .chat-sidebar.open~main {
+      margin-left: 0;
+    }
+
+    .action-buttons .btn {
+      min-width: 150px;
+    }
+  }
+</style>
+
+
+<!-- CHAT BUTTON -->
+<div class="chat-fab" id="btnOpenChat">
+  <i class='bx bx-chat bx-sm'></i>
+</div>
+
+<!-- CHAT SIDEBAR -->
+<div class="chat-sidebar" id="chatSidebar">
+  <div class="chat-header">
+    <h6><i class='bx bx-message-square-dots'></i> Assistente Virtual</h6>
+    <a class="btn-flat" id="btnCloseChat"><i class='bx bx-x bx-sm'></i></a>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-message system">
+      <strong>Assistente:</strong> Olá! Como posso ajudar com o atendimento?
+    </div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+    <a class="btn blue" onclick="sendMsg()">
+      <i class='bx bx-send'></i>
+    </a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="mainContent">
+
+  <!-- TÍTULO DA PÁGINA -->
+  <h5 class="page-title black-text ">Recepção</h5>
+
+  <!-- ESTATÍSTICAS -->
+  <div class="row">
+    <div class="col s12 m6 l3">
+      <div class="stats-card">
+        <h3 id="totalPacientes" class="black-text">0</h3>
+        <p class="font-normal">Total de Pacientes Hoje</p>
+        <a class="btn-ver-mais cyan darken-4 white-text" href="#!">
+          <i class='bx bx-show'></i> ver mais
+        </a>
+      </div>
+    </div>
+    <div class="col s12 m6 l3">
+      <div class="stats-card">
+        <h3 id="internados" class="black-text">0</h3>
+        <p class="font-normal">Pacientes Internados</p>
+        <a class="btn-ver-mais cyan darken-3 white-text" href="#!">
+          <i class='bx bx-bed'></i> ver mais
+        </a>
+      </div>
+    </div>
+    <div class="col s12 m6 l3">
+      <div class="stats-card">
+        <h3 id="consultasMarcadas" class="black-text">0</h3>
+        <p class="font-normal">Consultas Marcadas</p>
+        <a class="btn-ver-mais cyan darken-2 white-text" href="#!">
+          <i class='bx bx-calendar-check'></i> ver mais
+        </a>
+      </div>
+    </div>
+    <div class="col s12 m6 l3">
+      <div class="stats-card">
+        <h3 id="finalizados" class="black-text">0</h3>
+        <p class="font-normal">Atendimentos Finalizados</p>
+        <a class="btn-ver-mais white-text cyan darken-1" href="#!">
+          <i class='bx bx-check-circle'></i> ver mais
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÕES DE AÇÃO -->
+  <div class="action-buttons">
+    <button class="btn teal ">
+      <a class="white-text" href="{{URL}}/paciente" target="_blank"><i class='bx bx-user-plus'>
+        </i> Cadastrar Paciente </a>
+    </button>
+
+    <button class="btn teal waves-effect" onclick="abrirTriagem()">
+      <i class='bx bx-clipboard'></i> Triagem
+    </button>
+
+    <button class="btn teal waves-effect" onclick="abrirExame()">
+      <i class='bx bx-test-tube'></i> Marcar Exame
+    </button>
+    <button class="btn teal waves-effect" onclick="abrirConsulta()">
+      <i class='bx bx-calendar-plus'></i> Marcar Consulta
+    </button>
+  </div>
+
+  <!-- LAYOUT HORIZONTAL -->
+  <div class="row">
+
+    <!-- LISTA DE PACIENTES (ESQUERDA - 50%) -->
+    <div class="col s12 l6">
+      <!-- SITUAÇÃO FINANCEIRA-->
+      <div class="box">
+        <h6 class="black-text font-normal"><i class='bx bx-dollar-circle'></i> Situação Financeira do Paciente</h6>
+
+        <div style="max-height: 400px; overflow-y: auto;">
+          <table class="responsive-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome do Paciente</th>
+                <th>Serviços Realizados</th>
+                <th>Estado</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaFinanceira">
+              <tr>
+                <td colspan="5" class="center-align" style="padding: 40px;">
+                  <em style="color: #999;">Nenhum registro financeiro</em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <button class="btn teal font-normal" onclick="abrirTriagem()">
+          <i class='bx bx-clipboard'></i> Lista completa
+        </button>
+      </div>
+
+      <!-- PACIENTES EM ESPERA (AGORA ABAIXO) -->
+      <div class="box">
+        <h6  class="font-normal black-text"><i class='bx bx-user-check'></i> Pacientes em Espera</h6>
+
+        <div style="max-height: 400px; overflow-y: auto;">
+          <table class="responsive-table">
+            <thead>
+              <tr>
+                <th>Senha</th>
+                <th>Paciente</th>
+                <th>Prioridade</th>
+                <th>Status</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaPacientes">
+              <tr>
+                <td colspan="5" class="center-align" style="padding: 40px;">
+                  <em style="color: #999;">Nenhum paciente na fila</em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+                <button class="btn teal font-normal" onclick="abrirTriagem()">
+          <i class='bx bx-clipboard'></i> Lista completa
+        </button>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO (DIREITA - 50%) -->
+    <div class="col s12 l6">
+      <div class="box">
+        <h6 class="font-normal black-text"><i class='bx bx-history'></i> Histórico de Pacientes</h6>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" id="buscaPaciente" onkeyup="buscarHistorico()">
+            <label for="buscaPaciente">Buscar por nome ou CPF</label>
+          </div>
+        </div>
+
+        <div id="resultadoHistorico" style="max-height: 600px; overflow-y: auto;">
+          <p class="center-align" style="color: #999; padding: 40px;">
+            Digite o nome ou CPF do paciente para buscar o histórico
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+  // Dados simulados
+  let pacientes = [];
+  let financeiro = [];
+  let senhaAtual = 1;
+
+  // Inicializar Materialize
+  document.addEventListener('DOMContentLoaded', function () {
+    M.updateTextFields();
+    atualizarEstatisticas();
+  });
+
+  // CHAT CONTROLS
+  const chatSidebar = document.getElementById('chatSidebar');
+  const btnOpen = document.getElementById('btnOpenChat');
+  const btnClose = document.getElementById('btnCloseChat');
+
+  btnOpen.onclick = () => {
+    chatSidebar.classList.add('open');
+    btnOpen.style.display = 'none';
+  };
+
+  btnClose.onclick = () => {
+    chatSidebar.classList.remove('open');
+    btnOpen.style.display = 'flex';
+  };
+
+  // CHAT
+  function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const mensagem = input.value.trim();
+
+    if (!mensagem) {
+      M.toast({ html: '⚠️ Digite uma mensagem', classes: 'orange' });
+      return;
+    }
+
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.innerHTML += `
+        <div class="chat-message user">
+          <strong>Você:</strong> ${mensagem}
+        </div>
+      `;
+
+    input.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      chatMessages.innerHTML += `
+          <div class="chat-message system">
+            <strong>Assistente:</strong> Entendi. Posso ajudar com cadastro de pacientes, triagem ou busca de histórico.
+          </div>
+        `;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1000);
+  }
+
+  document.getElementById('chatInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      sendMsg();
+    }
+  });
+
+  // FUNÇÕES DOS BOTÕES
+  function abrirCadastro() {
+    M.toast({ html: '📝 Abrindo formulário de cadastro...', classes: 'blue' });
+    // Aqui você pode abrir um modal ou redirecionar
+  }
+
+  function abrirTriagem() {
+    M.toast({ html: '🏥 Abrindo sistema de triagem...', classes: 'teal' });
+  }
+
+  function abrirExame() {
+    M.toast({ html: '🧪 Abrindo agendamento de exames...', classes: 'purple' });
+  }
+
+  function abrirConsulta() {
+    M.toast({ html: '📅 Abrindo agendamento de consultas...', classes: 'indigo' });
+  }
+
+  // ATUALIZAR TABELA
+  function atualizarTabelaPacientes() {
+    const tbody = document.getElementById('tabelaPacientes');
+
+    if (pacientes.length === 0) {
+      tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="center-align" style="padding: 40px;">
+              <em style="color: #999;">Nenhum paciente na fila</em>
+            </td>
+          </tr>
+        `;
+      return;
+    }
+
+    tbody.innerHTML = '';
+    pacientes.forEach(p => {
+      const statusClass = p.status === 'Aguardando' ? 'aguardando' : 'pago';
+
+      const cor = p.prioridade === 'Vermelho' ? 'red-text' :
+        p.prioridade === 'Laranja' ? 'orange-text' :
+          p.prioridade === 'Amarelo' ? 'yellow-text text-darken-3' :
+            p.prioridade === 'Verde' ? 'green-text' : '';
+
+      tbody.innerHTML += `
+          <tr>
+            <td><strong>${p.senha}</strong></td>
+            <td>${p.nome}</td>
+            <td><span class="${cor}">${p.prioridade}</span></td>
+            <td><span class="badge-status ${statusClass}">${p.status}</span></td>
+            <td>
+              <a class="btn-small teal" onclick="chamarPaciente(${p.id})">
+                <i class='bx bx-phone-call'></i>
+              </a>
+            </td>
+          </tr>
+        `;
+    });
+  }
+
+  // ATUALIZAR TABELA FINANCEIRA
+  function atualizarTabelaFinanceira() {
+    const tbody = document.getElementById('tabelaFinanceira');
+
+    if (financeiro.length === 0) {
+      tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="center-align" style="padding: 40px;">
+              <em style="color: #999;">Nenhum registro financeiro</em>
+            </td>
+          </tr>
+        `;
+      return;
+    }
+
+    tbody.innerHTML = '';
+    financeiro.forEach(f => {
+      const estadoClass = f.estado === 'Pago' ? 'pago' : 'aberto';
+
+      tbody.innerHTML += `
+          <tr>
+            <td><strong>${f.senha}</strong></td>
+            <td>${f.nomePaciente}</td>
+            <td>${f.servicos}</td>
+            <td><span class="badge-status ${estadoClass}">${f.estado}</span></td>
+            <td>
+              ${f.estado === 'Em Aberto' ? `
+                <a class="btn-small teal" onclick="fazerPagamento(${f.id})">
+                  <i class='bx bx-dollar'></i> Pagar
+                </a>
+              ` : `
+                <a class="btn-small grey" disabled>
+                  <i class='bx bx-check'></i> Pago
+                </a>
+              `}
+            </td>
+          </tr>
+        `;
+    });
+  }
+
+  // ATUALIZAR ESTATÍSTICAS
+  function atualizarEstatisticas() {
+    document.getElementById('totalPacientes').textContent = pacientes.length;
+    document.getElementById('internados').textContent = pacientes.filter(p => p.tipo === 'Internado').length;
+    document.getElementById('consultasMarcadas').textContent = pacientes.filter(p => p.tipo === 'Consulta').length;
+    document.getElementById('finalizados').textContent = pacientes.filter(p => p.status === 'Finalizado').length;
+  }
+
+  // CHAMAR PACIENTE
+  function chamarPaciente(id) {
+    const paciente = pacientes.find(p => p.id === id);
+    if (paciente) {
+      M.toast({ html: `📢 Chamando paciente ${paciente.nome} - Senha ${paciente.senha}`, classes: 'blue' });
+    }
+  }
+
+  // FAZER PAGAMENTO
+  function fazerPagamento(id) {
+    const registro = financeiro.find(f => f.id === id);
+    if (registro) {
+      registro.estado = 'Pago';
+      atualizarTabelaFinanceira();
+      M.toast({ html: `✅ Pagamento realizado para ${registro.nomePaciente}`, classes: 'green' });
+    }
+  }
+
+  // BUSCAR HISTÓRICO
+  function buscarHistorico() {
+    const termo = document.getElementById('buscaPaciente').value.trim().toLowerCase();
+    const resultado = document.getElementById('resultadoHistorico');
+
+    if (termo.length < 3) {
+      resultado.innerHTML = `
+          <p class="center-align" style="color: #999; padding: 40px;">
+            Digite pelo menos 3 caracteres para buscar
+          </p>
+        `;
+      return;
+    }
+
+    const encontrados = pacientes.filter(p =>
+      p.nome.toLowerCase().includes(termo) ||
+      (p.cpf && p.cpf.includes(termo))
+    );
+
+    if (encontrados.length === 0) {
+      resultado.innerHTML = `
+          <p class="center-align" style="color: #999; padding: 40px;">
+            Nenhum paciente encontrado
+          </p>
+        `;
+      return;
+    }
+
+    resultado.innerHTML = '';
+    encontrados.forEach(p => {
+      resultado.innerHTML += `
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">${p.nome}</span>
+              <p><strong>Senha:</strong> ${p.senha}</p>
+              <p><strong>Status:</strong> ${p.status}</p>
+              <p><strong>Prioridade:</strong> ${p.prioridade}</p>
+              ${p.horaCadastro ? `<p><strong>Hora Cadastro:</strong> ${p.horaCadastro}</p>` : ''}
+            </div>
+          </div>
+        `;
+    });
+  }
+
+  // ADICIONAR DADOS DE EXEMPLO
+  function adicionarDadosExemplo() {
+    // Pacientes
+    pacientes = [
+      {
+        id: 1,
+        senha: 'A001',
+        nome: 'João Silva',
+        cpf: '123.456.789-00',
+        status: 'Aguardando',
+        prioridade: 'Verde',
+        tipo: 'Consulta',
+        horaCadastro: '08:30'
+      },
+      {
+        id: 2,
+        senha: 'A002',
+        nome: 'Maria Santos',
+        cpf: '987.654.321-00',
+        status: 'Aguardando',
+        prioridade: 'Amarelo',
+        tipo: 'Internado',
+        horaCadastro: '09:15'
+      }
+    ];
+
+    // Financeiro
+    financeiro = [
+      {
+        id: 1,
+        senha: 'A001',
+        nomePaciente: 'João Silva',
+        servicos: 'Consulta Cardiologia',
+        estado: 'Em Aberto'
+      },
+      {
+        id: 2,
+        senha: 'A002',
+        nomePaciente: 'Maria Santos',
+        servicos: 'Internação - Diária',
+        estado: 'Pago'
+      }
+    ];
+
+    senhaAtual = 3;
+
+    atualizarTabelaPacientes();
+    atualizarTabelaFinanceira();
+    atualizarEstatisticas();
+  }
+
+  // Carregar dados de exemplo ao iniciar
+  setTimeout(adicionarDadosExemplo, 500);
+</script>

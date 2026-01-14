@@ -889,12 +889,14 @@
 
         if (this.readyState == 4) {
           loading.classList.remove('active');
+
+          // Mudar para a tab de medicamentos
+          setTimeout(() => {
+            switchTab('tabMedicamentos');
+          }, 500);
         }
 
-        // Mudar para a tab de medicamentos
-        setTimeout(() => {
-          switchTab('tabMedicamentos');
-        }, 500);
+
       };
 
       // Ajuste a URL conforme seu arquivo PHP

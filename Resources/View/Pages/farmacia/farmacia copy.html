@@ -1,0 +1,1248 @@
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    background-color: var(--primary-color);
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  :root {
+    --primary-color: #2a7f62;
+    --secondary-color: #4CAF50;
+    --accent-color: #FF9800;
+  }
+
+  body {
+    background-color: #f5f7fa;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding-top: 46px;
+    /* Altura da navbar */
+  }
+
+  /* Layout de duas colunas - 60% e 40% */
+  .main-container {
+    display: flex;
+    height: calc(100vh - 46px);
+    margin: 0;
+    padding: 0;
+  }
+
+  .medicamentos-column {
+    flex: 0 0 60%;
+    max-width: 60%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f5f7fa;
+  }
+
+  .carrinho-column {
+    flex: 0 0 40%;
+    max-width: 40%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-left: 1px solid #e0e0e0;
+  }
+
+  /* Tabela de medicamentos */
+  .table-medicamentos {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .table-medicamentos thead {
+    background-color: #f5f5f5;
+  }
+
+  .table-medicamentos th {
+    padding: 12px 8px;
+    text-align: left;
+    font-weight: 500;
+    color: #616161;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 14px;
+  }
+
+  .table-medicamentos tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+  }
+
+  .table-medicamentos tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  .table-medicamentos td {
+    padding: 12px 8px;
+    vertical-align: middle;
+  }
+
+  .medicamento-tipo {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
+  }
+
+  .tipo-receita {
+    background-color: #ffebee;
+    color: #d32f2f;
+  }
+
+  .tipo-controlado {
+    background-color: #fff3e0;
+    color: #f57c00;
+  }
+
+  .tipo-livre {
+    background-color: #e8f5e9;
+    color: #388e3c;
+  }
+
+  .estoque-baixo {
+    color: #d32f2f;
+    font-weight: 500;
+  }
+
+  .estoque-normal {
+    color: #388e3c;
+  }
+
+  /* Carrinho */
+  .carrinho-items {
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+  }
+
+  .carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .carrinho-item:last-child {
+    border-bottom: none;
+  }
+
+  .item-controles {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .quantidade-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  .quantidade-btn:hover {
+    background-color: #f5f5f5;
+  }
+
+  .quantidade {
+    font-weight: 500;
+    min-width: 24px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* Paginação */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .pagination-info {
+    color: #616161;
+    font-size: 13px;
+  }
+
+  .pagination-controls {
+    display: flex;
+    gap: 5px;
+  }
+
+  .btn-pagina {
+    min-width: 36px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  /* Modal */
+  .modal {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .modal .modal-footer {
+    border-top: 1px solid #e0e0e0;
+    padding: 10px 20px;
+  }
+
+  /* Utilitários */
+  .valor-total {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+
+  .badge-estoque {
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .badge-estoque.baixo {
+    background-color: #ffebee;
+    color: #d32f2f;
+  }
+
+  .badge-estoque.normal {
+    background-color: #e8f5e9;
+    color: #388e3c;
+  }
+
+  /* Estilos específicos - Espaçamentos reduzidos */
+  .search-row {
+    margin-bottom: 10px !important;
+  }
+
+  .categorias-container {
+    margin-bottom: 15px;
+  }
+
+  .categorias-container .section {
+    margin: 10px 0;
+  }
+
+  .categorias-container h6 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .chip {
+    height: 28px;
+    line-height: 28px;
+    font-size: 13px;
+    margin: 2px 4px 2px 0;
+    padding: 0 10px;
+  }
+
+  .chip.active {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  /* Botões */
+  .btn,
+  .btn-small,
+  .btn-large,
+  .btn-flat {
+    font-size: 13px;
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .btn-small {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .btn i {
+    font-size: 18px;
+  }
+
+  .btn-small i {
+    font-size: 16px;
+  }
+
+  /* Responsividade */
+  @media only screen and (max-width: 992px) {
+    .main-container {
+      flex-direction: column;
+    }
+
+    .medicamentos-column,
+    .carrinho-column {
+      flex: 0 0 100%;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .carrinho-column {
+      border-left: none;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 10px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .pagination {
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .pagination-controls {
+      align-self: flex-end;
+    }
+
+    .table-medicamentos th,
+    .table-medicamentos td {
+      padding: 8px 5px;
+      font-size: 12px;
+    }
+
+    .medicamento-tipo {
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+  }
+
+  /* Estilos específicos */
+  .empty-state {
+    text-align: center;
+    padding: 30px 0;
+    color: #9e9e9e;
+  }
+
+  .empty-state i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+  }
+
+  /* Ajuste de altura para o conteúdo principal */
+  .page-content {
+    margin-top: 0;
+  }
+
+  /* Estilo para o cabeçalho das colunas */
+  .column-header {
+    padding: 8px 0;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .column-header h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+
+  /* Melhorias no input de busca */
+  .input-field {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .input-field .prefix {
+    top: 10px;
+    left: 10px;
+  }
+
+  .input-field input {
+    padding-left: 35px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    font-size: 14px;
+  }
+
+  .input-field label {
+    top: 10px;
+    left: 35px;
+    font-size: 14px;
+  }
+
+  .input-field input:focus+label,
+  .input-field input:not(.placeholder):not(:focus):valid+label {
+    top: -10px;
+    left: 0;
+    font-size: 12px;
+  }
+</style>
+
+<h5 class="center"> Atendimento-farmácia</h5>
+<!-- Conteúdo Principal -->
+<div class="main-container">
+
+  <!-- Coluna de Medicamentos (60%) -->
+  <div class="medicamentos-column">
+
+    <div class="column-header">
+      <h6>Medicamentos Disponíveis</h6>
+    </div>
+
+    <!-- Busca e Filtros -->
+    <div class="row search-row" style="margin-bottom: 10px;">
+
+      <nav class="row col m12  blue-grey darken-1 ">
+        <div class="col m2 nav-wrapper ">
+        </div>
+
+        <div class="col m6 nav-wrapper">
+          <form>
+            <div class="input-field custom-search">
+              <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons center">close</i>
+            </div>
+          </form>
+        </div>
+
+        <div class="col m4 nav-wrapper  ">
+          <ul class="right hide-on-med-and-down row" style="height: 50px;">
+            <li class="white-text blue-grey" style="text-transform: capitalize;">
+              <a href="{{URL}}/paciente/cadastrar" class="white-text" style="display: flex; align-items: center;">
+                <i class=" material-icons left white-text ">add</i>Novo medicamento
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Filtros por Categoria -->
+    <div class="categorias-container">
+      <div class="section">
+        <h6>Categorias</h6>
+        <div id="categorias-chips">
+          <div class="chip active" data-categoria="todos">Todos</div>
+          <div class="chip" data-categoria="analgesicos">Analgésicos</div>
+          <div class="chip" data-categoria="antibioticos">Antibióticos</div>
+          <div class="chip" data-categoria="hipertensao">Hipertensão</div>
+          <div class="chip" data-categoria="diabetes">Diabetes</div>
+          <div class="chip" data-categoria="controlados">Controlados</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de Medicamentos -->
+    <div style="overflow-x: auto;">
+      <table class="table-medicamentos">
+        <thead>
+          <tr>
+            <th>Nome do Medicamento</th>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th>Estoque</th>
+            <th class="right-align">Ação</th>
+          </tr>
+        </thead>
+        <tbody id="medicamentos-table-body">
+          <!-- Medicamentos serão inseridos via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginação -->
+    <div class="pagination">
+      <div class="pagination-info" id="info-paginacao">
+        Mostrando 0 de 0 medicamentos
+      </div>
+      <div class="pagination-controls" id="controles-paginacao">
+        <!-- Controles de paginação serão inseridos via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Coluna do Carrinho (40%) -->
+  <div class="carrinho-column">
+    <div class="column-header">
+      <h5>
+        <i class="material-icons left">shopping_cart</i>
+        Carrinho de Compras
+        <span class="badge" id="carrinho-count">0</span>
+      </h5>
+    </div>
+
+    <!-- Itens do Carrinho -->
+    <div class="carrinho-items" id="carrinho-items">
+      <!-- Itens do carrinho serão inseridos via JavaScript -->
+      <div class="empty-state" id="carrinho-vazio">
+        <i class="material-icons">shopping_cart</i>
+        <p>Seu carrinho está vazio</p>
+        <p class="grey-text">Adicione medicamentos para iniciar uma venda</p>
+      </div>
+    </div>
+
+    <!-- Resumo do Carrinho -->
+    <div class="section" style="margin-top: 15px;">
+      <div class="row" style="margin-bottom: 8px;">
+        <div class="col s6">
+          <strong>Subtotal:</strong>
+        </div>
+        <div class="col s6 right-align">
+          <span id="subtotal">R$ 0,00</span>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 8px;">
+        <div class="col s6">
+          <strong>Desconto:</strong>
+        </div>
+        <div class="col s6 right-align">
+          <span id="desconto">R$ 0,00</span>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 15px;">
+        <div class="col s6">
+          <strong class="valor-total">Total:</strong>
+        </div>
+        <div class="col s6 right-align">
+          <span class="valor-total" id="total">R$ 0,00</span>
+        </div>
+      </div>
+
+      <!-- Botão Finalizar -->
+      <div class="row" style="margin-bottom: 0;">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn-large green darken-2" id="btn-finalizar-venda" style="width: 100%;">
+            <i class="material-icons left">check_circle</i>Finalizar Venda
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  // Dados de exemplo para medicamentos
+  const medicamentos = [
+    { id: 1, nome: "Dipirona 500mg", tipo: "Analgésico e antitérmico", preco: 8.90, estoque: 45, categoria: "analgesicos", tipoClass: "livre" },
+    { id: 2, nome: "Amoxicilina 500mg", tipo: "Antibiótico de amplo espectro", preco: 32.50, estoque: 22, categoria: "antibioticos", tipoClass: "receita" },
+    { id: 3, nome: "Losartana 50mg", tipo: "Anti-hipertensivo", preco: 28.75, estoque: 18, categoria: "hipertensao", tipoClass: "receita" },
+    { id: 4, nome: "Metformina 850mg", tipo: "Antidiabético oral", preco: 15.20, estoque: 30, categoria: "diabetes", tipoClass: "receita" },
+    { id: 5, nome: "Diazepam 10mg", tipo: "Ansiolítico e relaxante muscular", preco: 42.90, estoque: 12, categoria: "controlados", tipoClass: "controlado" },
+    { id: 6, nome: "Ibuprofeno 400mg", tipo: "Anti-inflamatório não esteroidal", preco: 12.50, estoque: 38, categoria: "analgesicos", tipoClass: "livre" },
+    { id: 7, nome: "Omeprazol 20mg", tipo: "Inibidor de bomba de prótons", preco: 24.80, estoque: 25, categoria: "analgesicos", tipoClass: "livre" },
+    { id: 8, nome: "Insulina NPH", tipo: "Insulina de ação intermediária", preco: 68.90, estoque: 15, categoria: "diabetes", tipoClass: "controlado" },
+    { id: 9, nome: "Sinvastatina 20mg", tipo: "Redutor de colesterol", preco: 31.40, estoque: 20, categoria: "hipertensao", tipoClass: "receita" },
+    { id: 10, nome: "Azitromicina 500mg", tipo: "Antibiótico macrolídeo", preco: 38.60, estoque: 16, categoria: "antibioticos", tipoClass: "receita" },
+    { id: 11, nome: "Paracetamol 750mg", tipo: "Analgésico e antitérmico", preco: 9.80, estoque: 50, categoria: "analgesicos", tipoClass: "livre" },
+    { id: 12, nome: "Rivotril 2mg", tipo: "Ansiolítico (clonazepam)", preco: 55.30, estoque: 8, categoria: "controlados", tipoClass: "controlado" },
+    { id: 13, nome: "AAS 100mg", tipo: "Antiagregante plaquetário", preco: 6.50, estoque: 60, categoria: "analgesicos", tipoClass: "livre" },
+    { id: 14, nome: "Cefalexina 500mg", tipo: "Antibiótico cefalosporina", preco: 29.90, estoque: 14, categoria: "antibioticos", tipoClass: "receita" },
+    { id: 15, nome: "Hidroclorotiazida 25mg", tipo: "Diurético e anti-hipertensivo", preco: 18.40, estoque: 22, categoria: "hipertensao", tipoClass: "receita" },
+    { id: 16, nome: "Glifage 850mg", tipo: "Antidiabético (metformina)", preco: 21.80, estoque: 17, categoria: "diabetes", tipoClass: "receita" },
+    { id: 17, nome: "Alprazolam 0.5mg", tipo: "Ansiolítico benzodiazepínico", preco: 47.60, estoque: 9, categoria: "controlados", tipoClass: "controlado" },
+    { id: 18, nome: "Novalgina 1g", tipo: "Analgésico e antitérmico", preco: 11.20, estoque: 32, categoria: "analgesicos", tipoClass: "livre" }
+  ];
+
+  // Estado da aplicação
+  let carrinho = [];
+  let totalVenda = 0;
+  let subtotal = 0;
+  let desconto = 0;
+  let categoriaAtiva = "todos";
+  let termoBusca = "";
+
+  // Configuração de paginação
+  let paginaAtual = 1;
+  const itensPorPagina = 10;
+  let medicamentosFiltrados = [];
+
+  // Inicializar Materialize components
+  document.addEventListener('DOMContentLoaded', function () {
+    // Inicializar modais
+    const modals = document.querySelectorAll('.modal');
+    M.Modal.init(modals, {
+      dismissible: true
+    });
+
+    // Inicializar selects
+    const selects = document.querySelectorAll('select');
+    M.FormSelect.init(selects);
+
+    // Inicializar filtros e renderizar
+    filtrarMedicamentos();
+    renderizarTabela();
+    atualizarCarrinho();
+
+    // Configurar eventos
+    configurarEventos();
+  });
+
+  // Configurar eventos
+  function configurarEventos() {
+    // Busca
+    document.getElementById('search-medicamento').addEventListener('input', (e) => {
+      termoBusca = e.target.value.toLowerCase();
+      paginaAtual = 1;
+      filtrarMedicamentos();
+      renderizarTabela();
+      atualizarPaginacao();
+    });
+
+    // Categorias
+    document.querySelectorAll('#categorias-chips .chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#categorias-chips .chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        categoriaAtiva = chip.dataset.categoria;
+        paginaAtual = 1;
+        filtrarMedicamentos();
+        renderizarTabela();
+        atualizarPaginacao();
+      });
+    });
+
+    // Botão finalizar venda
+    document.getElementById('btn-finalizar-venda').addEventListener('click', abrirModalFinalizar);
+
+    // Botão confirmar venda
+    document.getElementById('btn-confirmar-venda').addEventListener('click', finalizarVenda);
+
+    // Forma de pagamento para calcular troco
+    document.getElementById('forma-pagamento').addEventListener('change', (e) => {
+      const trocoContainer = document.getElementById('troco-container');
+      const valorRecebido = document.getElementById('valor-recebido');
+
+      if (e.target.value === 'dinheiro') {
+        trocoContainer.style.display = 'block';
+        valorRecebido.value = '';
+        document.getElementById('troco').textContent = 'R$ 0,00';
+      } else {
+        trocoContainer.style.display = 'none';
+      }
+    });
+
+    // Calcular troco
+    document.getElementById('valor-recebido').addEventListener('input', calcularTroco);
+
+    // Imprimir comprovante
+    document.getElementById('btn-imprimir-comprovante').addEventListener('click', () => {
+      window.print();
+    });
+
+    // Novo medicamento
+    document.getElementById('btn-novo-medicamento').addEventListener('click', () => {
+      M.toast({ html: 'Funcionalidade em desenvolvimento', classes: 'blue' });
+    });
+
+    // Fechar comprovante e resetar
+    document.getElementById('btn-fechar-comprovante').addEventListener('click', () => {
+      const modalComprovante = M.Modal.getInstance(document.getElementById('modal-comprovante'));
+      modalComprovante.close();
+      resetarVenda();
+    });
+  }
+
+  // Filtrar medicamentos
+  function filtrarMedicamentos() {
+    medicamentosFiltrados = medicamentos.filter(med => {
+      // Filtrar por categoria
+      if (categoriaAtiva !== 'todos' && med.categoria !== categoriaAtiva) {
+        return false;
+      }
+
+      // Filtrar por busca
+      if (termoBusca && !med.nome.toLowerCase().includes(termoBusca) &&
+        !med.tipo.toLowerCase().includes(termoBusca)) {
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  // Renderizar tabela
+  function renderizarTabela() {
+    const tbody = document.getElementById('medicamentos-table-body');
+    tbody.innerHTML = '';
+
+    if (medicamentosFiltrados.length === 0) {
+      tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <i class="material-icons">search</i>
+                                <p>Nenhum medicamento encontrado</p>
+                                <p class="grey-text">Tente buscar por outro termo</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+      return;
+    }
+
+    // Calcular itens para a página atual
+    const inicio = (paginaAtual - 1) * itensPorPagina;
+    const fim = inicio + itensPorPagina;
+    const medicamentosPagina = medicamentosFiltrados.slice(inicio, fim);
+
+    medicamentosPagina.forEach(med => {
+      const tipoClass = med.tipoClass;
+      const tipoText = {
+        'receita': 'Com Receita',
+        'controlado': 'Controlado',
+        'livre': 'Venda Livre'
+      }[tipoClass];
+
+      const estoqueClass = med.estoque <= 10 ? 'baixo' : 'normal';
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+                    <td>
+                        <div style="font-weight: 500;">${med.nome}</div>
+                        <div class="grey-text" style="font-size: 12px;">${med.tipo}</div>
+                    </td>
+                    <td>
+                        <span class="medicamento-tipo tipo-${tipoClass}">${tipoText}</span>
+                    </td>
+                    <td>
+                        <div style="font-weight: 500; color: var(--primary-color);">R$ ${med.preco.toFixed(2)}</div>
+                    </td>
+                    <td>
+                        <div class="badge-estoque ${estoqueClass}">${med.estoque} unidades</div>
+                    </td>
+                    <td class="right-align">
+                        <a class="waves-effect waves-light btn-small ${med.estoque === 0 ? 'disabled' : 'green'}" 
+                           data-id="${med.id}" 
+                           style="margin: 0;">
+                            <i class="material-icons left">add_shopping_cart</i>Adicionar
+                        </a>
+                    </td>
+                `;
+
+      tbody.appendChild(row);
+
+      // Adicionar evento ao botão
+      const btn = row.querySelector('a');
+      if (med.estoque > 0) {
+        btn.addEventListener('click', () => adicionarAoCarrinho(med.id));
+      }
+    });
+
+    atualizarPaginacao();
+  }
+
+  // Atualizar controles de paginação
+  function atualizarPaginacao() {
+    const totalPaginas = Math.ceil(medicamentosFiltrados.length / itensPorPagina);
+
+    // Atualizar informação de paginação
+    const inicio = (paginaAtual - 1) * itensPorPagina + 1;
+    const fim = Math.min(paginaAtual * itensPorPagina, medicamentosFiltrados.length);
+    document.getElementById('info-paginacao').textContent = `Mostrando ${inicio}-${fim} de ${medicamentosFiltrados.length} medicamentos`;
+
+    // Atualizar controles de paginação
+    const controles = document.getElementById('controles-paginacao');
+    controles.innerHTML = '';
+
+    if (totalPaginas <= 1) return;
+
+    // Botão anterior
+    const btnAnterior = document.createElement('a');
+    btnAnterior.className = `waves-effect waves-light btn-small ${paginaAtual === 1 ? 'disabled' : ''}`;
+    btnAnterior.innerHTML = '<i class="material-icons">chevron_left</i>';
+    if (paginaAtual > 1) {
+      btnAnterior.addEventListener('click', () => {
+        paginaAtual--;
+        renderizarTabela();
+      });
+    }
+    controles.appendChild(btnAnterior);
+
+    // Números de páginas
+    const maxBotoes = 5;
+    let inicioPaginas = Math.max(1, paginaAtual - Math.floor(maxBotoes / 2));
+    let fimPaginas = Math.min(totalPaginas, inicioPaginas + maxBotoes - 1);
+
+    // Ajustar se não estiver mostrando páginas suficientes
+    if (fimPaginas - inicioPaginas + 1 < maxBotoes) {
+      inicioPaginas = Math.max(1, fimPaginas - maxBotoes + 1);
+    }
+
+    for (let i = inicioPaginas; i <= fimPaginas; i++) {
+      const btnPagina = document.createElement('a');
+      btnPagina.className = `waves-effect waves-light btn-small ${i === paginaAtual ? 'active' : ''}`;
+      btnPagina.textContent = i;
+      btnPagina.addEventListener('click', () => {
+        paginaAtual = i;
+        renderizarTabela();
+      });
+      controles.appendChild(btnPagina);
+    }
+
+    // Botão próximo
+    const btnProximo = document.createElement('a');
+    btnProximo.className = `waves-effect waves-light btn-small ${paginaAtual === totalPaginas ? 'disabled' : ''}`;
+    btnProximo.innerHTML = '<i class="material-icons">chevron_right</i>';
+    if (paginaAtual < totalPaginas) {
+      btnProximo.addEventListener('click', () => {
+        paginaAtual++;
+        renderizarTabela();
+      });
+    }
+    controles.appendChild(btnProximo);
+  }
+
+  // Adicionar item ao carrinho
+  function adicionarAoCarrinho(id) {
+    const medicamento = medicamentos.find(m => m.id === id);
+    if (!medicamento) return;
+
+    const itemNoCarrinho = carrinho.find(item => item.id === id);
+
+    if (itemNoCarrinho) {
+      if (itemNoCarrinho.quantidade < medicamento.estoque) {
+        itemNoCarrinho.quantidade++;
+      } else {
+        M.toast({ html: `Estoque insuficiente! Apenas ${medicamento.estoque} unidades disponíveis.`, classes: 'red' });
+        return;
+      }
+    } else {
+      if (medicamento.estoque > 0) {
+        carrinho.push({
+          ...medicamento,
+          quantidade: 1
+        });
+      } else {
+        M.toast({ html: 'Medicamento indisponível no momento!', classes: 'red' });
+        return;
+      }
+    }
+
+    atualizarCarrinho();
+  }
+
+  // Atualizar carrinho
+  function atualizarCarrinho() {
+    const carrinhoItems = document.getElementById('carrinho-items');
+    const carrinhoVazio = document.getElementById('carrinho-vazio');
+
+    // Atualizar display do carrinho
+    if (carrinho.length === 0) {
+      carrinhoVazio.style.display = 'block';
+      carrinhoItems.innerHTML = '';
+      carrinhoItems.appendChild(carrinhoVazio);
+    } else {
+      carrinhoVazio.style.display = 'none';
+      carrinhoItems.innerHTML = '';
+
+      carrinho.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'carrinho-item';
+        itemEl.innerHTML = `
+                        <div>
+                            <div style="font-weight: 500;">${item.nome}</div>
+                            <div style="font-size: 14px; color: var(--primary-color); font-weight: 500;">R$ ${item.preco.toFixed(2)}</div>
+                        </div>
+                        <div class="item-controles">
+                            <button class="quantidade-btn" data-id="${item.id}" data-action="decrease">
+                                <i class="material-icons" style="font-size: 16px;">remove</i>
+                            </button>
+                            <span class="quantidade">${item.quantidade}</span>
+                            <button class="quantidade-btn" data-id="${item.id}" data-action="increase">
+                                <i class="material-icons" style="font-size: 16px;">add</i>
+                            </button>
+                            <a href="#!" class="red-text" data-id="${item.id}" data-action="remove" style="margin-left: 10px;">
+                                <i class="material-icons" style="font-size: 18px;">delete</i>
+                            </a>
+                        </div>
+                    `;
+
+        carrinhoItems.appendChild(itemEl);
+
+        // Event listeners para controles
+        itemEl.querySelector('[data-action="decrease"]').addEventListener('click', () => alterarQuantidade(item.id, -1));
+        itemEl.querySelector('[data-action="increase"]').addEventListener('click', () => alterarQuantidade(item.id, 1));
+        itemEl.querySelector('[data-action="remove"]').addEventListener('click', () => removerDoCarrinho(item.id));
+      });
+    }
+
+    // Calcular totais
+    calcularTotais();
+
+    // Atualizar exibição dos valores
+    document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+    document.getElementById('desconto').textContent = `R$ ${desconto.toFixed(2)}`;
+    document.getElementById('total').textContent = `R$ ${totalVenda.toFixed(2)}`;
+    document.getElementById('carrinho-count').textContent = carrinho.length;
+
+    // Atualizar total no modal
+    document.getElementById('modal-total').textContent = `R$ ${totalVenda.toFixed(2)}`;
+  }
+
+  // Calcular totais
+  function calcularTotais() {
+    subtotal = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    desconto = 0;
+
+    // Aplicar desconto para compras acima de R$ 100
+    if (subtotal > 100) {
+      desconto = subtotal * 0.05; // 5% de desconto
+    }
+
+    totalVenda = subtotal - desconto;
+  }
+
+  // Alterar quantidade de item no carrinho
+  function alterarQuantidade(id, delta) {
+    const itemIndex = carrinho.findIndex(item => item.id === id);
+    if (itemIndex === -1) return;
+
+    const medicamento = medicamentos.find(m => m.id === id);
+
+    if (delta === 1 && carrinho[itemIndex].quantidade >= medicamento.estoque) {
+      M.toast({ html: `Estoque insuficiente! Apenas ${medicamento.estoque} unidades disponíveis.`, classes: 'red' });
+      return;
+    }
+
+    if (delta === -1 && carrinho[itemIndex].quantidade <= 1) {
+      removerDoCarrinho(id);
+      return;
+    }
+
+    carrinho[itemIndex].quantidade += delta;
+    atualizarCarrinho();
+  }
+
+  // Remover item do carrinho
+  function removerDoCarrinho(id) {
+    const itemIndex = carrinho.findIndex(item => item.id === id);
+    if (itemIndex === -1) return;
+
+    carrinho.splice(itemIndex, 1);
+    atualizarCarrinho();
+  }
+
+  // Abrir modal de finalização
+  function abrirModalFinalizar() {
+    if (carrinho.length === 0) {
+      M.toast({ html: 'Adicione medicamentos ao carrinho antes de finalizar a venda!', classes: 'red' });
+      return;
+    }
+
+    const modal = M.Modal.getInstance(document.getElementById('modal-finalizar'));
+    modal.open();
+
+    // Resetar campos
+    document.getElementById('cliente-nome').value = '';
+    document.getElementById('cliente-cpf').value = '';
+    document.getElementById('forma-pagamento').value = '';
+
+    // Reinicializar selects
+    M.FormSelect.getInstance(document.getElementById('forma-pagamento')).destroy();
+    M.FormSelect.init(document.getElementById('forma-pagamento'));
+
+    document.getElementById('receita-medica').value = 'nao';
+    M.FormSelect.getInstance(document.getElementById('receita-medica')).destroy();
+    M.FormSelect.init(document.getElementById('receita-medica'));
+
+    document.getElementById('observacoes').value = '';
+
+    const trocoContainer = document.getElementById('troco-container');
+    trocoContainer.style.display = 'none';
+    document.getElementById('valor-recebido').value = '';
+    document.getElementById('troco').textContent = 'R$ 0,00';
+  }
+
+  // Calcular troco
+  function calcularTroco() {
+    const valor = parseFloat(document.getElementById('valor-recebido').value) || 0;
+    const troco = valor - totalVenda;
+    const trocoEl = document.getElementById('troco');
+
+    if (troco >= 0) {
+      trocoEl.textContent = `R$ ${troco.toFixed(2)}`;
+      trocoEl.style.color = '#388e3c';
+    } else {
+      trocoEl.textContent = `Falta: R$ ${Math.abs(troco).toFixed(2)}`;
+      trocoEl.style.color = '#d32f2f';
+    }
+  }
+
+  // Finalizar venda
+  function finalizarVenda() {
+    const formaPagamentoVal = document.getElementById('forma-pagamento').value;
+    const clienteNome = document.getElementById('cliente-nome').value;
+    const clienteCPF = document.getElementById('cliente-cpf').value;
+    const receitaMedica = document.getElementById('receita-medica').value;
+    const observacoes = document.getElementById('observacoes').value;
+
+    if (!clienteNome || !formaPagamentoVal) {
+      M.toast({ html: 'Preencha os campos obrigatórios!', classes: 'red' });
+      return;
+    }
+
+    // Verificar se é pagamento em dinheiro e se o valor é suficiente
+    if (formaPagamentoVal === 'dinheiro') {
+      const valorRecebidoVal = parseFloat(document.getElementById('valor-recebido').value) || 0;
+      if (valorRecebidoVal < totalVenda) {
+        M.toast({ html: 'Valor recebido insuficiente para cobrir o total da compra!', classes: 'red' });
+        return;
+      }
+    }
+
+    // Verificar receita para medicamentos controlados
+    const temControlado = carrinho.some(item => item.tipoClass === 'controlado');
+    if (temControlado && receitaMedica !== 'controlada') {
+      M.toast({ html: 'Atenção: Há medicamentos controlados no carrinho. É necessário informar receita controlada.', classes: 'orange' });
+      return;
+    }
+
+    // Fechar modal de finalização
+    const modalFinalizar = M.Modal.getInstance(document.getElementById('modal-finalizar'));
+    modalFinalizar.close();
+
+    // Gerar comprovante
+    gerarComprovante(clienteNome, clienteCPF, formaPagamentoVal, receitaMedica, observacoes);
+
+    // Abrir modal de comprovante
+    const modalComprovante = M.Modal.getInstance(document.getElementById('modal-comprovante'));
+    modalComprovante.open();
+  }
+
+  // Gerar comprovante
+  function gerarComprovante(clienteNome, clienteCPF, formaPagamento, receitaMedica, observacoes) {
+    const dataHora = new Date().toLocaleString('pt-BR');
+    const numeroVenda = Math.floor(Math.random() * 10000) + 1000;
+
+    let comprovanteHTML = `
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Data/Hora:</strong> ${dataHora}</p>
+                    <p><strong>Nº da Venda:</strong> ${numeroVenda}</p>
+                    <p><strong>Cliente:</strong> ${clienteNome}</p>
+                    ${clienteCPF ? `<p><strong>CPF:</strong> ${clienteCPF}</p>` : ''}
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h6 style="color: var(--primary-color); margin-bottom: 10px;">Itens da Venda</h6>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <th style="text-align: left; padding: 8px 0;">Item</th>
+                                <th style="text-align: center; padding: 8px 0;">Qtd</th>
+                                <th style="text-align: right; padding: 8px 0;">Valor</th>
+                                <th style="text-align: right; padding: 8px 0;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+    carrinho.forEach(item => {
+      const totalItem = item.preco * item.quantidade;
+      comprovanteHTML += `
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                        <td style="padding: 8px 0;">${item.nome}</td>
+                        <td style="text-align: center; padding: 8px 0;">${item.quantidade}</td>
+                        <td style="text-align: right; padding: 8px 0;">R$ ${item.preco.toFixed(2)}</td>
+                        <td style="text-align: right; padding: 8px 0;">R$ ${totalItem.toFixed(2)}</td>
+                    </tr>
+                `;
+    });
+
+    comprovanteHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Subtotal:</span>
+                        <span>R$ ${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Desconto:</span>
+                        <span>R$ ${desconto.toFixed(2)}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px;">
+                        <span>Total:</span>
+                        <span>R$ ${totalVenda.toFixed(2)}</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Forma de Pagamento:</strong> ${formaPagamento}</p>
+                    <p><strong>Receita Médica:</strong> ${receitaMedica === 'nao' ? 'Não' : receitaMedica === 'sim' ? 'Receita comum' : 'Receita controlada'}</p>
+                    ${observacoes ? `<p><strong>Observações:</strong> ${observacoes}</p>` : ''}
+                </div>
+            `;
+
+    document.getElementById('comprovante-conteudo').innerHTML = comprovanteHTML;
+  }
+
+  // Resetar venda após conclusão
+  function resetarVenda() {
+    // Atualizar estoque (em um sistema real, isso seria feito no backend)
+    carrinho.forEach(itemCarrinho => {
+      const medicamento = medicamentos.find(m => m.id === itemCarrinho.id);
+      if (medicamento) {
+        medicamento.estoque -= itemCarrinho.quantidade;
+      }
+    });
+
+    // Limpar carrinho
+    carrinho = [];
+    atualizarCarrinho();
+    filtrarMedicamentos();
+    renderizarTabela();
+
+    M.toast({ html: 'Venda finalizada com sucesso!', classes: 'green' });
+  }
+</script>
+
+</section>
+
+
+<!-- Modal de Finalização de Venda -->
+<div id="modal-finalizar" class="modal">
+  <div class="modal-content">
+    <h4>Finalizar Venda</h4>
+    <form id="form-venda">
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <i class="material-icons prefix">person</i>
+          <input id="cliente-nome" type="text" required>
+          <label for="cliente-nome">Nome do Cliente *</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <i class="material-icons prefix">badge</i>
+          <input id="cliente-cpf" type="text" class="cpf">
+          <label for="cliente-cpf">CPF (opcional)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">credit_card</i>
+          <select id="forma-pagamento" required>
+            <option value="" disabled selected>Selecione a forma de pagamento *</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartao-debito">Cartão de Débito</option>
+            <option value="cartao-credito">Cartão de Crédito</option>
+            <option value="pix">PIX</option>
+            <option value="convenio">Convênio</option>
+          </select>
+          <label>Forma de Pagamento *</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">local_hospital</i>
+          <select id="receita-medica">
+            <option value="nao" selected>Não possui</option>
+            <option value="sim">Possui receita comum</option>
+            <option value="controlada">Possui receita controlada</option>
+          </select>
+          <label>Receita Médica</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">notes</i>
+          <textarea id="observacoes" class="materialize-textarea"></textarea>
+          <label for="observacoes">Observações</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="card-panel grey lighten-4">
+            <div class="row" style="margin-bottom: 10px;">
+              <div class="col s6">
+                <strong>Valor Total da Venda:</strong>
+              </div>
+              <div class="col s6 right-align">
+                <strong id="modal-total">R$ 0,00</strong>
+              </div>
+            </div>
+
+            <div id="troco-container" style="display: none;">
+              <div class="input-field">
+                <i class="material-icons prefix">attach_money</i>
+                <input id="valor-recebido" type="number" step="0.01" placeholder="0,00" required>
+                <label for="valor-recebido">Valor Recebido *</label>
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <div class="col s6">
+                  <strong>Troco:</strong>
+                </div>
+                <div class="col s6 right-align">
+                  <strong id="troco">R$ 0,00</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-light btn-flat">Cancelar</a>
+    <a href="#!" class="waves-effect waves-light btn green" id="btn-confirmar-venda">
+      <i class="material-icons left">check</i>Confirmar Venda
+    </a>
+  </div>
+</div>
+
+<!-- Modal de Comprovante -->
+<div id="modal-comprovante" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Comprovante de Venda</h4>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <h5 style="color: var(--primary-color); margin-bottom: 10px;">Farmácia Saúde Total</h5>
+      <p>CNPJ: 12.345.678/0001-99</p>
+      <p>Av. Principal, 1234 - Centro</p>
+      <p>Tel: (11) 3456-7890</p>
+    </div>
+
+    <div id="comprovante-conteudo">
+      <!-- Conteúdo do comprovante será gerado via JavaScript -->
+    </div>
+
+    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ddd;">
+      <p>Obrigado pela preferência!</p>
+      <p class="grey-text">Volte sempre</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-light btn-flat" id="btn-fechar-comprovante">Fechar</a>
+    <a href="#!" class="waves-effect waves-light btn" id="btn-imprimir-comprovante">
+      <i class="material-icons left">print</i>Imprimir
+    </a>
+  </div>
+</div>

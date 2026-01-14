@@ -76,7 +76,6 @@ class Contabilidade extends Page
                 'id_exame' => $obExames->id_exame,
                 'nome' => $obExames->nome_exame,
                 'tipo' => $obExames->tipo_exame,
-                'parametros' => $obExames->parametro_exame,
                 'valor' => $obExames->valor_exame,
                 'descrisao' => $obExames->descrisao_exame,
                 'dataRegistro' => date('d-m-Y', strtotime($obExames->criado_exame)),
