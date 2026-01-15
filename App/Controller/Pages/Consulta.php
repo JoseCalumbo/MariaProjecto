@@ -34,7 +34,7 @@ class Consulta extends Page
                 return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
                 break;
             case 'validar':
-                return MensagemAdmin::msgAlerta('Consulta foi salva, mas é necessario validar ou finalizar o seu estado');
+                return MensagemAdmin::msgAlerta('Consulta foi salva no histórico do paciente e pode ser acessada a qualquer momento, mas é necessario validar ou finalizar o seu estado');
                 break;
         } // fim do switch
     }
@@ -234,7 +234,7 @@ class Consulta extends Page
                 'exame' => $obExameSolicitado->nome_exame,
                 'estado' => $obExameSolicitado->estado_exame_solicitado,
             ]);
-        } 
+        }
 
         // Verifica se foi realizada uma pesquisa
         $queryParam = $request->getQueryParams();
@@ -322,10 +322,13 @@ class Consulta extends Page
             if (isset($_POST['motivo'],)) {
                 $obConsulta->id_paciente = $pacienteID;
                 $obConsulta->id_triagem = $id_triagem;
-                $obConsulta->conduta_consulta = $_POST['conduta'];
                 $obConsulta->motivo_consulta = $_POST['motivo'];
+                // $obConsulta->conduta_consulta = $_POST['medicamentoUso'];
                 $obConsulta->diagnostico_consulta = $_POST['diagnostico'];
+                $obConsulta->medicamentoUso_consulta = $_POST['medicamentoUso'];
+                $obConsulta->alergia_consulta = $_POST['alergia'];
                 $obConsulta->observacao_consulta = $_POST['obs'];
+                $obConsulta->add_receita_consulta = isset($_POST['examesTipo']) ? 'Com receita': 'Sem receita';
                 $idconsulta = $obConsulta->cadastrarConsulta();
             }
 
@@ -384,6 +387,8 @@ class Consulta extends Page
             'obs' => '',
             'motivo' => '',
             'conduta' => '',
+            'alergia' => '',
+            'medicamentoUso' => '',
 
         ]);
 
@@ -404,9 +409,12 @@ class Consulta extends Page
 
             "msg" => self::exibeMensagem($request),
 
-            "buttonValidar" => "Salvar e aguardar resultados",
-            "buttonFinalizar" => "Finalizar consulta",
+            "buttonValidar" => "salvar e aguardar resultados",
+            "buttonFinalizar" => "Validar consulta",
             "buttoncancelar" => "Anular consulta",
+
+            "disabled-btn-Finalizar" => $obConsultaRealizada->add_receita_consulta == "Com receita" ? "disabled" : "",
+            "disabled-btnValidar" => $obConsultaRealizada->add_receita_consulta == "Sem receita" ? "disabled" : "",
 
             // dados do paciente
             'id_paciente' => $obConsultaRealizada->id_paciente,
@@ -422,6 +430,10 @@ class Consulta extends Page
             'motivo' => !empty($obConsultaRealizada->motivo_consulta) ? $obConsultaRealizada->motivo_consulta : "indefinido",
             'conduta' => !empty($obConsultaRealizada->conduta_consulta) ? $obConsultaRealizada->conduta_consulta : "indefinido",
             'diagnostico' => !empty($obConsultaRealizada->diagnostico_consulta) ? $obConsultaRealizada->diagnostico_consulta : "indefinido",
+
+            'alergia' => !empty($obConsultaRealizada->alergia_consulta) ? $obConsultaRealizada->alergia_consulta : "indefinido",
+            'medicamentoUso' => !empty($obConsultaRealizada->medicamentoUso_consulta) ? $obConsultaRealizada->medicamentoUso_consulta : "indefinido",
+
             'obs' => !empty($obConsultaRealizada->observacao_consulta) ? $obConsultaRealizada->observacao_consulta : "indefinido",
             'retorno' => !empty($obConsultaRealizada->retorno_consulta) ? $obConsultaRealizada->retorno_consulta : "indefinido",
             'data' => !empty($obConsultaRealizada->criado_consulta) ? (date('d-m-Y', strtotime($obConsultaRealizada->criado_consulta))) : "indefinido",
@@ -437,7 +449,6 @@ class Consulta extends Page
             'observação' =>  !empty($triagemRegistrado->observacao_triagem) ? $triagemRegistrado->observacao_triagem : "indefinido",
 
             "receita" => self::getConsultaReceita($id_consulta),
-
             "exames" => self::getConsultaExame($id_consulta)
 
         ]);
@@ -543,8 +554,9 @@ class Consulta extends Page
 
             return $tabela = strlen($tabela) ? $tabela :
                 '<ul>
-                     <li class="font-normal center"> Consulta sem prescrição adicionada</li>
-                </ul>';
+                     <li class="font-normal center"> Sem receita adicionada há consulta</li>
+                </ul>
+                ';
         }
 
         return $tabela;

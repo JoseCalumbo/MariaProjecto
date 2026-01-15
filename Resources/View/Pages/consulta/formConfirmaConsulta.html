@@ -2,8 +2,8 @@
 
     <section>
         <div class="row" style="text-align: center;">
-            <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Validação e Encerramento da
-                Consulta
+            <h5 class="center" style="text-transform: capitalize; margin-left:30px;">
+                Validação da Consulta registrada
             </h5>
             <hr>
         </div>
@@ -27,9 +27,9 @@
                 Remarcar consulta
             </a>
 
-            <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
+            <a class="btn font-normal " href="{{URL}}/consulta/prescrever/{{id_consulta}}" target="_blank">
                 <i class="material-icons prefix white-text" style="vertical-align: -6px;">edit</i>
-                Adicionar receita
+                Prescrever medicamento
             </a>
 
         </div>
@@ -72,6 +72,8 @@
                 <li class="right negrito font-normal">Nº do Processo Clínico: {{id_consulta}}</li>
                 <li class="negrito font-normal">Especialidade:<span> Clinica geral</span></li>
                 <li class="negrito font-normal">Motivo da Consulta:<span> {{motivo}}</span></li>
+                <li class="negrito font-normal">Medicamento em uso:<span>{{medicamentoUso}} </span> </li>
+                <li class="negrito font-normal">Alergias Conhecidas: <span>{{alergia}}</span></li>
                 <li class="negrito font-normal">Diagnóstico:<span>{{diagnostico}} </span> </li>
                 <li class="negrito font-normal">Conduta: <span>{{conduta}}</span></li>
                 <li class="negrito font-normal">Observação:<span> {{obs}}</span></li>
@@ -118,6 +120,11 @@
 
             {{receita}}
 
+            <p class="font-normal center">
+                <a href="{{URL}}/consulta/prescrever/{{id_consulta}}" 
+                    class="font-normal white-text darken-5 btn" target="_blank"> Adicionar receita</a>
+            </p>
+
             <div class="white row">
                 <h6 class="capitalize negrito teal-text">
                     Relátorios
@@ -147,14 +154,14 @@
             <div>
                 <form class="row" method="post" enctype="multipart/form-data">
                     <button type="submit" name="validar" style="margin-left: 6px;"
-                        class="col push-m6 btn blue m4 white-text font-normal">
+                        class="col push-m6 btn blue m4 white-text font-normal {{disabled-btnValidar}}">
                         <i class="material-icons prefix white-text" style="vertical-align: -6px;">check_circle</i>
                         {{buttonValidar}}
                     </button>
 
                     <button type="submit" name="finalizar" style="margin-left: 6px;"
-                        class="col push-m6  btn m3 white-text font-normal">
-                        <i class="material-icons prefix white-text" style="vertical-align: -6px;">done_all</i>
+                        class="col push-m6  btn m3 white-text font-normal {{disabled-btn-Finalizar}}">
+                        <i class="material-icons prefix white-text" style="vertical-align: -6px;">check_circle</i>
                         {{buttonFinalizar}}
                     </button>
                 </form>

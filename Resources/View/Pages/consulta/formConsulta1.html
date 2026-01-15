@@ -1,8 +1,10 @@
 <section class="row section-field">
-  
-  <div class="row col m4 ">
-      <h5 class="center" style="text-transform: capitalize;"> Dados do  paciente</h5>
 
+  <h5 class="center" style="text-transform: capitalize;"> Consulta Médica</h5>
+  <hr>
+  <br>
+
+  <div class="row offset-m1 col m4 ">
     <section>
       <nav style="height: 35px; display: flex; align-items: center;
        background-color: #f5f5f5; box-shadow: none; justify-content: space-between;">
@@ -14,15 +16,14 @@
         </a>
       </nav>
 
-      <div class="white row">
+      <div class="white row ">
         <img src="{{URL}}/Files/Imagem/paciente/{{imagem}}" style="margin-left: 5px;" class="materialboxed col m2 "
           width="50" height="90">
         <span class="col m9"><strong>Nome:</strong> {{nome}}</span>
         <span class="col m3"><strong>Idade:</strong> {{data}} anos</span>
         <span class="col m5"><strong>Genero:</strong> {{genero}}</span>
         <span class="col m5"><strong>Telefone:</strong> {{telefone1}}</span>
-        <span class="col m9 font-normal"><strong>E-mail:</strong> {{email}}</span>
-        <span class="col m9" style="margin-left: 20px;"><strong>Morada:</strong> {{morada}}</span>
+        <span class="col m9"><strong>Morada:</strong> {{morada}}</span>
       </div>
     </section>
 
@@ -45,8 +46,7 @@
     </section>
   </div>
 
-  <div class=" row offset-m1 col m7 s12">
-      <h5 class="center" style="text-transform: capitalize;"> {{titulo}} </h5>
+  <div class=" row offset-m1 col m6 s12 z-depth-1">
 
     <div class="col s12 blue-grey darken-1 row">
       <!--header das abas-->
@@ -62,26 +62,30 @@
 
       <!--aba consulta-->
       <section id="consultaDados" class="col m12 s12">
-        <div class="row col m12">
-          <br>
-          <div class="input-field col s12 m6">
+        <div class="row col m12" style="margin: 0px auto; padding: 0px;">
+          <div class="input-field col s12 m12" style="margin: 2px auto; padding: 2px;">
             <input id="motivo" type="text" name="motivo" value="{{motivo}}" class="validate">
             <label for="motivo" style="text-transform: capitalize;">Motivo da consulta:</label>
           </div>
 
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m12" style="margin: 6px auto; padding: 6px;">
             <input id="Observação" type="text" name="obs" value="{{obs}}" class="validate">
             <label for="Observação" style="text-transform: capitalize;">Observação:</label>
           </div>
 
-          <div class="input-field col s12 m12">
-            <input id="Diagnóstico" type="text" name="diagnostico" value="{{diagnostico}}" class="validate">
-            <label for="Diagnóstico" style="text-transform: capitalize;">Diagnóstico:</label>
+          <div class="input-field col s12 m6" style="margin: 6px auto; padding: 6px;">
+            <input id="alergia" type="text" name="alergia" value="{{alergia}}" class="validate">
+            <label for="alergia" style="text-transform: capitalize;">Alergias Conhecidas:</label>
           </div>
 
-          <div class="input-field col m12 s12">
-            <textarea id="textarea1" class="materialize-textarea" name="conduta" > {{conduta}}</textarea>
-            <label for="textarea1" style="text-transform: capitalize;">Conduta</label>
+          <div class="input-field col m6 s6"  style="margin: 6px auto; padding: 6px;">
+            <input id="medicacao" type="text" name="medicamentoUso" value="{{medicamentoUso}}" class="validate">
+            <label for="medicacao" style="text-transform: capitalize;">Medicamento em uso</label>
+          </div>
+
+          <div class="input-field col s12 m12" style="margin: 6px auto; padding: 6px;">
+            <input id="Diagnóstico" type="text" name="diagnostico" value="{{diagnostico}}" class="validate">
+            <label for="Diagnóstico" style="text-transform: capitalize;">Diagnóstico:</label>
           </div>
 
         </div>
@@ -97,7 +101,8 @@
               <tr class="rows">
                 <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 20%;">Tipo</th>
                 <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 50%;">Nome</th>
-                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 20%;">Nivel de Urgencia</th>
+                <th class="grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 20%;">Nivel de
+                  Urgencia</th>
                 <th class=" grey lighten-1 font-normal" style="border-right: 2px solid #fcfcfc; width: 10%;">Ação</th>
               </tr>
             </thead>

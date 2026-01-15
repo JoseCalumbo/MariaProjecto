@@ -13,14 +13,17 @@ class ConsultaDao extends PacienteDao
     //campos consulta
     public $id_consulta;
     public $conduta_consulta;
+    public $medicamentoUso_consulta;
     public $motivo_consulta;
     public $diagnostico_consulta;
+    public $alergia_consulta;
     public $observacao_consulta;
 
     public $retorno_consulta;
     public $criado_consulta;
     public $alterado_consulta;
     public $estado_consulta;
+    public $add_receita_consulta;
 
     // campos da triagem
     public $id_triagem;
@@ -57,9 +60,12 @@ class ConsultaDao extends PacienteDao
 
             'retorno_consulta' => $this->retorno_consulta,
             'conduta_consulta' => $this->conduta_consulta,
+            'medicamentoUso_consulta' => $this->medicamentoUso_consulta,
             'motivo_consulta' => $this->motivo_consulta,
             'diagnostico_consulta' => $this->diagnostico_consulta,
+            'alergia_consulta' => $this->alergia_consulta,
             'observacao_consulta' => $this->observacao_consulta,
+            'add_receita_consulta' => $this->add_receita_consulta,
             'criado_consulta' => $this->criado_consulta,
         ]);
 

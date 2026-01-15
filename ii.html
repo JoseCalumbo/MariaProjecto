@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recepção Hospitalar</title>
+  <title>Marcação de Consultas</title>
 
   <!-- Materialize CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
@@ -157,6 +157,14 @@
       }
     }
 
+    /* TÍTULO DA PÁGINA */
+    .page-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1976d2;
+      font-weight: 500;
+    }
+
     /* BOX */
     .box {
       background: #fff;
@@ -173,108 +181,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    /* TABS CUSTOMIZADAS */
-    .custom-tabs {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 0;
-      background: transparent;
-    }
-
-    .custom-tab {
-      flex: 1;
-      padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.7);
-      border: none;
-      border-radius: 8px 8px 0 0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: #666;
-      font-weight: 500;
-      transition: all .3s ease;
-      font-size: 14px;
-    }
-
-    .custom-tab:hover {
-      background: rgba(25, 118, 210, 0.1);
-      color: #1976d2;
-    }
-
-    .custom-tab.active {
-      background: #fff;
-      color: #1976d2;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .custom-tab span {
-      white-space: nowrap;
-    }
-
-    @media (max-width: 1100px) {
-      .custom-tab {
-        flex-direction: column;
-        padding: 8px 10px;
-        font-size: 12px;
-        gap: 4px;
-      }
-      
-      .custom-tab span {
-        white-space: normal;
-        text-align: center;
-        line-height: 1.2;
-      }
-    }
-
-    .tab-content-wrapper {
-      background: #fff;
-      padding: 20px;
-      border-radius: 0 8px 8px 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      min-height: 400px;
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* VALIDAÇÃO */
-    .input-field.error input,
-    .input-field.error textarea,
-    .input-field.error select {
-      border-bottom: 1px solid #f44336 !important;
-      box-shadow: 0 1px 0 0 #f44336 !important;
-    }
-
-    .error-message {
-      color: #f44336;
-      font-size: 12px;
-      margin-top: 5px;
-      display: none;
-    }
-
-    .error-message.show {
-      display: block;
     }
 
     /* CHAT MESSAGE */
@@ -307,94 +213,112 @@
       margin-right: 40px;
     }
 
-    /* CARD ESTATÍSTICAS */
-    .stats-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 20px;
+    /* CARD MÉDICO */
+    .medico-card {
+      border: 1px solid #e0e0e0;
       border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .medico-card:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      margin-bottom: 20px;
+      transform: translateY(-2px);
     }
 
-    .stats-card.blue {
-      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+    .medico-card.selected {
+      border: 2px solid #1976d2;
+      background: #e3f2fd;
     }
 
-    .stats-card.green {
-      background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+    .medico-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
-    .stats-card.orange {
-      background: linear-gradient(135deg, #fb8c00 0%, #ef6c00 100%);
-    }
-
-    .stats-card h3 {
-      margin: 0;
-      font-size: 2.5rem;
+    .medico-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #1976d2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
       font-weight: bold;
     }
 
-    .stats-card p {
+    .medico-details h6 {
+      margin: 0;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .medico-details p {
       margin: 5px 0 0 0;
-      opacity: 0.9;
+      color: #666;
+      font-size: 14px;
     }
 
-    /* TABELA */
-    .responsive-table {
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-    }
-
-    .responsive-table thead tr {
-      background-color: #e0e0e0;
-    }
-
-    .responsive-table th {
-      padding: 12px 10px;
-      font-weight: 500;
-      color: #424242;
-    }
-
-    .responsive-table thead tr th:not(:last-child) {
-      border-right: 2px solid #fff;
-    }
-
-    .responsive-table tbody tr {
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .responsive-table tbody tr:hover {
-      background-color: #f5f5f5;
-    }
-
-    .responsive-table td {
-      padding: 10px 8px;
-    }
-
-    /* BADGE STATUS */
-    .badge-status {
+    .badge-disponivel {
       display: inline-block;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 12px;
       font-size: 11px;
       font-weight: 500;
-      text-transform: uppercase;
-    }
-
-    .badge-status.aguardando {
-      background: #fff3cd;
-      color: #856404;
-    }
-
-    .badge-status.atendimento {
-      background: #d1ecf1;
-      color: #0c5460;
-    }
-
-    .badge-status.finalizado {
       background: #d4edda;
       color: #155724;
+      margin-top: 5px;
+    }
+
+    .badge-ocupado {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      background: #f8d7da;
+      color: #721c24;
+      margin-top: 5px;
+    }
+
+    /* HORÁRIOS */
+    .horarios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .horario-btn {
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .horario-btn:hover {
+      background: #e3f2fd;
+      border-color: #1976d2;
+    }
+
+    .horario-btn.selected {
+      background: #1976d2;
+      color: white;
+      border-color: #1976d2;
+    }
+
+    .horario-btn.disabled {
+      background: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
     }
 
     /* ALINHAMENTO DOS ÍCONES */
@@ -403,6 +327,24 @@
       line-height: inherit;
       display: inline-flex;
       align-items: center;
+    }
+
+    /* VALIDAÇÃO */
+    .input-field.error input,
+    .input-field.error select {
+      border-bottom: 1px solid #f44336 !important;
+      box-shadow: 0 1px 0 0 #f44336 !important;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
     }
 
     /* RESPONSIVO */
@@ -426,12 +368,12 @@
     <div class="top-left">
       <img src="https://clipartcraft.com/images/best-logo-design-transparent-6.png" alt="Logo">
       <div>
-        <div>Recepção Hospitalar</div>
-        <small>Sistema de Atendimento</small>
+        <div>Marcação de Consultas</div>
+        <small>Agende sua Consulta</small>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;">
-      <span>Recepcionista Maria Silva</span>
+      <span>Sistema Online</span>
       <div class="online-dot"></div>
     </div>
   </div>
@@ -449,7 +391,7 @@
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="chat-message system">
-        <strong>Assistente:</strong> Olá! Como posso ajudar com o atendimento?
+        <strong>Assistente:</strong> Olá! Posso ajudá-lo a agendar uma consulta. Qual especialidade você procura?
       </div>
     </div>
     <div class="chat-input">
@@ -463,221 +405,99 @@
   <!-- MAIN CONTENT -->
   <main id="mainContent">
 
-    <!-- ESTATÍSTICAS -->
-    <div class="row">
-      <div class="col s12 m6 l3">
-        <div class="stats-card blue">
-          <h3 id="totalPacientes">0</h3>
-          <p>Total de Pacientes Hoje</p>
-        </div>
-      </div>
-      <div class="col s12 m6 l3">
-        <div class="stats-card orange">
-          <h3 id="aguardando">0</h3>
-          <p>Aguardando Atendimento</p>
-        </div>
-      </div>
-      <div class="col s12 m6 l3">
-        <div class="stats-card">
-          <h3 id="emAtendimento">0</h3>
-          <p>Em Atendimento</p>
-        </div>
-      </div>
-      <div class="col s12 m6 l3">
-        <div class="stats-card green">
-          <h3 id="finalizados">0</h3>
-          <p>Atendimentos Finalizados</p>
-        </div>
-      </div>
-    </div>
+    <!-- TÍTULO DA PÁGINA -->
+    <h5 class="page-title">Marcação de Consultas</h5>
 
     <!-- LAYOUT HORIZONTAL -->
     <div class="row">
 
-      <!-- LISTA DE PACIENTES (ESQUERDA - 50%) -->
+      <!-- FORMULÁRIO DE BUSCA (ESQUERDA - 50%) -->
       <div class="col s12 l6">
         <div class="box">
-          <h6><i class='bx bx-user-check'></i> Pacientes em Espera</h6>
+          <h6><i class='bx bx-search'></i> Buscar Especialidade</h6>
           
-          <div style="max-height: 500px; overflow-y: auto;">
-            <table class="responsive-table">
-              <thead>
-                <tr>
-                  <th>Senha</th>
-                  <th>Paciente</th>
-                  <th>Prioridade</th>
-                  <th>Status</th>
-                  <th>Ação</th>
-                </tr>
-              </thead>
-              <tbody id="tabelaPacientes">
-                <tr>
-                  <td colspan="5" class="center-align" style="padding: 40px;">
-                    <em style="color: #999;">Nenhum paciente na fila</em>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <form id="formBusca">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" id="nomePaciente" required>
+                <label for="nomePaciente">Nome do Paciente *</label>
+                <span class="error-message" id="errorNome">Campo obrigatório</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <input type="tel" id="telefone" required>
+                <label for="telefone">Telefone *</label>
+                <span class="error-message" id="errorTelefone">Campo obrigatório</span>
+              </div>
+              <div class="input-field col s12 m6">
+                <input type="email" id="email">
+                <label for="email">E-mail</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="especialidade" onchange="buscarMedicos()" required>
+                  <option value="" disabled selected>Selecione a especialidade</option>
+                  <option value="Cardiologia">Cardiologia</option>
+                  <option value="Dermatologia">Dermatologia</option>
+                  <option value="Ortopedia">Ortopedia</option>
+                  <option value="Pediatria">Pediatria</option>
+                  <option value="Ginecologia">Ginecologia</option>
+                  <option value="Oftalmologia">Oftalmologia</option>
+                  <option value="Psiquiatria">Psiquiatria</option>
+                  <option value="Clínico Geral">Clínico Geral</option>
+                </select>
+                <label>Especialidade *</label>
+                <span class="error-message" id="errorEspecialidade">Selecione uma especialidade</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="date" id="dataConsulta" onchange="buscarMedicos()" required>
+                <label for="dataConsulta">Data Desejada *</label>
+                <span class="error-message" id="errorData">Campo obrigatório</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <button type="button" class="btn blue" onclick="buscarMedicos()">
+                  <i class='bx bx-search'></i> Buscar Médicos Disponíveis
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- HORÁRIOS DISPONÍVEIS -->
+        <div class="box" id="boxHorarios" style="display: none;">
+          <h6><i class='bx bx-time'></i> Horários Disponíveis</h6>
+          <div id="horariosDisponiveis"></div>
+          
+          <div class="row" style="margin-top: 20px;">
+            <div class="col s12">
+              <button type="button" class="btn green" onclick="confirmarConsulta()">
+                <i class='bx bx-check-circle'></i> Confirmar Consulta
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- FORMULÁRIO DE CADASTRO (DIREITA - 50%) -->
+      <!-- MÉDICOS DISPONÍVEIS (DIREITA - 50%) -->
       <div class="col s12 l6">
-        <!-- TABS HEADER -->
-        <div class="custom-tabs">
-          <button class="custom-tab active" onclick="switchTab('tabCadastro')" id="btnTabCadastro">
-            <i class='bx bx-user-plus'></i> <span>Novo Paciente</span>
-          </button>
-          <button class="custom-tab" onclick="switchTab('tabTriagem')" id="btnTabTriagem">
-            <i class='bx bx-clipboard'></i> <span>Triagem</span>
-          </button>
-          <button class="custom-tab" onclick="switchTab('tabHistorico')" id="btnTabHistorico">
-            <i class='bx bx-history'></i> <span>Histórico</span>
-          </button>
-        </div>
-
-        <!-- TABS CONTENT -->
-        <div class="tab-content-wrapper">
-
-          <!-- TAB 1: CADASTRO -->
-          <div id="tabCadastro" class="tab-panel active">
-            <form id="formCadastro">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="text" id="nomePaciente" required>
-                  <label for="nomePaciente">Nome Completo *</label>
-                  <span class="error-message" id="errorNome">Campo obrigatório</span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-field col s12 m6">
-                  <input type="text" id="cpf" required>
-                  <label for="cpf">CPF *</label>
-                  <span class="error-message" id="errorCpf">CPF inválido</span>
-                </div>
-                <div class="input-field col s12 m6">
-                  <input type="date" id="dataNascimento" required>
-                  <label for="dataNascimento">Data de Nascimento *</label>
-                  <span class="error-message" id="errorData">Campo obrigatório</span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-field col s12 m6">
-                  <input type="tel" id="telefone" required>
-                  <label for="telefone">Telefone *</label>
-                  <span class="error-message" id="errorTelefone">Telefone inválido</span>
-                </div>
-                <div class="input-field col s12 m6">
-                  <select id="convenio" required>
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="SUS">SUS</option>
-                    <option value="Particular">Particular</option>
-                    <option value="Unimed">Unimed</option>
-                    <option value="Amil">Amil</option>
-                    <option value="Bradesco">Bradesco Saúde</option>
-                    <option value="Sul America">Sul América</option>
-                  </select>
-                  <label>Convênio *</label>
-                  <span class="error-message" id="errorConvenio">Selecione um convênio</span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-field col s12">
-                  <textarea id="endereco" class="materialize-textarea"></textarea>
-                  <label for="endereco">Endereço</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col s12">
-                  <button type="button" class="btn blue" onclick="cadastrarPaciente()">
-                    <i class='bx bx-save'></i> Cadastrar Paciente
-                  </button>
-                  <button type="button" class="btn grey lighten-1" onclick="limparFormulario()">
-                    <i class='bx bx-trash'></i> Limpar
-                  </button>
-                </div>
-              </div>
-            </form>
+        <div class="box" style="min-height: 600px;">
+          <h6><i class='bx bx-user-pin'></i> Médicos Disponíveis</h6>
+          
+          <div id="listaMedicos" style="max-height: 700px; overflow-y: auto;">
+            <p class="center-align" style="color: #999; padding: 40px;">
+              Selecione uma especialidade e data para ver os médicos disponíveis
+            </p>
           </div>
-
-          <!-- TAB 2: TRIAGEM -->
-          <div id="tabTriagem" class="tab-panel">
-            <form id="formTriagem">
-              <div class="row">
-                <div class="input-field col s12">
-                  <select id="pacienteTriagem" required>
-                    <option value="" disabled selected>Selecione o paciente</option>
-                  </select>
-                  <label>Paciente *</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-field col s12 m4">
-                  <input type="text" id="pressao" placeholder="120/80">
-                  <label for="pressao">Pressão Arterial</label>
-                </div>
-                <div class="input-field col s12 m4">
-                  <input type="number" id="temperatura" step="0.1" placeholder="36.5">
-                  <label for="temperatura">Temperatura (°C)</label>
-                </div>
-                <div class="input-field col s12 m4">
-                  <input type="number" id="saturacao" min="0" max="100" placeholder="98">
-                  <label for="saturacao">Saturação (%)</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-field col s12">
-                  <select id="prioridade" required>
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="Verde">Verde - Não Urgente</option>
-                    <option value="Amarelo">Amarelo - Pouco Urgente</option>
-                    <option value="Laranja">Laranja - Urgente</option>
-                    <option value="Vermelho">Vermelho - Emergência</option>
-                  </select>
-                  <label>Classificação de Risco *</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-field col s12">
-                  <textarea id="queixaPrincipal" class="materialize-textarea" required></textarea>
-                  <label for="queixaPrincipal">Queixa Principal *</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col s12">
-                  <button type="button" class="btn blue" onclick="realizarTriagem()">
-                    <i class='bx bx-check-circle'></i> Finalizar Triagem
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <!-- TAB 3: HISTÓRICO -->
-          <div id="tabHistorico" class="tab-panel">
-            <div class="row">
-              <div class="input-field col s12">
-                <input type="text" id="buscaPaciente" onkeyup="buscarHistorico()">
-                <label for="buscaPaciente">Buscar por nome ou CPF</label>
-              </div>
-            </div>
-
-            <div id="resultadoHistorico">
-              <p class="center-align" style="color: #999; padding: 40px;">
-                Digite o nome ou CPF do paciente para buscar o histórico
-              </p>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -690,44 +510,101 @@
 
   <script>
     // Dados simulados
-    let pacientes = [];
-    let senhaAtual = 1;
+    const medicos = [
+      {
+        id: 1,
+        nome: "Dr. João Silva",
+        especialidade: "Cardiologia",
+        crm: "CRM 12345-SP",
+        disponivel: true,
+        horarios: ["08:00", "09:00", "10:00", "14:00", "15:00", "16:00"]
+      },
+      {
+        id: 2,
+        nome: "Dra. Maria Santos",
+        especialidade: "Cardiologia",
+        crm: "CRM 23456-SP",
+        disponivel: true,
+        horarios: ["09:00", "10:00", "11:00", "15:00", "16:00"]
+      },
+      {
+        id: 3,
+        nome: "Dr. Pedro Costa",
+        especialidade: "Dermatologia",
+        crm: "CRM 34567-SP",
+        disponivel: true,
+        horarios: ["08:00", "09:00", "13:00", "14:00", "15:00"]
+      },
+      {
+        id: 4,
+        nome: "Dra. Ana Oliveira",
+        especialidade: "Dermatologia",
+        crm: "CRM 45678-SP",
+        disponivel: false,
+        horarios: []
+      },
+      {
+        id: 5,
+        nome: "Dr. Carlos Mendes",
+        especialidade: "Ortopedia",
+        crm: "CRM 56789-SP",
+        disponivel: true,
+        horarios: ["08:00", "10:00", "14:00", "16:00"]
+      },
+      {
+        id: 6,
+        nome: "Dra. Beatriz Lima",
+        especialidade: "Pediatria",
+        crm: "CRM 67890-SP",
+        disponivel: true,
+        horarios: ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"]
+      },
+      {
+        id: 7,
+        nome: "Dra. Julia Ferreira",
+        especialidade: "Ginecologia",
+        crm: "CRM 78901-SP",
+        disponivel: true,
+        horarios: ["08:00", "09:00", "13:00", "14:00"]
+      },
+      {
+        id: 8,
+        nome: "Dr. Ricardo Alves",
+        especialidade: "Oftalmologia",
+        crm: "CRM 89012-SP",
+        disponivel: true,
+        horarios: ["10:00", "11:00", "14:00", "15:00", "16:00"]
+      },
+      {
+        id: 9,
+        nome: "Dra. Fernanda Rocha",
+        especialidade: "Psiquiatria",
+        crm: "CRM 90123-SP",
+        disponivel: true,
+        horarios: ["08:00", "09:00", "10:00", "13:00", "14:00"]
+      },
+      {
+        id: 10,
+        nome: "Dr. Lucas Martins",
+        especialidade: "Clínico Geral",
+        crm: "CRM 01234-SP",
+        disponivel: true,
+        horarios: ["08:00", "09:00", "10:00", "11:00", "14:00", "15:00", "16:00"]
+      }
+    ];
+
+    let medicoSelecionado = null;
+    let horarioSelecionado = null;
 
     // Inicializar Materialize
     document.addEventListener('DOMContentLoaded', function () {
       M.updateTextFields();
-      document.querySelectorAll('.materialize-textarea').forEach(textarea => {
-        M.textareaAutoResize(textarea);
-      });
       M.FormSelect.init(document.querySelectorAll('select'));
-      atualizarEstatisticas();
+      
+      // Definir data mínima como hoje
+      const hoje = new Date().toISOString().split('T')[0];
+      document.getElementById('dataConsulta').setAttribute('min', hoje);
     });
-
-    // FUNÇÃO PARA TROCAR TABS
-    function switchTab(tabId) {
-      document.querySelectorAll('.custom-tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.querySelectorAll('.tab-panel').forEach(panel => {
-        panel.classList.remove('active');
-      });
-
-      if (tabId === 'tabCadastro') {
-        document.getElementById('btnTabCadastro').classList.add('active');
-      } else if (tabId === 'tabTriagem') {
-        document.getElementById('btnTabTriagem').classList.add('active');
-        atualizarSelectPacientes();
-      } else if (tabId === 'tabHistorico') {
-        document.getElementById('btnTabHistorico').classList.add('active');
-      }
-
-      document.getElementById(tabId).classList.add('active');
-      M.updateTextFields();
-      document.querySelectorAll('.materialize-textarea').forEach(textarea => {
-        M.textareaAutoResize(textarea);
-      });
-      M.FormSelect.init(document.querySelectorAll('select'));
-    }
 
     // CHAT CONTROLS
     const chatSidebar = document.getElementById('chatSidebar');
@@ -767,7 +644,7 @@
       setTimeout(() => {
         chatMessages.innerHTML += `
           <div class="chat-message system">
-            <strong>Assistente:</strong> Entendi. Posso ajudar com cadastro de pacientes, triagem ou busca de histórico.
+            <strong>Assistente:</strong> Entendi. Estou aqui para ajudar com agendamento de consultas e informações sobre especialidades médicas.
           </div>
         `;
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -780,200 +657,140 @@
       }
     });
 
-    // CADASTRAR PACIENTE
-    function cadastrarPaciente() {
-      const nome = document.getElementById('nomePaciente').value.trim();
-      const cpf = document.getElementById('cpf').value.trim();
-      const dataNascimento = document.getElementById('dataNascimento').value;
-      const telefone = document.getElementById('telefone').value.trim();
-      const convenio = document.getElementById('convenio').value;
-      const endereco = document.getElementById('endereco').value.trim();
+    // BUSCAR MÉDICOS
+    function buscarMedicos() {
+      const especialidade = document.getElementById('especialidade').value;
+      const data = document.getElementById('dataConsulta').value;
 
-      if (!nome || !cpf || !dataNascimento || !telefone || !convenio) {
-        M.toast({ html: '⚠️ Preencha todos os campos obrigatórios', classes: 'orange' });
+      if (!especialidade || !data) {
+        M.toast({ html: '⚠️ Selecione uma especialidade e data', classes: 'orange' });
         return;
       }
 
-      const paciente = {
-        id: Date.now(),
-        senha: `A${String(senhaAtual).padStart(3, '0')}`,
-        nome,
-        cpf,
-        dataNascimento,
-        telefone,
-        convenio,
-        endereco,
-        status: 'Aguardando',
-        prioridade: 'Não definida',
-        horaCadastro: new Date().toLocaleTimeString('pt-BR')
-      };
+      const medicosDisponiveis = medicos.filter(m => m.especialidade === especialidade);
+      const listaMedicos = document.getElementById('listaMedicos');
 
-      pacientes.push(paciente);
-      senhaAtual++;
-
-      atualizarTabelaPacientes();
-      atualizarEstatisticas();
-      limparFormulario();
-
-      M.toast({ html: `✅ Paciente ${paciente.nome} cadastrado com senha ${paciente.senha}`, classes: 'green' });
-    }
-
-    // ATUALIZAR TABELA
-    function atualizarTabelaPacientes() {
-      const tbody = document.getElementById('tabelaPacientes');
-      
-      if (pacientes.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="5" class="center-align" style="padding: 40px;">
-              <em style="color: #999;">Nenhum paciente na fila</em>
-            </td>
-          </tr>
-        `;
-        return;
-      }
-
-      tbody.innerHTML = '';
-      pacientes.forEach(p => {
-        const statusClass = p.status === 'Aguardando' ? 'aguardando' : 
-                          p.status === 'Em Atendimento' ? 'atendimento' : 'finalizado';
-        
-        const cor = p.prioridade === 'Vermelho' ? 'red-text' :
-                    p.prioridade === 'Laranja' ? 'orange-text' :
-                    p.prioridade === 'Amarelo' ? 'yellow-text text-darken-3' :
-                    p.prioridade === 'Verde' ? 'green-text' : '';
-
-        tbody.innerHTML += `
-          <tr>
-            <td><strong>${p.senha}</strong></td>
-            <td>${p.nome}</td>
-            <td><span class="${cor}">${p.prioridade}</span></td>
-            <td><span class="badge-status ${statusClass}">${p.status}</span></td>
-            <td>
-              <a class="btn-small blue" onclick="chamarPaciente(${p.id})">
-                <i class='bx bx-phone-call'></i>
-              </a>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    // ATUALIZAR ESTATÍSTICAS
-    function atualizarEstatisticas() {
-      document.getElementById('totalPacientes').textContent = pacientes.length;
-      document.getElementById('aguardando').textContent = pacientes.filter(p => p.status === 'Aguardando').length;
-      document.getElementById('emAtendimento').textContent = pacientes.filter(p => p.status === 'Em Atendimento').length;
-      document.getElementById('finalizados').textContent = pacientes.filter(p => p.status === 'Finalizado').length;
-    }
-
-    // CHAMAR PACIENTE
-    function chamarPaciente(id) {
-      const paciente = pacientes.find(p => p.id === id);
-      if (paciente) {
-        paciente.status = 'Em Atendimento';
-        atualizarTabelaPacientes();
-        atualizarEstatisticas();
-        M.toast({ html: `📢 Chamando paciente ${paciente.nome} - Senha ${paciente.senha}`, classes: 'blue' });
-      }
-    }
-
-    // REALIZAR TRIAGEM
-    function realizarTriagem() {
-      const pacienteId = document.getElementById('pacienteTriagem').value;
-      const prioridade = document.getElementById('prioridade').value;
-      const queixa = document.getElementById('queixaPrincipal').value.trim();
-
-      if (!pacienteId || !prioridade || !queixa) {
-        M.toast({ html: '⚠️ Preencha todos os campos obrigatórios', classes: 'orange' });
-        return;
-      }
-
-      const paciente = pacientes.find(p => p.id == pacienteId);
-      if (paciente) {
-        paciente.prioridade = prioridade;
-        paciente.queixa = queixa;
-        paciente.pressao = document.getElementById('pressao').value;
-        paciente.temperatura = document.getElementById('temperatura').value;
-        paciente.saturacao = document.getElementById('saturacao').value;
-
-        atualizarTabelaPacientes();
-        
-        // Limpar formulário de triagem
-        document.getElementById('formTriagem').reset();
-        M.FormSelect.init(document.querySelectorAll('select'));
-        M.updateTextFields();
-
-        M.toast({ html: `✅ Triagem realizada para ${paciente.nome}`, classes: 'green' });
-      }
-    }
-
-    // ATUALIZAR SELECT DE PACIENTES
-    function atualizarSelectPacientes() {
-      const select = document.getElementById('pacienteTriagem');
-      select.innerHTML = '<option value="" disabled selected>Selecione o paciente</option>';
-      
-      pacientes.forEach(p => {
-        if (p.status === 'Aguardando' || p.status === 'Em Atendimento') {
-          select.innerHTML += `<option value="${p.id}">${p.senha} - ${p.nome}</option>`;
-        }
-      });
-      
-      M.FormSelect.init(document.querySelectorAll('select'));
-    }
-
-    // BUSCAR HISTÓRICO
-    function buscarHistorico() {
-      const termo = document.getElementById('buscaPaciente').value.trim().toLowerCase();
-      const resultado = document.getElementById('resultadoHistorico');
-
-      if (termo.length < 3) {
-        resultado.innerHTML = `
+      if (medicosDisponiveis.length === 0) {
+        listaMedicos.innerHTML = `
           <p class="center-align" style="color: #999; padding: 40px;">
-            Digite pelo menos 3 caracteres para buscar
+            Nenhum médico encontrado para esta especialidade
           </p>
         `;
         return;
       }
 
-      const encontrados = pacientes.filter(p => 
-        p.nome.toLowerCase().includes(termo) || 
-        p.cpf.includes(termo)
-      );
+      listaMedicos.innerHTML = '';
+      medicosDisponiveis.forEach(medico => {
+        const iniciais = medico.nome.split(' ').map(n => n[0]).join('').substring(0, 2);
+        const badgeClass = medico.disponivel ? 'badge-disponivel' : 'badge-ocupado';
+        const badgeText = medico.disponivel ? '✓ Disponível' : '✗ Ocupado';
 
-      if (encontrados.length === 0) {
-        resultado.innerHTML = `
-          <p class="center-align" style="color: #999; padding: 40px;">
-            Nenhum paciente encontrado
-          </p>
-        `;
-        return;
-      }
-
-      resultado.innerHTML = '';
-      encontrados.forEach(p => {
-        resultado.innerHTML += `
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">${p.nome}</span>
-              <p><strong>CPF:</strong> ${p.cpf}</p>
-              <p><strong>Senha:</strong> ${p.senha}</p>
-              <p><strong>Convênio:</strong> ${p.convenio}</p>
-              <p><strong>Status:</strong> ${p.status}</p>
-              <p><strong>Prioridade:</strong> ${p.prioridade}</p>
-              ${p.queixa ? `<p><strong>Queixa:</strong> ${p.queixa}</p>` : ''}
-              <p><strong>Hora Cadastro:</strong> ${p.horaCadastro}</p>
+        listaMedicos.innerHTML += `
+          <div class="medico-card ${!medico.disponivel ? 'disabled' : ''}" 
+               onclick="${medico.disponivel ? `selecionarMedico(${medico.id})` : ''}" 
+               id="medico-${medico.id}">
+            <div class="medico-info">
+              <div class="medico-avatar">${iniciais}</div>
+              <div class="medico-details">
+                <h6>${medico.nome}</h6>
+                <p>${medico.crm}</p>
+                <span class="${badgeClass}">${badgeText}</span>
+              </div>
             </div>
+          </div>
+        `;
+      });
+
+      M.toast({ html: `📋 ${medicosDisponiveis.length} médico(s) encontrado(s)`, classes: 'blue' });
+    }
+
+    // SELECIONAR MÉDICO
+    function selecionarMedico(id) {
+      medicoSelecionado = medicos.find(m => m.id === id);
+      
+      // Remover seleção anterior
+      document.querySelectorAll('.medico-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      // Adicionar seleção
+      document.getElementById(`medico-${id}`).classList.add('selected');
+
+      // Mostrar horários
+      mostrarHorarios();
+
+      M.toast({ html: `✅ Médico selecionado: ${medicoSelecionado.nome}`, classes: 'green' });
+    }
+
+    // MOSTRAR HORÁRIOS
+    function mostrarHorarios() {
+      if (!medicoSelecionado) return;
+
+      const boxHorarios = document.getElementById('boxHorarios');
+      const horariosDiv = document.getElementById('horariosDisponiveis');
+
+      boxHorarios.style.display = 'block';
+
+      horariosDiv.innerHTML = '<div class="horarios-grid"></div>';
+      const grid = horariosDiv.querySelector('.horarios-grid');
+
+      medicoSelecionado.horarios.forEach(horario => {
+        grid.innerHTML += `
+          <div class="horario-btn" onclick="selecionarHorario('${horario}')">
+            ${horario}
           </div>
         `;
       });
     }
 
-    // LIMPAR FORMULÁRIO
-    function limparFormulario() {
-      document.getElementById('formCadastro').reset();
-      M.updateTextFields();
-      M.FormSelect.init(document.querySelectorAll('select'));
+    // SELECIONAR HORÁRIO
+    function selecionarHorario(horario) {
+      horarioSelecionado = horario;
+
+      document.querySelectorAll('.horario-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+
+      event.target.classList.add('selected');
+
+      M.toast({ html: `🕐 Horário selecionado: ${horario}`, classes: 'blue' });
+    }
+
+    // CONFIRMAR CONSULTA
+    function confirmarConsulta() {
+      const nome = document.getElementById('nomePaciente').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const data = document.getElementById('dataConsulta').value;
+
+      if (!nome || !telefone || !medicoSelecionado || !horarioSelecionado) {
+        M.toast({ html: '⚠️ Preencha todos os campos e selecione médico e horário', classes: 'orange' });
+        return;
+      }
+
+      const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+
+      M.toast({ 
+        html: `✅ Consulta confirmada!<br>
+               ${medicoSelecionado.nome}<br>
+               ${dataFormatada} às ${horarioSelecionado}`, 
+        classes: 'green',
+        displayLength: 6000
+      });
+
+      // Limpar formulário
+      setTimeout(() => {
+        document.getElementById('formBusca').reset();
+        document.getElementById('listaMedicos').innerHTML = `
+          <p class="center-align" style="color: #999; padding: 40px;">
+            Selecione uma especialidade e data para ver os médicos disponíveis
+          </p>
+        `;
+        document.getElementById('boxHorarios').style.display = 'none';
+        medicoSelecionado = null;
+        horarioSelecionado = null;
+        M.updateTextFields();
+        M.FormSelect.init(document.querySelectorAll('select'));
+      }, 2000);
     }
   </script>
   

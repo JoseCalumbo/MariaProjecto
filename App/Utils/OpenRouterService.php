@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Utils;
-        
+
 class OpenRouterService
 {
     private string $apiKey;
@@ -30,10 +30,10 @@ class OpenRouterService
 
         $payload = [
             "model" => $model ?? $this->model,
-            'max_tokens' => 400, // <<< MUITO IMPORTANTE
+            'max_tokens' => 500, // <<< MUITO IMPORTANTE
             'stream' => true,
             "messages" => [
-                ["role" => "user", "content" => $userMessage]
+                ["role" => "user1", "content" => $userMessage]
             ],
             "stream" => false
         ];

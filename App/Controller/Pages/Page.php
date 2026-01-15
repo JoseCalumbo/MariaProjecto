@@ -283,6 +283,7 @@ class Page
             'header' => Self::getHeaderReceita(null),
             'title' => $title,
             'content' => $content
+            //'nome' => $content->nome_paciente
         ]);
     }
 

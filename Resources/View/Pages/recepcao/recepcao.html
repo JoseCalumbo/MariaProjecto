@@ -455,12 +455,15 @@
   <!-- BOTÕES DE AÇÃO -->
   <div class="action-buttons">
     <button class="btn teal ">
-      <a class="white-text" href="{{URL}}/paciente" target="_blank"><i class='bx bx-user-plus'>
-        </i> Cadastrar Paciente </a>
+      <a class="white-text" href="{{URL}}/paciente/cadastrar" target="_blank">
+        <i class='bx bx-user-plus'></i> Cadastrar Paciente 
+      </a>
     </button>
 
     <button class="btn teal waves-effect" onclick="abrirTriagem()">
-      <i class='bx bx-clipboard'></i> Triagem
+      <a class="white-text" href="{{URL}}/triagem" target="_blank">
+       <i class='bx bx-clipboard'></i>GerenciarTriagem
+      </a>
     </button>
 
     <button class="btn teal waves-effect" onclick="abrirExame()">
@@ -501,7 +504,7 @@
           </table>
         </div>
         <br>
-        <button class="btn teal font-normal" onclick="abrirTriagem()">
+        <button class="btn teal font-normal" onclick="abrirPagamento()">
           <i class='bx bx-clipboard'></i> Lista completa
         </button>
       </div>
@@ -633,6 +636,9 @@
     // Aqui você pode abrir um modal ou redirecionar
   }
 
+  function abrirPagamento() {
+    M.toast({ html: '🏥 Abrindo sistema de pagamento em construção...', classes: 'teal' });
+  }
   function abrirTriagem() {
     M.toast({ html: '🏥 Abrindo sistema de triagem...', classes: 'teal' });
   }

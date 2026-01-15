@@ -56,7 +56,13 @@ window.onload = function () {
   }
 
   // gerar a primeira vez
-   btnGerar.onclick = function () {
+  btnGerar.onclick = function () {
+
+      if (!validarFormulario()) {
+        M.toast({ html: '⚠️ Preencha todos os campos obrigatórios corretamente', classes: 'red' });
+        console.log("preenche os campos necessarios para continuar");
+        return;
+      }
 
     xhttp = new XMLHttpRequest();
 
@@ -67,7 +73,7 @@ window.onload = function () {
 
       if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-        console.log("Resposta do PHP 1:", xhttp.responseText);
+        console.log("Resposta do PHP 2:", xhttp.responseText);
 
         // Coloca a resposta dentro do div
         resultadoIA.innerHTML = xhttp.responseText;
@@ -84,54 +90,5 @@ window.onload = function () {
     xhttp.send();
   }
 
-      
-  // metodo que refaz o analize com a obs do médico
-  // btnRefazer.onclick = function () {
-
-  //   if (xhttp) xhttp.abort(); // cancela anterior
-
-  //   xhttp = new XMLHttpRequest();
-  //   console.log("Aqui");
-
-  //   const promptAdicional = document.getElementById('promptAdicional').value.trim();
-
-  //   if (!promptAdicional) {
-  //     M.toast({ html: '⚠️ Digite instruções adicionais no campo de prompt', classes: 'orange' });
-  //     return;
-  //   }
-
-  //   // Verificar se já existe uma análise
-  //   const resultadoAtual = document.getElementById('resultadoIA').innerHTML;
-  //   if (resultadoAtual.includes('<em>')) {
-  //     M.toast({ html: '⚠️ Faça a análise inicial primeiro', classes: 'orange' });
-  //     return;
-  //   }
-
-  //   xhttp.onreadystatechange = function () {
-  //     //activa o loading de espera
-  //     if (this.readyState < 4) {
-  //       loading.classList.add('active');
-  //     }
-
-  //     if (xhttp.readyState == 4 && xhttp.status == 200) {
-
-  //       console.log("Resposta do PHP refeirA:", xhttp.responseText);
-
-  //       // Coloca a resposta dentro do div
-  //       resultadoIA.innerHTML = xhttp.responseText;
-
-  //       M.toast({ html: '✅ Análise refeita concluída com sucesso', classes: 'green' });
-  //     }
-
-  //     // remove o loanding
-  //     if (this.readyState == 4) {
-  //       loading.classList.remove('active');
-  //     }
-  //   };
-
-  //   // Ajuste a URL conforme seu arquivo PHP
-  //   xhttp.open('GET', '/AntigoMaria/public/ajax/user.php?action=sugestaoMedica ', true);
-  //   xhttp.send();
-  // }
 
 }
