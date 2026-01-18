@@ -9,15 +9,9 @@
                 <img class="" src="{{URL}}/Assets/img/logoMenu.png" width="65" height="50">
             </a>
 
-            <!--dados ou foto de perfil-->
-            <ul class="right hide-on-med-and-down ">
-                <li class="rigth">
-                    <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1">
-                        {{info}}
-                        <i class="material-icons right lighten-2 icon-tight-left">arrow_drop_down</i>
-                    </a>
-                </li>
-            </ul>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
 
             <!-- itens de menu-->
             <ul class="right hide-on-med-and-down">
@@ -85,6 +79,15 @@
                     </a>
                 </li>
 
+                <!--dados ou foto de perfil-->
+                <li class="rigth">
+                    <a class="dropdown-trigger font-normal" href="#!" data-target="dropdown1">
+                        {{info}}
+                        <i class="material-icons right lighten-2 icon-tight-left">arrow_drop_down</i>
+                    </a>
+                </li>
+
+            </ul>
 
         </div>
 
@@ -218,7 +221,7 @@
                     <i class="material-icons left">medical_information</i>Gerenciar Atestado
                 </a>
             </li>
-            
+
             <li>
                 <a class="font-normal {{}}" href="{{URL}}/agendas">
                     <i class="material-icons left">calendar_month</i>Minha Agendas
@@ -353,6 +356,30 @@
         </ul>
 
     </nav>
+
+    <!-- Menu lateral para mobile -->
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <div class="user-view">
+                <div class="background teal darken-3">
+                </div>
+                <a href="#user"><span class="white-text name">Menu Mobile</span></a>
+                <a href="#email"><span class="white-text email">Materialize CSS</span></a>
+            </div>
+        </li>
+        <li><a href="{{URL}}/recepcao"><i class="material-icons">medical_services</i>Recepção</a></li>
+        <li><a href="{{URL}}/consulta"><i class="material-icons">widgets</i>Consultório</a></li>
+        <li><a href="{{URL}}/paciente"><i class="material-icons">medical_information</i>Paciente</a></li>
+        <li><a href="{{URL}}/laboratorio"><i class="material-icons">science</i>Laboratório</a></li>
+        <li><a href="{{URL}}/farmacia"><i class="material-icons">vaccines</i>Farmácia</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="{{URL}}/conta"><i class="material-icons">account_circle</i>Minha Conta</a></li>
+        <li><a href="{{URL}}/contabilidade"><i class="material-icons">local_hospital</i>Contabilidade</a></li>
+        <li><a href="{{URL}}/tesouraria"><i class="material-icons">bar_chart</i>Tesouraria</a></li>
+        <li><a href="{{URL}}/utilitario"><i class="material-icons">build</i>Utilitarios</a></li>
+    </ul>
 
 </header>
 

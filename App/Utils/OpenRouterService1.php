@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Utils;
-        
+
 class OpenRouterService
 {
     private string $apiKey;
@@ -9,13 +9,13 @@ class OpenRouterService
     private string $model = "deepseek/deepseek-chat";
 
 
-    //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
-    //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
+    //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
+    // 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
 
     public function __construct()
     {
         // Ideal: guardar a chave no .env
-        $this->apiKey = $_ENV['OPENROUTER_API_KEY'] ?? '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';
+        $this->apiKey = $_ENV['OPENROUTER_API_KEY'] ?? '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';
     }
 
     /**
@@ -30,7 +30,7 @@ class OpenRouterService
 
         $payload = [
             "model" => $model ?? $this->model,
-            'max_tokens' => 500, // <<< MUITO IMPORTANTE
+            'max_tokens' => 400, // <<< MUITO IMPORTANTE
             'stream' => true,
             "messages" => [
                 ["role" => "user", "content" => $userMessage]
