@@ -5,32 +5,31 @@ namespace App\Controller\Pages;
 require_once __DIR__ . '/../../Utils/OpenRouterService.php';
 
 use \App\Utils\View;
-use \App\Utils\ConsultaMedica;
 use \App\Utils\OpenRouterService;
 use \App\Utils\OpenRouterService3;
 use App\Model\Entity\ConsultaDao;
 use App\Model\Entity\MedicamentoDao;
 use App\Model\Entity\TriagemDao;
-use App\Model\Entity\MedicamentoDaoDao;
+use App\Model\Entity\ReceitaDao;
 
 class Prescrisao extends Page
 {
 
-    // busca todos os exames para o select dos exames 
-    public static function getMedicamentoSelect()
-    {
-        $resultadoMedicamento = '';
+  // busca todos os exames para o select dos exames 
+  public static function getMedicamentoSelect()
+  {
+    $resultadoMedicamento = '';
 
-        $listarMedicamento = MedicamentoDao::listarMedicamento(null, 'nome_medicamento');
+    $listarMedicamento = MedicamentoDao::listarMedicamento(null, 'nome_medicamento');
 
-        while ($obMedicamento = $listarMedicamento->fetchObject(MedicamentoDao::class)) {
-            $resultadoMedicamento .= View::render('ReceitaLayouts/itemPrescrisao/medicamentos', [
-                'value' => $obMedicamento->id_medicamento,
-                'medicamento' => $obMedicamento->nome_medicamento,
-            ]);
-        }
-        return $resultadoMedicamento;
+    while ($obMedicamento = $listarMedicamento->fetchObject(MedicamentoDao::class)) {
+      $resultadoMedicamento .= View::render('ReceitaLayouts/itemPrescrisao/medicamentos', [
+        'value' => $obMedicamento->id_medicamento,
+        'medicamento' => $obMedicamento->nome_medicamento,
+      ]);
     }
+    return $resultadoMedicamento;
+  }
 
 
   // Método para gerar a pescrisao
@@ -55,6 +54,67 @@ class Prescrisao extends Page
     ]);
     return parent::getPageReceita('Geradar de consulta', $content);
   }
+
+  // Método para gerar a pescrisao
+  public static function setTelaGeradorReceita($request, $id_consulta)
+  {
+    //obtem a consulta actual do paciente 
+    $obConsulta = ConsultaDao::getConsultaRelizada($id_consulta);
+
+    // Instancia
+    $obReceita = new ReceitaDao();
+
+
+    if (isset($_POST['salvarPrescrisao'])) {
+
+      echo '<pre>';
+      print_r($_POST);
+      echo '</pre>';
+      exit;
+
+      if (isset($_POST['obs'],)) {
+        $obConsulta->id_paciente = $pacienteID;
+        $obReceita->id_triagem = $id_triagem;
+        $obReceita->motivo_consulta = $_POST['obs'];
+        // $obConsulta->conduta_consulta = $_POST['medicamentoUso'];
+        $obConsulta->diagnostico_consulta = $_POST['diagnostico'];
+        $obConsulta->medicamentoUso_consulta = $_POST['medicamentoUso'];
+        $obConsulta->alergia_consulta = $_POST['alergia'];
+        $obConsulta->observacao_consulta = $_POST['obs'];
+        $obConsulta->add_receita_consulta = isset($_POST['examesTipo']) ? 'Com receita' : 'Sem receita';
+        $idconsulta = $obConsulta->cadastrarConsulta();
+      }
+
+      // inseri os exames solicitados
+      if (isset($_POST['examesTipo'], $_POST['examesNome'], $_POST['examesEmergrncia'],)) {
+
+        $tipoExame = $_POST['examesTipo'];
+        $nomeExame = $postVars['examesNome'];
+        $urgencias = $postVars['examesEmergrncia'];
+
+        // Loop para inserir exame por exame
+        for ($i = 0; $i < count($tipoExame); $i++) {
+
+          $ExameSolicitados->id_consulta = $idconsulta;
+
+          $ExameSolicitados->id_exame = $nomeExame[$i];
+          $ExameSolicitados->tipo_exame = $tipoExame[$i];
+          $ExameSolicitados->emergencia_exame = $urgencias[$i];
+          $ExameSolicitados->cadastrarExameSolicitado();
+        }
+
+        // Redireciona validaçao e gerar consulta depois dos exames
+        $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
+      } else {
+
+        // Redireciona validaçao e gerar consulta sem exame
+        $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
+      }
+    }
+
+    //return parent::getPageReceita('Geradar de consulta');
+  }
+
 
   public static function analizarComIA($nome, $idade, $peso, $sintomas, $diagnostico, $alergia, $usoMedicamento)
   {

@@ -271,6 +271,7 @@ class Consulta extends Page
         return $resultadoExame;
     }
 
+
     // Metodo para apresentar a tela do consultorio
     public static function telaConsulta($request)
     {
@@ -328,10 +329,11 @@ class Consulta extends Page
                 $obConsulta->medicamentoUso_consulta = $_POST['medicamentoUso'];
                 $obConsulta->alergia_consulta = $_POST['alergia'];
                 $obConsulta->observacao_consulta = $_POST['obs'];
-                $obConsulta->add_receita_consulta = isset($_POST['examesTipo']) ? 'Com receita': 'Sem receita';
+                $obConsulta->add_receita_consulta = isset($_POST['examesTipo']) ? 'Com receita' : 'Sem receita';
                 $idconsulta = $obConsulta->cadastrarConsulta();
             }
 
+            // inseri os exames solicitados
             if (isset($_POST['examesTipo'], $_POST['examesNome'], $_POST['examesEmergrncia'],)) {
 
                 $tipoExame = $_POST['examesTipo'];
@@ -349,17 +351,16 @@ class Consulta extends Page
                     $ExameSolicitados->cadastrarExameSolicitado();
                 }
 
-                // Redireciona validaçao e gerar consulta
+                // Redireciona validaçao e gerar consulta depois dos exames
                 $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
             } else {
 
-                // Redireciona validaçao e gerar consulta 
+                // Redireciona validaçao e gerar consulta sem exame
                 $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
             }
         }
 
-        $content = View::render('consulta/formConsulta1', [
-
+        $content = View::render('consulta/formConsulta', [
             'titulo' => 'Ficha de Consulta',
             'button' => 'Salvar',
 

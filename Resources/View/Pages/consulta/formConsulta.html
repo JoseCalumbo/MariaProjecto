@@ -145,9 +145,11 @@
 
           <div class="row center ">
             <br>
-            <a class="tooltip-container btn blue" onclick="adicionarLinha()">
+            <br>
+            <br>
+            <a class="tooltip-container btn teal" onclick="adicionarLinha()">
               <i class="material-icons center">add</i>
-              <div class="custom-tooltip font-normal ">Adicionar linha de exame</div>
+              <div class="custom-tooltip font-normal ">Adicionar nova linha</div>
             </a>
           </div>
         </div>
@@ -167,93 +169,8 @@
 <script src="{{URL}}/Assets/js/main.js"></script>
 
 <script>
-  function adicionarLinha12() {
-    const tabela = document.getElementById('tabela-body');
-    const novaLinha = tabela.rows[0].cloneNode(true);
 
-    // Limpar SELECTS
-    const select = novaLinha.querySelectorAll('select');
-    selects.forEach(select => {
-      select.value = '';
-      select.removeAttribute('id'); // remove ID duplicado
-    });
-
-    // Limpar INPUTS (se houver)
-    const input = novaLinha.querySelectorAll('input');
-    inputs.forEach(input => {
-      input.value = '';
-      input.removeAttribute('id');
-    });
-
-    const inputs = novaLinha.querySelectorAll('input,select');
-    inputs.forEach(input => input.value = '');
-    tabela.appendChild(novaLinha);
-  }
-
-  function adicionarLinha15() {
-    const tabela = document.getElementById('tabela-body');
-
-    // Clonar a primeira linha
-    const novaLinha = tabela.rows[0].cloneNode(true);
-
-    // REMOVER elementos criados pelo MATERIALIZE
-    //novaLinha.querySelectorAll('.select-wrapper').forEach(wrapper => wrapper.remove());
-
-    // 🔄 Restaurar os <select> originais (só o elemento select)
-    const selectsOriginais = tabela.rows[0].querySelectorAll('select');
-    const selectsNovos = novaLinha.querySelectorAll('select');
-
-    selectsNovos.forEach((select, index) => {
-      select.innerHTML = selectsOriginais[index].innerHTML; // repõe options
-      select.value = ''; // limpa seleção
-      select.removeAttribute('id'); // remove ID duplicado
-      select.classList.remove('initialized'); // muito importante
-    });
-
-    // Limpar inputs
-    novaLinha.querySelectorAll('input').forEach(input => {
-      input.value = '';
-      input.removeAttribute('id');
-    });
-
-
-    tabela.appendChild(novaLinha);
-
-    // 🔄 Reinicializar Materialize corretamente
-    setTimeout(() => {
-      M.FormSelect.init(document.querySelectorAll('select'));
-    }, 0);
-  }
-
-  function adicionarLinha00() {
-    const tabela = document.getElementById('tabela-body');
-
-    // Clonar a primeira linha
-    const novaLinha = tabela.rows[0].cloneNode(true);
-
-    // Limpar SELECTS
-    const selects = novaLinha.querySelectorAll('select');
-    selects.forEach(select => {
-      select.value = '';
-      select.removeAttribute('id'); // remove ID duplicado
-    });
-
-    // Limpar INPUTS (se houver)
-    const inputs = novaLinha.querySelectorAll('input');
-    inputs.forEach(input => {
-      input.value = '';
-      input.removeAttribute('id');
-    });
-
-    // Adicionar a nova linha à tabela
-    tabela.appendChild(novaLinha);
-
-    // Reinicializar SELECTS do Materialize
-    setTimeout(() => {
-      M.FormSelect.init(document.querySelectorAll('select'));
-    }, 10);
-  }
-
+  // adicionar linha
   function adicionarLinha() {
     const tabela = document.getElementById('tabela-body');
     const linhaModelo = tabela.rows[0];
@@ -310,21 +227,7 @@
     }, 0);
   }
 
-  function removerLinhaz(botao) {
-    const linha = botao.closest('tr');
-    const tabela = document.getElementById('tabela-body');
-    if (tabela.rows.length > 1) linha.remove();
-  }
-
-  function adicionarLinha1() {
-    const tabela = document.getElementById('tabela-body1');
-    const novaLinha = tabela.rows[0].cloneNode(true);
-
-    const inputs = novaLinha.querySelectorAll('input,select');
-    inputs.forEach(input => input.value = '');
-    tabela.appendChild(novaLinha);
-  }
-
+  // Remover linha
   function removerLinha(botao) {
     const linha = botao.closest('tr');
     const tabela = document.getElementById('tabela-body');
@@ -335,14 +238,5 @@
     }
   }
 
-  function removerLinha1(botao) {
-    const linha = botao.closest('tr');
-    const tabela = document.getElementById('tabela-body1');
-    if (tabela.rows.length > 1) {
-      linha.remove();
-    } else {
-      M.toast({ html: 'A tabela deve conter pelo menos uma linha.', classes: 'red' });
-    }
-  }
 
 </script>

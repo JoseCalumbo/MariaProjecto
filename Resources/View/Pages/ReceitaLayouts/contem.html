@@ -1,0 +1,800 @@
+<!---------------------- MAIN CONTENT -------------------------------------------------->
+<h5 style="margin: 0px; padding: 0px;" class="center">Prescrever medicamento</h5>
+<hr>
+<main id="mainContent">
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div id="conteudoPrincipal">
+    <!-- LAYOUT HORIZONTAL (LADO A LADO) -->
+    <div class="row">
+      <!-- PARTE 1: SUGESTÃO DA IA (ESQUERDA - 50%) -->
+      <div class="col s12 l6">
+        <div class="box" style="position: relative; min-height: 300px;">
+          <h6><i class='bx bx-brain'></i> Sugestão da IA</h6>
+          <div id="resultadoIA" style="max-height: 500px; overflow-y: auto;">
+            <em>Preencha os dados do paciente e clique em "Analisar" para receber uma sugestão da IA...</em>
+          </div>
+          <div class="loading-overlay" id="loadingIA">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <p>Analisando dados com IA...</p>
+          </div>
+        </div>
+
+        <!-- CAMPO DE PROMPT ADICIONAL -->
+        <div class="box" style="margin-top: 15px;">
+          <h6><i class='bx bx-message-square-edit'></i> Prompt Adicional</h6>
+
+          <form action="" id="addSugestaoMedica">
+            <div class="input-field" style="margin-top: 15px;">
+              <textarea name="adicional" id="promptAdicional" class="materialize-textarea"
+                placeholder="Ex: Considerar histórico de diabetes, focar em medicamentos genéricos, evitar anti-inflamatórios..."></textarea>
+              <label for="promptAdicional">Instruções extras para a IA (opcional)</label>
+            </div>
+
+            <button type="submit" class="btn waves-effect teal font-normal" id="btnRefazer">
+              <i class='bx bx-refresh'></i> Refazer análise
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+      <!-- PARTE 2: TABS (DIREITA - 50%) -->
+      <div class="col s12 l6">
+        <!-- TABS HEADER -->
+        <div class="custom-tabs">
+          <button class="custom-tab active" onclick="switchTab('tabDadosPaciente')" id="btnTabDados">
+            <i class='bx bx-user-circle'></i> Dados do Paciente
+          </button>
+          <button class="custom-tab" onclick="switchTab('tabMedicamentos')" id="btnTabMedicamentos">
+            <i class='bx bx-plus-medical'></i> Adicionar Medicamento
+          </button>
+          <button class="custom-tab" onclick="switchTab('tabObservacoes')" id="btnTabObservacoes">
+            <i class='bx bx-note'></i> Observações
+          </button>
+        </div>
+
+        <!-- TABS CONTENT -->
+        <div class="tab-content-wrapper">
+
+          <!-- TAB 1: DADOS DO PACIENTE -->
+          <div id="tabDadosPaciente" class="tab-panel active">
+
+            <form action="" id="formPaciente"> <!-- inicio do fim do form  paciente -->
+              <!-- nome idade peso -->
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <input type="text" name="nome" id="nomePaciente" value="{{nome}}" required>
+                  <label for="nomePaciente">Nome do Paciente *</label>
+                  <span class="error-message" id="errorNome">Campo obrigatório (mínimo 3 caracteres)</span>
+                </div>
+                <div class="input-field col s12 m3">
+                  <input type="number" name="idade" id="idadePaciente" value="{{idade}}" min="0" max="120" required>
+                  <label for="idadePaciente">Idade *</label>
+                  <span class="error-message" id="errorIdade">Idade inválida (0-150)</span>
+                </div>
+                <div class="input-field col s12 m3">
+                  <input type="number" name="peso" id="pesoPaciente" value="{{peso}}" min="1" max="300" step="0.1">
+                  <label for="pesoPaciente">Peso (kg)</label>
+                  <span class="error-message" id="errorPeso">Peso inválido (1-300kg)</span>
+                </div>
+              </div>
+              <!-- sintomas e diagnostico -->
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <textarea id="sintomas" name="sintomas" class="materialize-textarea"
+                    required>{{motivo_consulta}}</textarea>
+                  <label for="sintomas">Sintomas Relatados *</label>
+                  <span class="error-message" id="errorSintomas">Descreva os sintomas (mínimo 5 caracteres)</span>
+                </div>
+                <div class="input-field col s12 m6">
+                  <textarea id="diagnostico" name="diagnostico" class="materialize-textarea"
+                    required>{{diagnostico}}</textarea>
+                  <label for="diagnostico">Diagnostico *</label>
+                  <span class="error-message" id="errorDiagnostico">Descreva os sintomas (mínimo 5 caracteres)</span>
+                </div>
+              </div>
+              <!-- alergia medicamento -->
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <textarea id="alergias" name="alergia" class="materialize-textarea">{{alergia}}</textarea>
+                  <label for="alergias">Alergias Conhecidas</label>
+                </div>
+                <div class="input-field col s12 m6">
+                  <textarea id="medicamentosUso" name="usoMedicamento"
+                    class="materialize-textarea">{{medicamentoUso}}</textarea>
+                  <label for="medicamentosUso">Medicamentos em Uso</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12">
+
+                  <!-- <button type="submit" class="btn green waves-effect font-normal" onclick="gerarPrescricao()" -->
+                  <button type="submit" class="btn green waves-effect font-normal" id="btnAnalisar">
+                    <i class='bx bx-brain'></i> Analisar com IA
+                  </button>
+
+                  <button type="button" class="btn grey lighten-1" onclick="limparFormulario()">
+                    <i class='bx bx-trash'></i> Limpar
+                  </button>
+                </div>
+              </div>
+            </form> <!-- fim do form dos dados do paciente-->
+
+          </div>
+
+          <form action="" method="post">
+            <!-- TAB 2: ADICIONAR MEDICAMENTOS -->
+            <div id="tabMedicamentos" class="tab-panel">
+              <div class="row">
+                <div class="col s12">
+                  <h6 style="color:#00695c;margin-bottom:20px;">
+                    <i class='bx bx-plus-circle'></i> Adicionar Medicamentos
+                  </h6>
+                  <table class="responsive-table">
+                    <thead>
+                      <tr class="rows">
+                        <th class="grey lighten-1 font-normal">Medicamento</th>
+                        <th class="grey lighten-1 font-normal" style="border-left:2px solid white ;">Via de
+                          administração
+                        </th>
+                        <th class="grey lighten-1 font-normal" style="border-left:2px solid white ;">Posologia</th>
+                        <th class="grey lighten-1 font-normal" style="border-left:2px solid white ;">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tabela-medicamento-body">
+                      <tr class="row">
+                        <td>
+                          <select name="medicamentoNome[]">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Paracetamol 500mg">Paracetamol 500mg</option>
+                            {{medicamentos}}
+                          </select>
+                        </td>
+                        <td>
+                          <select name="medicamentoVia[]">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Oral">Oral</option>
+                            <option value="Intravenosa">Intravenosa</option>
+                            <option value="Intramuscular">Intramuscular</option>
+                            <option value="Tópica">Tópica</option>
+                            <option value="Subcutânea">Subcutânea</option>
+                            <option value="Inalatória">Inalatória</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" name="medicamentoPosologia[]" placeholder="Ex: 1 comprimido 3x/dia">
+                        </td>
+                        <td class="center">
+                          <a class="btn red white-text" onclick="removerLinhaMedicamento(this)"
+                            style="display: inline-flex; align-items: center; justify-content: center; height: 36px; width: 36px;">
+                            <i class='bx bx-trash'></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="row center" style="margin-top:20px;">
+                    <br>
+                    <a class="tooltip-container btn teal" onclick="adicionarLinhaMedicamento()">
+                      <i class='bx bx-plus'></i>
+                      <div class="custom-tooltip font-normal ">Adicionar nova linha</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BOTÃO SEGUINTE NO CANTO DIREITO -->
+              <div class="row" style="margin-top:30px;padding-top:20px;border-top:2px solid #e0e0e0;">
+                <div class="col s12" style="text-align: right;">
+                  <button type="button" class="btn teal" onclick="avancarParaObservacoes()">
+                    <i class='bx bx-chevron-right'></i> seguinte
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 3: OBSERVAÇÕES -->
+            <div id="tabObservacoes" class="tab-panel">
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="prescricaoFinal" class="materialize-textarea" style="min-height: 250px;"></textarea>
+                  <label for="prescricaoFinal">Observações e Prescrição Médica</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12">
+                  <button type="button" class="btn blue" onclick="salvarPrescricao()" id="btnSalvar">
+                    <i class='bx bx-save'></i> Salvar Prescrição
+                  </button>
+                  <button type="button" class="btn teal" onclick="imprimirPrescricao()">
+                    <i class='bx bx-printer'></i> Imprimir
+                  </button>
+                  <button type="button" class="btn orange" onclick="copiarPrescricao()">
+                    <i class='bx bx-copy'></i> Copiar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- Materialize JS -->
+<script src="{{URL}}/Assets/js/materialize.js"></script>
+
+<script>
+
+  var loading = document.getElementById('loadingIA');
+
+  // Inicializar Materialize
+  document.addEventListener('DOMContentLoaded', function () {
+    M.updateTextFields();
+
+    // Inicializar o drop menu
+    var drop = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(drop, {
+      coverTrigger: false,
+      closeOnClick: false,
+      constrainWidth: false,
+      alignment: 'left',
+      closeOnClick: false // mantém aberto enquanto navega
+
+    });
+
+    // Inicializar textareas individualmente
+    document.querySelectorAll('.materialize-textarea').forEach(textarea => {
+      M.textareaAutoResize(textarea);
+    });
+
+    // Inicializar selects
+    M.FormSelect.init(document.querySelectorAll('select'));
+  });
+
+  // FUNÇÃO PARA TROCAR TABS
+  function switchTab(tabId) {
+    // Remover active de todos os tabs
+    document.querySelectorAll('.custom-tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+      panel.classList.remove('active');
+    });
+
+    // Adicionar active no tab clicado
+    if (tabId === 'tabDadosPaciente') {
+      document.getElementById('btnTabDados').classList.add('active');
+    } else if (tabId === 'tabMedicamentos') {
+      document.getElementById('btnTabMedicamentos').classList.add('active');
+    } else if (tabId === 'tabObservacoes') {
+      document.getElementById('btnTabObservacoes').classList.add('active');
+    }
+
+    document.getElementById(tabId).classList.add('active');
+
+    // Atualizar campos do Materialize
+    M.updateTextFields();
+
+    // Reinicializar textareas do Materialize individualmente
+    document.querySelectorAll('.materialize-textarea').forEach(textarea => {
+      M.textareaAutoResize(textarea);
+    });
+
+    // Reinicializar selects
+    M.FormSelect.init(document.querySelectorAll('select'));
+  }
+
+  // CHAT CONTROLS
+  const chatSidebar = document.getElementById('chatSidebar');
+  const btnOpen = document.getElementById('btnOpenChat');
+  const btnClose = document.getElementById('btnCloseChat');
+
+  btnOpen.onclick = () => {
+    chatSidebar.classList.add('open');
+    btnOpen.style.display = 'none';
+  };
+
+  btnClose.onclick = () => {
+    chatSidebar.classList.remove('open');
+    btnOpen.style.display = 'flex';
+  };
+
+  // VALIDAÇÕES
+  function validarCampo(campo, errorId, validacao) {
+    const input = document.getElementById(campo);
+    const error = document.getElementById(errorId);
+    const inputField = input.closest('.input-field');
+
+    if (!validacao(input.value)) {
+      inputField.classList.add('error');
+      error.classList.add('show');
+      return false;
+    } else {
+      inputField.classList.remove('error');
+      error.classList.remove('show');
+      return true;
+    }
+  }
+
+  function validarFormulario() {
+    let valido = true;
+
+    valido &= validarCampo('nomePaciente', 'errorNome', (v) => v.trim().length >= 3);
+    valido &= validarCampo('idadePaciente', 'errorIdade', (v) => {
+      const idade = parseInt(v);
+      return idade >= 0 && idade <= 150;
+    });
+
+    const peso = document.getElementById('pesoPaciente').value;
+    if (peso) {
+      valido &= validarCampo('pesoPaciente', 'errorPeso', (v) => {
+        const p = parseFloat(v);
+        return p > 0 && p <= 300;
+      });
+    }
+
+    valido &= validarCampo('sintomas', 'errorSintomas', (v) => v.trim().length >= 5);
+    valido &= validarCampo('diagnostico', 'errorDiagnostico', (v) => v.trim().length >= 5);
+
+    return valido;
+  }
+
+  // // GERAR PRESCRIÇÃO COM IA actual
+  // async function gerarPrescricao() {
+
+  //   if (!validarFormulario()) {
+  //     M.toast({ html: '⚠️ Preencha todos os campos obrigatórios corretamente', classes: 'red' });
+  //     return;
+  //   }
+
+  //   xhttp = new XMLHttpRequest();
+
+  //   xhttp.onreadystatechange = function () {
+  //     if (this.readyState < 4) {
+  //       loading.classList.add('active');
+  //     }
+
+  //     if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+  //       console.log("Resposta do PHP com função gerarPrescrição:", xhttp.responseText);
+
+  //       // Coloca a resposta dentro do div
+  //       resultadoIA.innerHTML = xhttp.responseText;
+  //       M.toast({ html: '✅ Análise concluída com sucesso!', classes: 'green' });
+  //     }
+
+  //     if (this.readyState == 4) {
+  //       loading.classList.remove('active');
+
+  //       // Mudar para a tab de medicamentos
+  //       setTimeout(() => {
+  //         switchTab('tabMedicamentos');
+  //       }, 500);
+  //     }
+
+
+  //   };
+
+  //   // Ajuste a URL conforme seu arquivo PHP
+  //   xhttp.open('GET', '/AntigoMaria/public/ajax/user.php?action=OlaMundo', true);
+  //   xhttp.send();
+  // }
+
+
+  // SALVAR PRESCRIÇÃO E REDIRECIONAR PARA PÁGINA DE CONFIRMAÇÃO
+  function salvarPrescricao() {
+
+    const prescricao = document.getElementById('prescricaoFinal').value;
+
+    if (!prescricao.trim()) {
+      M.toast({ html: '⚠️ Nenhuma prescrição para salvar', classes: 'orange' });
+      return;
+    }
+
+    // Coletar dados para o resumo
+    const nomePaciente = document.getElementById('nomePaciente').value || 'Não informado';
+    const idadePaciente = document.getElementById('idadePaciente').value || 'Não informado';
+    const pesoPaciente = document.getElementById('pesoPaciente').value || 'Não informado';
+    const dataAtual = new Date().toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    // Coletar medicamentos da tabela
+    const medicamentos = document.querySelectorAll('select[name="medicamentoNome[]"]');
+    const vias = document.querySelectorAll('select[name="medicamentoVia[]"]');
+    const posologias = document.querySelectorAll('input[name="medicamentoPosologia[]"]');
+
+    let listaMedicamentos = [];
+
+    medicamentos.forEach((med, index) => {
+      const medicamento = med.value;
+      const via = vias[index].value;
+      const posologia = posologias[index].value.trim();
+
+      if (medicamento && via && posologia) {
+        listaMedicamentos.push({
+          medicamento,
+          via,
+          posologia
+        });
+      }
+    });
+
+    // Gerar ID único para a prescrição
+    const idPrescricao = 'PRESC-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+    // Armazenar dados no localStorage para a página de confirmação
+    const dadosPrescricao = {
+      id: idPrescricao,
+      nomePaciente: nomePaciente,
+      idadePaciente: idadePaciente,
+      pesoPaciente: pesoPaciente,
+      data: dataAtual,
+      medicamentos: listaMedicamentos,
+      observacoes: prescricao.length > 200 ? prescricao.substring(0, 200) + '...' : prescricao,
+      prescricaoCompleta: prescricao
+    };
+
+    localStorage.setItem('ultimaPrescricao', JSON.stringify(dadosPrescricao));
+
+    // Redirecionar para a página de confirmação
+    window.location.href = 'confirmacao.html';
+  }
+
+  // IMPRIMIR PRESCRIÇÃO
+  function imprimirPrescricao() {
+    const prescricao = document.getElementById('prescricaoFinal').value;
+
+    if (!prescricao.trim()) {
+      M.toast({ html: '⚠️ Nenhuma prescrição para imprimir', classes: 'orange' });
+      return;
+    }
+
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write(`
+        <html>
+          <head>
+            <title>Prescrição Médica</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 40px; }
+              pre { white-space: pre-wrap; font-family: Arial, sans-serif; line-height: 1.6; }
+            </style>
+          </head>
+          <body>
+            <pre>${prescricao}</pre>
+          </body>
+        </html>
+      `);
+    printWindow.document.close();
+    printWindow.print();
+  }
+
+  // COPIAR PRESCRIÇÃO
+  function copiarPrescricao() {
+    const prescricao = document.getElementById('prescricaoFinal').value;
+
+    if (!prescricao.trim()) {
+      M.toast({ html: '⚠️ Nenhuma prescrição para copiar', classes: 'orange' });
+      return;
+    }
+
+    navigator.clipboard.writeText(prescricao).then(() => {
+      M.toast({ html: '📋 Prescrição copiada!', classes: 'green' });
+    }).catch(() => {
+      M.toast({ html: '❌ Erro ao copiar', classes: 'red' });
+    });
+  }
+
+  // LIMPAR FORMULÁRIO
+  function limparFormulario() {
+    document.getElementById('formPaciente').reset();
+    document.getElementById('resultadoIA').innerHTML = '<em>Preencha os dados do paciente e clique em "Analisar"...</em>';
+    document.getElementById('prescricaoFinal').value = '';
+
+    // Remover erros
+    document.querySelectorAll('.input-field.error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.error-message.show').forEach(el => el.classList.remove('show'));
+
+    M.updateTextFields();
+    M.toast({ html: '🗑️ Formulário limpo', classes: 'blue-grey' });
+  }
+
+
+  // CHAT COM VALIDAÇÃO
+  function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const mensagem = input.value.trim();
+
+    if (!mensagem) {
+      M.toast({ html: '⚠️ Digite uma mensagem', classes: 'orange' });
+      return;
+    }
+
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.innerHTML += `
+        <div class="chat-message user">
+          <strong>Você:</strong> ${mensagem}
+        </div>
+      `;
+
+    input.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Simular resposta da IA
+    setTimeout(() => {
+      chatMessages.innerHTML += `
+          <div class="chat-message system">
+            <strong>Assistente:</strong> Entendi sua questão sobre "${mensagem}". 
+            Posso ajudar com informações médicas gerais, dosagens e interações medicamentosas.
+          </div>
+        `;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1000);
+  }
+
+  // Enter no chat
+  document.getElementById('chatInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      sendMsg();
+    }
+  });
+
+  // FUNÇÃO ADICIONAR LINHA DE MEDICAMENTO
+  function adicionarLinhaMedicamento() {
+    const tabela = document.getElementById('tabela-medicamento-body');
+    const linhaModelo = tabela.rows[0];
+    const novaLinha = linhaModelo.cloneNode(true);
+
+    // Substituir select-wrapper por selects novos
+    const wrappersClonados = Array.from(novaLinha.querySelectorAll('.select-wrapper'));
+    const selectsModelo = Array.from(linhaModelo.querySelectorAll('select'));
+
+    wrappersClonados.forEach((wrapper, idx) => {
+      const selectModelo = selectsModelo[idx];
+      if (!selectModelo) {
+        wrapper.remove();
+        return;
+      }
+
+      const novoSelect = document.createElement('select');
+      novoSelect.innerHTML = selectModelo.innerHTML;
+
+      Array.from(selectModelo.attributes).forEach(attr => {
+        if (attr.name.toLowerCase() !== 'id') {
+          novoSelect.setAttribute(attr.name, attr.value);
+        }
+      });
+
+      novoSelect.value = '';
+      novoSelect.removeAttribute('id');
+
+      wrapper.parentNode.replaceChild(novoSelect, wrapper);
+    });
+
+
+    // Limpar selects simples
+    novaLinha.querySelectorAll('select').forEach(select => {
+      select.value = '';
+      select.classList.remove('initialized');
+      select.removeAttribute('id');
+    });
+
+    // Limpar inputs e remover IDs
+    novaLinha.querySelectorAll('input, textarea').forEach(el => {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = false;
+      } else {
+        el.value = '';
+      }
+      el.removeAttribute('id');
+    });
+
+    tabela.appendChild(novaLinha);
+
+    // Reinicializar Materialize
+    setTimeout(() => {
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }, 0);
+
+    // M.toast({ html: '➕ Linha adicionada', classes: 'blue' });
+  }
+
+  // FUNÇÃO REMOVER LINHA DE MEDICAMENTO
+  function removerLinhaMedicamento(botao) {
+    const linha = botao.closest('tr');
+    const tabela = document.getElementById('tabela-medicamento-body');
+    if (tabela.rows.length > 1) {
+      linha.remove();
+      M.toast({ html: ' Linha removida', classes: 'red' });
+    } else {
+      M.toast({ html: 'A tabela deve conter pelo menos uma linha.', classes: 'red' });
+    }
+  }
+
+  // FUNÇÃO SALVAR PRESCRIÇÃO COM MEDICAMENTOS
+  function salvarPrescricaoMedicamentos() {
+        // const medicamentos = document.querySelectorAll('select[name="medicamentoNome[]"]');
+        // const vias = document.querySelectorAll('select[name="medicamentoVia[]"]');
+        // const posologias = document.querySelectorAll('input[name="medicamentoPosologia[]"]');
+
+        // let listaMedicamentos = [];
+        // let temErro = false;
+
+        // medicamentos.forEach((med, index) => {
+        //   const medicamento = med.value;
+        //   const via = vias[index].value;
+        //   const posologia = posologias[index].value.trim();
+
+        //   if (!medicamento || !via || !posologia) {
+        //     temErro = true;
+        //     return;
+        //   }
+
+        //   listaMedicamentos.push({
+        //     medicamento,
+        //     via,
+        //     posologia
+        //   });
+        // });
+
+        // if (temErro) {
+        //   M.toast({ html: '⚠️ Preencha todos os campos da tabela', classes: 'orange' });
+        //   return;
+        // }
+
+        // if (listaMedicamentos.length === 0) {
+        //   M.toast({ html: '⚠️ Adicione pelo menos um medicamento', classes: 'orange' });
+        //   return;
+        // }
+
+        // // Gerar texto dos medicamentos para adicionar na prescrição
+        // let textoMedicamentos = 'MEDICAMENTOS:\n\n';
+        // listaMedicamentos.forEach((item, index) => {
+        //   textoMedicamentos += `${index + 1}) ${item.medicamento}\n`;
+        //   textoMedicamentos += `   Posologia: ${item.posologia}\n`;
+        //   textoMedicamentos += `   Via: ${item.via}\n\n`;
+        // });
+
+        // // Adicionar na prescrição final
+        // const nome = document.getElementById('nomePaciente').value || 'Paciente';
+        // const idade = document.getElementById('idadePaciente').value || '0';
+
+        // const novaPrescricao = `PRESCRIÇÃO MÉDICA
+
+        // Paciente: ${nome}
+        // Idade: ${idade} anos
+        // Data: ${new Date().toLocaleDateString('pt-BR')}
+
+        // ${textoMedicamentos}
+        // ORIENTAÇÕES:
+        // - Seguir posologia conforme indicado
+        // - Retornar em caso de efeitos adversos
+
+        // ___________________________
+        // Dr. José Moculo
+        // CRM: XXXXX`;
+
+        // document.getElementById('prescricaoFinal').value = novaPrescricao;
+        // M.updateTextFields();
+        // M.textareaAutoResize(document.getElementById('prescricaoFinal'));
+
+        // M.toast({ html: '✅ Prescrição salva com sucesso!', classes: 'green' });
+
+        // Mudar para tab de observações
+        setTimeout(() => {
+          switchTab('tabObservacoes');
+        }, 500);
+    }
+
+
+
+  // FUNÇÃO PARA AVANÇAR PARA A ABA DE OBSERVAÇÕES
+  function avancarParaObservacoes() {
+    // Valida se há medicamentos adicionados
+    const medicamentos = document.querySelectorAll('select[name="medicamentoNome[]"]');
+    let medicamentosPreenchidos = 0;
+
+    medicamentos.forEach((med, index) => {
+      const medicamento = med.value;
+      const via = document.querySelectorAll('select[name="medicamentoVia[]"]')[index].value;
+      const posologia = document.querySelectorAll('input[name="medicamentoPosologia[]"]')[index].value.trim();
+
+      if (medicamento && via && posologia) {
+        medicamentosPreenchidos++;
+      }
+    });
+
+    if (medicamentosPreenchidos === 0) {
+      M.toast({ html: '⚠️ Adicione pelo menos um medicamento antes de continuar', classes: 'orange' });
+      return;
+    }
+
+    // Salva os medicamentos na prescrição
+    salvarPrescricaoMedicamentos();
+
+    // Avança para a aba de observações
+    switchTab('tabObservacoes');
+
+    // M.toast({ html: '✅ Medicamentos salvos! Agora você pode adicionar observações finais.', classes: 'green' });
+  }
+
+  // FUNÇÃO LIMPAR TUDO E VOLTAR PARA ABA INICIAL
+  function limparTudoVoltar() {
+    // Limpar formulário de dados do paciente
+    document.getElementById('formPaciente').reset();
+    document.getElementById('promptAdicional').value = '';
+    document.getElementById('resultadoIA').innerHTML = '<em>Preencha os dados do paciente e clique em "Analisar"...</em>';
+    document.getElementById('prescricaoFinal').value = '';
+
+    // Limpar tabela de medicamentos - manter apenas primeira linha
+    const tabela = document.getElementById('tabela-medicamento-body');
+    while (tabela.rows.length > 1) {
+      tabela.deleteRow(1);
+    }
+
+    // Limpar primeira linha
+    const primeiraLinha = tabela.rows[0];
+    primeiraLinha.querySelectorAll('select').forEach(select => {
+      select.value = '';
+    });
+    primeiraLinha.querySelectorAll('input').forEach(input => {
+      input.value = '';
+    });
+
+    // Reinicializar selects do Materialize
+    M.FormSelect.init(document.querySelectorAll('select'));
+
+    // Remover erros
+    document.querySelectorAll('.input-field.error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.error-message.show').forEach(el => el.classList.remove('show'));
+
+    M.updateTextFields();
+
+    // Voltar para aba inicial
+    switchTab('tabDadosPaciente');
+
+    M.toast({ html: '🗑️ Tudo limpo! Voltando para início', classes: 'blue-grey' });
+  }
+</script>
+
+<!-- Arquivo AJAX -->
+<script src="{{URL}}/Assets/js/ajax/Xhttp.js"></script>
+
+<script src="{{URL}}/Assets/js/ajax/gerarReceita.js"></script>
+
+<!-- Scripts -->
+<script src="http://localhost/MariaProjecto/Assets/js/materialize.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(elems);
+  });
+</script>

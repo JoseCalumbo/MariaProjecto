@@ -5,29 +5,23 @@ namespace App\Model\Entity;
 use \App\Model\Database;
 use \App\Utils\Session;
 
-use \App\Model\Entity\PacienteDao;
+use \App\Model\Entity\ConsultaDao;
 
 use \PDO;
 
-class ReceitaDao extends PacienteDao
+class ReceitaDao extends ConsultaDao
 {
-
-
-
-    //campos consulta
-    public $id_consulta;
-    public $conduta_consulta;
-    public $motivo_consulta;
-    public $diagnostico_consulta;
-    public $observacao_consulta;
-    public $retorno_consulta;
-    public $criado_consulta;
-    public $alterado_consulta;
-    public $estado_consulta;
+    public $id_receita;
+    public $data_receita;
+    public $alergias;
+    public $medicamentos_em_uso;
+    public $observacoes;
+    public $status;
 
     // campos chaves estrangeiros
     public $id_paciente; // salva o idp do paciente
     public $id_funcionario; // salva o funcionario 
+    public $id_consulta; // salva o funcionario 
 
     //Metodo para  selecionar um registro da tabela exame
     public static function getReceitaID($id_exame)

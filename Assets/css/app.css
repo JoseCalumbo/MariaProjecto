@@ -11,7 +11,6 @@ nav ul li a {
 }
 
 /*css config da tabela*/
-
 table th,
 table td {
     padding: 0px !important;
@@ -765,7 +764,7 @@ h1 {
     /* começa mais embaixo */
     background-color: #08405a;
     color: white;
-    padding: 12px 12px;
+    padding: 2px 8px;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;

@@ -402,9 +402,10 @@
     }
 
     .responsive-table th {
-      padding: 15px 12px;
+      padding: 8px 12px;
       /* Aumentado o espaçamento */
       font-weight: 500;
+      font-size: 14px;
       color: #424242;
       text-align: center;
     }
@@ -475,6 +476,45 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+    }
+
+    .material-tooltip {
+      color: yellow !important;
+      /* Cor do texto */
+      background-color: rgb(100, 110, 158) !important;
+      /* (Opcional) cor de fundo */
+      font-weight: bold !important;
+    }
+
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .tooltip-container .custom-tooltip {
+      position: absolute;
+      bottom: 100%;
+      /* posição acima do botão */
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      /* começa mais embaixo */
+      background-color: #08405a;
+      color: white;
+      padding: 3px 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
+      text-transform: capitalize;
+    }
+
+    .tooltip-container:hover .custom-tooltip {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(-3px);
+      /* sobe suavemente */
     }
 
     /* RESPONSIVO */
