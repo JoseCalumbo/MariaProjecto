@@ -8,7 +8,7 @@ use \App\Utils\Session;
 use \App\Model\Entity\PacienteDao;
 use \PDO;
 
-class ConsultaDao extends PacienteDao
+class ConsultaDao
 {
     //campos consulta
     public $id_consulta;
@@ -25,21 +25,11 @@ class ConsultaDao extends PacienteDao
     public $estado_consulta;
     public $add_receita_consulta;
 
-    // campos da triagem
-    public $id_triagem;
-    public $observacao_triagem;
-    public $peso_triagem;
-    public $temperatura_triagem;
-    public $pressao_triagem;
-    public $frequencia_triagem;
-    public $cardiaca_triagem;
-    public $saturacao_triagem;
-    public $risco_triagem;
-    public $data_triagem;
-
     // campos chaves estrangeiros
     public $id_paciente; // salva o idp do paciente
     public $id_funcionario; // salva o funcionario 
+    public $id_triagem;    // campos da triagem
+
 
     // Método responsavel por registrar consulta
     public function cadastrarConsulta()

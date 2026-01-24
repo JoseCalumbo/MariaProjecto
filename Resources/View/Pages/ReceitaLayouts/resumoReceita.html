@@ -1,0 +1,339 @@
+<!-- Materialize CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        background: #e4e9f7;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav {
+        height: 46px;
+        line-height: 46px;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 45px;
+        background: #00695c;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+    }
+
+    .top-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .top-left img {
+        height: 28px;
+    }
+
+    .online-dot {
+        width: 10px;
+        height: 10px;
+        background: #4caf50;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    /* MAIN */
+    main {
+        padding: 30px 20px 40px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* PÁGINA DE CONFIRMAÇÃO */
+    .confirmacao-container {
+        background: #fff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .confirmacao-icone {
+        font-size: 80px;
+        color: #4caf50;
+        margin-bottom: 10px;
+    }
+
+    .confirmacao-titulo {
+        color: #00695c;
+        font-size: 28px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .confirmacao-subtitulo {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .resumo-prescricao {
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 25px;
+        margin: 30px 0;
+        text-align: left;
+        border-left: 4px solid #00695c;
+    }
+
+    .resumo-prescricao h5 {
+        color: #00695c;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .resumo-item {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .resumo-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .resumo-item strong {
+        color: #333;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .resumo-item p {
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .medicamento-lista {
+        margin-top: 10px;
+    }
+
+    .medicamento-item {
+        background: #f0f0f0;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        border-left: 3px solid #00695c;
+    }
+
+    .medicamento-item strong {
+        color: #333;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .medicamento-item small {
+        color: #666;
+        display: block;
+        margin-top: 5px;
+    }
+
+    .botoes-confirmacao {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btn i {
+        vertical-align: middle;
+        line-height: 1;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-width: 200px;
+        padding: 12px 20px;
+    }
+
+    .info-box {
+        background: #e8f5e9;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: center;
+        border: 1px solid #c8e6c9;
+    }
+
+    @media (max-width: 992px) {
+        .confirmacao-container {
+            padding: 20px;
+        }
+
+        .botoes-confirmacao {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+</style>
+
+<!-- MAIN CONTENT -->
+<main>
+    <div class="confirmacao-container">
+        <div class="confirmacao-icone">
+            <i class='bx bx-check-circle'></i>
+        </div>
+
+        <h1 class="confirmacao-titulo">Prescrição Salva com Sucesso!</h1>
+
+        <p class="confirmacao-subtitulo">
+            A prescrição médica foi registrada no sistema e está disponível para consulta.
+        </p>
+
+        <div class="info-box">
+            <p style="margin: 0; color: #2e7d32;">
+                <i class='bx bx-info-circle'></i> A prescrição foi salva no histórico do paciente e pode ser acessada a
+                qualquer momento.
+            </p>
+        </div>
+
+        <div class="resumo-prescricao">
+            <h5>Resumo da Prescrição</h5>
+
+            <div class="resumo-item">
+                <strong>Paciente:</strong>
+                <p id="resumoNomePaciente">{{nome}}</p>
+            </div>
+
+            <div class="resumo-item">
+                <strong>Informações do Paciente:</strong>
+                <p id="resumoInfoPaciente">Idade: {{idade}} anos | Peso: {{peso}} kg | Alergias: {{alergia}}</p>
+            </div>
+
+            <div class="resumo-item">
+                <strong>Data e Hora da Prescrição:</strong>
+                <p id="resumoData">{{dataReceita}}</p>
+            </div>
+
+            <div class="resumo-item">
+                <strong>Medicamentos Prescritos:</strong>
+                <div id="resumoMedicamentos" class="medicamento-lista">
+                    <!-- <p>Nenhum medicamento registrado.</p> -->
+                     {{medicamentos}}
+                </div>
+            </div>
+
+            <div class="resumo-item">
+                <strong>Observações e Orientações:</strong>
+                <p id="resumoObservacoes">{{obs}}</p>
+            </div>
+        </div>
+
+        <div class="botoes-confirmacao">
+            <a href="{{URL}}/receita" class="btn teal waves-effect ">
+                <i class='bx bx-printer'></i> Imprimir Receita
+            </a>
+
+            <button type="button" class="btn green waves-effect" onclick="iniciarNovaPrescricao()">
+                <i class='bx bx-plus-circle'></i> Nova Prescrição
+            </button>
+
+            <button type="button" class="btn blue waves-effect" onclick="voltarParaPrescricoes()">
+                <i class='bx bx-list-ul'></i> Ver Todas Prescrições
+            </button>
+        </div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="color: #999; font-size: 14px;">
+                <i class='bx bx-info-circle'></i> Esta prescrição foi registrada no sistema com ID:
+                <strong id="idPrescricao">{{id_receita}}</strong>
+            </p>
+            <p style="color: #999; font-size: 12px; margin-top: 5px;">
+                Data e hora do registro: <span id="dataRegistro">{{data}}</span>
+            </p>
+        </div>
+    </div>
+</main>
+
+<!-- Materialize JS -->
+<script src="{{URL}}/Assets/js/materialize.js"></script>
+
+<script>
+
+    M.toast({ html: 'Receita salvo com sucesso', classes: 'green' });
+
+    // Inicializar o drop menu
+    var drop = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(drop, {
+        coverTrigger: false,
+        closeOnClick: false,
+        constrainWidth: false,
+        alignment: 'left',
+        closeOnClick: false // mantém aberto enquanto navega
+
+    });
+
+    // Iniciar nova prescrição
+    function iniciarNovaPrescricao() {
+        // Limpar dados da prescrição atual do localStorage
+        localStorage.removeItem('ultimaPrescricao');
+
+        // Redirecionar para a página principal
+        // window.location.href = 'index.html';
+    }
+
+    // Voltar para lista de prescrições
+    function voltarParaPrescricoes() {
+        // Em um sistema real, isso redirecionaria para a lista de prescrições
+        alert('Em um sistema real, você seria redirecionado para a lista de todas as prescrições.');
+        // Por enquanto, vamos redirecionar para a página principal
+        //  window.location.href = 'index.html';
+    }
+
+    // Função para copiar ID da prescrição
+    function copiarIdPrescricao() {
+        const idPrescricao = document.getElementById('idPrescricao').textContent;
+        navigator.clipboard.writeText(idPrescricao).then(() => {
+            alert('ID da prescrição copiado para a área de transferência: ' + idPrescricao);
+        }).catch(() => {
+            alert('Erro ao copiar o ID da prescrição.');
+        });
+    }
+</script>
+
+</body>
+
+</html>

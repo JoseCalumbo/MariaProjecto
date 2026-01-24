@@ -212,14 +212,14 @@
             <div id="tabObservacoes" class="tab-panel">
               <div class="row">
                 <div class="input-field col s12">
-                  <textarea id="prescricaoFinal" name="Obs" class="materialize-textarea" style="min-height: 250px;"></textarea>
+                  <textarea id="prescricaoFinal" name="obs" class="materialize-textarea" style="min-height: 250px;"></textarea>
                   <label for="prescricaoFinal">Observações da prescrição </label>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col s12">
-                  <button type="submit" name="salvarPrescrisao" class="btn blue" id="btnSalvar">
+                  <button type="submit" name="salvarPrescrisao" class="btn blue" id="btnSalvar" onclick="verificarObservar()">
                     <i class='bx bx-save'></i> Salvar Prescrição
                   </button>
                   <button type="button" class="btn orange" onclick="copiarPrescricao()">
@@ -244,6 +244,8 @@
 <script>
 
   var loading = document.getElementById('loadingIA');
+
+  //M.toast({ html: 'Prescreve os medicamentos com ajuda da IA clica em "Analizar com IA" para começar ', classes: 'blue' });
 
   // Inicializar Materialize
   document.addEventListener('DOMContentLoaded', function () {
@@ -358,6 +360,16 @@
     return valido;
   }
 
+
+    // VERIFICAR SE FOI ADICIONADO UMA OBSERVAÇÃO NA RECEITA
+    function verificarObservar() {
+      const prescricao = document.getElementById('prescricaoFinal').value;
+
+      if (!prescricao.trim()) {
+        M.toast({ html: '⚠️ Nenhuma observação adicionada na receita', classes: 'orange' });
+        return;
+      }
+    }
 
   // COPIAR PRESCRIÇÃO
   function copiarPrescricao() {
@@ -508,8 +520,6 @@
         }, 500);
     }
 
-
-
   // FUNÇÃO PARA AVANÇAR PARA A ABA DE OBSERVAÇÕES
   function avancarParaObservacoes() {
     // Valida se há medicamentos adicionados
@@ -530,6 +540,7 @@
       M.toast({ html: '⚠️ Adicione pelo menos um medicamento antes de continuar', classes: 'orange' });
       return;
     }
+
 
     // Salva os medicamentos na prescrição
     salvarPrescricaoMedicamentos();

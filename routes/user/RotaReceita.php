@@ -46,7 +46,26 @@ $obRouter->post('/consulta/prescrever/{id_consulta}', [
         'requer-login'
     ],
     function ($request,$id_consulta) {
-        return new Response(200,Pages\Prescrisao::setTelaGeradorReceita($request, $id_consulta));
+        return new Response(200,Pages\Prescrisao::setRegistrarReceita($request, $id_consulta));
     }
+]);
+
+
+// rota para finalizar receita GET
+$obRouter->get('/receita/validar/{id_receita}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_receita){ return new Response(200,Pages\Prescrisao::getReceitaFinalizada($request,$id_receita)); }
+]);
+
+// rota para finalizar receita POST
+$obRouter->post('/receita/validar/{id_receita}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_receita){ return new Response(200,Pages\Prescrisao::setReceitaFinalizada($request,$id_receita)); }
 ]);
 

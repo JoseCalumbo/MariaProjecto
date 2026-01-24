@@ -194,8 +194,8 @@ class Medicamento extends Page
         $obMedicamento = MedicamentoDao::getMedicamentoId($id_medicamento);
 
         $content = View::render('configuracao/medicamento/formMedicamento', [
-            'titulo' => 'Edita Dados Exame',
-            'button' => 'salvar',
+            'titulo' => 'Atualizar dados do medicamento',
+            'button' => 'Salvar alteração',
             'fornecedores' => self::getFornecedor(),
 
             'nomeFornecedor' => "",

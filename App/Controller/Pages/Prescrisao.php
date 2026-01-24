@@ -7,15 +7,20 @@ require_once __DIR__ . '/../../Utils/OpenRouterService.php';
 use \App\Utils\View;
 use \App\Utils\OpenRouterService;
 use \App\Utils\OpenRouterService3;
+
 use App\Model\Entity\ConsultaDao;
 use App\Model\Entity\MedicamentoDao;
+use App\Model\Entity\MedicamentoPrescritoDao;
 use App\Model\Entity\TriagemDao;
 use App\Model\Entity\ReceitaDao;
+use App\Model\Entity\FuncionarioDao;
+use App\Model\Entity\PacienteDao;
+
+use DateTime;
 
 class Prescrisao extends Page
 {
-
-  // busca todos os exames para o select dos exames 
+  // busca todos os medicamentos para os select
   public static function getMedicamentoSelect()
   {
     $resultadoMedicamento = '';
@@ -31,8 +36,45 @@ class Prescrisao extends Page
     return $resultadoMedicamento;
   }
 
+  // busca todos os medicamentos prescritos
+  public static function getMedicamentoPrescrito($id_receita)
+  {
 
-  // Método para gerar a pescrisao
+    // Obtem a receita finalizada por id
+    $obMedicamentoPrescrito = MedicamentoPrescritoDao::getMedicamentoPrescritoID($id_receita);
+    $obReceita = ReceitaDao::getReceitaID($id_receita);
+
+    // echo '<pre>';
+    // print_r($obMedicamentoPrescrito->id_receita);
+    // echo "<br>";
+    // print_r($obReceita->id_receita);
+    // echo '</pre>';
+    //exit;
+
+    $resultadoPrescrito = '';
+    $numero = 1;
+
+    $listarMedicamentoPrescrito = MedicamentoPrescritoDao::listarMedicamentoPresecrito('r.id_receita = '.$id_receita.'', 'nome_medicamento');
+
+    while ($obMedicamento = $listarMedicamentoPrescrito->fetchObject(MedicamentoPrescritoDao::class)) {
+
+      $resultadoPrescrito .= View::render('ReceitaLayouts/itemPrescrisao/medicamentoPrescrito', [
+        'via' => $obMedicamento->via_administracao,
+        'numero' => $numero,
+        'medicamento' => $obMedicamento->nome_medicamento,
+        'posologia' => $obMedicamento->nome_medicamento,
+      ]);
+
+      $numero ++;
+    }
+
+   // exit;
+
+    return $resultadoPrescrito;
+  }
+
+
+  // Método apresenta a janela do gerador 
   public static function getTelaGeradorReceita($request, $id_consulta)
   {
     //obtem a consulta actual do paciente 
@@ -55,65 +97,118 @@ class Prescrisao extends Page
     return parent::getPageReceita('Geradar de consulta', $content);
   }
 
-  // Método para gerar a pescrisao
-  public static function setTelaGeradorReceita($request, $id_consulta)
+  // Método para cadastrar a receita
+  public static function setRegistrarReceita($request, $id_consulta)
   {
+
+    $idMedicamento = [];
+
     //obtem a consulta actual do paciente 
     $obConsulta = ConsultaDao::getConsultaRelizada($id_consulta);
 
-    // Instancia
+    // Instancia class dos medicamentos prescritos na recita
+    $obMedicamentoPrescrito = new MedicamentoPrescritoDao();
+
+    // Instancia class para salvar a receita no BD
     $obReceita = new ReceitaDao();
 
+    $idConsulta = $id_consulta; // obtem o id da consulta
+    $idPaciente = $obConsulta->id_paciente; // obtem o id do paciente 
 
     if (isset($_POST['salvarPrescrisao'])) {
 
-      echo '<pre>';
-      print_r($_POST);
-      echo '</pre>';
-      exit;
-
-      if (isset($_POST['obs'],)) {
-        $obConsulta->id_paciente = $pacienteID;
-        $obReceita->id_triagem = $id_triagem;
-        $obReceita->motivo_consulta = $_POST['obs'];
-        // $obConsulta->conduta_consulta = $_POST['medicamentoUso'];
-        $obConsulta->diagnostico_consulta = $_POST['diagnostico'];
-        $obConsulta->medicamentoUso_consulta = $_POST['medicamentoUso'];
-        $obConsulta->alergia_consulta = $_POST['alergia'];
-        $obConsulta->observacao_consulta = $_POST['obs'];
-        $obConsulta->add_receita_consulta = isset($_POST['examesTipo']) ? 'Com receita' : 'Sem receita';
-        $idconsulta = $obConsulta->cadastrarConsulta();
+      if (isset($_POST['obs'])) {
+        $obReceita->id_paciente = $idPaciente;
+        $obReceita->id_consulta = $idConsulta;
+        $obReceita->observacoes = $_POST['obs'];
+        // Acessa o metodo para salvar  a receita e obtem o retorno do id da receita salva 
+        $idReceita = $obReceita->cadastrarReceita();
       }
 
-      // inseri os exames solicitados
-      if (isset($_POST['examesTipo'], $_POST['examesNome'], $_POST['examesEmergrncia'],)) {
+      // Verifica se foi precrito medicamento
+      if (isset($_POST['medicamentoNome'], $_POST['medicamentoVia'], $_POST['medicamentoPosologia'],)) {
 
-        $tipoExame = $_POST['examesTipo'];
-        $nomeExame = $postVars['examesNome'];
-        $urgencias = $postVars['examesEmergrncia'];
+        $idMedicamento = $_POST['medicamentoNome'];
+        $medicamentoVia = $_POST['medicamentoVia'];
+        $posologia = $_POST['medicamentoPosologia'];
 
-        // Loop para inserir exame por exame
-        for ($i = 0; $i < count($tipoExame); $i++) {
+        // Loop para os medicamentos um por um 
+        for ($i = 0; $i < count($idMedicamento); $i++) {
 
-          $ExameSolicitados->id_consulta = $idconsulta;
+          $obMedicamentoPrescrito->id_receita = $idReceita;
 
-          $ExameSolicitados->id_exame = $nomeExame[$i];
-          $ExameSolicitados->tipo_exame = $tipoExame[$i];
-          $ExameSolicitados->emergencia_exame = $urgencias[$i];
-          $ExameSolicitados->cadastrarExameSolicitado();
+          $obMedicamentoPrescrito->id_medicamento = $idMedicamento[$i];
+          $obMedicamentoPrescrito->via_administracao = $medicamentoVia[$i];
+          $obMedicamentoPrescrito->posologia_medicamento = $posologia[$i];
+          $obMedicamentoPrescrito->cadastrarMedicamentosPrescrito();
         }
 
+        sleep(2);
         // Redireciona validaçao e gerar consulta depois dos exames
-        $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
+        $request->getRouter()->redirect('/receita/validar/' . $idConsulta . '?msg=validar');
       } else {
 
+        sleep(2);
         // Redireciona validaçao e gerar consulta sem exame
-        $request->getRouter()->redirect('/consulta/validar/' . $idconsulta . '?msg=validar');
+        $request->getRouter()->redirect('/receita/validar/' . $idConsulta . '?msg=validar');
       }
     }
-
     //return parent::getPageReceita('Geradar de consulta');
   }
+
+  // Metodo responsavel por finalizar a receita GET
+  public static function getReceitaFinalizada($request, $id_receita)
+  {
+    // Obtem a receita finalizada por id
+    $obReceita = ReceitaDao::getReceitaID($id_receita);
+
+    $obConsulta =    ConsultaDao::getConsulta($obReceita->id_consulta);
+    $obPaciente =    PacienteDao::getPacienteId($obReceita->id_paciente);
+    $obTriagem =     TriagemDao::getTriagemId($obConsulta->id_triagem);
+    $obFuncionario = FuncionarioDao::getFuncionarioId($obReceita->id_funcionario);
+
+    // echo '<pre>';
+    // print_r($obReceita);
+    // print_r($obConsulta);
+    // print_r($obPaciente);
+    // print_r($obFuncionario);
+    // print_r($obTriagem);
+    // echo '</pre>';
+    // exit;
+
+    $data = new DateTime($obReceita->data_receita);
+    $meses = [
+      1 => 'Janeiro',
+      2 => 'Fevereiro',
+      3 => 'Março',
+      4 => 'Abril',
+      5 => 'Maio',
+      6 => 'Junho',
+      7 => 'Julho',
+      8 => 'Agosto',
+      9 => 'Setembro',
+      10 => 'Outubro',
+      11 => 'Novembro',
+      12 => 'Dezembro'
+    ];
+
+    $content = View::render('ReceitaLayouts/resumoReceita', [
+      'id_receita' => $obReceita->id_receita,
+      'nome' => $obPaciente->nome_paciente,
+      'idade' => !empty($obPaciente->nascimento_paciente) ? (date('Y') - date('Y', strtotime($obPaciente->nascimento_paciente))) : "Indefinido",
+      'peso' => $obTriagem->peso_triagem,
+      'alergia' => $obConsulta->alergia_consulta,
+      'data' => $obReceita->data_receita,
+      'dataReceita' => $data->format('d') . ' de ' . $meses[(int)$data->format('m')] . ' de ' . $data->format('Y'),
+      'obs' => $obReceita->observacoes,
+
+      'medicamentos' => self::getMedicamentoPrescrito($id_receita),
+    ]);
+    return parent::getPageReceita('Receita salva', $content);
+  }
+
+  // Metodo responsavel por finalizar a receita POST
+  public static function setReceitaFinalizada($request, $id_receita) {}
 
 
   public static function analizarComIA($nome, $idade, $peso, $sintomas, $diagnostico, $alergia, $usoMedicamento)

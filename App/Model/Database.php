@@ -88,8 +88,8 @@ class Database
         $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
         $query = 'SELECT ' . $fields . ' FROM ' . $this->table . ' ' . $where . ' ' . $order . ' ' . $limit;
 
-        // echo '<pre>'; echo $query; echo '</pre>'; 
-        //exit;
+       // echo '<pre>'; echo $query; echo '</pre>'; 
+       // exit;
 
         return $this->execute($query);
     }
