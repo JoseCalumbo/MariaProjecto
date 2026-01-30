@@ -8,12 +8,12 @@ use \App\Controller\Pages;
  *  foi incluido em routas.php
  */
 
- // rota painel zona GET
+ // rota painel consultorio GET
 $obRouter->get('/consulta',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Consulta::telaConsulta($request));}
+    function($request){ return new Response(200,Pages\Consultorio::telaConsulta($request));}
 ]);
 
 // rota painel zona POST
@@ -21,7 +21,7 @@ $obRouter->post('/consulta',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\Consulta::telaConsulta($request));}
+    function($request){ return new Response(200,Pages\Consultorio::telaConsulta($request));}
 ]);
 
 // rota para atender consulta GET
@@ -30,7 +30,7 @@ $obRouter->get('/consulta/atender/{id_triagem}',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Consultorio::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
 // rota para atender consulta POST
@@ -39,7 +39,7 @@ $obRouter->post('/consulta/atender/{id_triagem}',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Consultorio::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
 // rota para validar consulta GET
@@ -48,7 +48,7 @@ $obRouter->get('/consulta/atender/{id_triagem}',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_triagem){ return new Response(200,Pages\Consulta::getcadastrarConsulta($request,$id_triagem)); }
+    function($request,$id_triagem){ return new Response(200,Pages\Consultorio::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
 // rota para finalizar consulta GET
@@ -57,7 +57,7 @@ $obRouter->get('/consulta/validar/{id_consulta}',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_consulta){ return new Response(200,Pages\Consulta::getValidarConsulta($request,$id_consulta)); }
+    function($request,$id_consulta){ return new Response(200,Pages\Consultorio::getValidarConsulta($request,$id_consulta)); }
 ]);
 
 // rota para finalizar consulta GET
@@ -66,7 +66,7 @@ $obRouter->post('/consulta/validar/{id_consulta}',[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_consulta){ return new Response(200,Pages\Consulta::setValidarConsulta($request,$id_consulta)); }
+    function($request,$id_consulta){ return new Response(200,Pages\Consultorio::setValidarConsulta($request,$id_consulta)); }
 ]);
 
 
@@ -138,7 +138,7 @@ $obRouter->get('/consulta/marcar',[
         'requer-login',
         'nivel-acesso'
     ],
-   // function($request,$id_paciente){ return new Response(200,Pages\Consulta::getMarcarConsulta($request,$id_paciente)); }
+   // function($request,$id_paciente){ return new Response(200,Pages\Consultorio::getMarcarConsulta($request,$id_paciente)); }
 ]);
 
 // rota para marcar consulta
@@ -147,5 +147,5 @@ $obRouter->post('/consulta/marcar',[
         'requer-login',
         'nivel-acesso'
     ],
-   // function($request,$id_paciente){ return new Response(200,Pages\Consulta::setMarcarConsulta($request,$id_paciente)); }
+   // function($request,$id_paciente){ return new Response(200,Pages\Consultorio::setMarcarConsulta($request,$id_paciente)); }
 ]);

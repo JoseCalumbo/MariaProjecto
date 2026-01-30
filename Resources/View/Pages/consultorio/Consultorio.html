@@ -1,28 +1,45 @@
+<style>
+  .tabs .tab a {
+    color: #ffffffbe !important;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .tabs .tab a.active {
+    background-color: #080a2b65 !important;
+    color: white !important;
+  }
+
+  .tabs .indicator {
+    background-color: #004d40;
+  }
+</style>
+
 <section class="row section-field white">
   <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Painel consultório</h5>
   <hr>
+  <section class="{{msgs}} col s12 offset-m1 m11 l112 ">{{msg}} <br> </section>
 
-  <div class="row white col m12 l12 s12">
+  <div class="row white col m11 offset-m1 l12 s12">
 
-    <div class="col row" style="margin: 10px 0px;">
+    <div class="col m6 row">
+      <a class="btn font-normal " href="{{URL}}/receita">
+        <i class="material-icons prefix white-text " style="vertical-align: -6px;">receipt_long</i>
+        Gerenciar Receitas
+      </a>
 
       <a class="btn font-normal" href="{{URL}}/atestado">
         <i class="material-icons prefix white-text" style="vertical-align: -6px;">note_alt</i>
-        Gerenciar Atestados
+        Atestado médicos
       </a>
 
-      <a class="btn font-normal " href="{{URL}}/receita">
-        <i class="material-icons prefix white-text " style="vertical-align: -6px;">biotech</i>
-        Prescrições
-      </a>
-
-      <a class="btn font-normal " href="{{URL}}/exame">
-        <i class="material-icons prefix white-text" style="vertical-align: -6px;">science</i>
-        Exames
+      <a class="btn font-normal " href="{{URL}}/agenda">
+        <i class="material-icons prefix white-text" style="vertical-align: -6px;">calendar_today</i>
+        Minha Agenda
       </a>
     </div>
 
-    <div class=" right col m3 form-search">
+    <div class=" right col m6 form-search">
       <form class="" method="get">
         <div class="form-area-search ">
           <input class="input-search" type="search" name="pesquisar" placeholder="  Pesquisar paciente"
@@ -32,105 +49,20 @@
             <i class="material-icons white-text ">search</i>
           </button>
         </div>
-        <!--
-        <div style="" class="col m3">
-            <select name="status">
-              <option value="Médico" {{cargo-medico}}>Normal</option>
-              <option value="Enfermeiro" {{cargo-enfermero}}>Urgente</option>
-              <option value="Administrador" {{cargo-admin}}>Administrador</option>
-            </select>
-        </div>
-    -->
-        
       </form>
     </div>
-  </div>
-
-
-  <div class="col m4 ">
-    <section class="col s12 m12 ">
-      <div class="row">
-        <div class="col s12  blue-grey darken-1 ">
-          <!--header das abas-->
-          <ul class="tabs tabsvendedor  blue-grey darken-1  row"
-            style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
-            <li class="tab col s3 m6"><a class="active font-normal" href="#consulta1">Última consulta</a></li>
-            <li class="tab col s3 m6"><a class="active font-normal" href="#consulta2">Exames solicitados</a></li>
-          </ul>
-        </div>
-
-        <!--pagina das abas ultima consulta-->
-        <div id="consulta1" class="col s12">
-          <br>
-          <div>
-            <table class="row col m12 responsive-table ">
-              <thead class="">
-                <tr class=" blue-grey lighten-5">
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">format_list_numbered</i>Código
-                  </th>
-
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">person</i>Nome
-                  </th>
-
-                  <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">calendar_month</i>Data consulta </th>
-
-                  <th class="center negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">settings</i>Opção</th>
-                </tr>
-              </thead>
-
-              <tbody tbody class="tbody">
-                {{listarConsultaFinalizada}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!--Aba exame solicitado -->
-        <div id="consulta2" class="col s12">
-          <br>
-          <table class="row col m12 responsive-table ">
-            <thead class="">
-              <tr class=" blue-grey lighten-5">
-                <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">format_list_numbered</i>Código
-                </th>
-
-                <th class="font-normal negrito"><i class="material-icons black-white"
-                    style="vertical-align: -6px;">person</i>Nome
-                </th>
-
-                <th class="font-normal negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">done</i>Status </th>
-
-                <th class="negrito"> <i class="material-icons black-white "
-                    style="vertical-align: -6px;">settings</i>Opção</th>
-              </tr>
-            </thead>
-
-            <tbody tbody class="tbody">
-              {{listarExames}}
-            </tbody>
-          </table>
-
-        </div>
-
-    </section>
 
   </div>
 
-  <div class="row col m7 offset-m1">
+  <div class="row col m11 offset-m1">
 
     <div class="col s12 m12 blue-grey darken-1 ">
       <!--header das abas-->
-      <ul class="tabs tabsvendedor blue-grey darken-1  row"
+      <ul class="tabs tabsvendedor blue-grey darken-1 row"
         style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
         <li class="tab col s3 m4"><a class="active font-normal" href="#c1">Consulta diária</a></li>
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Meus Pacientes</a></li>
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c3">Minha Agenda</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Minhas Consultas</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c3">Histórico</a></li>
       </ul>
     </div>
 
@@ -142,8 +74,8 @@
           <thead class="">
             <tr class=" blue-grey lighten-5">
               <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px;">format_list_numbered</i>Código</th>
-              <th class="font-normal negrito"><i class="material-icons black-white"
+                  style="vertical-align: -6px; width: 15%;">format_list_numbered</i>Código</th>
+              <th class="font-normal negrito "><i class="material-icons black-white"
                   style="vertical-align: -6px;">image</i>Foto</th>
               <th class="font-normal negrito"><i class="material-icons black-white"
                   style="vertical-align: -6px;">person</i>Nome Completo</th>
@@ -160,14 +92,14 @@
           </thead>
 
           <tbody tbody class="tbody">
-            {{listarConsulta}}
+            {{listarPacienteEspera}}
           </tbody>
         </table>
 
       </section>
 
       <section class="col m12 white">
-        {{paginacao}}
+        {{pagConsultasEspera}}
       </section>
     </div>
 
@@ -179,14 +111,23 @@
           <thead class="">
             <tr class=" blue-grey lighten-5">
               <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px;">format_list_numbered</i>Numero</th>
+                  style="vertical-align: -6px;">format_list_numbered</i>Código</th>
+
               <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px;">image</i>Foto</th>
+                  style="vertical-align: -6px; ">image</i>Foto</th>
+
               <th class="font-normal negrito"><i class="material-icons black-white"
                   style="vertical-align: -6px;">person</i>Nome completo</th>
 
               <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">done</i>Status</th>
+                  style="vertical-align: -6px;">science</i>Exame</th>
+
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">receipt_long</i>Receita</th>
+
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">done</i>Estado Clínico</th>
+
               <th class="negrito font-normal"> <i class="material-icons black-white"
                   style="vertical-align: -6px;">settings</i>Ações</th>
             </tr>
@@ -204,39 +145,86 @@
       </section>
     </div>
 
-    <!-- Abas para minha consulta -->
+    <!-- Abas historico -->
     <div id="c3" class="col m12">
-
       <br>
+      <section class="col s12 m12 ">
+        <div class="row">
+          <div class="col s12  blue-grey darken-1 ">
+            <!--header das abas-->
+            <ul class="tabs tabsvendedor blue-grey darken-1 row"
+              style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
+              <li class="tab col s3 m6"><a class="active font-normal" href="#consulta1">Consulta Finalizada</a></li>
+              <li class="tab col s3 m6 "><a class="active font-normal" href="#consulta2">Exames solicitados</a></li>
+            </ul>
+          </div>
 
-      <table class="row col m12 responsive-table ">
-        <thead class="">
-          <tr class=" blue-grey lighten-5">
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">format_list_numbered</i>Código</th>
+          <!--pagina das abas ultima consulta-->
+          <div id="consulta1" class="col s12">
+            <br>
+            <div class="row">
+              <table class="row col m12 responsive-table ">
+                <thead class="">
+                  <tr class=" blue-grey lighten-5">
+                    <th class="font-normal negrito"><i class="material-icons black-white"
+                        style="vertical-align: -6px;">format_list_numbered</i>Código
+                    </th>
 
-            <th class="font-normal negrito"><i class="material-icons black-white"
-                style="vertical-align: -6px;">person</i>Nome completo</th>
+                    <th class="font-normal negrito"><i class="material-icons black-white"
+                        style="vertical-align: -6px;">person</i>Nome
+                    </th>
 
-            <th class="font-normal negrito"> <i class="material-icons black-white "
-                style="vertical-align: -6px;">calendar_month</i>Tipo de Consulta</th>
+                    <th class="font-normal negrito"> <i class="material-icons black-white "
+                        style="vertical-align: -6px;">done</i>Estado </th>
 
-            <th class="font-normal negrito"> <i class="material-icons black-white "
-                style="vertical-align: -6px;">calendar_month</i>Data Marcação</th>
+                    <th class="font-normal negrito"> <i class="material-icons black-white "
+                        style="vertical-align: -6px;">calendar_month</i>Data consulta </th>
 
-            <th class="font-normal negrito"> <i class="material-icons black-white "
-                style="vertical-align: -6px;">calendar_month</i>Data Consulta</th>
+                    <th class="center negrito font-normal"> <i class="material-icons black-white "
+                        style="vertical-align: -6px;">settings</i>Relatório</th>
+                  </tr>
+                </thead>
 
-            <th class="center negrito font-normal"> <i class="material-icons black-white"
-                style="vertical-align: -6px;">settings</i>Ação</th>
-          </tr>
-        </thead>
+                <tbody tbody class="tbody">
+                  {{listarConsultaFinalizada}}
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-        <tbody tbody class="tbody">
-          {{listarMinhaAgenda}}
-        </tbody>
-      </table>
+          <!--Aba exame solicitado -->
+          <div id="consulta2" class="col s12">
+            <br>
+            <table class="row col m12 responsive-table ">
+              <thead class="">
+                <tr class=" blue-grey lighten-5">
+                  <th class="font-normal negrito"><i class="material-icons black-white"
+                      style="vertical-align: -6px;">format_list_numbered</i>Código
+                  </th>
 
+                  <th class="font-normal negrito"><i class="material-icons black-white"
+                      style="vertical-align: -6px;">person</i>Nome
+                  </th>
+
+                  <th class="font-normal negrito"> <i class="material-icons black-white "
+                      style="vertical-align: -6px;">science</i>Exame </th>
+
+                  <th class="font-normal negrito"> <i class="material-icons black-white "
+                      style="vertical-align: -6px;">done</i>Estado exame </th>
+
+                  <th class="negrito font-normal"> <i class="material-icons black-white "
+                      style="vertical-align: -6px;">settings</i>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody tbody class="tbody">
+                {{listarExames}}
+              </tbody>
+            </table>
+
+          </div>
+
+      </section>
     </div>
 
   </div>

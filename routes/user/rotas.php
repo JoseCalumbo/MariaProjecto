@@ -38,9 +38,9 @@ include __DIR__.'/RotaConfiguracao.php';
 
 //________________________ Consulta___________________________
 /**
- * inclui as rotas da zona  
+ * inclui as rotas do consultorio 
 */
-include __DIR__.'/RotaConsulta.php';
+include __DIR__.'/RotaConsultorio.php';
 
 
 //________________________ Consulta Diaria_______________________

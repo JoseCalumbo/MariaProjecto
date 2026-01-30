@@ -1,136 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{{URL}}/Assets/css/material">
-
-    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize.css" />
-
-    <title>Delaração do vendedor nº {{id}}</title>
-
+    <title>Receituário - Dikanza</title>
+    
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
     <style>
-        * {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-        }
-
-        .cor{ 
-            background-color:  rgba(41, 39, 39, 0.267);
-        }
-        .cor1{ 
-            background-color:  rgba(146, 141, 141, 0.267);
-        }
-
-        .cis > div{
-            margin: 0px;
-        }
-        .cis1 > p{
-            margin: 0px;
-            padding: 0px;
-        }
-
-        .page {
-            margin: 10px;
-        }
-
         @page {
-            margin: 0px;
+            margin: 20px;
         }
-
-        .card > p{
-            margin: 4px 0px;
-            padding: 0px;
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+            line-height: 1.4;
+            color: #000;
+            background: #fff;
         }
-
-        .font-normal {
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .header-text {
             font-size: 9pt;
-            font-weight: normal;
-            text-transform: none;
+            color: #666;
+            text-align: center;
+            margin-bottom: 10px;
         }
-
-        .font-small {
+        
+        .logo-row {
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            color: #e91e63;
+            font-size: 20pt;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 28pt;
+            font-weight: bold;
+            color: #2c5f5f;
+            line-height: 1;
+        }
+        
+        .logo-subtitle {
             font-size: 8pt;
-            text-transform: none;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-
-        .font-titulo {
+        
+        .date-box {
+            text-align: right;
+            padding-top: 10px;
+        }
+        
+        .date-label {
+            font-size: 10pt;
+            font-weight: normal;
+        }
+        
+        .date-value {
+            font-size: 14pt;
+            font-weight: normal;
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+            padding: 5px;
+            margin-top: 5px;
+        }
+        
+        .patient-section {
+            margin: 20px 0;
+        }
+        
+        .field-row {
+            margin-bottom: 15px;
+        }
+        
+        .field-label {
             font-size: 11pt;
-            text-transform: none;
+            font-weight: normal;
+            display: inline-block;
+            min-width: 120px;
         }
-
-        .tr,
-        th,
-        td {
-            margin: 7px 0px;
-            border: none;
-            padding: 0px;
-
+        
+        .field-value {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 200px;
+            padding: 2px 5px;
         }
-
-        .tabela {
-
-            border: 1px solid black;
+        
+        .inline-field {
+            display: inline-block;
+            margin-right: 30px;
         }
-
-        .tr-valor {
-            margin: 0px 7px;
-            background-color: rgb(217, 218, 213);
-            border: 0.25px solid rgba(41, 39, 39, 0.418);
+        
+        .prescription-title {
+            font-weight: bold;
+            margin: 30px 0 20px 0;
+            font-size: 14pt;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
         }
-
-        .desc {
-            border-left: 1.5px solid rgba(0, 0, 0, 0.568);
+        
+        .prescription-list {
+            margin: 20px 0 40px 0;
+        }
+        
+        .prescription-item {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            min-height: 35px;
+        }
+        
+        .item-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 2px solid #000;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12pt;
+        }
+        
+        .medicine-name {
+            font-size: 12pt;
+            margin-bottom: 3px;
+        }
+        
+        .medicine-details {
+            font-size: 10pt;
+            color: #333;
+            margin-left: 20px;
+        }
+        
+        .signature-section {
+            margin-top: 100px;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #000;
+            padding-top: 8px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .doctor-info {
+            font-size: 10pt;
+            text-align: center;
+        }
+        
+        /* Print styles */
+        @media print {
+            .container {
+                width: 100%;
+            }
         }
     </style>
-
 </head>
-
 <body>
-
-    <div class="page">
-
-        <div class="row">
-            <div class="col m4">
-                <div class="col m2"><img src="{{logo}}" height="48"></div>
-                <br>
-                <br>
-                <div>
-                    <h6 class="font-titulo">Gestão e Organização de Vendedor ambulante</h6>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-text">
+            CENTRO DE PROVIDÊNCIA SOCIAL DIKANZA - MINTTCS
+        </div>
+        
+        <!-- Logo and Date Row -->
+        <div class="row logo-row" style="margin-bottom: 0;">
+            <div class="col s6">
+                <div class="logo-section">
+                    <span class="logo-icon">❤</span>
+                    <div>
+                        <div class="logo-text">DIKANZA</div>
+                        <div class="logo-subtitle">CENTRO DE SAÚDE</div>
+                    </div>
                 </div>
-                <strong>{{nome}}-{{id}}</strong>
             </div>
-
-            <div class="col m6 push-m1 font-small desc">
-                <p class="font-small">Gestão e Organização de Vendedor ambulante</p>
-                <p class="font-small">Bairro da Camama II, Retunda da Camama </p>
-                <p class="font-small">Contacto: +224 998987889</p>
+            <div class="col s6">
+                <div class="date-box">
+                    <div class="date-label">Data do</div>
+                    <div class="date-label">Atendimento</div>
+                    <div class="date-value">03/01/2025</div>
+                </div>
             </div>
         </div>
-
-        <hr>
-
-        <div class="container1">
-            <strong> <h6 class="center-align">Listagem de valores Liquidados</h6></strong>
-
-            <div>
-                {{resultados}}
+        
+        <!-- Patient Information -->
+        <div class="patient-section">
+            <div class="row field-row" style="margin-bottom: 10px;">
+                <div class="col s12">
+                    <span class="field-label">Nº do processo:</span>
+                    <span class="field-value" style="min-width: 300px;">_________________</span>
+                </div>
             </div>
-
+            
+            <div class="row field-row" style="margin-bottom: 10px;">
+                <div class="col s12">
+                    <span class="field-label">Nome do paciente:</span>
+                    <span class="field-value" style="min-width: 450px;">Maria Miguel</span>
+                </div>
+            </div>
+            
+            <div class="row field-row" style="margin-bottom: 10px;">
+                <div class="col s12">
+                    <div class="inline-field">
+                        <span class="field-label">Idade:</span>
+                        <span class="field-value" style="min-width: 80px;">23</span>
+                    </div>
+                    <div class="inline-field">
+                        <span class="field-label">Sexo:</span>
+                        <span class="field-value" style="min-width: 80px;">F</span>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <br>
-
-
-
-        <br>
-            <p class="center-align">
-                <strong>Processado por computador</strong>
-            </p>
+        
+        <!-- Prescription Title -->
+        <div class="prescription-title">RECEITUÁRIO</div>
+        
+        <!-- Prescription Items -->
+        <div class="prescription-list">
+            <div class="prescription-item">
+                <div class="item-number">1</div>
+                <div class="medicine-name">Cefalexina (500mg)</div>
+                <div class="medicine-details">1 cp - 10/10h</div>
+            </div>
+            
+            <div class="prescription-item">
+                <div class="item-number">2</div>
+                <div class="medicine-name">Paracetamol (500mg) - M</div>
+                <div class="medicine-details">1 cp - 8/8h - SOS</div>
+            </div>
+            
+            <div class="prescription-item">
+                <div class="item-number">3</div>
+                <div class="medicine-name">Vit C (500mg)</div>
+                <div class="medicine-details">1 cp - 12/12h</div>
+            </div>
+        </div>
+        
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <div class="row">
+                <div class="col s12">
+                    <div class="signature-line">
+                        <div class="doctor-info">Assinatura do Médico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+    
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
-
 </html>

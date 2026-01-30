@@ -53,6 +53,28 @@ $obRouter->get('/exame/imprimir-ficha/{id_exame_solicitado}', [
     }
 ]);
 
+#_________________________________________ rotas da receita____________________________________________
+
+//Rota de download da receita 
+$obRouter->get('/recita/baixar/{id_receita}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request, $id_receita) {
+        return new Response(200, Imprimir\ReceitaPDF::baixarReceita($request, $id_receita));
+    }
+]);
+
+//Rota para imprimir a receita
+$obRouter->get('/receita/imprimir/{id_receita}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request,$id_receita) {
+        return new Response(200, Imprimir\ReceitaPDF::imprimirReceita($request,$id_receita));
+    }
+]);
+
 
 
 

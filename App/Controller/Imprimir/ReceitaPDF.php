@@ -2,73 +2,86 @@
 
 namespace App\Controller\Imprimir;
 
-use \App\Utils\ViewPagePDF;
+use App\Model\Entity\FuncionarioDao;
 use \App\Utils\View;
 use \App\Utils\Session;
-use \App\Model\Entity\VendedorDao;
 use \App\Model\Entity\ReceitaDao;
-
+use \App\Model\Entity\MedicamentoPrescritoDao;
+use App\Model\Entity\PacienteDao;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class ReceitaPDF{
+class ReceitaPDF
+{
 
+    // metodo que busca a lista dos medicamentos prequistos 
+    private static function getMedicamentosPrecristos($id_receita)
+    {
+        $item = '';
+        $numero = 1;
 
+        $listarMedicamentoPrescrito = MedicamentoPrescritoDao::listarMedicamentoPresecrito('r.id_receita = ' . $id_receita . '', 'nome_medicamento');
 
-    // metodo que renderiza os dados dos vendedores na pagina HTML, lista de Vendedor 
-    public static function getFacturaDados($id_conta,$id){
+        while ($obMedicamento  = $listarMedicamentoPrescrito->fetchObject(ReceitaDao::class)) {
 
-        $dadosFactura = ReceitaDao::getReceitaID($id_conta);
+            $item .= View::renderPDF('receita/medicamentoPrescrito', [
+                'via' => $obMedicamento->via_administracao,
+                'numero' => $numero,
+                'medicamento' => $obMedicamento->nome_medicamento,
+                'posologia' => $obMedicamento->posologia_medicamento,
+            ]);
 
-        // obtem o vendedor 
-        $obVendedor = VendedorDao::getVendedorId($id);
+            $numero++;
+        }
+        return $item;
+    }
 
-        //obtem a data da impressao
+    // Metodo que renderiza os dados da receita
+    public static function getConteudoHtml($id_receita)
+    {
+        //Obtem os dados do usuario
+        $medicamentosPrescrito = self::getMedicamentosPrecristos($id_receita);
+
+        // obtem a receita a se imprimir
+        $obReceita = ReceitaDao::getReceitaID($id_receita);
+
+        $obPaciente = PacienteDao::getPacienteId($obReceita->id_paciente);
+        $obFuncionario = FuncionarioDao::getFuncionarioId($obReceita->id_funcionario);
+
+        //obtem a data e hora da impressao
         $data = Date('d/m/Y - H:i');
-        $hora = date('H:i');
 
         //obtem a logo
-        $logo = 'http://localhost/MariaProjecto/Assets/img/logoMenu1.png';
+        $logo = '' . URL . '/Assets/img/logoMenu1.png';
 
-        return View::renderPDF('receita/receita',[
-            'id' => $dadosFactura->id,
-            'nome' => $dadosFactura->nome,
-            'email' => $dadosFactura->email,
-            'morada' => $dadosFactura->morada,
+        return View::renderPDF('receita/receita1', [
 
-            'data-pag' => date('d-m-y', strtotime($dadosFactura->data_pagamento)),
-            'mes' => $dadosFactura->mes,
-            'preco' => $dadosFactura->valor,
-            'id-mensal' => $dadosFactura->id_mensal,
-            'valor-pago' => $dadosFactura->valor_pagamento,
-            'troco' => $dadosFactura->troco,
+            'medicamentos' => $medicamentosPrescrito,
 
-            'vencimento' => $dadosFactura->vencimento,
-            'id-conta' => $dadosFactura->id_conta,
-            'numRecibo' => $dadosFactura->id_pagamento,
+            'nome' => $obPaciente->nome_paciente,
+            'numero' => $obPaciente->id_paciente,
+            'idade' => !empty($obPaciente->nascimento_paciente) ? (date('Y') - date('Y', strtotime($obPaciente->nascimento_paciente))) : "Indefinido",
 
-            'user' => $dadosFactura->nome_us,
-
-            'total' => $dadosFactura->valor_pagamento,
-
-            'data-Actual' => $data,
-            'hora-Actual' => date('H:i', strtotime($hora)),
-            'logo' => $logo
+            'id' => $obReceita->id_receita,
+            'registrodata' =>date('d/mY',strtotime($obReceita->data_receita)),
+            'logo' => $logo,
+            'obs' => $obReceita->observacoes,
+            'funcionario' => $obFuncionario->nome_funcionario,
         ]);
     }
 
-    // metodo que converte a pagina html em PDF, lista Vendedor
-    public static function imprimirFactura($id_conta,$id){
-
-        $exibe = self::getFacturaDados($id_conta, $id);
+    // Metodo que imprimer a receita 
+    public static function imprimirReceita($request, $id_receita)
+    {
+        $conteudo = self::getConteudoHtml($id_receita);
 
         $opcao = new Options();
-        //$opcao->setChroot('C:\xampp\htdocs\projectovenda\Files\documentos');
+        //$opcao->setChroot('C:\xampp\htdocs\MariaProjecto\Files\documentos');
         $opcao->setIsRemoteEnabled(true);
 
         $dompdf = new Dompdf($opcao);
 
-        $dompdf->loadHtml($exibe);
+        $dompdf->loadHtml($conteudo);
 
         $dompdf->setPaper('A5', 'portrait');
         //landscape
@@ -85,73 +98,16 @@ class ReceitaPDF{
         return View::renderPDF($dompdf, []);
     }
 
-// metodo que busca os dados no BD dos Vendedores  
- private static function getDadosListagem($id){
 
-            $item = '';
-    
-            $resultado = ReceitaDao::getReceitaID($id);
+    //Metodo para baixar
+    public static function baixarReceita($id_conta, $id)
+    {
+        echo '<pre>';
+        print_r("vamos esta quase");
+        echo '</pre>';
+        exit;
 
-            while ($dadosFactura  = $resultado->fetchObject(ReceitaDao::class)) {
-    
-                $item .= View::renderPDF('factura/listarest', [
-                    'id' => $dadosFactura->id,
-                    'nome' => $dadosFactura->nome,
-                    'email' => $dadosFactura->email,
-                    'morada' => $dadosFactura->morada,
-        
-                    'data-pag' => date('d-m-y', strtotime($dadosFactura->data_pagamento)),
-                    'mes' => $dadosFactura->mes,
-                    'preco' => $dadosFactura->valor,
-                    'id-mensal' => $dadosFactura->id_mensal,
-                    'valor-pago' => $dadosFactura->valor_pagamento,
-                    'troco' => $dadosFactura->troco,
-        
-                    'vencimento' => $dadosFactura->vencimento,
-                    'id-conta' => $dadosFactura->id_conta,
-                    'numRecibo' => $dadosFactura->id_pagamento,
-                
-                    'total' => $dadosFactura->valor_pagamento,
-    
-                ]);
-            }
-    
-            return $item;
-        }
-
-    // metodo que renderiza os dados dos vendedores na pagina HTML, lista de Vendedor 
-    public static function getListagem($id){
-
-        //Obtem os dados do usuario
-        $var = self::getDadosListagem($id);
-
-                // obtem o vendedor 
-                $obVendedor = VendedorDao::getVendedorId($id);
-
-        //obtem a data da impressao
-        $data = Date('d/m/Y - H:i');
-        $hora = date('H:i');
-
-        //obtem a logo
-        $logo = 'http://localhost/projectovenda/Assets/img/logo1.png';
-
-        return View::renderPDF('factura/lista',[
-
-            'resultados'=>$var,
-
-            'id'=>$obVendedor->nome,
-            'nome'=>$obVendedor->id,
-            'data-Actual' => $data,
-            'hora-Actual' => date('H:i', strtotime($hora)),
-            'logo' => $logo
-        ]);
-    }
-
-
-    // metodo que converte a pagina html em PDF, listagem do Vendedor
-    public static function imprimirListagem($id){
-
-        $exibe = self::getListagem($id);
+        // $exibe = self::getFacturaDados($id_conta, $id);
 
         $opcao = new Options();
         //$opcao->setChroot('C:\xampp\htdocs\projectovenda\Files\documentos');

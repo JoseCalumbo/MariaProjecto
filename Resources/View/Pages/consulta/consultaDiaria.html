@@ -1,0 +1,96 @@
+<section class="row section-field white">
+  <h5 class="center"> Consultas Diarias</h5>
+  <br>
+
+  <nav class="row col m12  blue-grey darken-1 ">
+    <div class="col m4 nav-wrapper ">
+    </div>
+
+    <div class="col m4 nav-wrapper">
+      <form>
+        <div class="input-field custom-search">
+          <input id="search" placeholder="Pesquisar por nome" type="search" name="pesquisar" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons center">close</i>
+        </div>
+      </form>
+    </div>
+
+    <div class="col m4 nav-wrapper  ">
+      <ul class="right hide-on-med-and-down row" style="height: 50px;">
+
+        <li>
+          <a href="{{URL}}/consulta-diaria" style="display: flex; align-items: center; text-transform: capitalize;">
+            <i class="material-icons">refresh</i>Actulizar
+          </a>
+        </li>
+
+        <li class="white-text blue-grey" style="text-transform: capitalize;">
+          <a href="{{URL}}/consulta" class="white-text" style="display: flex; align-items: center;">
+            <i class=" material-icons left white-text ">add</i>Painel Consultorio
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <br>
+  <!-- <section class="{{msgs}} col s12 m12 l12 ">{{msg}}</section> -->
+
+  <section class="row offset-m2 white col m9">
+
+    <p>Pacientes Espera de atendimento</p>
+
+        <table class="row col m12 responsive-table ">
+          <thead class="">
+            <tr class=" blue-grey lighten-5">
+              <th class="font-normal negrito"><i class="material-icons black-white"
+                  style="vertical-align: -6px; width: 15%;">format_list_numbered</i>Código</th>
+              <th class="font-normal negrito "><i class="material-icons black-white"
+                  style="vertical-align: -6px;">image</i>Foto</th>
+              <th class="font-normal negrito"><i class="material-icons black-white"
+                  style="vertical-align: -6px;">person</i>Nome Completo</th>
+
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">flag</i>Pioridade</th>
+
+              <th class="font-normal negrito"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">done</i>Status</th>
+
+              <th class="center negrito font-normal"> <i class="material-icons black-white "
+                  style="vertical-align: -6px;">settings</i>Ação</th>
+            </tr>
+          </thead>
+
+          <tbody tbody class="tbody">
+            {{listarPacienteEspera}}
+          </tbody>
+        </table>
+
+  </section>
+
+  <section class=" row white col m12">
+    {{paginacao}}
+  </section>
+
+</section>
+
+<!--Modal Consulta -->
+<div id="modalConsultas" class="modal modalConsultas">
+  <div class="modal-content">
+    <label class="closeModal modal-close">&times;</label>
+    <h5 style="text-transform: capitalize;">Consultas</h5>
+    <p class="font-normal">
+      Remarcar ou adicionar nova consulta
+    </p>
+    <hr>
+    <div class="modal-fixed-footer mmo">
+      <a class="btn waves-effect waves-green green  accent-4 white-text" href="{{URL}}/consulta/cadastrar">
+        <i class="material-icons left white-text">assignment</i>Nova Consulta
+      </a>
+      <a class="btn waves-effect waves-green green accent-4 white-text" href="{{URL}}/consulta/cadastrar">
+        <i class="material-icons left white-text">assignment</i>Remarcar consulta
+      </a>
+    </div>
+  </div>
+</div>

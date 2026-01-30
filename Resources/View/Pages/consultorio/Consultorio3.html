@@ -60,51 +60,14 @@
       <!--header das abas-->
       <ul class="tabs tabsvendedor blue-grey darken-1 row"
         style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c1">Consulta diária</a></li>
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Minhas Consultas</a></li>
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c3">Histórico</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c1">Minhas Consultas</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Exames Solicitados</a></li>
+        <li class="tab col s3 m4"><a class="active font-normal" href="#c3">Consulta Finalizada</a></li>
       </ul>
     </div>
 
-    <!-- Abas para consulta -->
-    <div id="c1" class="col m12">
-      <section class="  white col m12">
-        <br>
-        <table class="row col m12 responsive-table ">
-          <thead class="">
-            <tr class=" blue-grey lighten-5">
-              <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px; width: 15%;">format_list_numbered</i>Código</th>
-              <th class="font-normal negrito "><i class="material-icons black-white"
-                  style="vertical-align: -6px;">image</i>Foto</th>
-              <th class="font-normal negrito"><i class="material-icons black-white"
-                  style="vertical-align: -6px;">person</i>Nome Completo</th>
-
-              <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">flag</i>Pioridade</th>
-
-              <th class="font-normal negrito"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">done</i>Status</th>
-
-              <th class="center negrito font-normal"> <i class="material-icons black-white "
-                  style="vertical-align: -6px;">settings</i>Ação</th>
-            </tr>
-          </thead>
-
-          <tbody tbody class="tbody">
-            {{listarPacienteEspera}}
-          </tbody>
-        </table>
-
-      </section>
-
-      <section class="col m12 white">
-        {{pagConsultasEspera}}
-      </section>
-    </div>
-
     <!-- Abas para minha consulta -->
-    <div id="c2" class="col m12">
+    <div id="c1" class="col m12">
       <section class="  white col m12">
         <br>
         <table class="row col m12 responsive-table ">
@@ -143,21 +106,44 @@
       <section class="col m12 white">
         {{paginacao}}
       </section>
+
     </div>
 
-    <!-- Abas historico -->
+    <!-- Abas para Exames solicitado-->
+    <div id="c2" class="col m12">
+      <br>
+      <table class="row col m12 responsive-table ">
+        <thead class="">
+          <tr class=" blue-grey lighten-5">
+            <th class="font-normal negrito"><i class="material-icons black-white"
+                style="vertical-align: -6px;">format_list_numbered</i>Código
+            </th>
+
+            <th class="font-normal negrito"><i class="material-icons black-white"
+                style="vertical-align: -6px;">person</i>Nome
+            </th>
+
+            <th class="font-normal negrito"> <i class="material-icons black-white "
+                style="vertical-align: -6px;">science</i>Exame </th>
+
+            <th class="font-normal negrito"> <i class="material-icons black-white "
+                style="vertical-align: -6px;">done</i>Estado exame </th>
+
+            <th class="negrito font-normal"> <i class="material-icons black-white "
+                style="vertical-align: -6px;">settings</i>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody tbody class="tbody">
+          {{listarExames}}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Abas consulta finalizada -->
     <div id="c3" class="col m12">
       <br>
       <section class="col s12 m12 ">
-        <div class="row">
-          <div class="col s12  blue-grey darken-1 ">
-            <!--header das abas-->
-            <ul class="tabs tabsvendedor blue-grey darken-1 row"
-              style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
-              <li class="tab col s3 m6"><a class="active font-normal" href="#consulta1">Última consulta</a></li>
-              <li class="tab col s3 m6 "><a class="active font-normal" href="#consulta2">Exames solicitados</a></li>
-            </ul>
-          </div>
 
           <!--pagina das abas ultima consulta-->
           <div id="consulta1" class="col s12">
@@ -190,38 +176,6 @@
                 </tbody>
               </table>
             </div>
-          </div>
-
-          <!--Aba exame solicitado -->
-          <div id="consulta2" class="col s12">
-            <br>
-            <table class="row col m12 responsive-table ">
-              <thead class="">
-                <tr class=" blue-grey lighten-5">
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">format_list_numbered</i>Código
-                  </th>
-
-                  <th class="font-normal negrito"><i class="material-icons black-white"
-                      style="vertical-align: -6px;">person</i>Nome
-                  </th>
-
-                  <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">science</i>Exame </th>
-
-                  <th class="font-normal negrito"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">done</i>Estado exame </th>
-
-                  <th class="negrito font-normal"> <i class="material-icons black-white "
-                      style="vertical-align: -6px;">settings</i>Ações</th>
-                </tr>
-              </thead>
-
-              <tbody tbody class="tbody">
-                {{listarExames}}
-              </tbody>
-            </table>
-
           </div>
 
       </section>

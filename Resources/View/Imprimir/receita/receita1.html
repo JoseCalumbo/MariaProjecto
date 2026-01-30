@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{URL}}/Assets/css/material">
+    <link rel="icon" href="{{URL}}/icon.png" type="image/x-icon">
+
+    <link type="text/css" rel="stylesheet" href="{{URL}}/Assets/css/materialize1.css" />
+
+    <title>Receiruário {{nome}} </title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        li {
+            margin-bottom: 12px;
+            /* espaço entre os itens */
+            margin-left: 10px;
+            list-style: none;
+        }
+
+        .cor {
+            background-color: rgba(41, 39, 39, 0.267);
+        }
+
+        .page {
+            margin: 30px 60px;
+        }
+
+        @page {
+            margin: 0px;
+        }
+
+        .card>p {
+            margin: 4px 0px;
+            padding: 0px;
+        }
+
+        .font-normal {
+            font-size: 12pt;
+            font-weight: normal;
+            text-transform: none;
+        }
+
+        .font-small {
+            font-size: 10pt;
+            text-transform: none;
+            font-weight: normal;
+
+        }
+
+        .font-titulo {
+            font-size: 11pt;
+            text-transform: uppercase;
+            margin-top: 5px;
+            text-decoration: underline;
+            font-weight: bolder;
+        }
+
+        .font-subtitulo {
+            font-size: 14pt;
+            text-transform: none;
+            margin-top: 8px;
+        }
+
+        .negrito {
+            font-weight: bolder;
+        }
+
+        .tabela {
+            border: 0.5px solid black !important;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .tr {
+            border: 0.5px solid black !important;
+        }
+
+        .td {
+            border: 1px solid rgba(0, 0, 0, 0.849) !important;
+            height: 30px !important;
+            font-size: 12px;
+            vertical-align: middle !important;
+            padding-left: 10px;
+        }
+
+        .td>strong {
+            font-size: 12px !important;
+        }
+
+        .desc {
+            border-left: 1.5px solid rgba(0, 0, 0, 0.568);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .card-li {
+            height: 120px;
+            border: 0.5px solid rgba(73, 73, 73, 0.432);
+            list-style: none;
+        }
+
+        .div-obs {
+            padding: 5px;
+        }
+
+        .resumo-item {
+            margin-bottom: 0px;
+            padding-bottom: 15px;
+        }
+
+        .resumo-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .resumo-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .resumo-item p {
+            color: #666;
+            margin: 0;
+        }
+
+        .medicamento-lista {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page row ">
+
+        <div class="col m12 center">
+            <img src="{{logo}}" height="80">
+        </div>
+        <h3 class="font-titulo center">Clínica Geral Gestão Auxiliar IA </h3>
+
+        <p class="center font-subtitulo negrito">Receituário</p>
+
+        <table style="width:90%" class="tabela">
+            <tr class="tr">
+
+                <td style="width:50%" class="td">
+                    <strong class="font-normal negrito">Nome: </strong> {{nome}}
+                </td>
+                <td class="td">
+                    <strong class="negrito font-normal">Data :</strong> {{registrodata}}
+                </td>
+            </tr>
+            <tr class="tr">
+
+                <td style="width:50%;" class="td">
+                    <strong class="font-normal negrito">Idade:</strong> {{idade}} anos
+                </td>
+                <td class="td">
+                    <strong class="font-normal negrito">Nº do processo :</strong> {{numero}}
+                </td>
+            </tr>
+        </table>
+
+        <ul class="lista-sinal">
+            <div class="resumo-item">
+                <strong style="margin-left: -20px; font-size: 13px;">Medicamentos Prescritos:</strong>
+                <div id="resumoMedicamentos" class="medicamento-lista">
+                    {{medicamentos}}
+                </div>
+            </div>
+
+            <div class="resumo-item" style="margin-top: 3px; ">
+                <strong style="margin-left: -20px; font-size: 13px;">Observação e Recomendações:</strong>
+                <div id="resumoMedicamentos" class="medicamento-lista" style="font-size: 12px; margin: 0px;">
+                    {{obs}}
+                </div>
+            </div>
+        </ul>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col m12 center">
+            <p> _________________________________</p>
+            <p>{{funcionario}}</p>
+        </div>
+
+    </div>
+
+    <br>
+    <p class="center font-small">
+        <span style="font-size: 9px;">Esta prescrição foi processada e registrada no sistema com ID: {{id}} </span>
+    </p>
+    </div>
+
+</body>
+
+</html>

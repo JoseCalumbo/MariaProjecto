@@ -13,7 +13,7 @@ $obRouter->get('/consulta-diaria',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\ConsultaDiaria::telaConsultaDiaria($request));}
+    function($request){ return new Response(200,Pages\Consulta::telaPacienteEspera($request));}
 ]);
 
 // rota painel Consulta diaria POST
@@ -21,7 +21,7 @@ $obRouter->post('/consulta-diaria',[
     'middlewares'=>[
         'requer-login'
     ],
-    function($request){ return new Response(200,Pages\ConsultaDiaria::telaConsultaDiaria($request));}
+    function($request){ return new Response(200,Pages\Consulta::telaPacienteEspera($request));}
 ]);
 
 

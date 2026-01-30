@@ -39,18 +39,6 @@ class Prescrisao extends Page
   // busca todos os medicamentos prescritos
   public static function getMedicamentoPrescrito($id_receita)
   {
-
-    // Obtem a receita finalizada por id
-    $obMedicamentoPrescrito = MedicamentoPrescritoDao::getMedicamentoPrescritoID($id_receita);
-    $obReceita = ReceitaDao::getReceitaID($id_receita);
-
-    // echo '<pre>';
-    // print_r($obMedicamentoPrescrito->id_receita);
-    // echo "<br>";
-    // print_r($obReceita->id_receita);
-    // echo '</pre>';
-    //exit;
-
     $resultadoPrescrito = '';
     $numero = 1;
 
@@ -67,9 +55,6 @@ class Prescrisao extends Page
 
       $numero ++;
     }
-
-   // exit;
-
     return $resultadoPrescrito;
   }
 
@@ -145,12 +130,12 @@ class Prescrisao extends Page
 
         sleep(2);
         // Redireciona validaçao e gerar consulta depois dos exames
-        $request->getRouter()->redirect('/receita/validar/' . $idConsulta . '?msg=validar');
+        $request->getRouter()->redirect('/receita/validar/' . $idReceita . '?msg=validar');
       } else {
 
         sleep(2);
         // Redireciona validaçao e gerar consulta sem exame
-        $request->getRouter()->redirect('/receita/validar/' . $idConsulta . '?msg=validar');
+        $request->getRouter()->redirect('/receita/validar/' . $idReceita . '?msg=validar');
       }
     }
     //return parent::getPageReceita('Geradar de consulta');
@@ -166,15 +151,6 @@ class Prescrisao extends Page
     $obPaciente =    PacienteDao::getPacienteId($obReceita->id_paciente);
     $obTriagem =     TriagemDao::getTriagemId($obConsulta->id_triagem);
     $obFuncionario = FuncionarioDao::getFuncionarioId($obReceita->id_funcionario);
-
-    // echo '<pre>';
-    // print_r($obReceita);
-    // print_r($obConsulta);
-    // print_r($obPaciente);
-    // print_r($obFuncionario);
-    // print_r($obTriagem);
-    // echo '</pre>';
-    // exit;
 
     $data = new DateTime($obReceita->data_receita);
     $meses = [

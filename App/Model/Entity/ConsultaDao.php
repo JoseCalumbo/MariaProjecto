@@ -70,30 +70,6 @@ class ConsultaDao
         ]);
     }
 
-    //Método responsavel ao estado da consulta
-    public function finalizarConsulta()
-    {
-        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
-            'estado_consulta' => $this->estado_consulta = "Finalizada",
-        ]);
-    }
-
-    //Método responsavel ao estado da consulta
-    public function validarConsulta()
-    {
-        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
-            'estado_consulta' => $this->estado_consulta = "Remarcada",
-        ]);
-    }
-
-    //Método responsavel ao estado da consulta
-    public function esperarExameConsulta()
-    {
-        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
-            'estado_consulta' => $this->estado_consulta = "Exames pendentes",
-        ]);
-    }
-
     // Método responsavel para selecionar uma consulta
     public static function getConsulta($id_consulta)
     {
@@ -127,10 +103,27 @@ class ConsultaDao
                               tb_triagem.id_paciente = tb_paciente.id_paciente'))->select($where, $order, $limit, $fields);
     }
 
+
     /** Apresenta as listagem da consulta feita
      * @param string $where
      */
     public static function listarConsultaFeita($id, $order = null, $limit = null, $fields = '*')
+    {
+        //Pega o id do usuario logado
+        $usuarioLogado = Session::getUsuarioLogado();
+        $id = $usuarioLogado['id'];
+
+        return (new Database('tb_consulta JOIN tb_paciente ON 
+                              tb_consulta.id_paciente = tb_paciente.id_paciente
+                            ')
+        )->select('tb_consulta.id_funcionario = ' . $id . '', $order, $limit, $fields);
+    }
+
+
+    /** Apresenta as listagem da consulta feita
+     * @param string $where
+     */
+    public static function listarConsultaFinalizada($id, $order = null, $limit = null, $fields = '*')
     {
         //Pega o id do usuario logado
         $usuarioLogado = Session::getUsuarioLogado();

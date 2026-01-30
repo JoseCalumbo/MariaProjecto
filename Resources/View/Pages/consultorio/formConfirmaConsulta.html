@@ -2,7 +2,9 @@
 
     <section>
         <div class="row" style="text-align: center;">
-            <h5 class="center" style="text-transform: capitalize; margin-left:30px;"> Validação da consulta</h5>
+            <h5 class="center" style="text-transform: capitalize; margin-left:30px;">
+                Validação da Consulta registrada
+            </h5>
             <hr>
         </div>
 
@@ -14,210 +16,162 @@
                 Voltar
             </a>
 
-            <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
-                <i class="material-icons prefix white-text" style="vertical-align: -6px;">print</i>
-                Relatórios
-            </a>
+            <!--
+                <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
+                    <i class="material-icons prefix white-text" style="vertical-align: -6px;">print</i>
+                    Relatórios
+                </a>
+            -->
             <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
                 <i class="material-icons prefix white-text" style="vertical-align: -6px;">calendar_today</i>
                 Remarcar consulta
             </a>
 
-            <a class="btn font-normal " href="{{URL}}/consulta/remarcar/{{id_paciente}}" target="_blank">
+            <a class="btn font-normal " href="{{URL}}/consulta/prescrever/{{id_consulta}}" target="_blank">
                 <i class="material-icons prefix white-text" style="vertical-align: -6px;">edit</i>
-                add Receita
+                Prescrever medicamento
             </a>
 
         </div>
+
     </section>
 
-    <div class="row col m11 offset-m1">
-
-        <div class="col s12 blue-grey darken-1 row">
-            <!--header das abas-->
-            <ul class="tabs tabsvendedor blue-grey darken-1 "
-                style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
-                <li class="tab"><a class="active font-normal" href="#exameSolicitado">Exames Solicitados</a></li>
-                <li class="tab"><a class="font-normal" href="#pExameFinalizado">Exames finalizados</a></li>
-            </ul>
-        </div>
-
-        <!-- Exame solicitado-->
-        <div id="exameSolicitado" class="col s12">
-            <section class="white col m12">
-                <table class="row col m12 responsive-table ">
-                    <thead class="">
-                        <tr class=" blue-grey lighten-5">
-                            <th class="font-normal negrito" style="width: 7%;"><i class="material-icons black-white"
-                                    style="vertical-align: -6px;">format_list_numbered</i>Código
-                            </th>
-
-                            <th class="font-normal negrito"><i class="material-icons black-white"
-                                    style="vertical-align: -6px;">person</i>Nome completo
-                            </th>
-
-                            <th class="font-normal negrito"> <i class="material-icons black-white "
-                                    style="vertical-align: -6px;">science</i>Exames
-                            </th>
-
-                            <th class="font-normal negrito"> <i class="material-icons black-white "
-                                    style="vertical-align: -6px;">flag</i>Nivel atendimento
-                            </th>
-
-                            <th class="font-normal negrito">
-                                <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>
-                                Data solicitação
-                            </th>
-
-                            <th class="font-normal negrito">
-                                <i class="material-icons black-white " style="vertical-align: -6px;">note_alt</i>
-                                Estado exame
-                            </th>
-
-                            <th class="font-normal negrito">
-                                <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>
-                                Ações
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody tbody class="tbody">
-                        {{listarExameSolicitado}}
-                    </tbody>
-                </table>
-
-            </section>
-
-            <section class="col m12 white">
-                {{paginacao}}
-            </section>
-        </div>
-
-        <!-- Exame finalizado-->
-        <div id="pExameFinalizado" class="col s12">
-
-            <section class="white col m12">
-                <table class="row col m12 responsive-table ">
-                    <thead class="">
-                        <tr class=" blue-grey lighten-5">
-                            <th class="font-normal negrito"><i class="material-icons black-white"
-                                    style="vertical-align: -6px;">format_list_numbered</i>Código
-                            </th>
-
-                            <th class="font-normal negrito"><i class="material-icons black-white"
-                                    style="vertical-align: -6px;">person</i>Nome completo
-                            </th>
-
-                            <th class="font-normal negrito"> <i class="material-icons black-white "
-                                    style="vertical-align: -6px;">science</i>Exames
-                            </th>
-
-                            <th class="font-normal negrito">
-                                <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>
-                                Data solicitação
-                            </th>
-
-                            <th class="font-normal negrito">
-                                <i class="material-icons black-white " style="vertical-align: -6px;">calendar_month</i>
-                                Data realização
-                            </th>
-
-                            <th class="font-normal negrito"> <i class="material-icons black-white "
-                                    style="vertical-align: -6px;">note_alt</i>Estado
-                            </th>
-
-                            <th class="font-normal negrito">
-                                <i class="material-icons black-white " style="vertical-align: -6px;">settings</i>
-                                Ações
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody tbody class="tbody">
-                        {{listarExameFinalizdo}}
-                    </tbody>
-                </table>
-
-            </section>
-
-            <section class="col m12 white">
-                {{paginacao}}
-            </section>
-        </div>
-
-
-        <div class="col offset-m1 s12 m11 blue-grey darken-1 row">
-            <!--header das abas-->
-            <div class="blue-grey darken-1 white-text capitalize" style="height: 35px; display: flex; align-items: center;
+    <div class="col offset-m1 s12 m11 blue-grey darken-1 row">
+        <!--header das abas-->
+        <div class="blue-grey darken-1 white-text capitalize" style="height: 35px; display: flex; align-items: center;
                  justify-self: center; background-color: #f5f5f5; box-shadow: none;">
-                {{nome}}
+            FICHA MÉDICA DE CONSULTA
+        </div>
+    </div>
+
+    <section class="row col m8 offset-m2 ">
+
+        <div class="row white" style="padding:0px 37px;">
+
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-user fa-1x " aria-hidden="true"></i>
+                Dados do Paciente
+            </h6>
+            <hr>
+            <ul>
+                <li class="right negrito font-normal">Paciente nº: {{id_paciente}}</li>
+                <li class="negrito font-normal"> Nome Completo: <span>{{nome}}</span> </li>
+                <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
+                <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
+                <li class="negrito font-normal"> Documento/bilhete: <span>{{bilhete}}</span></li>
+                <li class="negrito font-normal">Telefone: <span>{{telefone}}</span></li>
+                <li class="negrito font-normal">Morada: <span>{{morada}}</span></li>
+            </ul>
+
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-user-md fa-1x " aria-hidden="true"></i>
+                Dados da consulta
+            </h6>
+            <hr>
+            <ul>
+                <li class="right negrito font-normal">Nº do Processo Clínico: {{id_consulta}}</li>
+                <li class="negrito font-normal">Especialidade:<span> Clinica geral</span></li>
+                <li class="negrito font-normal">Motivo da Consulta:<span> {{motivo}}</span></li>
+                <li class="negrito font-normal">Medicamento em uso:<span>{{medicamentoUso}} </span> </li>
+                <li class="negrito font-normal">Alergias Conhecidas: <span>{{alergia}}</span></li>
+                <li class="negrito font-normal">Diagnóstico:<span>{{diagnostico}} </span> </li>
+                <li class="negrito font-normal">Conduta: <span>{{conduta}}</span></li>
+                <li class="negrito font-normal">Observação:<span> {{obs}}</span></li>
+                <li class="negrito font-normal">Próximo Retorno:<span> {{retorno}}</span></li>
+                <li class="negrito font-normal">Data da Consulta:<span> {{data}}</span></li>
+            </ul>
+
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-stethoscope fa-1x " aria-hidden="true"></i>
+                Dados da Triagem
+            </h6>
+            <hr>
+            <ul>
+                <li class="right negrito font-normal">Triagem nº: {{id_triagem}}</li>
+                <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
+                <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
+                <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
+                <li class="negrito font-normal">Frequência cardíaca:<span> {{cardiaca}} bpm </span></li>
+                <li class="negrito font-normal">Frequência respiratória: <span>{{respiratorio}} Mrm</span></li>
+                <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}} %</span></li>
+                <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span></li>
+
+                <!--
+                    <p class="font-normal center">
+                        <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}" class="font-normal white-text darken-5 btn"
+                        target="_blank"> 🖨️ Imprimir ficha da triagem</a>
+                    </p>
+                -->
+            </ul>
+
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-flask-vial fa-1x " aria-hidden="true"></i>
+                Exames Solicitados
+            </h6>
+            <hr>
+
+            {{exames}}
+
+            <h6 class="capitalize negrito teal-text">
+                <i class="fa fa-pills fa-1x " aria-hidden="true"></i>
+                Prescrição
+            </h6>
+            <hr>
+
+            {{receita}}
+
+            <p class="font-normal center">
+                <a href="{{URL}}/consulta/prescrever/{{id_consulta}}" 
+                    class="font-normal white-text darken-5 btn" target="_blank"> Adicionar receita</a>
+            </p>
+
+            <div class="white row">
+                <h6 class="capitalize negrito teal-text">
+                    Relátorios
+                </h6>
+                <hr>
+
+                <p class="font-normal">Clica aqui para
+                    <a href="{{URL}}/triagem/gerar-ficha/{{id_triagem}}" class="capitalize blue-text darken-5"> 📄
+                        baixar e enviar
+                    </a>
+                    a ficha da consulta em PDF
+                </p>
+
+                <p class="font-normal">
+                    Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
+                        class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
+                    a ficha da consulta
+                </p>
+
+                <p class="font-normal">
+                    Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
+                        class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
+                    o atestado médico
+                </p>
             </div>
+
+            <div>
+                <form class="row" method="post" enctype="multipart/form-data">
+                    <button type="submit" name="validar" style="margin-left: 6px;"
+                        class="col push-m6 btn blue m4 white-text font-normal {{disabled-btn-ExamePedente}}">
+                        <i class="material-icons prefix white-text" style="vertical-align: -6px;">check_circle</i>
+                        {{buttonExamePedente}}
+                    </button>
+
+                    <button type="submit" name="finalizar" style="margin-left: 6px;"
+                        class="col push-m6  btn m3 white-text font-normal {{disabled-btn-Validar}}">
+                        <i class="material-icons prefix white-text" style="vertical-align: -6px;">check_circle</i>
+                        {{buttonValidar}}
+                    </button>
+                </form>
+            </div>
+
+            <div><br></div>
+
         </div>
 
-        <section class="row col m8 offset-m2 ">
-
-            <div class="row white" style="padding:0px 37px;">
-
-                <h6 class="capitalize negrito teal-text">Dados pessoas</h6>
-                <ul>
-                    <li class="right negrito font-normal">triagem Nº: {{id_triagem}}</li>
-                    <li class="negrito font-normal"> Nome Completo: <span>{{nome}}</span> </li>
-                    <li class="negrito font-normal"> Gênero: <span>{{genero}}</span></li>
-                    <li class="negrito font-normal"> Idade: <span>{{ano}} anos</span></li>
-                    <li class="negrito font-normal"> Documento/bilhete: <span>{{bilhete}}</span></li>
-                    <li class="negrito font-normal">Pioridade: <span>{{pioridade}}</span></li>
-                </ul>
-
-                <h6 class="capitalize negrito teal-text">Sinais Vitais</h6>
-                <ul>
-                    <li class="negrito font-normal">Peso:<span> {{peso}} kg</span></li>
-                    <li class="negrito font-normal">Temperatura corporal:<span>{{temperatura}} °C</span> </li>
-                    <li class="negrito font-normal">Pressão arterial: <span>{{pressao}} mmHg</span></li>
-                    <li class="negrito font-normal">Frequência cardíaca:<span> {{frequencia_cardiaca}} bpm </span></li>
-                    <li class="negrito font-normal">Frequência respiratória: <span>{{frequencia_respiratorio}}
-                            Mrm</span></li>
-                    <li class="negrito font-normal">Saturação oxigênio:<span> {{saturacao}}%</span></li>
-
-                </ul>
-
-                <h6 class="capitalize negrito teal-text">Observação importante</h6>
-                <ul>
-                    <li class="capitalize negrito font-normal">Avaliação Clínica rapida: <span>{{observação}}</span>
-                    </li>
-                </ul>
-
-                <div class="white row">
-                    <hr>
-
-                    <p class="font-normal">Clica aqui para
-                        <a href="{{URL}}/triagem/gerar-ficha/{{id_triagem}}" class="capitalize blue-text darken-5"> 📄
-                            baixar e enviar
-                        </a>
-                        a ficha de triagem em PDF
-                    </p>
-
-                    <p class="font-normal">
-                        Clica aqui para <a href="{{URL}}/triagem/imprimir-ficha/{{id_triagem}}"
-                            class="capitalize blue-text darken-5" target="_blank"> 🖨️ Imprimir</a>
-                        a ficha de triagem
-                    </p>
-
-                </div>
-                <br>
-
-                <div>
-                    <form class="" method="post" enctype="multipart/form-data">
-                        <button type="submit" name="finaliza" class="col offset-m9 btn m3 white-text font-normal ">
-                            {{button1}}
-                        </button>
-                        <br>
-                    </form>
-
-                </div>
-                <div><br></div>
-            </div>
-
-        </section>
+    </section>
 
 
 </section>
