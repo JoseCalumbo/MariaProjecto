@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Dez-2025 às 09:16
+-- Tempo de geração: 31-Jan-2026 às 12:42
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -33,23 +33,26 @@ CREATE TABLE `tb_consulta` (
   `id_funcionario` int(11) NOT NULL,
   `id_triagem` int(50) NOT NULL,
   `retorno_consulta` date DEFAULT NULL,
-  `conduta_consulta` varchar(250) NOT NULL,
-  `motivo_consulta` varchar(250) NOT NULL,
-  `diagnostico_consulta` varchar(250) NOT NULL,
+  `conduta_consulta` varchar(250) DEFAULT NULL,
+  `motivo_consulta` varchar(250) DEFAULT NULL,
+  `diagnostico_consulta` varchar(250) DEFAULT NULL,
+  `medicamentoUso_consulta` varchar(60) DEFAULT NULL,
   `observacao_consulta` varchar(250) NOT NULL,
+  `alergia_consulta` varchar(60) DEFAULT NULL,
   `criado_consulta` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `alterado_consulta` date DEFAULT NULL,
   `estado_consulta` enum('Remarcada','Validada','Aguardando','Em triagem','Em atendimento','Exames pendentes','Finalizada') DEFAULT 'Validada',
-  `add_receita_consulta` enum('Com receita','Sem receita') DEFAULT 'Sem receita'
+  `add_receita_consulta` enum('Com receita','Sem receita') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `tb_consulta`
 --
 
-INSERT INTO `tb_consulta` (`id_consulta`, `id_paciente`, `id_funcionario`, `id_triagem`, `retorno_consulta`, `conduta_consulta`, `motivo_consulta`, `diagnostico_consulta`, `observacao_consulta`, `criado_consulta`, `alterado_consulta`, `estado_consulta`, `add_receita_consulta`) VALUES
-(16, 38, 1, 32, NULL, ' descanso evitar comer salgados', 'Inflamação na barriga', 'arlegia', 'cor roxa na parte inflamada', '2025-12-10 22:17:04', NULL, 'Exames pendentes', 'Sem receita'),
-(21, 49, 1, 44, NULL, ' sa', 'Dor de cabeça forte e tosse durante 3 semanas', 'arlegia', 'Tose com cataro', '2025-12-11 00:09:58', NULL, 'Finalizada', 'Sem receita');
+INSERT INTO `tb_consulta` (`id_consulta`, `id_paciente`, `id_funcionario`, `id_triagem`, `retorno_consulta`, `conduta_consulta`, `motivo_consulta`, `diagnostico_consulta`, `medicamentoUso_consulta`, `observacao_consulta`, `alergia_consulta`, `criado_consulta`, `alterado_consulta`, `estado_consulta`, `add_receita_consulta`) VALUES
+(48, 84, 1, 62, NULL, NULL, 'Dor de costa', 'dor  causa por esforço', 'sem medicamento', 'a dor permanece ja a duas semama', 'sem alergia', '2026-01-31 02:17:52', NULL, 'Exames pendentes', 'Com receita'),
+(49, 79, 1, 55, NULL, NULL, 'Dor de costa', 'Virose ou Gastroenterite', '', 'a dor permanece ja a duas semama', 'sem alergia', '2026-01-31 11:16:00', NULL, 'Finalizada', 'Com receita'),
+(50, 58, 1, 69, NULL, NULL, 'Dor de costa  e barriga', 'dor  causa por esforço', 'sem medicamento', 'a dor permanece ja a duas semama', 'sem alergia', '2026-01-31 11:39:31', NULL, 'Exames pendentes', 'Sem receita');
 
 -- --------------------------------------------------------
 
@@ -73,10 +76,9 @@ CREATE TABLE `tb_consulta_exames` (
 --
 
 INSERT INTO `tb_consulta_exames` (`id_exame_solicitado`, `id_consulta`, `id_funcionario`, `id_exame`, `estado_exame_solicitado`, `tipo_exame`, `emergencia_exame`, `criado_exameSolicitado`) VALUES
-(7, 16, 1, 14, 'solicitado', 'Imagem', 'Emergente', '2025-12-06 21:00:14'),
-(8, 16, 1, 13, 'solicitado', 'Imunologia', 'Urgente', '2025-12-06 21:00:14'),
-(9, 16, 1, 10, 'solicitado', 'Imunologia', 'Emergente', '2025-12-06 21:00:14'),
-(10, 21, 1, 14, 'concluído', 'Imagem', 'Pouco-Urgente', '2025-12-11 09:39:44');
+(25, 48, 1, 14, 'solicitado', 'Imagem', 'Não-Urgente', '2026-01-31 00:49:23'),
+(26, 49, 1, 14, 'solicitado', 'Imagem', 'Não-Urgente', '2026-01-31 00:51:51'),
+(27, 49, 1, 13, 'solicitado', 'Imagem', 'Emergente', '2026-01-31 00:51:51');
 
 -- --------------------------------------------------------
 
@@ -120,13 +122,6 @@ CREATE TABLE `tb_exame_resultado` (
   `imagem_resultado` varchar(70) DEFAULT NULL,
   `data_resultado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `tb_exame_resultado`
---
-
-INSERT INTO `tb_exame_resultado` (`id_resultado_exame`, `obs_resultado`, `id_exame_solicitado`, `parametro_resultado`, `resultado_exame`, `referencia_resultado`, `imagem_resultado`, `data_resultado`) VALUES
-(5, ' Positivo', 10, 'figado', 'bom', '12-16', NULL, '2025-12-11 09:39:44');
 
 -- --------------------------------------------------------
 
@@ -208,7 +203,7 @@ CREATE TABLE `tb_funcionario_nivel` (
 
 INSERT INTO `tb_funcionario_nivel` (`id_funcionario_nivel`, `id_usuario`, `id_nivel`) VALUES
 (2, 9, 17),
-(4, 2, 21),
+(4, 2, 29),
 (7, 10, 20),
 (12, 1, 17);
 
@@ -256,7 +251,9 @@ CREATE TABLE `tb_medicamento` (
 --
 
 INSERT INTO `tb_medicamento` (`id_medicamento`, `nome_medicamento`, `descricao_medicamento`, `dosagem_medicamento`, `forma_medicamento`, `tipo_medicamento`, `validade_medicamento`, `estoque_medicamento`, `preco_medicamento`, `fornecedor_medicamento`, `criado_medicamento`) VALUES
-(3, 'Paracetamol 50 mg', 'Para medicação febre alta e dor de cabeça forte', '500mg', 'Comprimido', 'Antiviral', '2026-01-10', 300, 300, '1', '2025-11-03 21:53:43');
+(3, 'Paracetamol 500 mg', 'Para medicação febre alta e dor de cabeça forte', '500mg', 'Comprimido', 'Antiviral', '2026-01-10', 300, 300, '1', '2025-11-03 21:53:43'),
+(4, 'Dipirona 500mg', 'analgesico e anttermico', '', 'Comprimido', '', '2026-01-30', 45, 800, '2', '2026-01-13 19:15:01'),
+(5, 'Amoxicilina 500mg', 'antibioltico', '', 'Comprimido', '', '0000-00-00', 30, 320, '12', '2026-01-13 19:16:06');
 
 -- --------------------------------------------------------
 
@@ -268,14 +265,21 @@ CREATE TABLE `tb_medicamento_prescrito` (
   `id` int(50) NOT NULL,
   `id_receita` int(50) NOT NULL,
   `id_medicamento` int(30) DEFAULT NULL,
-  `nome_medicamento` varchar(150) NOT NULL,
   `posologia_medicamento` text NOT NULL,
+  `via_administracao` varchar(60) DEFAULT NULL,
   `quantidade` int(10) UNSIGNED DEFAULT NULL,
   `duracao_dias` int(10) UNSIGNED DEFAULT NULL,
   `data_inicio` date DEFAULT NULL,
   `data_fim` date DEFAULT NULL,
   `observacoes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tb_medicamento_prescrito`
+--
+
+INSERT INTO `tb_medicamento_prescrito` (`id`, `id_receita`, `id_medicamento`, `posologia_medicamento`, `via_administracao`, `quantidade`, `duracao_dias`, `data_inicio`, `data_fim`, `observacoes`) VALUES
+(13, 23, 5, '2 comprimido 3 /dia', 'Intravenosa', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -299,7 +303,8 @@ INSERT INTO `tb_nivel` (`id_nivel`, `nome_nivel`, `descricao_nivel`, `criado_niv
 (20, 'Farmácia', 'Tem acesso apenas aos recursos da farmácia', '2025-10-09 02:44:20'),
 (21, 'Enfermagem', 'Tem permissão para gerenciar os pacientes e serviços de enfermagem', '2025-10-09 19:36:41'),
 (22, 'Médico', 'Acesso ao consultorio, pedido de exames e prescrever em consulta', '2025-10-19 08:58:50'),
-(28, 'Teste code', 're', '2025-11-03 20:10:18');
+(28, 'Teste code', 're', '2025-11-03 20:10:18'),
+(29, 'Recepção', 'Atendimento do balcao', '2025-12-19 13:56:10');
 
 -- --------------------------------------------------------
 
@@ -348,20 +353,23 @@ INSERT INTO `tb_nivel_permissoes` (`id_nivel`, `id_permissoes`, `id`) VALUES
 (20, 27, 59),
 (20, 28, 60),
 (20, 29, 61),
-(21, 23, 62),
-(21, 24, 63),
-(21, 34, 64),
-(21, 35, 65),
-(21, 36, 66),
-(21, 37, 67),
-(21, 38, 68),
-(21, 39, 69),
-(21, 40, 70),
 (17, 2, 100),
 (17, 12, 162),
 (28, 12, 163),
 (28, 2, 164),
-(28, 13, 165);
+(28, 13, 165),
+(21, 23, 166),
+(21, 24, 167),
+(21, 34, 168),
+(21, 35, 169),
+(21, 36, 170),
+(21, 38, 171),
+(21, 39, 172),
+(21, 40, 173),
+(29, 23, 174),
+(29, 24, 175),
+(29, 34, 176),
+(29, 40, 177);
 
 -- --------------------------------------------------------
 
@@ -397,12 +405,15 @@ CREATE TABLE `tb_paciente` (
 --
 
 INSERT INTO `tb_paciente` (`id_paciente`, `nome_paciente`, `bilhete_paciente`, `genero_paciente`, `nacionalidade_paciente`, `nascimento_paciente`, `pai_paciente`, `mae_paciente`, `responsavel_paciente`, `telefoneResponsavel_paciente`, `motivo_paciente`, `email_paciente`, `telefone1_paciente`, `telefone2_paciente`, `morada_paciente`, `imagem_paciente`, `documentos_paciente`, `estado_paciente`, `id_funcionario`, `create_paciente`) VALUES
-(5, 'Gabriela Carlos Xavier ', '', 'Feminino', '', '1975-07-23', '', '', '', 0, '', '', 0, 0, '', 'anonimo.png', NULL, 'Activo', 12, '2025-11-27 13:26:42'),
-(38, 'Zélianey Camila Santos Barros', '', 'Feminino', '', '1998-04-07', NULL, NULL, NULL, NULL, NULL, 'UNIQUE', NULL, NULL, NULL, 'anonimo.png', NULL, 'Em observação', 1, '2025-12-10 22:17:04'),
-(49, 'Americo Zeusuita', '0033ALA008001', 'Masculino', 'Estrangeiro', '1985-12-10', 'Xaison', 'Madalena', 'Americo', 950006986, 'Casa n 22, Rua A Zango 2', 'americo@gmail.com', 811901881, 992567861, 'Casa n 22, Rua A Zango 2', 'anonimo.png', 'documentos', 'Em tratamento', 1, '2025-12-11 00:09:58'),
-(58, 'Daniela Sara Fernandos', '000CU008922', 'Feminino', '', '2005-12-22', '', '', '', 0, '', 'UNIQUE', 0, 0, '', 'anonimo.png', NULL, 'Aguardando', 1, '2025-12-02 09:54:00'),
-(79, 'Laurinda Sousa', '', 'Feminino', 'Angolana', '2010-12-16', '', '', '', 0, '', '', 991019981, 0, 'Município Cazengo bairro 21, Rua 12', 'perfil22.png', 'documentos', 'Activo', 1, '2025-12-09 22:40:03'),
-(81, 'Serana wilian Zamara', '', 'Feminino', 'Angolana', '1986-12-14', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, 'Aguardando', 1, '2025-12-10 17:50:58');
+(5, 'Gabriela Carlos Xavier ', '', 'Feminino', '', '1975-07-23', '', '', '', 0, '', '', 0, 0, '', 'anonimo.png', NULL, 'Em observação', 12, '2026-01-22 00:48:46'),
+(38, 'Zélianey Camila Santos Barros', '', 'Feminino', '', '1998-04-07', NULL, NULL, NULL, NULL, NULL, 'UNIQUE', NULL, NULL, NULL, 'anonimo.png', NULL, 'Em tratamento', 1, '2026-01-15 13:45:53'),
+(49, 'Americo Zeusuita', '0033ALA008001', 'Masculino', 'Estrangeiro', '1985-12-10', 'Xaison', 'Madalena', 'Americo', 950006986, 'Casa n 22, Rua A Zango 2', 'americo@gmail.com', 811901881, 992567861, 'Casa n 22, Rua A Zango 2', 'anonimo.png', 'documentos', 'Em tratamento', 1, '2026-01-27 11:53:57'),
+(58, 'Daniela Sara Fernandos', '000CU008922', 'Feminino', '', '2005-12-22', '', '', '', 0, '', 'UNIQUE', 0, 0, '', 'anonimo.png', NULL, 'Em tratamento', 1, '2026-01-31 11:11:51'),
+(79, 'Laurinda Sousa', '', 'Feminino', 'Angolana', '2010-12-16', '', '', '', 0, '', '', 991019981, 0, 'Município Cazengo bairro 21, Rua 12', 'perfil22.png', 'documentos', 'Em observação', 1, '2026-01-31 00:53:24'),
+(81, 'Serana wilian Zamara', '', 'Feminino', 'Angolana', '1986-12-14', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, 'Em observação', 1, '2025-12-19 13:40:57'),
+(83, 'Mauro Abel', '', 'Masculino', 'Angolana', '2007-01-25', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'anonimo.png', NULL, 'Aguardando', 1, '2026-01-31 11:01:38'),
+(85, 'Nelson Dos Santos', '', 'Masculino', 'Angolana', '2010-09-20', '', '', '', 0, 'Viana Zango 5', 'nelson@hotmail.com', 990123982, 0, 'Viana Zango 5', 'perfil100.png', 'documentos', 'Aguardando', 1, '2026-01-31 10:57:20'),
+(86, 'Fernanda', '', 'Feminino', 'Angolana', '2014-01-15', '', '', '', 0, '', '', 990123982, 0, '', 'anonimo.png', 'documentos', 'Aguardando', 1, '2026-01-31 11:10:14');
 
 -- --------------------------------------------------------
 
@@ -465,7 +476,7 @@ INSERT INTO `tb_permissoes` (`id_permissao`, `nome_permissao`, `codigo_permisao`
 --
 
 CREATE TABLE `tb_receita` (
-  `id_recita` int(50) NOT NULL,
+  `id_receita` int(50) NOT NULL,
   `id_paciente` int(50) NOT NULL,
   `id_consulta` int(50) NOT NULL,
   `id_funcionario` int(11) NOT NULL,
@@ -475,6 +486,13 @@ CREATE TABLE `tb_receita` (
   `observacoes` text DEFAULT NULL,
   `status` enum('ativa','cancelada') DEFAULT 'ativa'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `tb_receita`
+--
+
+INSERT INTO `tb_receita` (`id_receita`, `id_paciente`, `id_consulta`, `id_funcionario`, `data_receita`, `alergias`, `medicamentos_em_uso`, `observacoes`, `status`) VALUES
+(23, 79, 49, 1, '2026-01-31 03:17:34', NULL, NULL, 'descanso durante a medicação', 'ativa');
 
 -- --------------------------------------------------------
 
@@ -520,10 +538,8 @@ CREATE TABLE `tb_triagem` (
 --
 
 INSERT INTO `tb_triagem` (`id_triagem`, `id_paciente`, `id_funcionario`, `peso_triagem`, `temperatura_triagem`, `pressao_arterial_triagem`, `frequencia_respiratorio_triagem`, `Saturacao_oxigenio_triagem`, `frequencia_cardiaca_triagem`, `observacao_triagem`, `data_triagem`, `risco_triagem`) VALUES
-(32, 38, 1, '87', '36', '56', '39', '96', '110', 'Condição física moral', '2025-11-27 13:58:56', 'e'),
-(44, 49, 1, '89', '36', '120', '81', '93', '90', 'Dor de barriga', '2025-12-01 18:12:57', 'e'),
-(47, 58, 1, '45', '39', '29', '77', '62', '22', 'Varicela ', '2025-12-02 09:54:00', 'd'),
-(52, 81, 1, '', '36', '', '', '', '', '', '2025-12-10 17:50:58', 'e');
+(68, 86, 1, '50', '36', '333', '33', '33', '33', 'dor musclares', '2026-01-31 11:10:14', 'e'),
+(69, 58, 1, '', '36', '', '', '', '', '', '2026-01-31 11:11:15', 'e');
 
 --
 -- Índices para tabelas despejadas
@@ -628,10 +644,10 @@ ALTER TABLE `tb_permissoes`
 -- Índices para tabela `tb_receita`
 --
 ALTER TABLE `tb_receita`
-  ADD PRIMARY KEY (`id_recita`),
-  ADD KEY `id_paciente` (`id_paciente`),
-  ADD KEY `id_consulta` (`id_consulta`),
-  ADD KEY `id_funcionario` (`id_funcionario`);
+  ADD PRIMARY KEY (`id_receita`),
+  ADD KEY `id_funcionario` (`id_funcionario`),
+  ADD KEY `tb_receita_ibfk_1` (`id_paciente`),
+  ADD KEY `tb_receita_ibfk_2` (`id_consulta`);
 
 --
 -- Índices para tabela `tb_receita1`
@@ -654,13 +670,13 @@ ALTER TABLE `tb_triagem`
 -- AUTO_INCREMENT de tabela `tb_consulta`
 --
 ALTER TABLE `tb_consulta`
-  MODIFY `id_consulta` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_consulta` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de tabela `tb_consulta_exames`
 --
 ALTER TABLE `tb_consulta_exames`
-  MODIFY `id_exame_solicitado` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_exame_solicitado` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `tb_exame`
@@ -672,7 +688,7 @@ ALTER TABLE `tb_exame`
 -- AUTO_INCREMENT de tabela `tb_exame_resultado`
 --
 ALTER TABLE `tb_exame_resultado`
-  MODIFY `id_resultado_exame` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_resultado_exame` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `tb_fornecedor`
@@ -702,31 +718,31 @@ ALTER TABLE `tb_marcacao_consulta`
 -- AUTO_INCREMENT de tabela `tb_medicamento`
 --
 ALTER TABLE `tb_medicamento`
-  MODIFY `id_medicamento` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_medicamento` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tb_medicamento_prescrito`
 --
 ALTER TABLE `tb_medicamento_prescrito`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `tb_nivel`
 --
 ALTER TABLE `tb_nivel`
-  MODIFY `id_nivel` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_nivel` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de tabela `tb_nivel_permissoes`
 --
 ALTER TABLE `tb_nivel_permissoes`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT de tabela `tb_paciente`
 --
 ALTER TABLE `tb_paciente`
-  MODIFY `id_paciente` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_paciente` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de tabela `tb_permissoes`
@@ -738,7 +754,7 @@ ALTER TABLE `tb_permissoes`
 -- AUTO_INCREMENT de tabela `tb_receita`
 --
 ALTER TABLE `tb_receita`
-  MODIFY `id_recita` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_receita` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `tb_receita1`
@@ -750,7 +766,7 @@ ALTER TABLE `tb_receita1`
 -- AUTO_INCREMENT de tabela `tb_triagem`
 --
 ALTER TABLE `tb_triagem`
-  MODIFY `id_triagem` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_triagem` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Restrições para despejos de tabelas
@@ -780,7 +796,7 @@ ALTER TABLE `tb_funcionario_nivel`
 -- Limitadores para a tabela `tb_medicamento_prescrito`
 --
 ALTER TABLE `tb_medicamento_prescrito`
-  ADD CONSTRAINT `tb_medicamento_prescrito_ibfk_1` FOREIGN KEY (`id_receita`) REFERENCES `tb_receita` (`id_recita`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_medicamento_prescrito_ibfk_1` FOREIGN KEY (`id_receita`) REFERENCES `tb_receita` (`id_receita`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_medicamento_prescrito_ibfk_2` FOREIGN KEY (`id_medicamento`) REFERENCES `tb_medicamento` (`id_medicamento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -794,8 +810,8 @@ ALTER TABLE `tb_nivel_permissoes`
 -- Limitadores para a tabela `tb_receita`
 --
 ALTER TABLE `tb_receita`
-  ADD CONSTRAINT `tb_receita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `tb_paciente` (`id_paciente`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_receita_ibfk_2` FOREIGN KEY (`id_consulta`) REFERENCES `tb_consulta` (`id_consulta`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_receita_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `tb_paciente` (`id_paciente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_receita_ibfk_2` FOREIGN KEY (`id_consulta`) REFERENCES `tb_consulta` (`id_consulta`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_receita_ibfk_3` FOREIGN KEY (`id_funcionario`) REFERENCES `tb_funcionario` (`id_funcionario`);
 
 --
