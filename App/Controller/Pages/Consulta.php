@@ -215,4 +215,46 @@ class Consulta extends Page
         ]);
         return parent::getPage('Cadastrar nova Consulta', $content);
     }
+
+
+
+     /* Metodo que marca a consulta
+    public static function getMarcarConsulta($request, $id_paciente)
+    {
+        $content = View::render('consultorio/formMarcarConsulta', [
+            'titulo' => 'Marcação de consulta',
+            'button' => 'Salvar',
+            'dia' => '',
+            'hora' => '',
+            'obs' => '',
+            'valor' => '',
+            'tempo' => '',
+        ]);
+        return parent::getPage('Marcação de consulta', $content);
+    }
+    // Metodo que marca a consulta
+    public static function setMarcarConsulta($request, $id_paciente)
+    {
+        //$obConsultorio = new ConsultorioDao;
+
+        if (isset($_POST['salvar'])) {
+
+            // $obZona->zona = $_POST['zona'];
+
+            // Redireciona validaçao e gerar consulta
+            $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
+        }
+
+        $content = View::render('consultorio/formConsulta2', [
+            'titulo' => 'Ficha de Consulta',
+            'nome' => '',
+            'button' => 'Salvar',
+            'diagnostico' => '',
+            'obs' => '',
+            'motivo' => '',
+
+        ]);
+        return parent::getPage('Ficha - consulta', $content);
+    }
+    */
 }

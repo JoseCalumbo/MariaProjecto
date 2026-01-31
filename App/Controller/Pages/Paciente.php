@@ -386,7 +386,7 @@ class Paciente extends Page
             $obTriagem->observacao_triagem = $_POST['obs'];
 
             // Método de acesso para enviar dados para cadastrar triagem
-            $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
+             $id_triagem = $obTriagem->cadastrarNovaTriagem($idPaciente);
 
             // Seleciona o paciente pelo ID
             $obPaciente = PacienteDao::getPacienteId($obTriagem->id_paciente);
@@ -398,6 +398,7 @@ class Paciente extends Page
 
             exit;
         }
+
         $content = View::render('triagem/formAddTriagem', [
             'titulo' => ' ' . $obPaciente->nome_paciente . ' - Registrar Nova triagem',
             'pesquisar' => '',

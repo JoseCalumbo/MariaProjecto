@@ -31,8 +31,8 @@ class Consultorio extends Page
             case 'cadastrado':
                 return MensagemAdmin::msgSucesso('Consulta registrada com sucesso');
                 break;
-            case 'alterado':
-                return MensagemAdmin::msgSucesso('Exame Alterado com sucesso');
+            case 'finalizado':
+                return MensagemAdmin::msgSucesso('Consulta finalizada');
                 break;
             case 'validar':
                 return MensagemAdmin::msgAlerta('Consulta foi salva no histórico do paciente e pode ser acessada a qualquer momento, mas é necessario validar ou finalizar o seu estado');
@@ -141,22 +141,25 @@ class Consultorio extends Page
 
         while ($obMeuPacientesConsulta = $resultado->fetchObject(ConsultaDao::class)) {
 
-        // echo '<pre>';
-        // print_r( $obMeuPacientesConsulta );
-        // echo '</pre>';
-        
-            $item .= View::render('consultorio/listarMeusPaciente', [
-                'id_consulta' => $obMeuPacientesConsulta->id_consulta,
-                'id_triagem' => $obMeuPacientesConsulta->id_triagem,
-                'id_paciente' => $obMeuPacientesConsulta->id_paciente,
-                'id_receita' => $obMeuPacientesConsulta->id_paciente,
-                'imagem' => $obMeuPacientesConsulta->imagem_paciente,
-                'nome_paciente' => $obMeuPacientesConsulta->nome_paciente,
-                'receita' =>  !empty($obMeuPacientesConsulta->add_receita_consulta) ? $obMeuPacientesConsulta->add_receita_consulta : "______",
-                'exames' => $obMeuPacientesConsulta->estado_consulta  == "Exames pendentes" ? $obMeuPacientesConsulta->estado_consulta : "Sem exames",
-                'estado' => $obMeuPacientesConsulta->estado_paciente,
-            ]);
-        }
+            // echo '<pre>';
+            // print_r( $obMeuPacientesConsulta );
+            // echo '</pre>';
+
+            if ($obMeuPacientesConsulta->estado_consulta !== 'Finalizada') {
+
+                $item .= View::render('consultorio/listarMeusPaciente', [
+                    'id_consulta' => $obMeuPacientesConsulta->id_consulta,
+                    'id_triagem' => $obMeuPacientesConsulta->id_triagem,
+                    'id_paciente' => $obMeuPacientesConsulta->id_paciente,
+                    'id_receita' => $obMeuPacientesConsulta->id_paciente,
+                    'imagem' => $obMeuPacientesConsulta->imagem_paciente,
+                    'nome_paciente' => $obMeuPacientesConsulta->nome_paciente,
+                    'receita' =>  !empty($obMeuPacientesConsulta->add_receita_consulta) ? $obMeuPacientesConsulta->add_receita_consulta : "______",
+                    'exames' => $obMeuPacientesConsulta->estado_consulta  == "Exames pendentes" ? $obMeuPacientesConsulta->estado_consulta : "Sem exames",
+                    'estado' => $obMeuPacientesConsulta->estado_paciente,
+                ]);
+            }
+        } // exit;
 
         $queryParam = $request->getQueryParams();
 
@@ -178,25 +181,69 @@ class Consultorio extends Page
                                                 </tr>';
     }
 
-
-    // Metodo que apresenta os pacientes agendados
+    // Metodo que apresenta os meus pacientes finalizados 
     private static function getConsultaFinalizada($request, &$obPagination)
     {
+        $queryParam = $request->getQueryParams();
+
+        $obPagination = new Pagination(null, null, null);
+
         // Var que retorna o conteudo
         $item = '';
 
-        $resultado = MarcarConsultaDao::listarConsultaMarcada();
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
 
-        while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
+        $condicoes = [
+            strlen($buscar) ? 'nome_paciente LIKE "%' . $buscar . '%"' : null,
+        ];
 
-            $item .= View::render('consultorio/listarAgenda', [
-                'id_triagem' => "",
-                'id_paciente' => "",
-                'tipo' => "Consulta geral",
-                'nome_paciente' => "",
-                'dataMarcacao' => "12-10-2026",
-                'dataConsulta' => "12-10-2026",
-                'estado' => "",
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
+
+        //quantidade total de registros da tabela user
+        $quantidadetotal = ConsultaDao::listarConsultaFeita($where, 'nome_paciente', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+
+        //pagina actual 
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        // instancia de paginacao
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 10);
+
+        $resultado = ConsultaDao::listarConsultaFeita($where, 'nome_paciente', $obPagination->getLimit());
+
+        while ($obMeuPacientesConsulta = $resultado->fetchObject(ConsultaDao::class)) {
+
+            // echo '<pre>';
+            // print_r( $obMeuPacientesConsulta );
+            // echo '</pre>';
+
+            if ($obMeuPacientesConsulta->estado_consulta == 'Finalizada') {
+
+                $item .= View::render('consultorio/listarConsultaFinalizada', [
+                    'id_consulta' => $obMeuPacientesConsulta->id_consulta,
+                    'id_triagem' => $obMeuPacientesConsulta->id_triagem,
+                    'id_paciente' => $obMeuPacientesConsulta->id_paciente,
+                    'id_receita' => $obMeuPacientesConsulta->id_paciente,
+                    'imagem' => $obMeuPacientesConsulta->imagem_paciente,
+                    'nome_paciente' => $obMeuPacientesConsulta->nome_paciente,
+                    'receita' =>  !empty($obMeuPacientesConsulta->add_receita_consulta) ? $obMeuPacientesConsulta->add_receita_consulta : "______",
+                    'exames' => $obMeuPacientesConsulta->estado_consulta  == "Exames pendentes" ? $obMeuPacientesConsulta->estado_consulta : "Sem exames",
+                    'estado' => $obMeuPacientesConsulta->estado_paciente,
+                ]);
+            }
+        } // exit;
+
+        $queryParam = $request->getQueryParams();
+
+        if ($queryParam['pesquisar'] ?? '') {
+
+            return View::render('pesquisar/box_resultado', [
+                'pesquisa' => $buscar,
+                'resultados' => $item,
+                'numResultado' => $quantidadetotal,
+                'item' => '',
+
             ]);
         }
 
@@ -206,6 +253,35 @@ class Consultorio extends Page
                                                     </td>
                                                 </tr>';
     }
+
+
+    // // Metodo que apresenta os pacientes agendados
+    // private static function getConsultaFinalizada1($request, &$obPagination)
+    // {
+    //     // Var que retorna o conteudo
+    //     $item = '';
+
+    //     $resultado = MarcarConsultaDao::listarConsultaMarcada();
+
+    //     while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
+
+    //         $item .= View::render('consultorio/listarAgenda', [
+    //             'id_triagem' => "",
+    //             'id_paciente' => "",
+    //             'tipo' => "Consulta geral",
+    //             'nome_paciente' => "",
+    //             'dataMarcacao' => "12-10-2026",
+    //             'dataConsulta' => "12-10-2026",
+    //             'estado' => "",
+    //         ]);
+    //     }
+
+    //     return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+    //                                                <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
+    //                                                 Sem consultas finalizada.
+    //                                                 </td>
+    //                                             </tr>';
+    // }
 
 
     // Método para apresenatar os registos do exames finalizados
@@ -413,14 +489,14 @@ class Consultorio extends Page
         $obConsultaRealizada = ConsultaDao::getConsultaRelizada($id_consulta);
 
         //quantidade total dos exames adicionado ha consulta
-        $totalExameAdicionado = ExameSolicitadoDao::mostraExameSolicitado('id_consulta = '.$id_consulta.'', null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+        $totalExameAdicionado = ExameSolicitadoDao::mostraExameSolicitado('id_consulta = ' . $id_consulta . '', null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         // obtem o id da triagem
         $idTriagem = $obConsultaRealizada->id_triagem;
         //Instancia da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($idTriagem);
 
-       // $a = $totalExameAdicionado > 0 ? "com exame" : "Nenhum exame";
+        // $a = $totalExameAdicionado > 0 ? "com exame" : "Nenhum exame";
 
         $content = View::render('consultorio/formConfirmaConsulta', [
 
@@ -472,7 +548,6 @@ class Consultorio extends Page
         return parent::getPage('Validação da consulta', $content);
     }
 
-
     // Metodo para apresentar a tela de validação da consulta 
     public static function setValidarConsulta($request, $id_consulta)
     {
@@ -506,7 +581,7 @@ class Consultorio extends Page
     }
 
 
-    // Metodo que apresenta os pacientes aspera da consulta
+    // Metodo que apresenta os exames da consulta
     private static function getConsultaExame($id_consulta)
     {
         $item2 = '';
@@ -548,7 +623,7 @@ class Consultorio extends Page
         return $tabela;
     }
 
-    // Metodo que apresenta os pacientes aspera da consulta
+    // Metodo que apresenta as receitas da consulta
     private static function getConsultaReceita($id_consulta)
     {
         $item = '';
@@ -613,43 +688,33 @@ class Consultorio extends Page
     }
 
 
-    /* Metodo que marca a consulta
-    public static function getMarcarConsulta($request, $id_paciente)
+    // Metodo que inicia as consultas
+    public static function getFinalizarConsulta($request, $id_consulta)
     {
-        $content = View::render('consultorio/formMarcarConsulta', [
-            'titulo' => 'Marcação de consulta',
-            'button' => 'Salvar',
-            'dia' => '',
-            'hora' => '',
-            'obs' => '',
-            'valor' => '',
-            'tempo' => '',
-        ]);
-        return parent::getPage('Marcação de consulta', $content);
+        // Seleciona a Consulta pelo id
+        $obConsulta = ConsultaDao::getConsulta($id_consulta);
+
+        $obConsulta->estadoConsulta('Finalizada');
+
+        $request->getRouter()->redirect('/consulta?msg=finalizado');
+        exit;
+
+
+        // $TriagemPaciente = new TriagemDao;
+
+        // if (isset($_POST['Salvar'], $_POST['confirmo'],)) {
+
+        //     $TriagemPaciente->apagarTriagemPaciente($id_consulta);
+
+        //     $obConsulta->apagarPaciente();
+
+        //     $request->getRouter()->redirect('/paciente?msg=apagado');
+        // } else {
+
+        //     $request->getRouter()->redirect('/paciente?msg=confirma');
+        // }
+
+
+
     }
-    // Metodo que marca a consulta
-    public static function setMarcarConsulta($request, $id_paciente)
-    {
-        //$obConsultorio = new ConsultorioDao;
-
-        if (isset($_POST['salvar'])) {
-
-            // $obZona->zona = $_POST['zona'];
-
-            // Redireciona validaçao e gerar consulta
-            $request->getRouter()->redirect('/consulta/validar?msg=cadastrado');
-        }
-
-        $content = View::render('consultorio/formConsulta2', [
-            'titulo' => 'Ficha de Consulta',
-            'nome' => '',
-            'button' => 'Salvar',
-            'diagnostico' => '',
-            'obs' => '',
-            'motivo' => '',
-
-        ]);
-        return parent::getPage('Ficha - consulta', $content);
-    }
-    */
 }

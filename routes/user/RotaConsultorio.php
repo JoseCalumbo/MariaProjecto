@@ -51,7 +51,8 @@ $obRouter->get('/consulta/atender/{id_triagem}',[
     function($request,$id_triagem){ return new Response(200,Pages\Consultorio::getcadastrarConsulta($request,$id_triagem)); }
 ]);
 
-// rota para finalizar consulta GET
+
+// rota para validar consulta GET
 $obRouter->get('/consulta/validar/{id_consulta}',[
     'middlewares'=>[
         'requer-login',
@@ -60,7 +61,7 @@ $obRouter->get('/consulta/validar/{id_consulta}',[
     function($request,$id_consulta){ return new Response(200,Pages\Consultorio::getValidarConsulta($request,$id_consulta)); }
 ]);
 
-// rota para finalizar consulta GET
+// rota para validar consulta POST
 $obRouter->post('/consulta/validar/{id_consulta}',[
     'middlewares'=>[
         'requer-login',
@@ -68,6 +69,24 @@ $obRouter->post('/consulta/validar/{id_consulta}',[
     ],
     function($request,$id_consulta){ return new Response(200,Pages\Consultorio::setValidarConsulta($request,$id_consulta)); }
 ]);
+
+// rota para finalizar consulta GET
+$obRouter->post('/consulta/finalizar/{id_consulta}',[
+    'middlewares'=>[
+        'requer-login',
+        'nivel-acesso'
+    ],
+    function($request,$id_consulta){ return new Response(200,Pages\Consultorio::getFinalizarConsulta($request,$id_consulta)); }
+]);
+
+// rota para finalizar consulta POST
+// $obRouter->post('/consulta/finalizar/{id_consulta}',[
+//     'middlewares'=>[
+//         'requer-login',
+//         'nivel-acesso'
+//     ],
+//     function($request,$id_consulta){ return new Response(200,Pages\Consultorio::setFinalizarConsulta($request,$id_consulta)); }
+// ]);
 
 
 

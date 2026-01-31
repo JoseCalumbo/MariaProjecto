@@ -15,7 +15,8 @@
             <ul class="right hide-on-med-and-down">
 
                 <li class="capitalize disabled">
-                    <a href="{{URL}}" class="{{acessoHome}}" style="font-size: 13px; text-transform: capitalize;font-weight: 900;">
+                    <a href="{{URL}}" class="{{acessoHome}}"
+                        style="font-size: 13px; text-transform: capitalize;font-weight: 900;">
                         <i class="material-icons left icon-tight" style="font-size: 18px;">home</i>Inicio
                     </a>
                 </li>
@@ -194,9 +195,16 @@
         <!--dropdown consultório-->
         <ul id="dropdown-consulta" class="dropdown-content">
             <li>
+                <a href="{{URL}}/consulta-diaria" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
+                    data-target="dropdown-cadstramento">
+                    <i class="material-icons left">note_alt</i> Atender Consulta-diaria
+                </a>
+            </li>
+
+            <li>
                 <a href="{{URL}}/consulta" class="dropdown-trigger-sub {{acessoNegado}} font-normal"
                     data-target="dropdown-cadstramento">
-                    <i class="material-icons left">note_alt</i> Atendimento - consultório
+                    <i class="material-icons left">medical_information</i> Minhas Consultas
                 </a>
             </li>
 
@@ -371,11 +379,12 @@
         <li><a href="{{URL}}/paciente"><i class="material-icons">medical_information</i>Paciente</a></li>
         <li><a href="{{URL}}/laboratorio"><i class="material-icons">science</i>Laboratório</a></li>
         <li><a href="{{URL}}/farmacia"><i class="material-icons">vaccines</i>Farmácia</a></li>
-        <li><div class="divider"></div></li>
+        <li>
+            <div class="divider"></div>
+        </li>
         <li><a href="{{URL}}/conta"><i class="material-icons">account_circle</i>Minha Conta</a></li>
         <li><a href="{{URL}}/contabilidade"><i class="material-icons">local_hospital</i>Contabilidade</a></li>
         <li><a href="{{URL}}/tesouraria"><i class="material-icons">bar_chart</i>Tesouraria</a></li>
         <li><a href="{{URL}}/utilitario"><i class="material-icons">build</i>Utilitarios</a></li>
     </ul>
 </header>
-
