@@ -42,7 +42,7 @@ class Prescrisao extends Page
     $resultadoPrescrito = '';
     $numero = 1;
 
-    $listarMedicamentoPrescrito = MedicamentoPrescritoDao::listarMedicamentoPresecrito('r.id_receita = '.$id_receita.'', 'nome_medicamento');
+    $listarMedicamentoPrescrito = MedicamentoPrescritoDao::listarMedicamentoPresecrito('r.id_receita = ' . $id_receita . '', 'nome_medicamento');
 
     while ($obMedicamento = $listarMedicamentoPrescrito->fetchObject(MedicamentoPrescritoDao::class)) {
 
@@ -53,7 +53,7 @@ class Prescrisao extends Page
         'posologia' => $obMedicamento->nome_medicamento,
       ]);
 
-      $numero ++;
+      $numero++;
     }
     return $resultadoPrescrito;
   }
@@ -128,13 +128,19 @@ class Prescrisao extends Page
           $obMedicamentoPrescrito->cadastrarMedicamentosPrescrito();
         }
 
+        // troca o estado 
+        $obConsulta->estadoConsultaReceita('Com receita');
+
         sleep(2);
         // Redireciona validaçao e gerar consulta depois dos exames
         $request->getRouter()->redirect('/receita/validar/' . $idReceita . '?msg=validar');
       } else {
+        
+        // troca o estado 
+        $obConsulta->estadoConsultaReceita('Com receita');
 
         sleep(2);
-        // Redireciona validaçao e gerar consulta sem exame
+        // Redireciona 
         $request->getRouter()->redirect('/receita/validar/' . $idReceita . '?msg=validar');
       }
     }
@@ -185,6 +191,20 @@ class Prescrisao extends Page
 
   // Metodo responsavel por finalizar a receita POST
   public static function setReceitaFinalizada($request, $id_receita) {}
+
+  // Metodo responsavel redireceiona para imprimir a receita
+  public static function getImprimir($request, $id_consulta)
+  {
+
+    //Obtem a receita finalizada por id
+    $obReceitaConsulta = ReceitaDao::getReceitaIDconsulta($id_consulta);
+
+    // Obtem a receita finalizada por id
+    $obReceita = ReceitaDao::getReceitaID($obReceitaConsulta->id_receita);
+
+    // Redireciona para imprimir receita
+    $request->getRouter()->redirect('/receita/imprimir/' . $obReceita->id_receita . '');
+  }
 
 
   public static function analizarComIA($nome, $idade, $peso, $sintomas, $diagnostico, $alergia, $usoMedicamento)

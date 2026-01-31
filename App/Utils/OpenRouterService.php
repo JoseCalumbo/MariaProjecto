@@ -30,7 +30,7 @@ class OpenRouterService
 
         $payload = [
             "model" => $model ?? $this->model,
-            'max_tokens' => 500, // <<< MUITO IMPORTANTE
+            'max_tokens' => 350, // <<< MUITO IMPORTANTE
             'stream' => true,
             "messages" => [
                 ["role" => "user", "content" => $userMessage]

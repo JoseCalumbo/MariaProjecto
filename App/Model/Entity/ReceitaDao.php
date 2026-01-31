@@ -51,6 +51,11 @@ class ReceitaDao
     {
         return (new Database('tb_receita'))->select('id_receita = ' . $id_receita)->fetchObject(self::class);
     }
+    //Metodo para  selecionar um registro da tabela receita
+    public static function getReceitaIDconsulta($id_receita)
+    {
+        return (new Database('tb_receita'))->select('id_consulta = ' . $id_receita)->fetchObject(self::class);
+    }
 
 
     # Apresenta os resultado da tabela exames Solicitados

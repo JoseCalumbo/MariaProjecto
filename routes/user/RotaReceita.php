@@ -69,3 +69,15 @@ $obRouter->post('/receita/validar/{id_receita}',[
     function($request,$id_receita){ return new Response(200,Pages\Prescrisao::setReceitaFinalizada($request,$id_receita)); }
 ]);
 
+
+
+
+// Apresenta a tela de gereciamento de Prescricao  e sua listagem GET
+$obRouter->get('/receita/imprimi/{id_consulta}', [
+    'middlewares' => [
+        'requer-login'
+    ],
+    function ($request,$id_consulta) {
+        return new Response(200,Pages\Prescrisao::getImprimir($request, $id_consulta));
+    }
+]);

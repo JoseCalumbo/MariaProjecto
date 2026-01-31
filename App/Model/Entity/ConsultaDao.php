@@ -69,6 +69,13 @@ class ConsultaDao
             'estado_consulta' => $this->estado_consulta = $estado,
         ]);
     }
+    //Método responsavel trocar o estado da consulta para receita
+    public function estadoConsultaReceita($estado)
+    {
+        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+            'add_receita_consulta' => $this->add_receita_consulta = $estado,
+        ]);
+    }
 
     // Método responsavel para selecionar uma consulta
     public static function getConsulta($id_consulta)

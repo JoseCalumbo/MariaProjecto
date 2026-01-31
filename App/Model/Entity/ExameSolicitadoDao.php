@@ -108,6 +108,12 @@ class ExameSolicitadoDao
                               WHERE ce.estado_exame_solicitado = "solicitado"'))->select($where, $order, $limit, $fields);
     }
 
+    # Apresenta os exames Solicitados
+    public static function mostraExameSolicitado($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('tb_consulta_exames'))->select($where, $order, $limit, $fields);
+    }
+
     # Apresenta o numero total de exames Solicitados em uma consulta
     public static function quantidadeExameSolicitado($id_consulta, $order = null, $limit = null, $fields = '*')
     {

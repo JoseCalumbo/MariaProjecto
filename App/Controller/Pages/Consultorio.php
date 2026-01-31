@@ -3,6 +3,7 @@
 namespace App\Controller\Pages;
 
 use App\Model\Entity\ConsultaDao;
+use App\Model\Entity\ReceitaDao;
 use App\Model\Entity\ExameDao;
 use App\Model\Entity\ExameSolicitadoDao;
 use App\Model\Entity\MarcarConsultaDao;
@@ -140,10 +141,15 @@ class Consultorio extends Page
 
         while ($obMeuPacientesConsulta = $resultado->fetchObject(ConsultaDao::class)) {
 
+        // echo '<pre>';
+        // print_r( $obMeuPacientesConsulta );
+        // echo '</pre>';
+        
             $item .= View::render('consultorio/listarMeusPaciente', [
                 'id_consulta' => $obMeuPacientesConsulta->id_consulta,
                 'id_triagem' => $obMeuPacientesConsulta->id_triagem,
                 'id_paciente' => $obMeuPacientesConsulta->id_paciente,
+                'id_receita' => $obMeuPacientesConsulta->id_paciente,
                 'imagem' => $obMeuPacientesConsulta->imagem_paciente,
                 'nome_paciente' => $obMeuPacientesConsulta->nome_paciente,
                 'receita' =>  !empty($obMeuPacientesConsulta->add_receita_consulta) ? $obMeuPacientesConsulta->add_receita_consulta : "______",
@@ -332,7 +338,7 @@ class Consultorio extends Page
                 $obConsulta->medicamentoUso_consulta = $_POST['medicamentoUso'];
                 $obConsulta->alergia_consulta = $_POST['alergia'];
                 $obConsulta->observacao_consulta = $_POST['obs'];
-                $obConsulta->add_receita_consulta = isset($_POST['examesTipo']) ? 'Sem receita' : 'Sem receita';
+                $obConsulta->add_receita_consulta = 'Sem receita';
                 $idconsulta = $obConsulta->cadastrarConsulta();
             }
 
@@ -403,12 +409,18 @@ class Consultorio extends Page
     // Metodo para apresentar a tela de validação da consulta 
     public static function getValidarConsulta($request, $id_consulta)
     {
+        // obtem a consulta realizada
         $obConsultaRealizada = ConsultaDao::getConsultaRelizada($id_consulta);
+
+        //quantidade total dos exames adicionado ha consulta
+        $totalExameAdicionado = ExameSolicitadoDao::mostraExameSolicitado('id_consulta = '.$id_consulta.'', null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
 
         // obtem o id da triagem
         $idTriagem = $obConsultaRealizada->id_triagem;
         //Instancia da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($idTriagem);
+
+       // $a = $totalExameAdicionado > 0 ? "com exame" : "Nenhum exame";
 
         $content = View::render('consultorio/formConfirmaConsulta', [
 
@@ -418,8 +430,8 @@ class Consultorio extends Page
             "buttonValidar" => "Salvar",
             "buttoncancelar" => "Anular consulta",
 
-            "disabled-btn-Validar" => $obConsultaRealizada->add_receita_consulta == "Com receita" ? "" : "disabled",
-            "disabled-btn-ExamePedente" => $obConsultaRealizada->add_receita_consulta == "Sem receita" ? "" : "disabled",
+            "disabled-btn-Validar" => $totalExameAdicionado == 0 ? "com exame" : "disabled",
+            "disabled-btn-ExamePedente" => $totalExameAdicionado > 0 ? "com exame" : "disabled",
 
             // dados do paciente
             'id_paciente' => $obConsultaRealizada->id_paciente,
@@ -570,7 +582,7 @@ class Consultorio extends Page
 
 
 
-   // Metodo finaliza a consulta
+    // Metodo finaliza a consulta
     private static function getFinalizaConsulta($id_consulta)
     {
         $item = '';
