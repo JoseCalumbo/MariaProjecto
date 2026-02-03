@@ -21,7 +21,7 @@ class ConsultaDao
 
     public $retorno_consulta;
     public $criado_consulta;
-    public $alterado_consulta;
+    public $fim_consulta;
     public $estado_consulta;
     public $add_receita_consulta;
 
@@ -39,7 +39,7 @@ class ConsultaDao
         $this->id_funcionario = $usuarioLogado['id'];
 
         //Obtem a data e hora actual 
-        $this->criado_consulta = date('y-m-d H:i:s');
+        $this->criado_consulta = date('Y-m-d H:i:s');
 
         $obDatabase = new Database('tb_consulta');
 
@@ -69,6 +69,18 @@ class ConsultaDao
             'estado_consulta' => $this->estado_consulta = $estado,
         ]);
     }
+
+    //Método responsavel a data fim da consulta
+    public function FimDataConsulta()
+    {
+        //Obtem a data final da consulta
+        $this->fim_consulta = date('Y-m-d');
+        
+        return (new Database('tb_consulta'))->update('id_consulta = ' . $this->id_consulta, [
+            'fim_consulta' => $this->fim_consulta,
+        ]);
+    }
+
     //Método responsavel trocar o estado da consulta para receita
     public function estadoConsultaReceita($estado)
     {

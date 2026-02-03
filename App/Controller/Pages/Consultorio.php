@@ -40,74 +40,6 @@ class Consultorio extends Page
         } // fim do switch
     }
 
-    // // Metodo que apresenta os pacientes aspera da consulta PRINCIPAL
-    // private static function getPacienteEspera($request, &$obPagination)
-    // {
-    //     // Var que retorna o conteudo
-    //     $item = '';
-
-    //     $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-    //     $condicoes = [
-    //         strlen($buscar) ? 'nome_paciente LIKE "%' . $buscar . '%"' : null,
-    //     ];
-
-    //     // coloca na consulta sql
-    //     $where = implode(' AND ', $condicoes);
-
-    //     $resultado = PacienteDao::listarPacienteEspera($where);
-
-    //     while ($obPacientesEspera = $resultado->fetchObject(ConsultaDao::class)) {
-
-    //         $atender =  $obPacientesEspera->risco_triagem;
-    //         $triagemAtender = "";
-    //         switch ($atender) {
-    //             case 'a':
-    //                 $triagemAtender = "Vermelho";
-    //                 break;
-    //             case 'b':
-    //                 $triagemAtender = "Laranja";
-    //                 break;
-    //             case 'c':
-    //                 $triagemAtender = "Amarelo";
-    //                 break;
-    //             case 'd':
-    //                 $triagemAtender = "Verde";
-    //                 break;
-    //             case 'e':
-    //                 $triagemAtender = "Azul";
-    //                 break;
-    //         } // fim do switch
-
-    //         $item .= View::render('consultorio/listarPacienteEspera', [
-    //             'id_triagem' => $obPacientesEspera->id_triagem,
-    //             'id_paciente' => $obPacientesEspera->id_paciente,
-    //             'imagem' => $obPacientesEspera->imagem_paciente,
-    //             'nome_paciente' => $obPacientesEspera->nome_paciente,
-    //             'genero' => $obPacientesEspera->genero_paciente,
-    //             'estado' => $obPacientesEspera->estado_paciente,
-    //             'perioridade' => $triagemAtender,
-    //         ]);
-    //     }
-
-    //     $queryParam = $request->getQueryParams();
-
-    //     if ($queryParam['pesquisarq'] ?? '') {
-
-    //         return View::render('pesquisar/box_resultado', [
-    //             'pesquisa' => $buscar,
-    //             'resultados' => $item,
-    //             'item' => '',
-
-    //         ]);
-    //     }
-
-    //     return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
-    //                                                <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
-    //                                                 Sem registos de pacientes em espera.
-    //                                                 </td>
-    //                                             </tr>';
-    // }
-
     // Metodo que apresenta os pacientes aspera da minha consulta
     private static function getMinhaConsulta($request, &$obPagination)
     {
@@ -185,7 +117,6 @@ class Consultorio extends Page
     private static function getConsultaFinalizada($request, &$obPagination)
     {
         $queryParam = $request->getQueryParams();
-
         $obPagination = new Pagination(null, null, null);
 
         // Var que retorna o conteudo
@@ -225,11 +156,14 @@ class Consultorio extends Page
                     'id_triagem' => $obMeuPacientesConsulta->id_triagem,
                     'id_paciente' => $obMeuPacientesConsulta->id_paciente,
                     'id_receita' => $obMeuPacientesConsulta->id_paciente,
+
                     'imagem' => $obMeuPacientesConsulta->imagem_paciente,
                     'nome_paciente' => $obMeuPacientesConsulta->nome_paciente,
                     'receita' =>  !empty($obMeuPacientesConsulta->add_receita_consulta) ? $obMeuPacientesConsulta->add_receita_consulta : "______",
                     'exames' => $obMeuPacientesConsulta->estado_consulta  == "Exames pendentes" ? $obMeuPacientesConsulta->estado_consulta : "Sem exames",
                     'estado' => $obMeuPacientesConsulta->estado_paciente,
+                    'inicioConsulta' => date('d-m-Y', strtotime($obMeuPacientesConsulta->criado_consulta)),
+                    'fimConsulta' => date('d-m-Y', strtotime($obMeuPacientesConsulta->fim_consulta))
                 ]);
             }
         } // exit;
@@ -253,35 +187,6 @@ class Consultorio extends Page
                                                     </td>
                                                 </tr>';
     }
-
-
-    // // Metodo que apresenta os pacientes agendados
-    // private static function getConsultaFinalizada1($request, &$obPagination)
-    // {
-    //     // Var que retorna o conteudo
-    //     $item = '';
-
-    //     $resultado = MarcarConsultaDao::listarConsultaMarcada();
-
-    //     while ($obPacientesEspera = $resultado->fetchObject(MarcarConsultaDao::class)) {
-
-    //         $item .= View::render('consultorio/listarAgenda', [
-    //             'id_triagem' => "",
-    //             'id_paciente' => "",
-    //             'tipo' => "Consulta geral",
-    //             'nome_paciente' => "",
-    //             'dataMarcacao' => "12-10-2026",
-    //             'dataConsulta' => "12-10-2026",
-    //             'estado' => "",
-    //         ]);
-    //     }
-
-    //     return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
-    //                                                <td colspan="7" class="center-align no-border font-normal" style="vertical-align: middle; height:120px; font-size:18px">
-    //                                                 Sem consultas finalizada.
-    //                                                 </td>
-    //                                             </tr>';
-    // }
 
 
     // Método para apresenatar os registos do exames finalizados
@@ -481,6 +386,69 @@ class Consultorio extends Page
         return parent::getPage('Ficha - consulta', $content);
     }
 
+    // Metodo que inicia as consultas
+    public static function getEditarConsulta($request, $id_consulta)
+    {
+        $postVars = $request->getPostVars();
+
+        $tipoExame = [];
+
+        // Seleciona a Consulta pelo id
+        $obConsulta = ConsultaDao::getConsulta($id_consulta);
+
+        //Instancia da triagem
+        $triagemRegistrado = TriagemDao::getTriagemRegistradoId($obConsulta->id_triagem);
+
+        // Instancia Exames solicitados
+        $ExameSolicitados = new ExameSolicitadoDao();
+
+        // busca a triagem da consulta
+        $obTriagem = TriagemDao::getTriagemId($id_consulta);
+
+        // Seleciona o paciente pelo id
+        $obPaciente = PacienteDao::getPacienteId($obConsulta->id_paciente);
+
+        // formata a idade do paciente
+        $formataIdade = date("Y", strtotime($obPaciente->nascimento_paciente));
+        $idade = date("Y") - $formataIdade;
+
+
+        $content = View::render('consultorio/fichaConsulta', [
+            'titulo' => 'Ficha de Consulta',
+            'button' => 'Salvar',
+
+            'exames' => self::getExamesSelect(),
+
+            'id_paciente' => $obPaciente->id_paciente,
+            'nome' => $obPaciente->nome_paciente,
+            'imagem' => $obPaciente->imagem_paciente,
+            'morada' => $obPaciente->morada_paciente,
+            'telefone1' => $obPaciente->telefone1_paciente,
+            'email' => $obPaciente->email_paciente,
+            // 'data' => $obPaciente->nascimento_paciente,
+            'data' => $idade,
+            'genero' => $obPaciente->genero_paciente,
+
+            // 'peso' => $obTriagem->peso_triagem,
+            // 'temperatura' => $obTriagem->temperatura_triagem,
+            // 'cardiaca' => $obTriagem->frequencia_cardiaca_triagem,
+            // 'frequencia' => $obTriagem->frequencia_respiratorio_triagem,
+            // 'saturacao' => $obTriagem->Saturacao_oxigenio_triagem,
+            // 'pressao' => $obTriagem->pressao_arterial_triagem,
+            // 'observacao' => $obTriagem->observacao_triagem,
+
+            'diagnostico' => '',
+            'obs' => '',
+            'motivo' => '',
+            'conduta' => '',
+            'alergia' => '',
+            'medicamentoUso' => '',
+
+        ]);
+
+        return parent::getPage('Ficha - consulta', $content);
+    }
+
 
     // Metodo para apresentar a tela de validação da consulta 
     public static function getValidarConsulta($request, $id_consulta)
@@ -493,6 +461,7 @@ class Consultorio extends Page
 
         // obtem o id da triagem
         $idTriagem = $obConsultaRealizada->id_triagem;
+
         //Instancia da triagem
         $triagemRegistrado = TriagemDao::getTriagemRegistradoId($idTriagem);
 
@@ -561,7 +530,8 @@ class Consultorio extends Page
 
             $obConsulta->estadoConsulta("Validada");
             if ($obConsulta->estado_consulta == "Validada") {
-                $obPaciente->atualizarEstado("Em tratamento");
+                // $obPaciente->atualizarEstado("Em tratamento");
+                $obPaciente->atualizarEstado("Em observação");
             }
 
             // Redireciona ao consultorio
@@ -688,33 +658,22 @@ class Consultorio extends Page
     }
 
 
-    // Metodo que inicia as consultas
+    // Metodo que finaliza as consultas
     public static function getFinalizarConsulta($request, $id_consulta)
     {
         // Seleciona a Consulta pelo id
         $obConsulta = ConsultaDao::getConsulta($id_consulta);
 
-        $obConsulta->estadoConsulta('Finalizada');
+        // Busca a paciente da consulta por id
+        $obPaciente = PacienteDao::getPacienteId($obConsulta->id_paciente);
+
+        $obConsulta->FimDataConsulta(); // salva a data final da consulta
+
+        $obConsulta->estadoConsulta('Finalizada'); // finaliza a consulta 
+
+        $obPaciente->atualizarEstado("Activo"); // Actualiza o estado do paciente
 
         $request->getRouter()->redirect('/consulta?msg=finalizado');
         exit;
-
-
-        // $TriagemPaciente = new TriagemDao;
-
-        // if (isset($_POST['Salvar'], $_POST['confirmo'],)) {
-
-        //     $TriagemPaciente->apagarTriagemPaciente($id_consulta);
-
-        //     $obConsulta->apagarPaciente();
-
-        //     $request->getRouter()->redirect('/paciente?msg=apagado');
-        // } else {
-
-        //     $request->getRouter()->redirect('/paciente?msg=confirma');
-        // }
-
-
-
     }
 }

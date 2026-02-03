@@ -61,7 +61,7 @@
       <ul class="tabs tabsvendedor blue-grey darken-1 row"
         style="height: 35px; display: flex; align-items: center; justify-self: start; background-color: #f5f5f5; box-shadow: none;">
         <li class="tab col s3 m4"><a class="active font-normal" href="#c1">Minhas Consultas</a></li>
-        <li class="tab col s3 m4"><a class="active font-normal" href="#c2">Exames Solicitados</a></li>
+        <li class="tab col s3 m4" style="border: 2px solid white;"><a class="active font-normal" href="#c2">Exames Solicitados</a></li>
         <li class="tab col s3 m4"><a class="active font-normal" href="#c3">Consulta Finalizada</a></li>
       </ul>
     </div>
@@ -104,7 +104,7 @@
       </section>
 
       <section class="col m12 white">
-        {{paginacao}}
+        <!-- {{paginacao}} -->
       </section>
 
     </div>
@@ -145,38 +145,41 @@
       <br>
       <section class="col s12 m12 ">
 
-          <!--pagina das abas ultima consulta-->
-          <div id="consulta1" class="col s12">
-            <br>
-            <div class="row">
-              <table class="row col m12 responsive-table ">
-                <thead class="">
-                  <tr class=" blue-grey lighten-5">
-                    <th class="font-normal negrito"><i class="material-icons black-white"
-                        style="vertical-align: -6px;">format_list_numbered</i>Código
-                    </th>
+        <!--pagina das abas ultima consulta-->
+        <div id="consulta1" class="col s12">
+          <br>
+          <div class="row">
+            <table class="row col m12 responsive-table ">
+              <thead class="">
+                <tr class=" blue-grey lighten-5">
+                  <th class="font-normal negrito"><i class="material-icons black-white"
+                      style="vertical-align: -6px;">format_list_numbered</i>Código
+                  </th>
 
-                    <th class="font-normal negrito"><i class="material-icons black-white"
-                        style="vertical-align: -6px;">person</i>Nome
-                    </th>
+                  <th class="font-normal negrito"><i class="material-icons black-white"
+                      style="vertical-align: -6px; ">image</i>Foto</th>
 
-                    <th class="font-normal negrito"> <i class="material-icons black-white "
-                        style="vertical-align: -6px;">done</i>Estado </th>
+                  <th class="font-normal negrito"><i class="material-icons black-white"
+                      style="vertical-align: -6px;">person</i>Nome
+                  </th>
 
-                    <th class="font-normal negrito"> <i class="material-icons black-white "
-                        style="vertical-align: -6px;">calendar_month</i>Data consulta </th>
+                  <th class="font-normal negrito"> <i class="material-icons black-white "
+                      style="vertical-align: -6px;">calendar_month</i>Data Inicio </th>
 
-                    <th class="center negrito font-normal"> <i class="material-icons black-white "
-                        style="vertical-align: -6px;">settings</i>Relatório</th>
-                  </tr>
-                </thead>
+                  <th class="font-normal negrito"> <i class="material-icons black-white "
+                      style="vertical-align: -6px;">calendar_month</i>Data Final </th>
 
-                <tbody tbody class="tbody">
-                  {{listarConsultaFinalizada}}
-                </tbody>
-              </table>
-            </div>
+                  <th class="negrito font-normal"> <i class="material-icons black-white "
+                      style="vertical-align: -6px;">settings</i>Relatório</th>
+                </tr>
+              </thead>
+
+              <tbody tbody class="tbody">
+                {{listarConsultaFinalizada}}
+              </tbody>
+            </table>
           </div>
+        </div>
 
       </section>
     </div>

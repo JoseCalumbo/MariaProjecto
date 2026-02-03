@@ -43,12 +43,12 @@ $obRouter->post('/consulta/atender/{id_triagem}',[
 ]);
 
 // rota para validar consulta GET
-$obRouter->get('/consulta/atender/{id_triagem}',[
+$obRouter->get('/consulta/editar/{id_consulta}',[
     'middlewares'=>[
         'requer-login',
         'nivel-acesso'
     ],
-    function($request,$id_triagem){ return new Response(200,Pages\Consultorio::getcadastrarConsulta($request,$id_triagem)); }
+    function($request,$id_consulta){ return new Response(200,Pages\Consultorio::getEditarConsulta($request,$id_consulta)); }
 ]);
 
 

@@ -391,7 +391,7 @@ h1 {
 .font-normal {
     font-size: 11pt;
     font-weight: normal !important;
-    text-transform: lowercase !important;
+    text-transform: none !important;
 }
 
 .font-normal::first-letter {

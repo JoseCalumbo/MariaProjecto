@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análise de Exames com IA</title>
+
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #e4e9f7;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45px;
+      background: #009688;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: #4caf50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* SIDEBAR CHAT */
+    .chat-sidebar {
+      position: fixed;
+      top: 45px;
+      left: 0;
+      width: 380px;
+      height: calc(100vh - 45px);
+      background: #fff;
+      z-index: 999;
+      transform: translateX(-100%);
+      transition: transform .3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .chat-header {
+      padding: 12px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header h6 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      background: #fafafa;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      padding: 12px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .chat-message {
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-message.user {
+      background: #e0f2f1;
+      margin-left: 20px;
+    }
+
+    .chat-message.system {
+      background: #f5f5f5;
+      margin-right: 20px;
+    }
+
+    /* FLOAT BUTTON */
+    .chat-fab {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #009688;
+      color: #fff;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+      cursor: pointer;
+      z-index: 1001;
+      transition: all .3s ease;
+    }
+
+    .chat-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+    }
+
+    /* MAIN */
+    main {
+      padding: 60px 20px 20px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* LAYOUT DUAS COLUNAS */
+    .two-column-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .left-column {
+      flex: 1;
+      position: sticky;
+      top: 65px;
+    }
+
+    .right-column {
+      flex: 1;
+    }
+
+    @media (max-width: 992px) {
+      .two-column-layout {
+        flex-direction: column;
+      }
+
+      .left-column {
+        position: relative;
+        top: 0;
+        width: 100%;
+      }
+
+      .right-column {
+        width: 100%;
+      }
+    }
+
+    /* BOX */
+    .box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .box h6 {
+      margin: 0 0 15px 0;
+      font-weight: 500;
+      color: #009688;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TABS CUSTOMIZADAS */
+    .custom-tabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 0;
+      background: transparent;
+    }
+
+    .custom-tab {
+      flex: 1;
+      padding: 12px 10px;
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #666;
+      font-weight: 500;
+      transition: all .3s ease;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .custom-tab:hover {
+      background: rgba(0, 150, 136, 0.1);
+      color: #009688;
+    }
+
+    .custom-tab.active {
+      background: #fff;
+      color: #009688;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab-content-wrapper {
+      background: #fff;
+      padding: 20px;
+      border-radius: 0 8px 8px 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      min-height: 400px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* LOADING SPINNER */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-overlay .preloader-wrapper {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .loading-overlay p {
+      font-size: 18px;
+      font-weight: 500;
+      color: #009688;
+      margin: 0;
+    }
+
+    /* VALIDAÇÃO */
+    .input-field.error input,
+    .input-field.error textarea {
+      border-bottom: 1px solid #f44336 !important;
+      box-shadow: 0 1px 0 0 #f44336 !important;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      display: none;
+      margin-top: 5px;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* TABELA */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table th {
+      background: #009688;
+      color: #fff;
+      font-weight: 500;
+      padding: 12px 8px;
+      text-align: left;
+    }
+
+    table td {
+      padding: 8px;
+      vertical-align: middle;
+    }
+
+    table tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    table tbody tr:hover {
+      background: #f5f5f5;
+    }
+
+    /* RESULTADO IA */
+    #resultadoIA {
+      background: #e0f2f1;
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 150px;
+      border-left: 4px solid #009688;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* BOTÕES */
+    .btn,
+    .btn-large,
+    .btn-small {
+      text-transform: none;
+      border-radius: 6px;
+    }
+
+    .btn-primary {
+      background-color: #009688 !important;
+    }
+
+    .btn-primary:hover {
+      background-color: #00796b !important;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      .custom-tab {
+        font-size: 12px;
+        padding: 10px 5px;
+      }
+
+      .chat-sidebar {
+        width: 100%;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      table th,
+      table td {
+        padding: 6px 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-left">
+      <span style="font-size: 20px; font-weight: 500;">🏥 Sistema de Análise de Exames</span>
+      <div class="online-dot"></div>
+    </div>
+    <div>
+      <span style="font-size: 14px;">Dr. José Moculo | CRM: XXXXX</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR CHAT -->
+  <div class="chat-sidebar" id="chatSidebar">
+    <div class="chat-header">
+      <h6>
+        <i class='bx bx-bot'></i>
+        Assistente IA - Exames
+      </h6>
+      <i class='bx bx-x' style="cursor: pointer; font-size: 24px;" onclick="toggleChat()"></i>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message system">
+        <strong>Assistente:</strong> Olá! Estou aqui para ajudar com sugestões de exames. Como posso auxiliar?
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+      <button class="btn btn-primary btn-small" onclick="sendMsg()">
+        <i class='bx bx-send'></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- BOTÃO FLUTUANTE CHAT -->
+  <div class="chat-fab" onclick="toggleChat()">
+    <i class='bx bx-message-dots' style="font-size: 28px;"></i>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h4 style="color: #009688; margin-bottom: 25px;">
+      <i class='bx bx-test-tube'></i> Análise de Exames Médicos
+    </h4>
+
+    <!-- LAYOUT DUAS COLUNAS -->
+    <div class="two-column-layout">
+      <!-- COLUNA ESQUERDA: IA -->
+      <div class="left-column">
+        <div class="box">
+          <h6>
+            <i class='bx bx-brain'></i> Resultado da Análise com IA
+          </h6>
+
+          <div id="resultadoIA">
+            <em>Preencha os dados do paciente na seção à direita e clique em "Analisar com IA"...</em>
+          </div>
+
+          <!-- Loading overlay -->
+          <div class="loading-overlay" id="loadingOverlay">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-teal-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <p>Analisando com IA...</p>
+          </div>
+        </div>
+
+        <!-- SUGESTÃO ADICIONAL -->
+        <div class="box">
+          <h6>
+            <i class='bx bx-bulb'></i> Sugestão Adicional Médica
+          </h6>
+
+          <div class="input-field">
+            <textarea id="sugestaoAdicional" class="materialize-textarea" 
+              placeholder="Ex: Paciente relata dor específica, considerar exames complementares..."></textarea>
+            <label for="sugestaoAdicional">Informações Adicionais para Refinar a Análise</label>
+          </div>
+
+          <button type="button" class="btn teal waves-effect waves-light" onclick="refazerAnaliseIA()">
+            <i class='bx bx-refresh'></i> Refazer Análise com Sugestões
+          </button>
+        </div>
+      </div>
+
+      <!-- COLUNA DIREITA: ABAS -->
+      <div class="right-column">
+        <div class="custom-tabs">
+          <button class="custom-tab active" onclick="switchTab('tabDadosConsulta')">
+            <i class='bx bx-user-circle'></i>
+            <span>Dados da Consulta</span>
+          </button>
+          <button class="custom-tab" onclick="switchTab('tabAdicionarExames')">
+            <i class='bx bx-test-tube'></i>
+            <span>Adicionar Exames</span>
+          </button>
+        </div>
+
+        <div class="tab-content-wrapper">
+          <!-- TAB 1: DADOS DA CONSULTA -->
+          <div id="tabDadosConsulta" class="tab-panel active">
+            <h6 style="margin-bottom: 20px; color: #009688;">
+              <i class='bx bx-user-circle'></i> Dados da Consulta
+            </h6>
+
+            <form id="formConsulta">
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <input type="text" id="nomeConsulta" required>
+                  <label for="nomeConsulta">Nome do Paciente *</label>
+                  <span class="error-message">Campo obrigatório</span>
+                </div>
+                <div class="input-field col s12 m3">
+                  <input type="number" id="idadeConsulta" min="0" max="120" required>
+                  <label for="idadeConsulta">Idade *</label>
+                  <span class="error-message">Idade inválida</span>
+                </div>
+                <div class="input-field col s12 m3">
+                  <input type="number" id="pesoConsulta" step="0.1" min="0" max="300">
+                  <label for="pesoConsulta">Peso (kg)</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12 m6">
+                  <input type="number" id="temperaturaConsulta" step="0.1" min="30" max="45">
+                  <label for="temperaturaConsulta">Temperatura Corporal (°C)</label>
+                </div>
+                <div class="input-field col s12 m6">
+                  <input type="text" id="motivoConsulta">
+                  <label for="motivoConsulta">Motivo da Consulta</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="observacaoConsulta" class="materialize-textarea"></textarea>
+                  <label for="observacaoConsulta">Observações</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12">
+                  <button type="button" class="btn btn-primary waves-effect waves-light" onclick="analisarDadosConsulta()">
+                    <i class='bx bx-brain'></i> Analisar com IA
+                  </button>
+                  <button type="button" class="btn blue waves-effect waves-light" onclick="salvarDadosConsulta()" style="margin-left: 10px;">
+                    <i class='bx bx-save'></i> Salvar e Continuar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- TAB 2: ADICIONAR EXAMES -->
+          <div id="tabAdicionarExames" class="tab-panel">
+            <h6 style="margin-bottom: 20px; color: #009688;">
+              <i class='bx bx-test-tube'></i> Adicionar Exames
+            </h6>
+
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">Tipo de Exame</th>
+                    <th style="width: 35%;">Exame</th>
+                    <th style="width: 25%;">Nível de Urgência</th>
+                    <th style="width: 15%; text-align: center;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-exames-body">
+                  <tr>
+                    <td>
+                      <select name="tipoExame[]">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Sangue">Sangue</option>
+                        <option value="Urina">Urina</option>
+                        <option value="Imagem">Imagem</option>
+                        <option value="Biópsia">Biópsia</option>
+                        <option value="Funcional">Funcional</option>
+                        <option value="Genético">Genético</option>
+                        <option value="Microbiológico">Microbiológico</option>
+                        <option value="Outro">Outro</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select name="nomeExame[]">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Hemograma Completo">Hemograma Completo</option>
+                        <option value="Glicemia">Glicemia</option>
+                        <option value="Colesterol Total">Colesterol Total</option>
+                        <option value="Triglicerídeos">Triglicerídeos</option>
+                        <option value="Creatinina">Creatinina</option>
+                        <option value="Ureia">Ureia</option>
+                        <option value="TSH">TSH</option>
+                        <option value="T4 Livre">T4 Livre</option>
+                        <option value="Raio-X Tórax">Raio-X Tórax</option>
+                        <option value="Ultrassom Abdome">Ultrassom Abdome</option>
+                        <option value="Tomografia">Tomografia</option>
+                        <option value="Ressonância Magnética">Ressonância Magnética</option>
+                        <option value="EAS (Urina Tipo I)">EAS (Urina Tipo I)</option>
+                        <option value="Urocultura">Urocultura</option>
+                        <option value="Eletrocardiograma">Eletrocardiograma</option>
+                        <option value="Outro">Outro</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select name="urgenciaExame[]">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Baixa">Baixa</option>
+                        <option value="Média">Média</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Urgente">Urgente</option>
+                      </select>
+                    </td>
+                    <td style="text-align: center;">
+                      <button type="button" class="btn-small red waves-effect waves-light" onclick="removerLinhaExame(this)">
+                        <i class='bx bx-trash'></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="margin-top: 15px;">
+              <button type="button" class="btn blue waves-effect waves-light btn-small" onclick="adicionarLinhaExame()">
+                <i class='bx bx-plus'></i> Adicionar Linha
+              </button>
+            </div>
+
+            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+              <button type="button" class="btn btn-primary waves-effect waves-light" onclick="salvarTudoExames()">
+                <i class='bx bx-save'></i> Salvar Tudo
+              </button>
+              <button type="button" class="btn red waves-effect waves-light" onclick="limparTudoVoltar()" style="margin-left: 10px;">
+                <i class='bx bx-trash'></i> Limpar Tudo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    // INICIALIZAÇÃO MATERIALIZE
+    document.addEventListener('DOMContentLoaded', function () {
+      M.AutoInit();
+      M.updateTextFields();
+    });
+
+    // TOGGLE CHAT
+    function toggleChat() {
+      const sidebar = document.getElementById('chatSidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    // SWITCH TABS
+    function switchTab(tabId) {
+      document.querySelectorAll('.custom-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+
+      const tabButton = Array.from(document.querySelectorAll('.custom-tab')).find(btn =>
+        btn.getAttribute('onclick').includes(tabId)
+      );
+      if (tabButton) tabButton.classList.add('active');
+
+      const panel = document.getElementById(tabId);
+      if (panel) panel.classList.add('active');
+
+      setTimeout(() => {
+        M.updateTextFields();
+        M.FormSelect.init(document.querySelectorAll('select'));
+        M.textareaAutoResize(document.querySelectorAll('textarea'));
+      }, 0);
+    }
+
+    // VALIDAÇÃO DE CAMPOS
+    function validarCampo(input) {
+      const field = input.closest('.input-field');
+      const errorMsg = field.querySelector('.error-message');
+
+      if (!input.value.trim() && input.hasAttribute('required')) {
+        field.classList.add('error');
+        if (errorMsg) errorMsg.classList.add('show');
+        return false;
+      } else {
+        field.classList.remove('error');
+        if (errorMsg) errorMsg.classList.remove('show');
+        return true;
+      }
+    }
+
+    // ANALISAR DADOS DA CONSULTA COM IA
+    async function analisarDadosConsulta() {
+      const nome = document.getElementById('nomeConsulta');
+      const idade = document.getElementById('idadeConsulta');
+      const peso = document.getElementById('pesoConsulta');
+      const temperatura = document.getElementById('temperaturaConsulta');
+      const motivo = document.getElementById('motivoConsulta');
+      const observacao = document.getElementById('observacaoConsulta');
+
+      let valido = true;
+      [nome, idade].forEach(input => {
+        if (!validarCampo(input)) valido = false;
+      });
+
+      if (!valido) {
+        M.toast({ html: '⚠️ Preencha os campos obrigatórios', classes: 'orange' });
+        return;
+      }
+
+      const loading = document.getElementById('loadingOverlay');
+      loading.classList.add('active');
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2500));
+
+        const resultado = `ANÁLISE INTELIGENTE DE EXAMES
+
+Paciente: ${nome.value}
+Idade: ${idade.value} anos
+Peso: ${peso.value || 'Não informado'} kg
+Temperatura: ${temperatura.value || 'Não informada'} °C
+
+MOTIVO DA CONSULTA:
+${motivo.value || 'Não informado'}
+
+OBSERVAÇÕES:
+${observacao.value || 'Não informado'}
+
+EXAMES SUGERIDOS PELA IA:
+
+1. HEMOGRAMA COMPLETO
+   Justificativa: Avaliação geral do estado de saúde
+   Urgência: Média
+
+2. GLICEMIA EM JEJUM
+   Justificativa: Rastreamento de diabetes
+   Urgência: Baixa
+
+3. FUNÇÃO RENAL (Creatinina e Ureia)
+   Justificativa: Avaliação da função dos rins
+   Urgência: Média
+
+4. RAIO-X DE TÓRAX
+   Justificativa: Investigação de sintomas respiratórios
+   Urgência: Alta
+
+OBSERVAÇÕES:
+- Recomenda-se jejum de 8-12h para os exames de sangue
+- Evitar exercícios físicos intensos 24h antes da coleta
+- Manter hidratação adequada`;
+
+        document.getElementById('resultadoIA').innerHTML = resultado;
+        M.toast({ html: '✅ Análise concluída com sucesso!', classes: 'green' });
+
+      } catch (error) {
+        M.toast({ html: '❌ Erro ao realizar análise', classes: 'red' });
+        console.error(error);
+      } finally {
+        loading.classList.remove('active');
+      }
+    }
+
+    // REFAZER ANÁLISE IA
+    async function refazerAnaliseIA() {
+      const sugestao = document.getElementById('sugestaoAdicional').value;
+      const nome = document.getElementById('nomeConsulta').value;
+
+      if (!nome) {
+        M.toast({ html: '⚠️ Preencha os dados básicos primeiro', classes: 'orange' });
+        return;
+      }
+
+      const loading = document.getElementById('loadingOverlay');
+      loading.classList.add('active');
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const novoResultado = `ANÁLISE REFINADA - COM SUGESTÕES ADICIONAIS
+
+Paciente: ${nome}
+
+INFORMAÇÕES ADICIONAIS CONSIDERADAS:
+${sugestao || 'Nenhuma sugestão adicional fornecida'}
+
+EXAMES ADICIONAIS SUGERIDOS:
+
+1. PERFIL LIPÍDICO COMPLETO
+   Urgência: Média
+
+2. ELETROCARDIOGRAMA
+   Urgência: Alta
+
+3. ULTRASSOM DE ABDOME
+   Urgência: Baixa
+
+Análise atualizada com base em novos critérios clínicos e sugestões fornecidas.`;
+
+        document.getElementById('resultadoIA').innerHTML = novoResultado;
+        M.toast({ html: '✅ Análise refinada!', classes: 'teal' });
+
+      } catch (error) {
+        M.toast({ html: '❌ Erro ao refazer análise', classes: 'red' });
+      } finally {
+        loading.classList.remove('active');
+      }
+    }
+
+    // SALVAR DADOS DA CONSULTA
+    function salvarDadosConsulta() {
+      const nome = document.getElementById('nomeConsulta');
+      const idade = document.getElementById('idadeConsulta');
+
+      let valido = true;
+      [nome, idade].forEach(input => {
+        if (!validarCampo(input)) valido = false;
+      });
+
+      if (!valido) {
+        M.toast({ html: '⚠️ Preencha os campos obrigatórios', classes: 'orange' });
+        return;
+      }
+
+      M.toast({ html: '✅ Dados salvos! Continue para adicionar exames.', classes: 'green' });
+      setTimeout(() => {
+        switchTab('tabAdicionarExames');
+      }, 500);
+    }
+
+    // ADICIONAR LINHA DE EXAME
+    function adicionarLinhaExame() {
+      const tabela = document.getElementById('tabela-exames-body');
+      const linhaModelo = tabela.rows[0];
+      const novaLinha = linhaModelo.cloneNode(true);
+
+      const wrappersClonados = Array.from(novaLinha.querySelectorAll('.select-wrapper'));
+      const selectsModelo = Array.from(linhaModelo.querySelectorAll('select'));
+
+      wrappersClonados.forEach((wrapper, idx) => {
+        const selectModelo = selectsModelo[idx];
+        if (!selectModelo) {
+          wrapper.remove();
+          return;
+        }
+
+        const novoSelect = document.createElement('select');
+        novoSelect.innerHTML = selectModelo.innerHTML;
+
+        Array.from(selectModelo.attributes).forEach(attr => {
+          if (attr.name.toLowerCase() !== 'id') {
+            novoSelect.setAttribute(attr.name, attr.value);
+          }
+        });
+
+        novoSelect.value = '';
+        novoSelect.removeAttribute('id');
+
+        wrapper.parentNode.replaceChild(novoSelect, wrapper);
+      });
+
+      novaLinha.querySelectorAll('select').forEach(select => {
+        select.value = '';
+        select.classList.remove('initialized');
+        select.removeAttribute('id');
+      });
+
+      tabela.appendChild(novaLinha);
+
+      setTimeout(() => {
+        M.FormSelect.init(document.querySelectorAll('select'));
+      }, 0);
+
+      M.toast({ html: '➕ Linha adicionada', classes: 'blue' });
+    }
+
+    // REMOVER LINHA DE EXAME
+    function removerLinhaExame(botao) {
+      const linha = botao.closest('tr');
+      const tabela = document.getElementById('tabela-exames-body');
+
+      if (tabela.rows.length > 1) {
+        linha.remove();
+        M.toast({ html: '🗑️ Linha removida', classes: 'orange' });
+      } else {
+        M.toast({ html: '⚠️ A tabela deve conter pelo menos uma linha', classes: 'red' });
+      }
+    }
+
+    // SALVAR TUDO
+    function salvarTudoExames() {
+      const tiposExame = document.querySelectorAll('select[name="tipoExame[]"]');
+      const nomesExame = document.querySelectorAll('select[name="nomeExame[]"]');
+      const urgencias = document.querySelectorAll('select[name="urgenciaExame[]"]');
+
+      let listaExames = [];
+      let temErro = false;
+
+      tiposExame.forEach((tipo, index) => {
+        const tipoVal = tipo.value;
+        const nomeVal = nomesExame[index].value;
+        const urgenciaVal = urgencias[index].value;
+
+        if (!tipoVal || !nomeVal || !urgenciaVal) {
+          temErro = true;
+          return;
+        }
+
+        listaExames.push({
+          tipo: tipoVal,
+          nome: nomeVal,
+          urgencia: urgenciaVal
+        });
+      });
+
+      if (temErro) {
+        M.toast({ html: '⚠️ Preencha todos os campos da tabela', classes: 'orange' });
+        return;
+      }
+
+      if (listaExames.length === 0) {
+        M.toast({ html: '⚠️ Adicione pelo menos um exame', classes: 'orange' });
+        return;
+      }
+
+      console.log('Exames salvos:', listaExames);
+
+      M.toast({ html: `✅ ${listaExames.length} exame(s) salvo(s) com sucesso!`, classes: 'green' });
+    }
+
+    // LIMPAR TUDO E VOLTAR
+    function limparTudoVoltar() {
+      document.getElementById('formConsulta').reset();
+      document.getElementById('sugestaoAdicional').value = '';
+      document.getElementById('resultadoIA').innerHTML = '<em>Preencha os dados do paciente na seção à direita e clique em "Analisar com IA"...</em>';
+
+      const tabela = document.getElementById('tabela-exames-body');
+      while (tabela.rows.length > 1) {
+        tabela.deleteRow(1);
+      }
+
+      const primeiraLinha = tabela.rows[0];
+      primeiraLinha.querySelectorAll('select').forEach(select => {
+        select.value = '';
+      });
+
+      M.FormSelect.init(document.querySelectorAll('select'));
+
+      document.querySelectorAll('.input-field.error').forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('.error-message.show').forEach(el => el.classList.remove('show'));
+
+      M.updateTextFields();
+
+      switchTab('tabDadosConsulta');
+
+      M.toast({ html: '🗑️ Tudo limpo! Voltando para início', classes: 'blue-grey' });
+    }
+
+    // CHAT
+    function sendMsg() {
+      const input = document.getElementById('chatInput');
+      const mensagem = input.value.trim();
+
+      if (!mensagem) {
+        M.toast({ html: '⚠️ Digite uma mensagem', classes: 'orange' });
+        return;
+      }
+
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.innerHTML += `
+        <div class="chat-message user">
+          <strong>Você:</strong> ${mensagem}
+        </div>
+      `;
+
+      input.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      setTimeout(() => {
+        chatMessages.innerHTML += `
+          <div class="chat-message system">
+            <strong>Assistente:</strong> Entendi sua questão sobre "${mensagem}". 
+            Posso ajudar com sugestões de exames, interpretação de resultados e protocolos clínicos.
+          </div>
+        `;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+
+    document.getElementById('chatInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        sendMsg();
+      }
+    });
+  </script>
+</body>
+
+</html>

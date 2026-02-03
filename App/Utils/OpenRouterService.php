@@ -10,12 +10,17 @@ class OpenRouterService
 
 
     //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
-    //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
+
+    #novo
+    //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
+
+    #git novo
+    //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
 
     public function __construct()
     {
         // Ideal: guardar a chave no .env
-        $this->apiKey = $_ENV['OPENROUTER_API_KEY'] ?? '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';
+        $this->apiKey = $_ENV['OPENROUTER_API_KEY'] ?? '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';
     }
 
     /**
@@ -30,7 +35,7 @@ class OpenRouterService
 
         $payload = [
             "model" => $model ?? $this->model,
-            'max_tokens' => 350, // <<< MUITO IMPORTANTE
+            'max_tokens' => 80, // <<< MUITO IMPORTANTE
             'stream' => true,
             "messages" => [
                 ["role" => "user", "content" => $userMessage]

@@ -82,10 +82,10 @@ class Prescrisao extends Page
     return parent::getPageReceita('Geradar de consulta', $content);
   }
 
+
   // Método para cadastrar a receita
   public static function setRegistrarReceita($request, $id_consulta)
   {
-
     $idMedicamento = [];
 
     //obtem a consulta actual do paciente 
@@ -99,6 +99,9 @@ class Prescrisao extends Page
 
     $idConsulta = $id_consulta; // obtem o id da consulta
     $idPaciente = $obConsulta->id_paciente; // obtem o id do paciente 
+
+    // Busca a pacinte  da consulta por id
+    $obPaciente = PacienteDao::getPacienteId($obConsulta->id_paciente);
 
     if (isset($_POST['salvarPrescrisao'])) {
 
@@ -131,11 +134,13 @@ class Prescrisao extends Page
         // troca o estado 
         $obConsulta->estadoConsultaReceita('Com receita');
 
+        $obPaciente->atualizarEstado("Em tratamento");
+
         sleep(2);
         // Redireciona validaçao e gerar consulta depois dos exames
         $request->getRouter()->redirect('/receita/validar/' . $idReceita . '?msg=validar');
       } else {
-        
+
         // troca o estado 
         $obConsulta->estadoConsultaReceita('Com receita');
 
