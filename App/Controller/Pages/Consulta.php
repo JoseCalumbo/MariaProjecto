@@ -6,6 +6,7 @@ use \App\Utils\Pagination;
 use \App\Model\Entity\ZonaDao;
 use \App\Model\Entity\PacienteDao;
 use \App\Model\Entity\ConsultaDao;
+use \App\Model\Entity\MarcarConsultaDao;
 use \App\Utils\View;
 
 
@@ -137,6 +138,68 @@ class Consulta extends Page
                                                 </tr>';
     }
 
+    // Metodo que apresenta as consultas marcadas
+    private static function getConsultasMarcas($request, &$obPagination)
+    {
+        $item = '';
+
+        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
+
+        $condicoes = [
+            strlen($buscar) ? 'nome_fornecedor LIKE "' . $buscar . '%"' : null,
+        ];
+
+        // coloca na consulta sql
+        $where = implode(' AND ', $condicoes);
+
+        //quantidade total de registros da tabela exames
+        $quantidadetotal = MarcarConsultaDao::listarConsultaMarcada($where, null, null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
+
+        //pagina actual 
+        $queryParams = $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        // instancia de paginacao
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 5);
+
+        $resultado = MarcarConsultaDao::listarConsultaMarcada($where, 'data_consulta ', $obPagination->getLimit());
+
+        while ($obFornecedors = $resultado->fetchObject(MarcarConsultaDao::class)) {
+
+            $item .= View::render('consulta/listarConsultaMarcada', [
+                'id_marcacao' => $obFornecedors->id_marcacao,
+                'imagem' => $obFornecedors->id_marcacao,
+                'nomePaciente' => $obFornecedors->id_paciente,
+                'contacto' => $obFornecedors->id_medico,
+                'consulta' => $obFornecedors->id_especialidade,
+                'especialidade' => $obFornecedors->estado_marcacao,
+                'data' => $obFornecedors->data_consulta,
+                'hora' => $obFornecedors->hora_consulta,
+                'medico' => $obFornecedors->id_medico,
+                'dataRegistro' => date('d-m-Y', strtotime($obFornecedors->data_registro)),
+            ]);
+        }
+
+        // Verifica se foi realizada uma pesquisa
+        $queryParam = $request->getQueryParams();
+
+        if ($queryParam['pesquisar'] ?? '') {
+
+            return View::render('pesquisar/box_resultado', [
+                'pesquisa' => $buscar,
+                'item' => $item,
+                'numResultado' => $quantidadetotal,
+            ]);
+        }
+
+        //Nenhum Exame encontado
+        return $item = strlen($item) ? $item : '<tr class="no-hover no-border" style="height: 60px;">
+                                                   <td colspan="10" class="center-align no-border" style="vertical-align: middle; height:120px; font-size:18px">
+                                                    Sem nenhuma consulta marcada.
+                                                    </td>
+                                                </tr>';
+    }
+
     // Metodo para apresentar a tela Consulta Diaria 
     public static function telaPacienteEspera($request)
     {
@@ -216,22 +279,43 @@ class Consulta extends Page
         return parent::getPage('Cadastrar nova Consulta', $content);
     }
 
-
-
-     /* Metodo que marca a consulta
-    public static function getMarcarConsulta($request, $id_paciente)
+    // Metodo que marca a consulta
+    public static function consultaMarcadas($request)
     {
-        $content = View::render('consultorio/formMarcarConsulta', [
+        $content = View::render('consulta/consultaMarcadas', [
             'titulo' => 'Marcação de consulta',
             'button' => 'Salvar',
+
+            'msg' => '',
+            'item' => self::getConsultasMarcas($request, $obPagination),
+            'paginacao' => '',
+
             'dia' => '',
             'hora' => '',
             'obs' => '',
             'valor' => '',
             'tempo' => '',
         ]);
+        return parent::getPage('Consultas Marcada', $content);
+    }
+
+    // Metodo que marca a consulta
+    public static function getMarcarConsulta($request, $id_paciente)
+    {
+        // Seleciona o paciente pelo ID
+        $obPaciente = PacienteDao::getPacienteId($id_paciente);
+        $content = View::render('consulta/MarcarConsulta', [
+
+            'titulo' => 'Marcação de consulta',
+            'button' => 'Salvar',
+            'nome' => $obPaciente->nome_paciente,
+            'telefone' => $obPaciente->telefone1_paciente,
+            'email' => $obPaciente->email_paciente,
+
+        ]);
         return parent::getPage('Marcação de consulta', $content);
     }
+
     // Metodo que marca a consulta
     public static function setMarcarConsulta($request, $id_paciente)
     {
@@ -256,5 +340,4 @@ class Consulta extends Page
         ]);
         return parent::getPage('Ficha - consulta', $content);
     }
-    */
 }

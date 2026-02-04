@@ -1,0 +1,34 @@
+<tr>
+    <td class="font-normal">{{id_paciente}}</td>
+    <td>
+        <img src="Files/Imagem/paciente/{{imagem}}" class="materialboxed circle " width="40" height="25">
+    </td>
+    <td class="font-normal">{{nome_paciente}}</td>
+    <td class="font-normal">{{perioridade}}</td>
+    <td class="font-normal">{{estado}}</td>
+    <td class="font-normal">{{data}}</td>
+    <td class="font-normal">{{hora}}</td>
+    <td class="font-normal">{{estado}}</td>
+
+    <td class="">
+        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_triagem}}">
+            <button type="button " class="font-normal waves-effect btn blue accent-4 tooltip-btn">
+                <i class="material-icons center">edit</i>
+            </button>
+            <div class="custom-tooltip">Editar Consulta</div>
+        </a>
+        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_triagem}}">
+            <button type="button " class="font-normal waves-effect btn teal accent-4 tooltip-btn">
+                <i class="material-icons center">date_range</i>
+            </button>
+            <div class="custom-tooltip">Remarcar Consulta</div>
+        </a>
+
+        <a class="tooltip-container " href="{{URL}}/consulta/atender/{{id_triagem}}">
+            <button type="button " class="font-normal waves-effect btn red accent-4 tooltip-btn">
+                <i class="material-icons center">delete</i>
+            </button>
+            <div class="custom-tooltip">Cancelar Consulta</div>
+        </a>
+    </td>
+</tr>

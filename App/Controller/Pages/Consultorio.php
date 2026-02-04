@@ -412,7 +412,6 @@ class Consultorio extends Page
         $formataIdade = date("Y", strtotime($obPaciente->nascimento_paciente));
         $idade = date("Y") - $formataIdade;
 
-
         $content = View::render('consultorio/fichaConsulta', [
             'titulo' => 'Ficha de Consulta',
             'button' => 'Salvar',
@@ -445,10 +444,8 @@ class Consultorio extends Page
             'medicamentoUso' => '',
 
         ]);
-
         return parent::getPage('Ficha - consulta', $content);
     }
-
 
     // Metodo para apresentar a tela de validação da consulta 
     public static function getValidarConsulta($request, $id_consulta)
