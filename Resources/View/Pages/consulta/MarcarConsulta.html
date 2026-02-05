@@ -368,8 +368,9 @@
 
   /* BOTÃO SELECIONAR MÉDICO */
   .btn-selecionar-medico {
-    width: 100%;
+    /* width: 100%; */
     margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   /* RESPONSIVO */
@@ -408,18 +409,19 @@
   </div>
 </div>
 
+<!-- TÍTULO DA PÁGINA -->
+<h5 class="page-title">Marcar Consulta</h5>
+<hr>
+<br>
+
 <!-- MAIN CONTENT -->
 <main id="mainContent">
-
-  <!-- TÍTULO DA PÁGINA -->
-  <h5 class="page-title">Marcar Consulta</h5>
-
   <!-- LAYOUT HORIZONTAL -->
   <div class="row">
 
     <!-- FORMULÁRIO COM ABAS (DIREITA - 50%) -->
     <div class="col s12 l6">
-      <div class="box" style="min-height: 600px;">
+      <div class="box" style="min-height: 650px;">
         <h6><i class='bx bx-calendar-plus'></i> Marcar Consulta</h6>
 
         <!-- Menu de Abas -->
@@ -436,6 +438,7 @@
         <!-- Aba 1: Dados do Paciente -->
         <div id="tabPaciente" class="col s12 tab-content">
           <form id="formPaciente" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
+
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
               <!-- <div class="input-field col s12">
                 <select id="nomePaciente" required>
@@ -450,27 +453,33 @@
                 <label>Nome do Paciente *</label>
                 <span class="error-message" id="errorNome">Campo obrigatório</span>
               </div>-->
-              <div class="input-field col s12">
+
+              <div class="input-field col s12 m8">
                 <input type="text" id="nomePaciente" value="{{nome}}" disabled placeholder="">
-                <label class="font-normal" for="medicoSelecionado">Paciente</label>
+                <label class="font-normal" for="medicoSelecionado" style="font-size: 18px !important;">Paciente:</label>
+              </div>
+
+              <div class="input-field col s12 m4">
+                <input type="text" id="nomePaciente" value="{{id_paciente}}" disabled placeholder="">
+                <label class="font-normal" for="medicoSelecionado" style="font-size: 18px !important;">Código:</label>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
               <div class="input-field col s6 m6">
                 <input type="tel" id="telefone" value="{{telefone}}" required>
-                <label class="font-normal"  for="telefone">Telefone *</label>
-                <span class="error-message" id="errorTelefone">Campo obrigatório</span>
+                <label class="font-normal" for="telefone" style="font-size: 18px !important;">Telefone *</label>
+                <span class="error-message" id="errorTelefone">Campo obrigatório:</span>
               </div>
 
               <div class="input-field col s6 m6">
                 <input type="email" id="email" value="{{email}}">
-                <label  class="font-normal"  for="email">E-mail</label>
+                <label class="font-normal" for="email" style="font-size: 18px !important;">E-mail:</label>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
-              <div class="input-field col s12">
+              <div class="input-field col m12 s12">
                 <select id="especialidade" required>
                   <option value="" disabled selected>Selecione a especialidade</option>
                   <option value="Cardiologia">Cardiologia</option>
@@ -482,15 +491,16 @@
                   <option value="Psiquiatria">Psiquiatria</option>
                   <option value="Clínico Geral">Clínico Geral</option>
                 </select>
-                <label>Especialidade *</label>
+                <label class="font-normal" style="font-size: 18px !important;">Especialidade: *</label>
                 <span class="error-message" id="errorEspecialidade">Selecione uma especialidade</span>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
-              <div class="input-field col s12">
+              <div class="input-field col m12 s12">
                 <input type="date" id="dataConsulta" required>
-                <label for="dataConsulta">Data da Consulta *</label>
+                <label class="font-normal" style="font-size: 18px !important;" for="dataConsulta">Data da Consulta:
+                  *</label>
                 <span class="error-message" id="errorData">Campo obrigatório</span>
               </div>
             </div>
@@ -498,14 +508,14 @@
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
               <div class="input-field col s12">
                 <input type="text" id="medicoSelecionado" disabled placeholder="Nenhum médico selecionado">
-                <label for="medicoSelecionado">Médico</label>
+                <label class="font-normal" style="font-size: 18px !important;" for="medicoSelecionado">Médico</label>
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 3px !important; padding-bottom: 0px !important;">
+            <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
               <div class="col s12">
-                <button type="button" class="btn teal btn-selecionar-medico" onclick="buscarMedicos()">
-                  <i class='bx bx-search'></i> Buscar Médicos Disponíveis
+                <button id="horario" type="button"  class="btn teal btn-selecionar-medico font-normal" onclick="buscarMedicos() ">
+              <i class="material-icons left icon-tight">Search</i> Buscar Médicos Disponíveis
                 </button>
               </div>
             </div>
@@ -526,7 +536,7 @@
               <div class="row" style="margin-top: 20px; display: none;" id="boxConfirmacao">
                 <div class="col s12">
                   <button type="button" class="btn teal" onclick="salvarConsulta()">
-                    <i class='bx bx-save'></i> Salvar Consulta
+                    <i class="material-icons left icon-tight">vaccines</i>Salvar Consulta
                   </button>
                 </div>
               </div>
@@ -538,7 +548,7 @@
 
     <!-- LISTA DE MÉDICOS (ESQUERDA - 50%) -->
     <div class="col s12 l6">
-      <div class="box" style="min-height: 600px;">
+      <div class="box" style="min-height: 650px;">
         <h6><i class='bx bx-user-pin'></i> Médicos Disponíveis</h6>
 
         <div id="listaMedicos" style="max-height: 700px; overflow-y: auto;">
@@ -554,7 +564,7 @@
 </main>
 
 <!-- Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{{URL}}/Assets/js/materialize.min.js"></script>
 
 <script>
   // Dados simulados
@@ -948,6 +958,6 @@
   });
 </script>
 
-</body>
-
-</html>
+<!-- Arquivo AJAX -->
+<script src="{{URL}}/Assets/js/ajax/Xhttp.js"></script>
+<script src="{{URL}}/Assets/js/ajax/marcarConsulta.js"></script>

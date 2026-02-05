@@ -308,6 +308,7 @@ class Consulta extends Page
 
             'titulo' => 'Marcação de consulta',
             'button' => 'Salvar',
+            'id_paciente' => $obPaciente->id_paciente,
             'nome' => $obPaciente->nome_paciente,
             'telefone' => $obPaciente->telefone1_paciente,
             'email' => $obPaciente->email_paciente,
@@ -339,5 +340,9 @@ class Consulta extends Page
 
         ]);
         return parent::getPage('Ficha - consulta', $content);
+    }
+
+    public static function horario(){
+        echo "E aqui é php ";
     }
 }

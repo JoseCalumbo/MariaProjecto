@@ -56,7 +56,7 @@ window.onload = function () {
                 div.innerHTML = `<p class="text-red">Erro na requisição</p>`
             });
 
-        }, );
+        },);
 
 
 
