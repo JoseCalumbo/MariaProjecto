@@ -1,6 +1,6 @@
-<!-- Materialize CSS
-<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" /> -->
+<!-- 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" /> -->
 
 <style>
   .nav {
@@ -96,7 +96,7 @@
 
   /* MAIN */
   main {
-    padding: 5px 20px 20px;
+    padding: 3px 20px 20px;
     transition: margin-left .3s ease;
     max-width: 1400px;
     margin-left: auto;
@@ -136,7 +136,7 @@
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(48, 47, 47, 0.08) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
   }
 
@@ -202,7 +202,7 @@
     height: 60px;
     border-radius: 50%;
     background: #1976d2;
-    color: rgb(206, 11, 11);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,18 +244,25 @@
     margin-top: 5px;
   }
 
+  /* PRELOADER VERDE - ESTILO CIRCULAR */
+  .preloader-wrapper.big.active {
+    width: 64px;
+    height: 64px;
+  }
+
+  .spinner-layer.spinner-green-only {
+    border-color: #4caf50;
+  }
+
   /* ESTILOS PARA AS ABAS */
   .tabs {
     background-color: #9e9e9e;
     margin-bottom: 0;
-
   }
 
   .tabs .tab {
     margin-left: 0px 3px !important;
     border-left: 2px solid white !important;
-
-
   }
 
   .tabs .tab a {
@@ -263,7 +270,6 @@
     font-size: 13px;
     padding: 0 5px;
     text-align: center;
-
   }
 
   .tabs .tab a:hover {
@@ -368,9 +374,8 @@
 
   /* BOTÃO SELECIONAR MÉDICO */
   .btn-selecionar-medico {
-    /* width: 100%; */
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   /* RESPONSIVO */
@@ -416,50 +421,39 @@
 
 <!-- MAIN CONTENT -->
 <main id="mainContent">
+
   <!-- LAYOUT HORIZONTAL -->
   <div class="row">
 
     <!-- FORMULÁRIO COM ABAS (DIREITA - 50%) -->
     <div class="col s12 l6">
-      <div class="box" style="min-height: 650px;">
-        <h6><i class='bx bx-calendar-plus'></i> Marcar Consulta</h6>
+      <div class="box" style="min-height: 680px;">
+        <h6><i class="material-icons left icon-tight">medical_services</i> Marcar Consulta</h6>
 
         <!-- Menu de Abas -->
         <div class="row">
           <div class="col s12">
             <ul class="tabs tabs-fixed-width" id="tabsContainer">
-              <li class="tab col s6"><a class="active" href="#tabPaciente">
-                  <i class='bx bx-user'></i> Dados do Paciente</a></li>
-              <li class="tab col s6"><a href="#tabHorarios"><i class='bx bx-time'></i> Horários</a></li>
+              <li class="tab col s6"><a class="active font-normal" style="font-size: 15px;" href="#tabPaciente">
+                  Dados do Paciente</a>
+              </li>
+              <li class="tab col s6"><a class="font-normal" style="font-size: 15px;" href="#tabHorarios">
+                  Horários</a></li>
             </ul>
           </div>
         </div>
 
         <!-- Aba 1: Dados do Paciente -->
         <div id="tabPaciente" class="col s12 tab-content">
-          <form id="formPaciente" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
+          <form id="formPaciente">
 
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
-              <!-- <div class="input-field col s12">
-                <select id="nomePaciente" required>
-                  <option value="" disabled selected>Selecione o paciente</option>
-                  <option value="João Silva">João Silva</option>
-                  <option value="Maria Santos">Maria Santos</option>
-                  <option value="Carlos Oliveira">Carlos Oliveira</option>
-                  <option value="Ana Costa">Ana Costa</option>
-                  <option value="Pedro Lima">Pedro Lima</option>
-                  <option value="Juliana Pereira">Juliana Pereira</option>
-                </select>
-                <label>Nome do Paciente *</label>
-                <span class="error-message" id="errorNome">Campo obrigatório</span>
-              </div>-->
-
               <div class="input-field col s12 m8">
                 <input type="text" id="nomePaciente" value="{{nome}}" disabled placeholder="">
                 <label class="font-normal" for="medicoSelecionado" style="font-size: 18px !important;">Paciente:</label>
               </div>
 
-              <div class="input-field col s12 m4">
+              <div class="input-field col s12 m3 push-m1">
                 <input type="text" id="nomePaciente" value="{{id_paciente}}" disabled placeholder="">
                 <label class="font-normal" for="medicoSelecionado" style="font-size: 18px !important;">Código:</label>
               </div>
@@ -478,8 +472,9 @@
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
-              <div class="input-field col m12 s12">
+            <div class="row" style="margin-bottom: 10px !important; padding-bottom: 5px !important;">
+
+              <div class="input-field col s12 m6">
                 <select id="especialidade" required>
                   <option value="" disabled selected>Selecione a especialidade</option>
                   <option value="Cardiologia">Cardiologia</option>
@@ -491,34 +486,33 @@
                   <option value="Psiquiatria">Psiquiatria</option>
                   <option value="Clínico Geral">Clínico Geral</option>
                 </select>
-                <label class="font-normal" style="font-size: 18px !important;">Especialidade: *</label>
+                <label>Especialidade *</label>
                 <span class="error-message" id="errorEspecialidade">Selecione uma especialidade</span>
               </div>
-            </div>
 
-            <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
-              <div class="input-field col m12 s12">
-                <input type="date" id="dataConsulta" required>
-                <label class="font-normal" style="font-size: 18px !important;" for="dataConsulta">Data da Consulta:
-                  *</label>
+              <div class="input-field col s12 m6">
+                <input type="date" id="dataConsulta" value="" required>
+                <label for="dataConsulta">Data da Consulta *</label>
                 <span class="error-message" id="errorData">Campo obrigatório</span>
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
+            <div class="row">
               <div class="input-field col s12">
                 <input type="text" id="medicoSelecionado" disabled placeholder="Nenhum médico selecionado">
-                <label class="font-normal" style="font-size: 18px !important;" for="medicoSelecionado">Médico</label>
+                <label for="medicoSelecionado">Médico</label>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
               <div class="col s12">
-                <button id="horario" type="button"  class="btn teal btn-selecionar-medico font-normal" onclick="buscarMedicos() ">
-              <i class="material-icons left icon-tight">Search</i> Buscar Médicos Disponíveis
+                <button id="horario" type="button" class="btn teal btn-selecionar-medico font-normal"
+                  onclick="buscarMedicos() ">
+                  <i class="material-icons left icon-tight">Search</i> Buscar Médicos Disponíveis
                 </button>
               </div>
             </div>
+
           </form>
         </div>
 
@@ -536,7 +530,7 @@
               <div class="row" style="margin-top: 20px; display: none;" id="boxConfirmacao">
                 <div class="col s12">
                   <button type="button" class="btn teal" onclick="salvarConsulta()">
-                    <i class="material-icons left icon-tight">vaccines</i>Salvar Consulta
+                    <i class='bx bx-save'></i> Salvar Consulta
                   </button>
                 </div>
               </div>
@@ -548,8 +542,8 @@
 
     <!-- LISTA DE MÉDICOS (ESQUERDA - 50%) -->
     <div class="col s12 l6">
-      <div class="box" style="min-height: 650px;">
-        <h6><i class='bx bx-user-pin'></i> Médicos Disponíveis</h6>
+      <div class="box" style="min-height: 680px;">
+        <h6> <i class="material-icons left icon-tight">person</i> Médicos Disponíveis</h6>
 
         <div id="listaMedicos" style="max-height: 700px; overflow-y: auto;">
           <p class="center-align" style="color: #999; padding: 40px;">
@@ -558,7 +552,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
 </main>
@@ -723,6 +716,9 @@
 
   // BUSCAR MÉDICOS
   function buscarMedicos() {
+
+    var xhttp = new XMLHttpRequest()
+
     const especialidade = document.getElementById('especialidade').value;
     const data = document.getElementById('dataConsulta').value;
     const nomePaciente = document.getElementById('nomePaciente').value;
@@ -740,50 +736,90 @@
     }
 
     if (!especialidade || !data) {
-      M.toast({ html: '⚠️ Selecione uma especialidade e data', classes: 'orange' });
+      M.toast({ html: '⚠️ Selecione uma especialidade e data1', classes: 'orange' });
       return;
     }
 
-    const medicosDisponiveis = medicos.filter(m => m.especialidade === especialidade && m.disponivel);
     const listaMedicos = document.getElementById('listaMedicos');
 
-    if (medicosDisponiveis.length === 0) {
-      listaMedicos.innerHTML = `
-          <p class="center-align" style="color: #999; padding: 40px;">
-            Nenhum médico disponível para esta especialidade na data selecionada
-          </p>
-        `;
-
-      medicoSelecionado = null;
-      document.getElementById('medicoSelecionado').value = '';
-      atualizarHorarios();
-      document.getElementById('boxConfirmacao').style.display = 'none';
-      return;
-    }
-
-    listaMedicos.innerHTML = '';
-    medicosDisponiveis.forEach(medico => {
-      const iniciais = medico.nome.split(' ').map(n => n[0]).join('').substring(0, 2);
-      const badgeClass = 'badge-disponivel';
-      const badgeText = '✓ Disponível';
-
-      listaMedicos.innerHTML += `
-          <div class="medico-card" 
-               onclick="selecionarMedico(${medico.id})" 
-               id="medico-${medico.id}">
-            <div class="medico-info">
-              <div class="medico-avatar">${iniciais}</div>
-              <div class="medico-details">
-                <h6>${medico.nome}</h6>
-                <p>${medico.crm}</p>
-                <span class="${badgeClass}">${badgeText}</span>
+    // Mostrar preloader circular verde
+    listaMedicos.innerHTML = `
+        <div class="center-align" style="padding: 100px 0;">
+          <br>
+          <br>
+         <br>
+          <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-green-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
               </div>
             </div>
           </div>
-        `;
-    });
+         <p class="font-normal">A verificar médico disponivel aguarde</p>
+        </div>
+      `;
 
-    M.toast({ html: `📋 ${medicosDisponiveis.length} médico(s) encontrado(s)`, classes: 'blue' });
+    // // Simular tempo de carregamento
+    // setTimeout(() => {
+    //   const medicosDisponiveis = medicos.filter(m => m.especialidade === especialidade && m.disponivel);
+
+    //   if (medicosDisponiveis.length === 0) {
+    //     listaMedicos.innerHTML = `
+    //         <p class="center-align" style="color: #999; padding: 40px;">
+    //           Sem médico disponível marca outro dia
+    //         </p>
+    //       `;
+
+    //     medicoSelecionado = null;
+    //     document.getElementById('medicoSelecionado').value = '';
+    //     atualizarHorarios();
+    //     document.getElementById('boxConfirmacao').style.display = 'none';
+    //     return;
+    //   }
+
+    //   listaMedicos.innerHTML = '';
+    //   medicosDisponiveis.forEach(medico => {
+    //     const iniciais = medico.nome.split(' ').map(n => n[0]).join('').substring(0, 2);
+    //     const badgeClass = 'badge-disponivel';
+    //     const badgeText = '✓ Disponível';
+
+    //     listaMedicos.innerHTML += `
+    //         <div class="medico-card" 
+    //              onclick="selecionarMedico(${medico.id})" 
+    //              id="medico-${medico.id}">
+    //           <div class="medico-info">
+    //             <div class="medico-avatar">${iniciais}</div>
+    //             <div class="medico-details">
+    //               <h6>${medico.nome}</h6>
+    //               <p>${medico.crm}</p>
+    //               <span class="${badgeClass}">${badgeText}</span>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       `;
+    //   });
+
+    //   M.toast({ html: `📋 ${medicosDisponiveis.length} médico(s) encontrado(s)`, classes: 'blue' });
+    // }, 2000); // 1 segundo de delay para mostrar o preloader
+
+
+    console.log("aqui");
+
+    xhttp.onreadystatechange = function () {
+
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+        console.log(xhttp.responseText);
+      }
+    }
+
+    xhttp.open('GET', '/MariaProjecto/public/ajax/consulta.php?action=horario', true)
+    xhttp.send();
+
   }
 
   // SELECIONAR MÉDICO
@@ -960,4 +996,5 @@
 
 <!-- Arquivo AJAX -->
 <script src="{{URL}}/Assets/js/ajax/Xhttp.js"></script>
-<script src="{{URL}}/Assets/js/ajax/marcarConsulta.js"></script>
+
+<!-- <script src="{{URL}}/Assets/js/ajax/marcarConsulta.js"></script> -->

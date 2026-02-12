@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
     opacity: 0.75,
     endingTop: '27%',
     startingTop: 10,
+    
   });
 });
 

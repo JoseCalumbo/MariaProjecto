@@ -6,69 +6,14 @@ use \App\Utils\Pagination;
 use \App\Model\Entity\ZonaDao;
 use \App\Model\Entity\PacienteDao;
 use \App\Model\Entity\ConsultaDao;
+use App\Model\Entity\FuncionarioDao;
 use \App\Model\Entity\MarcarConsultaDao;
+use \App\Model\AjaxModel\User;
 use \App\Utils\View;
 
 
 class Consulta extends Page
 {
-
-    // Metodo para fazer pesquisa 
-    private static function getBusca($request, &$obPagination)
-    {
-
-        $queryParam = $request->getQueryParams();
-
-        //$obPagination = new Pagination(null, null, null);
-
-        // Var que retorna o conteudo
-        $item = '';
-
-        $buscar = filter_input(INPUT_GET, 'pesquisar', FILTER_SANITIZE_STRING);
-
-        $condicoes = [
-            strlen($buscar) ? 'zona LIKE "%' . $buscar . '%"' : null,
-        ];
-
-        // coloca na consulta sql
-        $where = implode(' AND ', $condicoes);
-
-        //quantidade total de registros da tabela user
-        $quantidadetotal = ZonaDao::listarZona($where, 'zona', null, 'COUNT(*) as quantidade')->fetchObject()->quantidade;
-
-        //pagina actual 
-        $queryParams = $request->getQueryParams();
-        $paginaAtual = $queryParams['page'] ?? 1;
-
-        // instancia de paginacao
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual, 9);
-
-        $resultado = ZonaDao::listarZona($where, 'zona', $obPagination->getLimit());
-
-        while ($obZona = $resultado->fetchObject(ZonaDao::class)) {
-
-            $item .= View::render('consulta/listarConsultaDiaria', [
-                'id_zona' => $obZona->id_zona,
-                'zona' => $obZona->zona,
-                'iniciovenda' => $obZona->inicio_venda,
-                'fimvenda' => $obZona->fim_venda,
-                'mercado' => $obZona->mercado
-            ]);
-        }
-
-        $queryParam = $request->getQueryParams();
-
-        if ($queryParam['pesquisar'] ?? '') {
-
-            return View::render('pesquisar/item', [
-                'pesquisa' => $buscar,
-                'resultados' => $item,
-                'numResultado' => $quantidadetotal,
-            ]);
-        }
-
-        return $item;
-    }
 
     // Metodo que apresenta os pacientes aspera da consulta PRINCIPAL
     private static function getPacienteEspera($request, &$obPagination)
@@ -342,7 +287,16 @@ class Consulta extends Page
         return parent::getPage('Ficha - consulta', $content);
     }
 
-    public static function horario(){
-        echo "E aqui é php ";
+    public static function horario($request)
+    {
+
+        // echo "E aqui é php ";
+        // echo "E aqui é php ";
+
+        $user = new User;
+
+        //var_dump($user->all());
+
+        echo json_encode($user->all());
     }
 }
